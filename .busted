@@ -1,0 +1,7 @@
+return {
+  default = {
+    ROOT = {"engine/lib"},
+    pattern = "test_",
+    verbose = true,
+  },
+}
