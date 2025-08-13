@@ -1,3 +1,6 @@
 [submodule ".fallen"]
 	path = .fallen
 	url = https://github.com/girvel/fallen
+[submodule "engine"]
+	path = engine
+	url = https://github.com/girvel/engine
