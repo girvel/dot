@@ -1,3 +1,6 @@
+local config = require("levels.main.config")
+
+
 --- @type level_definition
 return {
   ldtk = {
@@ -8,4 +11,6 @@ return {
   palette = {
     tiles = require("levels.main.palette.tiles"),
   },
+
+  cell_size = config.cell_size,
 }
