@@ -10,6 +10,7 @@ return {
 
   palette = {
     tiles = require("levels.main.palette.tiles"),
+    solids_entities = require("levels.main.palette.solids_entities"),
   },
 
   cell_size = config.cell_size,
