@@ -1,8 +1,11 @@
+--- @type level_definition
 return {
-  --- @type level_config
-  config = {
-    grid_layers = {"solids"},
-    grid_complex_layers = {},
-    cell_size = 16,
+  ldtk = {
+    path = "levels/main/main.ldtk",
+    level = "Level_0",
+  },
+
+  palette = {
+    tiles = require("levels.main.palette.tiles"),
   },
 }

@@ -1,9 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
-    "workspace": {
-        "ignoreDir": [],
-    },
     "diagnostics.undefined-field": "Warning",
-	"Lua.workspace.maxPreload": 1000000000,
-	"Lua.workspace.preloadFileSize": 1000000000
+	"Lua.workspace.maxPreload": 100000,
+	"Lua.workspace.preloadFileSize": 100000
 }
