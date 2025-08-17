@@ -44,10 +44,15 @@ end
 solids_entities.water = function()
   return Table.extend({
     transparent_flag = true,
-    sprite = {
-      type = "image",
-      image = love.graphics.newImage("assets/sprites/animations/water/idle_01.png"),
-    }
+    shader = {
+      love_shader = love.graphics.newShader [[
+        vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
+        {
+          vec4 it = Texel(tex, texture_coords);
+          return it.gbra;
+        }
+      ]],
+    },
   }, animated.mixin("assets/sprites/animations/water"))
 end
 
