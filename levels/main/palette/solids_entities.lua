@@ -1,4 +1,5 @@
 local level = require("engine.tech.level")
+local combat= require("engine.state.combat")
 
 
 local solids_entities = {}
@@ -26,8 +27,12 @@ solids_entities.ai_tester = function()
     },
     ai = {
       run = function(entity, dt)
-        if Random.chance(1 / 60) then
-          level.safe_move(entity, entity.position + Random.choice(Vector.directions))
+        -- if Random.chance(1 / 60) then
+        --   level.safe_move(entity, entity.position + Random.choice(Vector.directions))
+        -- end
+
+        if not State.combat then
+          State.combat = combat.new({entity, State.player})
         end
       end,
     },
