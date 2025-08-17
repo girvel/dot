@@ -1,6 +1,7 @@
 local level = require("engine.tech.level")
 local combat = require("engine.state.combat")
 local base_player = require("engine.state.player").base
+local animated    = require("engine.tech.animated")
 
 
 local solids_entities = {}
@@ -41,13 +42,13 @@ solids_entities.ai_tester = function()
 end
 
 solids_entities.water = function()
-  return {
+  return Table.extend({
     transparent_flag = true,
     sprite = {
       type = "image",
       image = love.graphics.newImage("assets/sprites/animations/water/idle_01.png"),
     }
-  }
+  }, animated.mixin("assets/sprites/animations/water"))
 end
 
 return solids_entities
