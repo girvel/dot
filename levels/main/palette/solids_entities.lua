@@ -1,20 +1,20 @@
 local level = require("engine.tech.level")
-local combat= require("engine.state.combat")
+local combat = require("engine.state.combat")
+local base_player = require("engine.state.player").base
 
 
 local solids_entities = {}
 
+--- @class player: base_player
+
 solids_entities.player = function()
-  return {
-    codename = "player",
-    player_flag = true,
+  return Table.extend(base_player(), {
     transparent_flag = true,
-    fov_r = 15,
     sprite = {
       type = "image",
       image = love.graphics.newImage("engine/assets/sprites/moose_dude.png"),
     },
-  }
+  })
 end
 
 solids_entities.ai_tester = function()
@@ -27,15 +27,26 @@ solids_entities.ai_tester = function()
     },
     ai = {
       run = function(entity, dt)
-        -- if Random.chance(1 / 60) then
-        --   level.safe_move(entity, entity.position + Random.choice(Vector.directions))
+        -- if not State.combat then
+        --   State.combat = combat.new({entity, State.player})
+        --   coroutine.yield()
         -- end
 
-        if not State.combat then
-          State.combat = combat.new({entity, State.player})
+        if Random.chance(1 / 60) then
+          level.safe_move(entity, entity.position + Random.choice(Vector.directions))
         end
       end,
     },
+  }
+end
+
+solids_entities.water = function()
+  return {
+    transparent_flag = true,
+    sprite = {
+      type = "image",
+      image = love.graphics.newImage("assets/sprites/animations/water/idle_01.png"),
+    }
   }
 end
 
