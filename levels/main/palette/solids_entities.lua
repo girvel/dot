@@ -46,12 +46,32 @@ solids_entities.water = function()
     transparent_flag = true,
     shader = {
       love_shader = love.graphics.newShader [[
+        uniform bool reflects;
+        uniform Image reflection;
+
         vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
         {
           vec4 it = Texel(tex, texture_coords);
-          return it.gbra;
+          if (!reflects) return it;
+          texture_coords.y = 1 - texture_coords.y;
+          vec4 it2 = Texel(reflection, texture_coords);
+          if (it2.a == 0) return it;
+          return it2;
         }
       ]],
+
+      preprocess = function(self, entity, dt)
+        local image = self:_get_reflection_image(entity)
+        self.love_shader:send("reflects", image ~= nil)
+        if not image then return end
+        self.love_shader:send("reflection", image)
+      end,
+
+      _get_reflection_image = function(_, entity)
+        local reflected = State.grids.solids:safe_get(entity.position + Vector.up)
+        if not reflected then return nil end
+        return reflected.sprite.image
+      end
     },
   }, animated.mixin("assets/sprites/animations/water"))
 end
