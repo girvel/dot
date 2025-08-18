@@ -700,6 +700,22 @@
 							"fieldInstances": [],
 							"__worldX": 2336,
 							"__worldY": 128
+						},
+						{
+							"__identifier": "Water",
+							"__grid": [45,9],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": { "tilesetUid": 13, "x": 0, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#E4A672",
+							"iid": "41ef3460-5e50-11f0-a7b0-1b7c48735e7e",
+							"width": 16,
+							"height": 16,
+							"defUid": 12,
+							"px": [720,144],
+							"fieldInstances": [],
+							"__worldX": 2176,
+							"__worldY": 144
 						}
 					]
 				},

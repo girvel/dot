@@ -47,7 +47,7 @@ solids_entities.water = function()
     transparent_flag = true,
     low_flag = true,
     water_velocity = Vector.up * 4,
-    shader = shaders.water("assets/sprites/palette.png"),
+    shader = shaders.water("assets/sprites/palette.png", 39),
   }, animated.mixin("assets/sprites/animations/water"))
 
   return result
