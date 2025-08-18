@@ -46,7 +46,7 @@ solids_entities.water = function()
   local result = Table.extend({
     transparent_flag = true,
     low_flag = true,
-    water_velocity = Vector.up * 4,
+    water_velocity = Vector.up * 0.5,
     shader = shaders.water("assets/sprites/palette.png", 39),
   }, animated.mixin("assets/sprites/animations/water"))
 
