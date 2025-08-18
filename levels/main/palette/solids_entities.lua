@@ -3,6 +3,7 @@ local combat = require("engine.state.combat")
 local base_player = require("engine.state.player").base
 local animated    = require("engine.tech.animated")
 local shaders     = require("engine.tech.shaders")
+local _common     = require("levels.main.palette._common")
 
 
 local solids_entities = {}
@@ -42,15 +43,6 @@ solids_entities.ai_tester = function()
   }
 end
 
-solids_entities.water = function()
-  local result = Table.extend({
-    transparent_flag = true,
-    low_flag = true,
-    water_velocity = Vector.up * 0.5,
-    shader = shaders.water("assets/sprites/palette.png", 39),
-  }, animated.mixin("assets/sprites/animations/water"))
-
-  return result
-end
+solids_entities.water = _common.water(Vector.down * .5)
 
 return solids_entities
