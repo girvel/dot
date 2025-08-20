@@ -29,7 +29,7 @@ solids_entities.ai_tester = function()
       image = love.graphics.newImage("engine/assets/sprites/moose_dude.png"),
     },
     ai = {
-      run = function(entity, dt)
+      control = function(entity, dt)
         -- if not State.combat then
         --   State.combat = combat.new({entity, State.player})
         --   coroutine.yield()
