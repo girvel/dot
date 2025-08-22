@@ -1,9 +1,8 @@
 local level = require("engine.tech.level")
 local combat = require("engine.state.combat")
 local base_player = require("engine.state.player").base
-local animated    = require("engine.tech.animated")
-local shaders     = require("engine.tech.shaders")
 local _common     = require("levels.main.palette._common")
+local humanoid    = require("engine.mech.humanoid")
 
 
 local solids_entities = {}
@@ -11,13 +10,7 @@ local solids_entities = {}
 --- @class player: base_player
 
 solids_entities.player = function()
-  return Table.extend(base_player(), {
-    transparent_flag = true,
-    sprite = {
-      type = "image",
-      image = love.graphics.newImage("engine/assets/sprites/moose_dude.png"),
-    },
-  })
+  return Table.extend(base_player(), humanoid.mixin())
 end
 
 solids_entities.ai_tester = function()
