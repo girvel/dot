@@ -2409,9 +2409,9 @@
 			"color": "#EAD4AA",
 			"renderMode": "Tile",
 			"showName": true,
-			"tilesetId": 9,
+			"tilesetId": 4,
 			"tileRenderMode": "FitInside",
-			"tileRect": { "tilesetUid": 9, "x": 0, "y": 0, "w": 16, "h": 16 },
+			"tileRect": { "tilesetUid": 4, "x": 48, "y": 0, "w": 16, "h": 16 },
 			"uiTileRect": null,
 			"nineSliceBorders": [],
 			"maxCount": 0,
@@ -3337,7 +3337,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "player",
-							"__grid": [11,40],
+							"__grid": [50,8],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
@@ -3346,17 +3346,17 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 3,
-							"px": [176,640],
+							"px": [800,128],
 							"fieldInstances": [],
-							"__worldX": 1632,
-							"__worldY": 640
+							"__worldX": 2256,
+							"__worldY": 128
 						},
 						{
 							"__identifier": "ai_tester",
 							"__grid": [55,8],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
-							"__tile": { "tilesetUid": 9, "x": 0, "y": 0, "w": 16, "h": 16 },
+							"__tile": { "tilesetUid": 4, "x": 48, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#EAD4AA",
 							"iid": "7b15eb70-5e50-11f0-9e68-41a0c26661f3",
 							"width": 16,

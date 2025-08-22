@@ -3,6 +3,8 @@ local combat = require("engine.state.combat")
 local base_player = require("engine.state.player").base
 local _common     = require("levels.main.palette._common")
 local humanoid    = require("engine.mech.humanoid")
+local creature    = require("engine.mech.creature")
+local actions     = require("engine.mech.actions")
 
 
 local solids_entities = {}
@@ -14,13 +16,9 @@ solids_entities.player = function()
 end
 
 solids_entities.ai_tester = function()
-  return {
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     codename = "ai_tester",
-    transparent_flag = true,
-    sprite = {
-      type = "image",
-      image = love.graphics.newImage("engine/assets/sprites/moose_dude.png"),
-    },
+    base_hp = 10,
     ai = {
       control = function(entity, dt)
         -- if not State.combat then
@@ -28,12 +26,15 @@ solids_entities.ai_tester = function()
         --   coroutine.yield()
         -- end
 
-        if Random.chance(1 / 60) then
-          level.safe_move(entity, entity.position + Random.choice(Vector.directions))
-        end
+        -- if Random.chance(1 / 60) then
+        --   actions.move(Random.choice(Vector.directions)):act(entity)
+        -- end
       end,
     },
-  }
+  })
+
+  creature.init(result)
+  return result
 end
 
 solids_entities.water = _common.water(Vector.down * .5)
