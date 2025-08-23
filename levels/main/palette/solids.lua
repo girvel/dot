@@ -19,6 +19,7 @@ return factoring.from_atlas(
   function(codename)
     return {
       transparent_flag = codename:starts_with("slope") or nil,
+      boring_flag = true,
       low_flag = lows[codename],
     }
   end

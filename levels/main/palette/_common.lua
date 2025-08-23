@@ -9,6 +9,7 @@ _common.water = function(velocity)
     local result = Table.extend({
       transparent_flag = true,
       low_flag = true,
+      boring_flag = true,
       water_velocity = velocity,
       shader = shaders.water("assets/sprites/palette.png", 39),
     }, animated.mixin("assets/sprites/animations/water"))

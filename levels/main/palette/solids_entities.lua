@@ -5,22 +5,35 @@ local _common     = require("levels.main.palette._common")
 local humanoid    = require("engine.mech.humanoid")
 local creature    = require("engine.mech.creature")
 local actions     = require("engine.mech.actions")
+local items = require("levels.main.palette.items_entities")
 
 
 local solids_entities = {}
+local modname = ...
 
 --- @class player: base_player
 
 solids_entities.player = function()
-  return Table.extend(base_player(), humanoid.mixin())
+  local result = Table.extend(base_player(), humanoid.mixin(), {
+    inventory = {
+      hand = items.knife(),
+    },
+  })
+
+  creature.init(result)
+  return result
 end
 
 solids_entities.ai_tester = function()
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     codename = "ai_tester",
     base_hp = 10,
+    armor = 10,
     ai = {
       control = function(entity, dt)
+        while Period(.5, modname .. "::attack", entity) do
+          actions.hand_attack:act(entity)
+        end
         -- if not State.combat then
         --   State.combat = combat.new({entity, State.player})
         --   coroutine.yield()
@@ -30,6 +43,9 @@ solids_entities.ai_tester = function()
         --   actions.move(Random.choice(Vector.directions)):act(entity)
         -- end
       end,
+    },
+    inventory = {
+      offhand = items.knife(),
     },
   })
 

@@ -6,4 +6,6 @@ return factoring.from_atlas("assets/sprites/atlases/tiles.png", config.cell_size
   false, false, "gravel_1", "gravel_2", "snow", false, "flowers_2", false,
   false, false, false, false, false, false, "flowers_3", false,
   false, false, false, false, false, false, "flowers_4", false,
-})
+}, function(codename)
+  return {boring_flag = true}
+end)
