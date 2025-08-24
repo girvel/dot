@@ -1,18 +1,8 @@
-local animated = require "engine.tech.animated"
+local weapons  = require "engine.mech.weapons"
+
+
 local items = {}
 
-items.knife = function()
-  return Table.extend(animated.mixin("engine/assets/sprites/animations/knife"), {
-    name = "кухонный нож",
-    codename = "knife",
-    -- damage_roll = D(2),
-    -- bonus = 1,
-    -- tags = {
-    --   finesse = true,
-    --   light = true,
-    -- },
-    -- slot = "hands",
-  })
-end
+items.knife = weapons.knife
 
 return items

@@ -6,6 +6,8 @@ local humanoid    = require("engine.mech.humanoid")
 local creature    = require("engine.mech.creature")
 local actions     = require("engine.mech.actions")
 local items = require("levels.main.palette.items_entities")
+local abilities = require("engine.mech.abilities")
+local health    = require("engine.mech.health")
 
 
 local solids_entities = {}
@@ -18,15 +20,32 @@ solids_entities.player = function()
     inventory = {
       hand = items.knife(),
     },
+    base_abilities = abilities.new(10, 10, 10, 10, 10, 10),  -- NEXT!
+    perks = {
+      {
+        modify_resources = function(self, entity, resources, rest_type)
+          if rest_type == "short" or rest_type == "long" then
+            resources.action_surge = (resources.action_surge or 0) + 1
+          end
+          return resources
+        end,
+
+        modify_attack_roll = function(self, entity, roll, slot)
+          return roll + 2  -- proficiency
+        end,
+      }
+    },
   })
 
   creature.init(result)
+  health.set_hp(result, 5)
   return result
 end
 
 solids_entities.ai_tester = function()
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     codename = "ai_tester",
+    base_abilities = abilities.new(10, 14, 10, 10, 10, 10),
     base_hp = 10,
     armor = 10,
     ai = {
