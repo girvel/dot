@@ -1,0 +1,12 @@
+05 entering forest
+06 signs of enemy troops
+07 walking under aquule
+09 random gatherer
+0b walking the ruins
+0c rotten fruit
+0d finding fruit
+0e getting fruit
+0f entering village
+10 massacre
+11 final interaction
+12 getting out
