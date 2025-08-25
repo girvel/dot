@@ -3,10 +3,11 @@
 07 walking under aquule
 09 random gatherer
 0b walking the ruins
-0c rotten fruit
-0d finding fruit
-0e getting fruit
-0f entering village
-10 massacre
-11 final interaction
-12 getting out
+0c exiting the ruins
+0d rotten fruit
+0e finding fruit
+0f getting fruit
+10 entering village
+11 massacre
+12 final interaction
+13 getting out
