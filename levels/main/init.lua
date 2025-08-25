@@ -15,6 +15,7 @@ return {
     solids_entities = require("levels.main.palette.solids_entities"),
     solids = require("levels.main.palette.solids"),
     items_entities = require("levels.main.palette.items_entities"),
+    on_solids = require("levels.main.palette.on_solids"),
   },
 
   cell_size = config.cell_size,
