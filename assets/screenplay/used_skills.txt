@@ -1,0 +1,10 @@
+perception
+religion
+history
+insight
+athletics
+acrobatics
+stealth
+sleight of hand
+performance
+medicine
