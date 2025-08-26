@@ -42,6 +42,7 @@ solids_entities.player = function()
       fighter.fighting_spirit,
       class.skill_proficiency("performance"),
     },
+    faction = "player",
   })
 
   creature.init(result)
@@ -69,6 +70,7 @@ solids_entities.ai_tester = function()
       offhand = items.knife(),
     },
     max_hp = 30,
+    faction = "test_enemy",
   })
 
   creature.init(result)
