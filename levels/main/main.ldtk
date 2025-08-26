@@ -11,7 +11,7 @@
 	"iid": "4894b9b0-5e50-11f0-9d19-d9d5556a9dde",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 102,
+	"nextUid": 103,
 	"identifierStyle": "Lowercase",
 	"toc": [],
 	"worldLayout": "Free",
@@ -2489,7 +2489,45 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0,
 			"pivotY": 0,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "args",
+					"doc": null,
+					"__type": "String",
+					"uid": 102,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		},
 		{
 			"identifier": "water",
@@ -3479,7 +3517,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "player",
-							"__grid": [57,8],
+							"__grid": [57,12],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
@@ -3488,14 +3526,14 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 3,
-							"px": [912,128],
+							"px": [912,192],
 							"fieldInstances": [],
 							"__worldX": 2368,
-							"__worldY": 128
+							"__worldY": 192
 						},
 						{
 							"__identifier": "ai_tester",
-							"__grid": [55,8],
+							"__grid": [57,9],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 4, "x": 48, "y": 0, "w": 16, "h": 16 },
@@ -3504,10 +3542,13 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 10,
-							"px": [880,128],
-							"fieldInstances": [],
-							"__worldX": 2336,
-							"__worldY": 128
+							"px": [912,144],
+							"fieldInstances": [{ "__identifier": "args", "__type": "String", "__value": "\"test_enemy_1\"", "__tile": null, "defUid": 102, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["\"test_enemy_1\""]
+							}] }],
+							"__worldX": 2368,
+							"__worldY": 144
 						},
 						{
 							"__identifier": "water",
@@ -6132,6 +6173,25 @@
 							"fieldInstances": [],
 							"__worldX": 1472,
 							"__worldY": 784
+						},
+						{
+							"__identifier": "ai_tester",
+							"__grid": [60,9],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 4, "x": 48, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "446417f0-5e50-11f0-9f6d-05b65d63b1e3",
+							"width": 16,
+							"height": 16,
+							"defUid": 10,
+							"px": [960,144],
+							"fieldInstances": [{ "__identifier": "args", "__type": "String", "__value": "\"test_enemy_2\"", "__tile": null, "defUid": 102, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["\"test_enemy_2\""]
+							}] }],
+							"__worldX": 2416,
+							"__worldY": 144
 						}
 					]
 				},

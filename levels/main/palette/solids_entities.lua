@@ -1,17 +1,13 @@
-local level = require("engine.tech.level")
-local combat = require("engine.state.combat")
 local base_player = require("engine.state.player").base
 local _common     = require("levels.main.palette._common")
 local humanoid    = require("engine.mech.humanoid")
 local creature    = require("engine.mech.creature")
-local actions     = require("engine.mech.actions")
 local items = require("levels.main.palette.items_entities")
 local abilities = require("engine.mech.abilities")
-local health    = require("engine.mech.health")
 local fighter   = require("engine.mech.class.fighter")
-local async     = require("engine.tech.async")
 local class     = require("engine.mech.class")
 local feats     = require("engine.mech.class.feats")
+local combat_ai = require("engine.mech.combat_ai")
 
 
 local solids_entities = {}
@@ -49,28 +45,18 @@ solids_entities.player = function()
   return result
 end
 
-solids_entities.ai_tester = function()
+solids_entities.ai_tester = function(faction)
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     codename = "ai_tester",
     base_abilities = abilities.new(10, 14, 10, 10, 10, 10),
     armor = 10,
     level = 1,
-    ai = {
-      control = function(entity, dt)
-        if not State.combat then
-          State.combat = combat.new({entity, State.player})
-          return
-        end
-
-        actions.hand_attack:act(entity)
-        async.sleep(0.5)
-      end,
-    },
+    ai = combat_ai.new(),
     inventory = {
-      offhand = items.knife(),
+      hand = items.knife(),
     },
     max_hp = 30,
-    faction = "test_enemy",
+    faction = faction,
   })
 
   creature.init(result)
