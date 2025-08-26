@@ -8,15 +8,12 @@ return {
     level = "Level_0",
   },
 
-  palette = {
-    tiles = require("levels.main.palette.tiles"),
-    tiles_entities = require("levels.main.palette.tiles_entities"),
-    on_tiles = require("levels.main.palette.on_tiles"),
-    solids_entities = require("levels.main.palette.solids_entities"),
-    solids = require("levels.main.palette.solids"),
-    items_entities = require("levels.main.palette.items_entities"),
-    on_solids = require("levels.main.palette.on_solids"),
-  },
+  palette = require("levels.main.palette"),
 
   cell_size = config.cell_size,
+
+  rails = {
+    factory = require("levels.main.rails").new,
+    scenes = require("levels.main.scenes"),
+  },
 }
