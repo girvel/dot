@@ -47,7 +47,7 @@ end
 
 solids_entities.ai_tester = function(faction)
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
-    codename = "ai_tester",
+    codename = "ai_tester_" .. faction,
     base_abilities = abilities.new(10, 14, 10, 10, 10, 10),
     armor = 10,
     level = 1,

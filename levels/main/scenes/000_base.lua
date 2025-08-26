@@ -13,8 +13,6 @@ return {
       State.hostility:set("test_enemy_1", "test_enemy_2", true)
       State.hostility:set("test_enemy_2", "test_enemy_1", true)
       State.hostility:set("test_enemy_2", "player", true)
-      State.hostility:set("player", "test_enemy_1", true)
-      State.hostility:set("player", "test_enemy_2", true)
     end,
   },
 }
