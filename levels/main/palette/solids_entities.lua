@@ -18,7 +18,6 @@ solids_entities.player = function()
   local result = Table.extend(base_player(), humanoid.mixin(), {
     inventory = {
       hand = items.knife(),
-      offhand = items.knife(),
     },
     base_abilities = abilities.new(16, 14, 14, 8, 12, 10),
     level = 3,
@@ -47,7 +46,7 @@ end
 
 solids_entities.ai_tester = function(faction)
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
-    codename = "ai_tester_" .. faction,
+    codename = faction and ("ai_tester_" .. faction) or "ai_tester",
     base_abilities = abilities.new(10, 14, 10, 10, 10, 10),
     armor = 10,
     level = 1,

@@ -10,6 +10,16 @@ return {
 
   palette = require("levels.main.palette"),
 
+  layers = {
+    "tiles",
+    "on_tiles",
+    "fx_under",
+    "solids",
+    "fx_over",
+    "items",
+    "on_solids",
+  },
+
   cell_size = config.cell_size,
 
   rails = {
