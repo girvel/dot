@@ -1,69 +1,30 @@
 local api = require("engine.tech.api")
+local screenplayer = require("engine.tech.screenplayer")
 
 
 return {
-  -- СЦЕНА интро
+  _010_intro = {
+    characters = {
+      player = {},
+      khaned = {},
+    },
 
-  -- Зимний шейдер.
-
-  -- Г: Так, извини, я всё прослушал.
-
-  -- О: \описание хижинки\
-  -- О: Два человека перед тобой -- собратья по несчастью.
-  -- О: Жилистого мужчину с деревянной ногой зовут Ханед; Ханед раздражённо трёт лоб, затем взплескивает руками и возвращается к заточке копья.
-  -- О: Холодный сквозняк неприятно пробегает по босым ногам.
-  -- О: Ты устал.
-
-  -- !Выбрать три из пяти вариантов
-  -- 1. Что такое Некста... Некстла...
-  --   Х: Закрой рот.
-  --   Х: Ты вообще ничего не понял?
-  -- 2. Что я должен делать?
-  --   Х: Закрыть рот и не мешать моей подготовке.
-  -- 3. Почему я?
-  --   Х: На то божественная воля, наверное.
-  -- 4. Почему ты?
-  --   Х: Даже без ноги я всё ещё лучший охотник.
-  -- 5. Почему она?
-  --   Х: Ликка -- самая смышлёная из молодняка.
-  --   О: Ликка прячет довольную гримасу.
-
-  {
-    start_predicate = function(self, dt)
+    start_predicate = function(self, dt, ch)
       return State.player
     end,
 
-    run = function(self)
-      -- NEXT assert player is in cutscene
-      api.line(nil, "\\описание хижинки\\")
-      api.line(nil, "Два человека перед тобой -- собратья по несчастью.")
-      api.line(nil, "Жилистого мужчину с деревянной ногой зовут Ханед; Ханед раздражённо трёт лоб, затем взплескивает руками и возвращается к заточке копья.")
-      api.line(nil, "Холодный сквозняк неприятно пробегает по босым ногам.")
-      api.line(nil, "Ты устал.")
-
-      for _ = 1, 3 do
-        local n = api.choices({
-          "Что такое Некста... Некстла...",
-          "Что я должен делать?",
-          "Почему я?",
-          "Почему ты?",
-          "Почему она?",
-        }, true)
-
-        if n == 1 then
-          api.line(State.rails.runner.entities.khaned, "Закрой рот.")
-          api.line(State.rails.runner.entities.khaned, "Ты вообще ничего не понял?")
-        elseif n == 2 then
-          api.line(State.rails.runner.entities.khaned, "Закрыть рот и не мешать моей подготовке.")
-        elseif n == 3 then
-          api.line(State.rails.runner.entities.khaned, "На то божественная воля, наверное.")
-        elseif n == 4 then
-          api.line(State.rails.runner.entities.khaned, "Даже без ноги я всё ещё лучший охотник.")
-        else
-          api.line(State.rails.runner.entities.khaned, "Ликка -- самая смышлёная из молодняка.")
-          api.line(nil, "Ликка прячет довольную гримасу.")
+    run = function(self, ch)
+      local player = screenplayer.new("assets/screenplay/010_intro.ms", ch)
+        player:lines()
+        local options = player:start_options()
+        for _ = 1, 3 do
+          local n = api.options(options, true)
+          player:start_option(n)
+            player:lines()
+          player:finish_option()
         end
-      end
+        player:finish_options()
+      player:finish()
     end,
   },
 }

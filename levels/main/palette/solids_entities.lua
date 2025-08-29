@@ -62,6 +62,42 @@ solids_entities.ai_tester = function(faction)
   return result
 end
 
+solids_entities.khaned = function()
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+    name = "Ханед",
+    codename = "khaned",
+    base_abilities = abilities.new(16, 14, 18, 8, 10, 8),
+    level = 4,
+    ai = combat_ai.new(),
+    inventory = {
+      -- TODO bear spear
+    },
+    faction = "khaned",
+    -- TODO perks
+  })
+
+  creature.init(result)
+  return result
+end
+
+solids_entities.likka = function()
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+    name = "Ликка",
+    codename = "likka",
+    base_abilities = abilities.new(16, 14, 18, 8, 10, 8),
+    level = 3,
+    ai = combat_ai.new(),
+    inventory = {
+      -- TODO spear
+    },
+    faction = "likka",
+    -- TODO perks
+  })
+
+  creature.init(result)
+  return result
+end
+
 solids_entities.water = _common.water(Vector.down * .5)
 
 return solids_entities
