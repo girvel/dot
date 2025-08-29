@@ -18,7 +18,6 @@ solids_entities.player = function()
   local result = Table.extend(base_player(), humanoid.mixin(), {
     inventory = {
       hand = items.knife(),
-      tatoo = items.head_tatoo_1(),
     },
     base_abilities = abilities.new(16, 14, 14, 8, 12, 10),
     level = 3,
@@ -71,6 +70,7 @@ solids_entities.khaned = function()
     level = 4,
     ai = combat_ai.new(),
     inventory = {
+      tatoo = items.head_tatoo_1(),
       -- TODO bear spear
     },
     faction = "khaned",
