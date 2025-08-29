@@ -89,6 +89,7 @@ solids_entities.likka = function()
     level = 3,
     ai = combat_ai.new(),
     inventory = {
+      bag = items.bag(),
       -- TODO spear
     },
     faction = "likka",

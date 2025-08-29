@@ -14,4 +14,12 @@ items.head_tatoo_1 = function()
   })
 end
 
+items.bag = function()
+  return Table.extend(animated.mixin("assets/sprites/animations/bag"), {
+    codename = "bag",
+    slot = "bag",
+    anchor = "right_pocket",
+  })
+end
+
 return items
