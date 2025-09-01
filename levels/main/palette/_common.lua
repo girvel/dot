@@ -7,6 +7,7 @@ local _common = {}
 _common.water = function(velocity)
   return function()
     local result = Table.extend({
+      codename = "water",
       transparent_flag = true,
       low_flag = true,
       boring_flag = true,

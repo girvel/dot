@@ -4,8 +4,6 @@ local screenplayer = require("engine.tech.screenplayer")
 
 return {
   _010_intro = {
-    disabled = true,
-
     characters = {
       player = {},
       khaned = {},
