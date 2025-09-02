@@ -73,6 +73,15 @@ return {
         sp:lines()
         Runner.locked_entities[ch.player] = nil
 
+        State.quests.items.feast = {
+          name = sp:literal(),
+          objectives = {
+            {status = "new", text = sp:literal()},
+            {status = "new", text = sp:literal()},
+          },
+        }
+        api.journal_update()
+
         while ch.player.position ~= Runner.positions.start_location_exit do
           coroutine.yield()
         end
