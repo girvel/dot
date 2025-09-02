@@ -5,6 +5,7 @@ local creature    = require("engine.mech.creature")
 local items = require("levels.main.palette.items_entities")
 local abilities = require("engine.mech.abilities")
 local fighter   = require("engine.mech.class.fighter")
+local rogue   = require("engine.mech.class.rogue")
 local class     = require("engine.mech.class")
 local feats     = require("engine.mech.class.feats")
 local combat_ai = require("engine.mech.combat_ai")
@@ -71,6 +72,9 @@ solids_entities.khaned = function()
       -- TODO bear spear
     },
     faction = "khaned",
+    perks = {
+      fighter.hit_dice,
+    },
     -- TODO perks
   })
 
@@ -90,6 +94,9 @@ solids_entities.likka = function()
       -- TODO spear
     },
     faction = "likka",
+    perks = {
+      rogue.hit_dice,
+    },
     -- TODO perks
   })
 
@@ -109,6 +116,9 @@ solids_entities.head_priest = function()
       head = items.ritual_mask(),
     },
     faction = "village",
+    perks = {
+      class.hit_dice(8),
+    },
   })
 
   creature.init(result)
