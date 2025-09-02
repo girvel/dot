@@ -1,7 +1,5 @@
-local async = require("engine.tech.async")
-local level = require("engine.tech.level")
 local api = require("engine.tech.api")
-local screenplayer = require("engine.tech.screenplayer")
+local screenplay = require("engine.tech.screenplay")
 
 
 return {
@@ -23,7 +21,7 @@ return {
     --- @param self scene
     --- @param ch railing_characters
     run = function(self, ch)
-      local sp = screenplayer.new("assets/screenplay/010_intro.ms", ch)
+      local sp = screenplay.new("assets/screenplay/010_intro.ms", ch)
         ch.khaned:rotate(Vector.up)
         ch.likka:rotate(Vector.up)
 
