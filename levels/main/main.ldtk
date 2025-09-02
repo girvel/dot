@@ -11,7 +11,7 @@
 	"iid": "4894b9b0-5e50-11f0-9d19-d9d5556a9dde",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 123,
+	"nextUid": 125,
 	"identifierStyle": "Free",
 	"toc": [],
 	"worldLayout": "Free",
@@ -3116,6 +3116,82 @@
 					"tilesetUid": null
 				}
 			]
+		},
+		{
+			"identifier": "head_priest",
+			"uid": 123,
+			"tags": ["solids"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#FEE761",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 4,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "rails_name",
+					"doc": null,
+					"__type": "String",
+					"uid": 124,
+					"type": "F_String",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "Hidden",
+					"editorDisplayScale": 1,
+					"editorDisplayPos": "Above",
+					"editorLinkStyle": "StraightArrow",
+					"editorDisplayColor": null,
+					"editorAlwaysShow": false,
+					"editorShowInWorld": true,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"exportToToc": false,
+					"searchable": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_String",
+						"params": ["head_priest"]
+					},
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefsEntityUid": null,
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -3315,7 +3391,122 @@
 					"seed": 2861707,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "position",
+							"__grid": [60,5],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "21651110-8560-11f0-b411-8383d0fe0d84",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [960,80],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "head_priest_1", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["head_priest_1"]
+							}] }],
+							"__worldX": 2416,
+							"__worldY": 80
+						},
+						{
+							"__identifier": "position",
+							"__grid": [46,42],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "4e300bf0-8560-11f0-b411-bbc2682e70de",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [736,672],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "head_priest_3", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["head_priest_3"]
+							}] }],
+							"__worldX": 2192,
+							"__worldY": 672
+						},
+						{
+							"__identifier": "position",
+							"__grid": [45,39],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "1b68d200-8560-11f0-b411-ef463119b25b",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [720,624],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "likka_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["likka_feast"]
+							}] }],
+							"__worldX": 2176,
+							"__worldY": 624
+						},
+						{
+							"__identifier": "position",
+							"__grid": [47,39],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "22d74940-8560-11f0-b411-e75b662aca19",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [752,624],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "khaned_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["khaned_feast"]
+							}] }],
+							"__worldX": 2208,
+							"__worldY": 624
+						},
+						{
+							"__identifier": "position",
+							"__grid": [46,38],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "26253bc0-8560-11f0-b411-39e8a50e52dc",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [736,608],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "player_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["player_feast"]
+							}] }],
+							"__worldX": 2192,
+							"__worldY": 608
+						},
+						{
+							"__identifier": "position",
+							"__grid": [60,7],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": null,
+							"__smartColor": "#3E2731",
+							"iid": "2c341110-8560-11f0-b411-e1cf601dc56b",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [960,112],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "start_location_exit", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["start_location_exit"]
+							}] }],
+							"__worldX": 2416,
+							"__worldY": 112
+						}
+					]
 				},
 				{
 					"__identifier": "on_solids",
@@ -10618,6 +10809,22 @@
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "player", "__tile": null, "defUid": 111, "realEditorValues": [] }],
 							"__worldX": 2416,
 							"__worldY": 48
+						},
+						{
+							"__identifier": "head_priest",
+							"__grid": [57,7],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#FEE761",
+							"iid": "017b82d0-8560-11f0-b411-0531b705b121",
+							"width": 16,
+							"height": 16,
+							"defUid": 123,
+							"px": [912,112],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "head_priest", "__tile": null, "defUid": 124, "realEditorValues": [] }],
+							"__worldX": 2368,
+							"__worldY": 112
 						}
 					]
 				},

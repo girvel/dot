@@ -16,9 +16,6 @@ local solids_entities = {}
 
 solids_entities.player = function()
   local result = Table.extend(base_player(), humanoid.mixin(), {
-    inventory = {
-      hand = items.knife(),
-    },
     base_abilities = abilities.new(16, 14, 14, 8, 12, 10),
     level = 3,
     perks = {
@@ -94,6 +91,24 @@ solids_entities.likka = function()
     },
     faction = "likka",
     -- TODO perks
+  })
+
+  creature.init(result)
+  return result
+end
+
+solids_entities.head_priest = function()
+  -- TODO base villager?
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+    name = "Верховный жрец",
+    codename = "head_priest",
+    base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
+    level = 3,
+    ai = combat_ai.new(),
+    inventory = {
+      head = items.ritual_mask(),
+    },
+    faction = "village",
   })
 
   creature.init(result)

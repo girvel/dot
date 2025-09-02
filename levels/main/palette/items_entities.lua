@@ -22,4 +22,11 @@ items.bag = function()
   })
 end
 
+items.ritual_mask = function()
+  return Table.extend(animated.mixin("assets/sprites/animations/ritual_mask"), {
+    codename = "ritual_mask",
+    slot = "head",
+  })
+end
+
 return items

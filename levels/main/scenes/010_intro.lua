@@ -1,3 +1,5 @@
+local async = require("engine.tech.async")
+local level = require("engine.tech.level")
 local api = require("engine.tech.api")
 local screenplayer = require("engine.tech.screenplayer")
 
@@ -8,40 +10,85 @@ return {
       player = {},
       khaned = {},
       likka = {},
+      head_priest = {},
     },
 
+    --- @param self scene
+    --- @param dt number
+    --- @param ch railing_characters
     start_predicate = function(self, dt, ch)
       return State.player
     end,
 
+    --- @param self scene
+    --- @param ch railing_characters
     run = function(self, ch)
-      local player = screenplayer.new("assets/screenplay/010_intro.ms", ch)
+      local sp = screenplayer.new("assets/screenplay/010_intro.ms", ch)
         ch.khaned:rotate(Vector.up)
         ch.likka:rotate(Vector.up)
 
-        player:lines()
-        local options = player:start_options()
+        sp:lines()
+        local options = sp:start_options()
         for _ = 1, 3 do
           local n = api.options(options, true)
-          player:start_option(n)
-            player:lines()
-          player:finish_option()
+          sp:start_option(n)
+            sp:lines()
+          sp:finish_option()
         end
-        player:finish_options()
-        player:lines()
+        sp:finish_options()
+        sp:lines()
 
         api.rotate(ch.likka, ch.khaned)
 
-        player:lines()
+        sp:lines()
 
-        local n = api.options(player:start_options())
+        local n = api.options(sp:start_options())
           if n == 1 then
-            player:start_option(n)
-              -- NEXT! branch
-            player:finish_option()
+            sp:start_option(n)
+            sp:start_branches()
+              sp:start_branch(ch.player:ability_check("investigation", 10) and 1 or 2)
+                sp:lines()
+              sp:finish_branch()
+            sp:finish_branches()
+            sp:finish_option()
           end
-        player:finish_options()
-      player:finish()
+        sp:finish_options()
+
+        sp:lines()
+        api.travel_persistent(ch.head_priest, Runner.positions.head_priest_1)
+        sp:lines()
+        Runner:run_task(function()
+          api.travel_scripted(ch.head_priest, Runner.positions.head_priest_3)
+          ch.head_priest:rotate(Vector.up)
+        end)
+        api.wait(2)
+
+        sp:lines()
+        Runner:run_task(function()
+          api.travel_scripted(ch.khaned, Runner.positions.khaned_feast)
+        end)
+        Runner:run_task(function()
+          api.travel_scripted(ch.likka, Runner.positions.likka_feast)
+        end)
+        api.wait(2)
+
+        sp:lines()
+        Runner.locked_entities[ch.player] = nil
+
+        while ch.player.position ~= Runner.positions.start_location_exit do
+          coroutine.yield()
+        end
+
+        sp:start_branches()
+        if not ch.player.inventory.hand then
+          Runner.locked_entities[ch.player] = true
+          sp:start_branch(1)
+            sp:lines()
+          sp:finish_branch()
+          Runner.locked_entities[ch.player] = nil
+        end
+        sp:finish_branches()
+      sp:finish()
     end,
   },
 }
