@@ -4,6 +4,8 @@ local screenplay = require("engine.tech.screenplay")
 
 return {
   _010_intro = {
+    enabled = true,
+
     characters = {
       player = {},
       khaned = {},

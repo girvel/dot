@@ -7,6 +7,7 @@ local health = require("engine.mech.health")
 
 return {
   init = {
+    enabled = true,
     start_predicate = function(self, dt) return true end,
 
     run = function(self)
@@ -15,6 +16,7 @@ return {
   },
 
   init_debug = {
+    enabled = true,
     start_predicate = function(self, dt) return State.debug end,
 
     run = function(self)
