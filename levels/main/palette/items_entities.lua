@@ -21,6 +21,21 @@ items_entities.knife = function()
   )
 end
 
+items_entities.axe = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/axe"),
+    {
+      name = "топорик",
+      codename = "axe",
+      damage_roll = D(6),
+      tags = {
+        finesse = true,
+      },
+      slot = "hands",
+    }
+  )
+end
+
 items_entities.pole = function()
   return Table.extend(
     item.mixin("assets/sprites/animations/pole"),
@@ -31,11 +46,23 @@ items_entities.pole = function()
       bonus = -1,
       tags = {
         heavy = true,
+        two_handed = true,
         versatile = true,
       },
       slot = "hands",
     }
   )
+end
+
+items_entities.shield = function()
+  return Table.extend(item.mixin("assets/sprites/animations/shield"), {
+    name = "маленький щит",
+    codename = "shield",
+    slot = "offhand",
+    perks = {
+      gear.weak_shield,
+    },
+  })
 end
 
 items_entities.head_tatoo_1 = function()
