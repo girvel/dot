@@ -104,6 +104,25 @@ solids_entities.likka = function()
   return result
 end
 
+solids_entities.villager = function()
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+    name = "Абориген",
+    codename = "villager",
+    base_abilities = abilities.new(12, 12, 12, 12, 12, 12),  -- TODO
+    level = 3,  -- TODO
+    ai = combat_ai.new(),
+    inventory = {
+    },
+    faction = "village",
+    perks = {  -- TODO
+      class.hit_dice(8),
+    },
+  })
+
+  creature.init(result)
+  return result
+end
+
 solids_entities.head_priest = function()
   -- TODO base villager?
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
@@ -126,7 +145,6 @@ solids_entities.head_priest = function()
 end
 
 solids_entities.invader = function()
-  -- TODO base villager?
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     name = "Пришелец",
     codename = "invader",
