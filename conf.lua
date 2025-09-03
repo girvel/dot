@@ -7,5 +7,6 @@ love.conf = function(t)
   t.window.width = 720
   t.window.height = 480
   t.identity = "dot"
+  t.version = "11.4"
 end
 

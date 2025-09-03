@@ -12,7 +12,10 @@ return {
 
     run = function(self)
       State.quests.order = {"feast"}
-      State.hostility:set("invaders", "village", true)
+      State.hostility:set("invaders", "village", "enemy")
+      State.hostility:set("player", "village", "ally")
+      State.hostility:set("player", "khaned", "ally")
+      State.hostility:set("player", "likka", "ally")
     end,
   },
 
@@ -21,9 +24,6 @@ return {
     start_predicate = function(self, dt) return State.debug end,
 
     run = function(self)
-      State.hostility:set("test_enemy_1", "test_enemy_2", true)
-      State.hostility:set("test_enemy_2", "test_enemy_1", true)
-      State.hostility:set("test_enemy_2", "player", true)
     end,
   },
 }
