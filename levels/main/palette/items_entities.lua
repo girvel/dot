@@ -29,4 +29,18 @@ items.ritual_mask = function()
   })
 end
 
+items.invader_helmet = function()
+  return Table.extend(animated.mixin("assets/sprites/animations/invader_helmet"), {
+    codename = "invader_helmet",
+    slot = "head",
+  })
+end
+
+items.invader_armor = function()
+  return Table.extend(animated.mixin("assets/sprites/animations/invader_armor"), {
+    codename = "invader_armor",
+    slot = "body",
+  })
+end
+
 return items

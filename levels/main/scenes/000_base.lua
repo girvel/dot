@@ -12,6 +12,7 @@ return {
 
     run = function(self)
       State.quests.order = {"feast"}
+      State.hostility:set("invaders", "village", true)
     end,
   },
 
