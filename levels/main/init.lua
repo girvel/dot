@@ -14,9 +14,9 @@ return {
     "tiles",
     "on_tiles",
     "fx_under",
+    "items",
     "solids",
     "fx_over",
-    "items",
     "on_solids",
   },
 
