@@ -17,6 +17,7 @@ end
 
 items_entities.bag = function()
   return Table.extend(item.mixin("assets/sprites/animations/bag"), {
+    name = "сумка",
     codename = "bag",
     slot = "bag",
     anchor = "right_pocket",
@@ -25,6 +26,7 @@ end
 
 items_entities.ritual_mask = function()
   return Table.extend(item.mixin("assets/sprites/animations/ritual_mask"), {
+    name = "ритуальная маска",
     codename = "ritual_mask",
     slot = "head",
     perks = {
@@ -35,6 +37,7 @@ end
 
 items_entities.invader_helmet = function()
   return Table.extend(item.mixin("assets/sprites/animations/invader_helmet"), {
+    name = "шлем пришельца",
     codename = "invader_helmet",
     slot = "head",
     perks = {
@@ -45,6 +48,7 @@ end
 
 items_entities.invader_armor = function()
   return Table.extend(item.mixin("assets/sprites/animations/invader_armor"), {
+    name = "броня пришельца",
     codename = "invader_armor",
     slot = "body",
     perks = {
