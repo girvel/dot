@@ -1,11 +1,42 @@
-local weapons  = require "engine.mech.weapons"
 local item     = require "engine.tech.item"
 local gear     = require "engine.mech.gear"
 
 
 local items_entities = {}
 
-items_entities.knife = weapons.knife
+items_entities.knife = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/knife"),
+    {
+      name = "кухонный нож",
+      codename = "knife",
+      damage_roll = D(2),
+      bonus = 1,
+      tags = {
+        finesse = true,
+        light = true,
+      },
+      slot = "hands",
+    }
+  )
+end
+
+items_entities.pole = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/pole"),
+    {
+      name = "двуручный шест",
+      codename = "pole",
+      damage_roll = D(6),
+      bonus = -1,
+      tags = {
+        heavy = true,
+        versatile = true,
+      },
+      slot = "hands",
+    }
+  )
+end
 
 items_entities.head_tatoo_1 = function()
   return Table.extend(item.mixin("assets/sprites/animations/head_tatoo_1"), {
