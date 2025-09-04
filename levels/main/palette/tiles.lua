@@ -3,9 +3,9 @@ local config = require("levels.main.config")
 local sound  = require("engine.tech.sound")
 
 local walk_sounds = {
-  dirt      = sound.multiple("assets/sounds/walk/walkway", .1),
-  walkway_2 = sound.multiple("assets/sounds/walk/walkway", .1),
-  planks    = sound.multiple("assets/sounds/walk/planks",  .1),
+  dirt      = sound.multiple("assets/sounds/walk/walkway", .2),
+  walkway_2 = sound.multiple("assets/sounds/walk/walkway", .2),
+  planks    = sound.multiple("assets/sounds/walk/planks",  .2),
 }
 
 return factoring.from_atlas("assets/sprites/atlases/tiles.png", config.cell_size, {

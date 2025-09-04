@@ -15,13 +15,13 @@ return {
 
     --- @param self scene
     --- @param dt number
-    --- @param ch railing_characters
+    --- @param ch rails_characters
     start_predicate = function(self, dt, ch)
       return State.player
     end,
 
     --- @param self scene
-    --- @param ch railing_characters
+    --- @param ch rails_characters
     run = function(self, ch)
       local sp = screenplay.new("assets/screenplay/010_intro.ms", ch)
         ch.khaned:rotate(Vector.up)
@@ -55,21 +55,15 @@ return {
         sp:finish_options()
 
         sp:lines()
-        api.travel_persistent(ch.head_priest, Runner.positions.head_priest_1)
+        api.travel_scripted(ch.head_priest, Runner.positions.head_priest_1):await()
         sp:lines()
-        Runner:run_task(function()
-          api.travel_scripted(ch.head_priest, Runner.positions.head_priest_3)
-          ch.head_priest:rotate(Vector.up)
-        end)
+        api.travel_scripted(ch.head_priest, Runner.positions.head_priest_3)
+          :next(function() ch.head_priest:rotate(Vector.up) end)
         api.wait(2)
 
         sp:lines()
-        Runner:run_task(function()
-          api.travel_scripted(ch.khaned, Runner.positions.khaned_feast)
-        end)
-        Runner:run_task(function()
-          api.travel_scripted(ch.likka, Runner.positions.likka_feast)
-        end)
+        api.travel_scripted(ch.khaned, Runner.positions.khaned_feast)
+        api.travel_scripted(ch.likka, Runner.positions.likka_feast)
         api.wait(2)
 
         sp:lines()
