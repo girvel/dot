@@ -11312,6 +11312,28 @@
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2560,
 							"__worldY": 432
+						},
+						{
+							"__identifier": "ai_tester",
+							"__grid": [68,7],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 4, "x": 48, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "e7eefcc0-8560-11f0-b02d-89225d35e372",
+							"width": 16,
+							"height": 16,
+							"defUid": 10,
+							"px": [1088,112],
+							"fieldInstances": [
+								{ "__identifier": "args", "__type": "String", "__value": "\"ai_1\"", "__tile": null, "defUid": 102, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["\"ai_1\""]
+								}] },
+								{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 110, "realEditorValues": [] }
+							],
+							"__worldX": 2544,
+							"__worldY": 112
 						}
 					]
 				},

@@ -54,6 +54,22 @@ items_entities.pole = function()
   )
 end
 
+items_entities.short_bow = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/short_bow"),
+    {
+      name = "короткий лук",
+      codename = "short_bow",
+      damage_roll = D(6),
+      tags = {
+        two_handed = true,
+        ranged = true,
+      },
+      slot = "hands",
+    }
+  )
+end
+
 items_entities.shield = function()
   return Table.extend(item.mixin("assets/sprites/animations/shield"), {
     name = "маленький щит",
