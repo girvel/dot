@@ -4083,8 +4083,8 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "00001111010011110000111100001111100000000100000010100001111000011111111100111111001111111011111111111111111111111111111111111111",
-				"averageColors": "f433f433f433f444f864f754f864f965f433f433f433f444f754f543f754f864f433f433f433f444f864f753f864f965f444f433f444e444f965f864f965fa75f55585542e64ba76ea7642426243a2438555f5558554cb86cb86824362429243fa968555fa96cb86cb8666656666fa96fa96fa96fa963eee3eee3ccc3cccfa96fa96f666fa96fa96fa96fa96fa96fa962a362a36fa96fa96fa96fa96fa96fa961a361a36fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96"
+				"opaqueTiles": "00001111010011110000111100001111100000000100000010000000111000001111000000111000001111111011111111111111111111111111111111111111",
+				"averageColors": "f433f433f433f444f864f754f864f965f433f433f433f444f754f543f754f864f433f433f433f444f864f753f864f965f444f433f444e444f965f864f965fa75f55585542e64ba76ea7642426243a2438555f5558554cb86cb86824362429243fa9685553665cb86cb86666566669665fa96fa96fa963eee3eee3ccc3cccb765fa96f666fa96fa96a665a665a665d7662a362a36fa96fa96fa9696559655b6651a361a36fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96fa96"
 			}
 		},
 		{
@@ -4533,6 +4533,12 @@
 					"seed": 8999250,
 					"overrideTilesetUid": null,
 					"gridTiles": [
+						{ "px": [928,32], "src": [64,128], "f": 0, "t": 68, "d": [240], "a": 1 },
+						{ "px": [944,32], "src": [96,128], "f": 0, "t": 70, "d": [241], "a": 1 },
+						{ "px": [976,32], "src": [64,128], "f": 0, "t": 68, "d": [243], "a": 1 },
+						{ "px": [992,32], "src": [96,128], "f": 0, "t": 70, "d": [244], "a": 1 },
+						{ "px": [912,80], "src": [112,96], "f": 0, "t": 55, "d": [512], "a": 1 },
+						{ "px": [880,176], "src": [32,96], "f": 0, "t": 50, "d": [1056], "a": 1 },
 						{ "px": [912,224], "src": [80,64], "f": 0, "t": 37, "d": [1331], "a": 1 },
 						{ "px": [912,272], "src": [96,64], "f": 0, "t": 38, "d": [1604], "a": 1 },
 						{ "px": [1040,288], "src": [96,80], "f": 0, "t": 46, "d": [1703], "a": 1 },
@@ -11938,7 +11944,7 @@
 					"entityInstances": [
 						{
 							"__identifier": "knife",
-							"__grid": [62,2],
+							"__grid": [61,4],
 							"__pivot": [0,0],
 							"__tags": ["items"],
 							"__tile": { "tilesetUid": 130, "x": 16, "y": 0, "w": 16, "h": 16 },
@@ -11947,14 +11953,14 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 129,
-							"px": [992,32],
+							"px": [976,64],
 							"fieldInstances": [],
-							"__worldX": 2448,
-							"__worldY": 32
+							"__worldX": 2432,
+							"__worldY": 64
 						},
 						{
 							"__identifier": "pole",
-							"__grid": [59,2],
+							"__grid": [59,3],
 							"__pivot": [0,0],
 							"__tags": ["items"],
 							"__tile": { "tilesetUid": 131, "x": 48, "y": 0, "w": 16, "h": 16 },
@@ -11963,14 +11969,14 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 132,
-							"px": [944,32],
+							"px": [944,48],
 							"fieldInstances": [],
 							"__worldX": 2400,
-							"__worldY": 32
+							"__worldY": 48
 						},
 						{
 							"__identifier": "shield",
-							"__grid": [60,2],
+							"__grid": [58,4],
 							"__pivot": [0,0],
 							"__tags": ["items"],
 							"__tile": { "tilesetUid": 133, "x": 0, "y": 0, "w": 16, "h": 16 },
@@ -11979,14 +11985,14 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 134,
-							"px": [960,32],
+							"px": [928,64],
 							"fieldInstances": [],
-							"__worldX": 2416,
-							"__worldY": 32
+							"__worldX": 2384,
+							"__worldY": 64
 						},
 						{
 							"__identifier": "axe",
-							"__grid": [61,2],
+							"__grid": [61,3],
 							"__pivot": [0,0],
 							"__tags": ["items"],
 							"__tile": { "tilesetUid": 135, "x": 16, "y": 0, "w": 16, "h": 16 },
@@ -11995,14 +12001,14 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 136,
-							"px": [976,32],
+							"px": [976,48],
 							"fieldInstances": [],
 							"__worldX": 2432,
-							"__worldY": 32
+							"__worldY": 48
 						},
 						{
 							"__identifier": "short_bow",
-							"__grid": [58,2],
+							"__grid": [58,3],
 							"__pivot": [0,0],
 							"__tags": ["items"],
 							"__tile": { "tilesetUid": 137, "x": 0, "y": 0, "w": 16, "h": 16 },
@@ -12011,10 +12017,10 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 138,
-							"px": [928,32],
+							"px": [928,48],
 							"fieldInstances": [],
 							"__worldX": 2384,
-							"__worldY": 32
+							"__worldY": 48
 						},
 						{
 							"__identifier": "knife",
