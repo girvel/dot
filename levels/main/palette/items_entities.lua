@@ -65,7 +65,7 @@ items_entities.short_bow = function()
         two_handed = true,
         ranged = true,
       },
-      slot = "hands",
+      slot = "offhand",
     }
   )
 end

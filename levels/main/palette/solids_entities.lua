@@ -22,7 +22,7 @@ solids_entities.ai_tester = function(faction)
     level = 1,
     ai = combat_ai.new(),
     inventory = {
-      hand = items.short_bow(),
+      offhand = items.short_bow(),
     },
     max_hp = 30,
     faction = faction,
