@@ -2,14 +2,21 @@ local factoring = require("engine.tech.factoring")
 local config = require("levels.main.config")
 
 local lows = Table.set {
-  "slope_2", "slope_3", "slope_5", "slope_6",
+  "stool", "godfruit",
 }
 
-local transparents = Table.set {
-  "slope_1", "slope_2", "slope_3", "slope_4", "slope_5", "slope_6",
-  "bush_1", "bush_2", "bush_3", "bush_4",
-  "statue_1", "statue_2", "statue_3", "statue_4", "statue_5", "statue_6",
-}
+--- @param codename string
+local is_low = function(codename)
+  return (
+    lows[codename]
+    or codename:starts_with("slope")
+    or codename:starts_with("stage")
+    or codename:starts_with("statue")
+    or codename:starts_with("table")
+    or codename:starts_with("chest")
+    or codename:starts_with("bush")
+  )
+end
 
 return factoring.from_atlas(
   "assets/sprites/atlases/solids.png", config.cell_size,
@@ -34,9 +41,9 @@ return factoring.from_atlas(
   },
   function(codename)
     return {
-      transparent_flag = transparents[codename],
+      transparent_flag = is_low(codename),
       boring_flag = true,
-      low_flag = lows[codename],
+      low_flag = is_low(codename),
     }
   end
 )
