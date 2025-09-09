@@ -9,10 +9,14 @@ local walk_sounds = {
 }
 
 return factoring.from_atlas("assets/sprites/atlases/tiles.png", config.cell_size, {
-  "grass_1",  "grass_2",  "dirt",      "sand",      "roots",  "leaves_1", "flowers_1",  "planks",
-  false,      false,      "walkway_1", "walkway_2", "snow",   "leaves_2",  "flowers_2", false,
-  "bricks_1", "bricks_2", false,       false,       false,    false,       "flowers_3", false,
-  "bricks_3", "bricks_4", false,       false,       false,    false,       "flowers_4", false,
+  "grass_1",  "grass_2",  "dirt",      "sand",      "roots",  "leaves_1", "flowers_1", "planks",
+  false,      false,      "walkway_1", "walkway_2", "snow",   "leaves_2", "flowers_2", false,
+  "bricks_1", "bricks_2", "gray",      false,       false,    false,      "flowers_3", false,
+  "bricks_3", "bricks_4", false,       false,       false,    false,      "flowers_4", false,
+  "ornament_1",  "ornament_2",  "ornament_3",  "ornament_4",  false, false, false, false,
+  "ornament_5",  "ornament_6",  "ornament_7",  "ornament_8",  false, false, false, false,
+  "ornament_9",  "ornament_10", "ornament_11", "ornament_12", false, false, false, false,
+  "ornament_13", "ornament_14", "ornament_15", "ornament_16", false, false, false, false,
 }, function(codename)
   local s = walk_sounds[codename]
   return {
