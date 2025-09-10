@@ -1,3 +1,4 @@
+local animated = require("engine.tech.animated")
 local item     = require "engine.tech.item"
 local gear     = require "engine.mech.gear"
 
@@ -54,6 +55,12 @@ items_entities.pole = function()
   )
 end
 
+local arrow = function()
+  return Table.extend(animated.mixin("assets/sprites/animations/arrow"), {
+    codename = "arrow",
+  })
+end
+
 items_entities.short_bow = function()
   return Table.extend(
     item.mixin("assets/sprites/animations/short_bow"),
@@ -66,6 +73,7 @@ items_entities.short_bow = function()
         ranged = true,
       },
       slot = "offhand",
+      projectile_factory = arrow,
     }
   )
 end
