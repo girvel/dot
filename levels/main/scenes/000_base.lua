@@ -24,7 +24,6 @@ return {
     start_predicate = function(self, dt) return State.debug end,
 
     run = function(self)
-      State.hostility:set("ai_1", "player", "enemy")
     end,
   },
 }
