@@ -33,7 +33,7 @@ return factoring.from_atlas(
     false,       false,       false,      false,      "table_5",    "table_6",    "table_7",    "table_3",
     "owall_1",   "owall_2",   "owall_3",  "owall_4",  false,        "chest",      "chest_open", "table_4",
     "owall_5",   "owall_6",   "owall_7",  "owall_8",  false,        "bed_1",      "bed_2",      false,
-    "owall_9",   "owall_10",  "owall_11", "owall_12", false,        false,        false,        false,
+    "owall_9",   "owall_10",  "owall_11", "owall_12", "candles_1",  "candles_2",  "candles_3",  false,
     "owall_13",  "owall_14",  "owall_15", "owall_16", false,        false,        false,        false,
     "stage_1",   "stage_2",   "stage_3",  "stage_4",  false,        false,        false,        false,
     "stage_5",   "stage_6",   "stage_7",  "stage_8",  false,        false,        false,        false,
