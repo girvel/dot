@@ -78,19 +78,19 @@ return {
         }
         api.journal_update()
 
-        while ch.player.position ~= Runner.positions.start_location_exit do
-          coroutine.yield()
-        end
+        -- while ch.player.position ~= Runner.positions.start_location_exit do
+        --   coroutine.yield()
+        -- end
 
-        sp:start_branches()
-        if not ch.player.inventory.hand then
-          Runner.locked_entities[ch.player] = true
-          sp:start_branch(1)
-            sp:lines()
-          sp:finish_branch()
-          Runner.locked_entities[ch.player] = nil
-        end
-        sp:finish_branches()
+        -- sp:start_branches()
+        -- if not ch.player.inventory.hand then
+        --   Runner.locked_entities[ch.player] = true
+        --   sp:start_branch(1)
+        --     sp:lines()
+        --   sp:finish_branch()
+        --   Runner.locked_entities[ch.player] = nil
+        -- end
+        -- sp:finish_branches()
       sp:finish()
     end,
   },
