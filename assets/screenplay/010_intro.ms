@@ -3,7 +3,7 @@ narration: О
 player: Г
 khaned: Х
 likka: Л
-head_priest: Ж
+red_priest: Ж
 ---
 
 СЦЕНА интро

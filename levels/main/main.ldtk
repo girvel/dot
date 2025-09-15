@@ -4914,7 +4914,7 @@
 			]
 		},
 		{
-			"identifier": "head_priest",
+			"identifier": "red_priest",
 			"uid": 123,
 			"tags": ["solids"],
 			"exportToToc": false,
@@ -4976,7 +4976,7 @@
 					"acceptFileTypes": null,
 					"defaultOverride": {
 						"id": "V_String",
-						"params": ["head_priest"]
+						"params": ["red_priest"]
 					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
@@ -5470,9 +5470,9 @@
 							"height": 16,
 							"defUid": 108,
 							"px": [960,80],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "head_priest_1", "__tile": null, "defUid": 109, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest_1", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["head_priest_1"]
+								"params": ["red_priest_1"]
 							}] }],
 							"__worldX": 2416,
 							"__worldY": 80
@@ -5489,9 +5489,9 @@
 							"height": 16,
 							"defUid": 108,
 							"px": [736,672],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "head_priest_3", "__tile": null, "defUid": 109, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest_3", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["head_priest_3"]
+								"params": ["red_priest_3"]
 							}] }],
 							"__worldX": 2192,
 							"__worldY": 672
@@ -13295,7 +13295,7 @@
 							"__worldY": 48
 						},
 						{
-							"__identifier": "head_priest",
+							"__identifier": "red_priest",
 							"__grid": [57,7],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
@@ -13306,7 +13306,7 @@
 							"height": 16,
 							"defUid": 123,
 							"px": [912,112],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "head_priest", "__tile": null, "defUid": 124, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest", "__tile": null, "defUid": 124, "realEditorValues": [] }],
 							"__worldX": 2368,
 							"__worldY": 112
 						},

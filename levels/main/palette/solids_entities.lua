@@ -95,11 +95,11 @@ solids_entities.villager = function()
   return result
 end
 
-solids_entities.head_priest = function()
+solids_entities.red_priest = function()
   -- TODO base villager?
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
-    name = "Верховный жрец",
-    codename = "head_priest",
+    name = "Красный жрец",
+    codename = "red_priest",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
     level = 3,
     ai = combat_ai.new(),

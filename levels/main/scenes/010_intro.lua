@@ -10,7 +10,7 @@ return {
       player = {},
       khaned = {},
       likka = {},
-      head_priest = {},
+      red_priest = {},
     },
 
     --- @param self scene
@@ -55,10 +55,10 @@ return {
         sp:finish_options()
 
         sp:lines()
-        api.travel_scripted(ch.head_priest, Runner.positions.head_priest_1):await()
+        api.travel_scripted(ch.red_priest, Runner.positions.red_priest_1):await()
         sp:lines()
-        api.travel_scripted(ch.head_priest, Runner.positions.head_priest_3)
-          :next(function() ch.head_priest:rotate(Vector.up) end)
+        api.travel_scripted(ch.red_priest, Runner.positions.red_priest_3)
+          :next(function() ch.red_priest:rotate(Vector.up) end)
         api.wait(2)
 
         sp:lines()
