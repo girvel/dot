@@ -1,6 +1,6 @@
 local creature = require("engine.mech.creature")
 local feats     = require("engine.mech.class.feats")
-local base_player = require("engine.state.base_player")
+local base_player = require("engine.state.player.base")
 local humanoid    = require("engine.mech.humanoid")
 local abilities = require("engine.mech.abilities")
 local fighter   = require("engine.mech.class.fighter")
