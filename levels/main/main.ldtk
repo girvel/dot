@@ -11,7 +11,7 @@
 	"iid": "4894b9b0-5e50-11f0-9d19-d9d5556a9dde",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 326,
+	"nextUid": 328,
 	"identifierStyle": "Free",
 	"toc": [],
 	"worldLayout": "Free",
@@ -5060,6 +5060,41 @@
 			"fieldDefs": []
 		},
 		{
+			"identifier": "ritual_blade",
+			"uid": 326,
+			"tags": ["items"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#63C74D",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 327,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 327, "x": 16, "y": 0, "w": 16, "h": 16 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
+		},
+		{
 			"identifier": "pole",
 			"uid": 132,
 			"tags": ["items"],
@@ -5254,7 +5289,7 @@
 			"savedSelections": [],
 			"cachedPixelData": {
 				"opaqueTiles": "0000000000000000000000000000000000000000000000000000000000000000",
-				"averageColors": "4495389468941bbb1bbb3eee2eee000077451b961c961bbb1bbb9eee6eee000084452c961eee00002eeeceeeaeee00001976197619760000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+				"averageColors": "4495389468941bbb1bbb3eee2eee000077451b961c961bbb1bbb9eee6eee000084452c961eee00002eeeceeeaeee0000197619761976000000000000000000001a761976197600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 			}
 		},
 		{
@@ -5319,8 +5354,8 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
-				"opaqueTiles": "1111111100111110111000101100001011110000111100001111000011110000",
-				"averageColors": "f584f684fc86fca6f473f473f684f44400000000f444fb86fbbbf374f6840000f655f555f444000000000000f6840000f555f5550000000000000000f6840000f554f544f544f5550000000000000000f544f544f544f5440000000000000000f554f544f544f5550000000000000000f555f554f555f5550000000000000000"
+				"opaqueTiles": "1111111111111110111000101100001011110000111100001111000011110000",
+				"averageColors": "f584f684fc86fca6f473f473f684f444f344f555f444fb86fbbbf374f6840000f655f555f444000000000000f6840000f555f5550000000000000000f6840000f554f544f544f5550000000000000000f544f544f544f5440000000000000000f554f544f544f5550000000000000000f555f554f555f5550000000000000000"
 			}
 		},
 		{
@@ -5398,6 +5433,25 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "0000", "averageColors": "0e430e530e430e53" }
+		},
+		{
+			"__cWid": 4,
+			"__cHei": 1,
+			"identifier": "ritual_blade",
+			"uid": 327,
+			"relPath": "../../assets/sprites/animations/ritual_blade/idle_01.png",
+			"embedAtlas": null,
+			"pxWid": 64,
+			"pxHei": 16,
+			"tileGridSize": 16,
+			"spacing": 0,
+			"padding": 0,
+			"tags": ["items"],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": { "opaqueTiles": "0000", "averageColors": "0711061107110611" }
 		},
 		{
 			"__cWid": 4,
@@ -14488,6 +14542,22 @@
 							"fieldInstances": [],
 							"__worldX": 1568,
 							"__worldY": 1504
+						},
+						{
+							"__identifier": "invader",
+							"__grid": [63,7],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#BE4A2F",
+							"iid": "b1098670-8560-11f0-8d1a-0580f5572917",
+							"width": 16,
+							"height": 16,
+							"defUid": 125,
+							"px": [1008,112],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 126, "realEditorValues": [] }],
+							"__worldX": 2464,
+							"__worldY": 112
 						}
 					]
 				},
@@ -24839,8 +24909,8 @@
 						{ "px": [624,528], "src": [16,16], "f": 0, "t": 9, "d": [3042], "a": 1 },
 						{ "px": [640,528], "src": [32,16], "f": 0, "t": 10, "d": [3043], "a": 1 },
 						{ "px": [704,528], "src": [16,32], "f": 0, "t": 17, "d": [3047], "a": 1 },
-						{ "px": [720,528], "src": [16,48], "f": 0, "t": 25, "d": [3048], "a": 1 },
-						{ "px": [784,528], "src": [32,48], "f": 0, "t": 26, "d": [3052], "a": 1 },
+						{ "px": [720,528], "src": [16,64], "f": 0, "t": 33, "d": [3048], "a": 1 },
+						{ "px": [784,528], "src": [32,64], "f": 0, "t": 34, "d": [3052], "a": 1 },
 						{ "px": [528,672], "src": [32,16], "f": 0, "t": 10, "d": [3855], "a": 1 },
 						{ "px": [528,704], "src": [16,48], "f": 0, "t": 25, "d": [4037], "a": 1 },
 						{ "px": [528,720], "src": [32,32], "f": 0, "t": 18, "d": [4128], "a": 1 },
@@ -32652,7 +32722,24 @@
 					"seed": 8722205,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "ritual_blade",
+							"__grid": [65,149],
+							"__pivot": [0,0],
+							"__tags": ["items"],
+							"__tile": { "tilesetUid": 327, "x": 16, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#63C74D",
+							"iid": "e7b670f0-8560-11f0-8d1a-b56c6032d72e",
+							"width": 16,
+							"height": 16,
+							"defUid": 326,
+							"px": [1040,2384],
+							"fieldInstances": [],
+							"__worldX": 1040,
+							"__worldY": 2384
+						}
+					]
 				},
 				{
 					"__identifier": "on_solids",
@@ -33521,7 +33608,7 @@
 						1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,
 						1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,
 						0,5,5,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,
-						0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,
+						0,0,0,1,1,6,0,6,6,6,0,6,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,
 						0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,
 						1,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 						0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,
@@ -34886,7 +34973,12 @@
 						{ "px": [800,2416], "src": [48,48], "f": 0, "t": 27, "d": [273,13791], "a": 1 },
 						{ "px": [800,2448], "src": [48,48], "f": 0, "t": 27, "d": [273,13973], "a": 1 },
 						{ "px": [608,2480], "src": [48,48], "f": 0, "t": 27, "d": [273,14143], "a": 1 },
-						{ "px": [800,2480], "src": [48,48], "f": 0, "t": 27, "d": [273,14155], "a": 1 }
+						{ "px": [800,2480], "src": [48,48], "f": 0, "t": 27, "d": [273,14155], "a": 1 },
+						{ "px": [1024,2384], "src": [16,256], "f": 0, "t": 129, "d": [309,13623], "a": 1 },
+						{ "px": [1040,2384], "src": [32,256], "f": 0, "t": 130, "d": [308,13624], "a": 1 },
+						{ "px": [1008,2384], "src": [0,256], "f": 0, "t": 128, "d": [307,13622], "a": 1 },
+						{ "px": [976,2384], "src": [48,256], "f": 0, "t": 131, "d": [306,13620], "a": 1 },
+						{ "px": [1072,2384], "src": [48,256], "f": 0, "t": 131, "d": [306,13626], "a": 1 }
 					],
 					"seed": 1772328,
 					"overrideTilesetUid": null,

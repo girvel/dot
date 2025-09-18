@@ -22,6 +22,23 @@ items_entities.knife = function()
   )
 end
 
+items_entities.ritual_blade = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/ritual_blade"),
+    {
+      name = "ритуальный клинок",
+      codename = "ritual_blade",
+      damage_roll = D(2),
+      bonus = 1,
+      tags = {
+        finesse = true,
+        light = true,
+      },
+      slot = "hands",
+    }
+  )
+end
+
 items_entities.axe = function()
   return Table.extend(
     item.mixin("assets/sprites/animations/axe"),
@@ -45,6 +62,39 @@ items_entities.pole = function()
       codename = "pole",
       damage_roll = D(6),
       bonus = -1,
+      tags = {
+        heavy = true,
+        two_handed = true,
+        versatile = true,
+      },
+      slot = "hands",
+    }
+  )
+end
+
+items_entities.bear_spear = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/bear_spear"),
+    {
+      name = "рогатина",
+      codename = "bear_spear",
+      damage_roll = D(8),
+      tags = {
+        heavy = true,
+        two_handed = true,
+      },
+      slot = "hands",
+    }
+  )
+end
+
+items_entities.halberd = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/halberd"),
+    {
+      name = "алебарда",
+      codename = "halberd",
+      damage_roll = D(8),
       tags = {
         heavy = true,
         two_handed = true,
@@ -107,10 +157,10 @@ items_entities.bag = function()
   })
 end
 
-items_entities.ritual_mask = function()
-  return Table.extend(item.mixin("assets/sprites/animations/ritual_mask"), {
+items_entities.red_mask = function()
+  return Table.extend(item.mixin("assets/sprites/animations/red_mask"), {
     name = "ритуальная маска",
-    codename = "ritual_mask",
+    codename = "red_mask",
     slot = "head",
     perks = {
       gear.helmet,

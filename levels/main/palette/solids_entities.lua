@@ -104,7 +104,7 @@ solids_entities.red_priest = function()
     level = 3,
     ai = combat_ai.new(),
     inventory = {
-      head = items.ritual_mask(),
+      head = items.red_mask(),
     },
     faction = "village",
     perks = {
@@ -126,6 +126,7 @@ solids_entities.invader = function()
     inventory = {
       head = items.invader_helmet(),
       body = items.invader_armor(),
+      hand = items.halberd(),
     },
     faction = "invaders",
     perks = {  -- TODO
