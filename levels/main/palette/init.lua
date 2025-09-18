@@ -7,4 +7,5 @@ return {
   items_entities = require("levels.main.palette.items_entities"),
   on_solids_entities = require("levels.main.palette.on_solids_entities"),
   on_solids = require("levels.main.palette.on_solids"),
+  sounds_invisible = require("levels.main.palette.sounds_invisible"),
 }
