@@ -16,6 +16,7 @@ local is_low = function(codename)
     or codename:starts_with("chest")
     or codename:starts_with("bush")
     or codename:starts_with("bed")
+    or codename:starts_with("fence")
   )
 end
 
@@ -34,11 +35,11 @@ return factoring.from_atlas(
     "owall_1",   "owall_2",   "owall_3",  "owall_4",  false,        "chest",      "chest_open", "table_4",
     "owall_5",   "owall_6",   "owall_7",  "owall_8",  false,        "bed_1",      "bed_2",      false,
     "owall_9",   "owall_10",  "owall_11", "owall_12", "candles_1",  "candles_2",  "candles_3",  false,
-    "owall_13",  "owall_14",  "owall_15", "owall_16", false,        false,        false,        false,
-    "stage_1",   "stage_2",   "stage_3",  "stage_4",  false,        false,        false,        false,
-    "stage_5",   "stage_6",   "stage_7",  "stage_8",  false,        false,        false,        false,
-    "stage_9",   "stage_10",  "stage_11", "stage_12", false,        false,        false,        false,
-    "stage_13",  "stage_14",  "stage_15", "stage_16", false,        false,        false,        false,
+    "owall_13",  "owall_14",  "owall_15", "owall_16", "fence",      "fence",      "fence",      "fence",
+    "stage_1",   "stage_2",   "stage_3",  "stage_4",  "fence",      "fence",      "fence",      "fence",
+    "stage_5",   "stage_6",   "stage_7",  "stage_8",  "fence",      "fence",      "fence",      "fence",
+    "stage_9",   "stage_10",  "stage_11", "stage_12", "fence",      "fence",      "fence",      "fence",
+    "stage_13",  "stage_14",  "stage_15", "stage_16", "fence",      "fence",      "fence",      "fence",
   },
   function(codename)
     return {
