@@ -4,7 +4,7 @@ local fighter   = require("engine.mech.class.fighter")
 local class     = require("engine.mech.class")
 local items = require("levels.main.palette.items_entities")
 local rogue   = require("engine.mech.class.rogue")
-local combat_ai = require("engine.mech.combat_ai")
+local combat_ai = require("engine.mech.ais.combat")
 local creature  = require("engine.mech.creature")
 
 

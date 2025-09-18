@@ -1,6 +1,6 @@
 local creature = require "engine.mech.creature"
 local animated = require "engine.tech.animated"
-local wandering_ai = require "engine.mech.wandering_ai"
+local wandering_ai = require "engine.mech.ais.wandering"
 local abilities = require("engine.mech.abilities")
 
 

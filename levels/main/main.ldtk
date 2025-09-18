@@ -14365,7 +14365,7 @@
 						},
 						{
 							"__identifier": "red_priest",
-							"__grid": [53,20],
+							"__grid": [56,7],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
@@ -14374,10 +14374,10 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 123,
-							"px": [848,320],
+							"px": [896,112],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest", "__tile": null, "defUid": 124, "realEditorValues": [] }],
-							"__worldX": 2304,
-							"__worldY": 320
+							"__worldX": 2352,
+							"__worldY": 112
 						},
 						{
 							"__identifier": "villager",
