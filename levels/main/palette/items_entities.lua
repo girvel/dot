@@ -58,6 +58,7 @@ end
 local arrow = function()
   return Table.extend(animated.mixin("assets/sprites/animations/arrow"), {
     codename = "arrow",
+    boring_flag = true,
   })
 end
 
