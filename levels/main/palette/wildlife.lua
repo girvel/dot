@@ -23,7 +23,7 @@ local PIG_CUES = {
 }
 
 wildlife.pig = function()
-  return creature.make(animated.mixin("assets/sprites/animations/pig"), creature.mixin(), {
+  return creature.make(animated.mixin("assets/sprites/animations/pig"), {
     name = "Свинья",
     codename = "pig",
     base_abilities = abilities.new(10, 14, 10, 4, 10, 6),
@@ -46,7 +46,7 @@ local tusks = function()
 end
 
 wildlife.boar = function()
-  return creature.make(animated.mixin("assets/sprites/animations/pig"), creature.mixin(), {
+  return creature.make(animated.mixin("assets/sprites/animations/pig"), {
     name = "Кабан",
     codename = "boar",
     base_abilities = abilities.new(13, 12, 12, 2, 9, 5),
@@ -64,6 +64,19 @@ wildlife.boar = function()
       },
     },
     cues = PIG_CUES,
+  })
+end
+
+wildlife.frog = function()
+  return creature.make(animated.mixin("assets/sprites/animations/frog"), {
+    name = "Лягушка",
+    codename = "frog",
+    base_abilities = abilities.new(1, 13, 8, 1, 8, 3),
+    level = 1,
+    ai = wandering_ai.new(),
+    max_hp = 1,
+    faction = "neutral",
+    no_blood_flag = true,
   })
 end
 

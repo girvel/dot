@@ -11,7 +11,7 @@
 	"iid": "4894b9b0-5e50-11f0-9d19-d9d5556a9dde",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 363,
+	"nextUid": 365,
 	"identifierStyle": "Free",
 	"toc": [],
 	"worldLayout": "Free",
@@ -5864,6 +5864,41 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "frog",
+			"uid": 363,
+			"tags": ["solids"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#124E89",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 364,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 364, "x": 48, "y": 0, "w": 16, "h": 16 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -6165,6 +6200,25 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "0000", "averageColors": "5544554455445544" }
+		},
+		{
+			"__cWid": 4,
+			"__cHei": 1,
+			"identifier": "frog",
+			"uid": 364,
+			"relPath": "../../assets/sprites/animations/frog/idle_01.png",
+			"embedAtlas": null,
+			"pxWid": 64,
+			"pxHei": 16,
+			"tileGridSize": 16,
+			"spacing": 0,
+			"padding": 0,
+			"tags": ["solids"],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": { "opaqueTiles": "0000", "averageColors": "1bd61bd61bd61bd6" }
 		}
 	], "enums": [{ "identifier": "Layers", "uid": 103, "values": [
 		{ "id": "tiles", "tileRect": null, "color": 12470831 },
@@ -15350,20 +15404,20 @@
 							"__worldY": 48
 						},
 						{
-							"__identifier": "boar",
-							"__grid": [58,7],
+							"__identifier": "frog",
+							"__grid": [60,9],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
-							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#891212",
-							"iid": "63e77930-8560-11f0-960a-1d6014d822bf",
+							"__tile": { "tilesetUid": 364, "x": 48, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#124E89",
+							"iid": "c3bb2700-8560-11f0-960a-b18b3298274b",
 							"width": 16,
 							"height": 16,
-							"defUid": 362,
-							"px": [928,112],
+							"defUid": 363,
+							"px": [960,144],
 							"fieldInstances": [],
-							"__worldX": 2384,
-							"__worldY": 112
+							"__worldX": 2416,
+							"__worldY": 144
 						}
 					]
 				},
