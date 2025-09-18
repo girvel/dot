@@ -7,6 +7,21 @@ local combat_ai = require("engine.mech.combat_ai")
 
 local wildlife = {}
 
+local PIG_CUES = {
+  blood = function()
+    return Table.extend(
+      animated.mixin("assets/sprites/animations/pig_blood"),
+      {
+        name = "Кровь свиньи",
+        codename = "pig_blood",
+        slot = "blood",
+        anchor = "head",
+        boring_flag = true,
+      }
+    )
+  end,
+}
+
 wildlife.pig = function()
   return creature.make(animated.mixin("assets/sprites/animations/pig"), creature.mixin(), {
     name = "Свинья",
@@ -15,7 +30,8 @@ wildlife.pig = function()
     level = 1,
     ai = wandering_ai.new(),
     max_hp = 4,
-    faction = "village",
+    faction = "neutral",
+    cues = PIG_CUES,
   })
 end
 
@@ -47,6 +63,7 @@ wildlife.boar = function()
         tags = {},
       },
     },
+    cues = PIG_CUES,
   })
 end
 

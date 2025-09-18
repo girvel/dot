@@ -14241,7 +14241,7 @@
 						},
 						{
 							"__identifier": "red_priest",
-							"__grid": [58,7],
+							"__grid": [53,20],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
@@ -14250,10 +14250,10 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 123,
-							"px": [928,112],
+							"px": [848,320],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest", "__tile": null, "defUid": 124, "realEditorValues": [] }],
-							"__worldX": 2384,
-							"__worldY": 112
+							"__worldX": 2304,
+							"__worldY": 320
 						},
 						{
 							"__identifier": "villager",
@@ -15351,18 +15351,18 @@
 						},
 						{
 							"__identifier": "boar",
-							"__grid": [56,7],
+							"__grid": [58,7],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
 							"__smartColor": "#891212",
-							"iid": "b2251450-8560-11f0-960a-9325c704a942",
+							"iid": "63e77930-8560-11f0-960a-1d6014d822bf",
 							"width": 16,
 							"height": 16,
 							"defUid": 362,
-							"px": [896,112],
+							"px": [928,112],
 							"fieldInstances": [],
-							"__worldX": 2352,
+							"__worldX": 2384,
 							"__worldY": 112
 						}
 					]
@@ -36123,7 +36123,24 @@
 					"seed": 9513723,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "boar",
+							"__grid": [37,68],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#891212",
+							"iid": "4bfd4270-8560-11f0-960a-f9ac6b391d04",
+							"width": 16,
+							"height": 16,
+							"defUid": 362,
+							"px": [592,1088],
+							"fieldInstances": [],
+							"__worldX": 592,
+							"__worldY": 1088
+						}
+					]
 				},
 				{
 					"__identifier": "items_entities",
