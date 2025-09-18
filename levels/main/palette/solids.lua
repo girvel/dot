@@ -28,7 +28,7 @@ return factoring.from_atlas(
     "wall_13",   "wall_14",   "wall_15",  "wall_16",  "hutwall_13", "hutwall_14", "hutwall_15", "hutwall_16",
     "slope_1",   "slope_2",   "godfruit", "trunk_1",  "trunk_2",    "bush_1",     "bush_2",     "bush_5",
     "slope_3",   "slope_4",   "slope_5",  "trunk_3",  "trunk_4",    "bush_3",     "bush_4",     "bush_6",
-    false,       "slope_6",   "stool",    "trunk_5",  "trunk_6",    "rock_1",     "rock_2",     "table_1",
+    "slope_h",   "slope_6",   "stool",    "trunk_5",  "trunk_6",    "rock_1",     "rock_2",     "table_1",
     false,       false,       false,      "statue_1", "statue_2",   "statue_3",   "statue_4",   "table_2",
     false,       false,       false,      false,      "table_5",    "table_6",    "table_7",    "table_3",
     "owall_1",   "owall_2",   "owall_3",  "owall_4",  false,        "chest",      "chest_open", "table_4",
