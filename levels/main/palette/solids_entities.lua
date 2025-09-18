@@ -1,3 +1,4 @@
+local animated = require("engine.tech.animated")
 local _common     = require("levels.main.palette._common")
 local humanoid    = require("engine.mech.humanoid")
 local abilities = require("engine.mech.abilities")
@@ -8,6 +9,8 @@ local items = require("levels.main.palette.items_entities")
 local rogue   = require("engine.mech.class.rogue")
 local combat_ai = require("engine.mech.combat_ai")
 local player    = require("levels.main.palette.player")
+local actions   = require("engine.mech.actions")
+local wandering_ai = require("engine.mech.wandering_ai")
 
 
 local solids_entities = {}
@@ -132,6 +135,21 @@ solids_entities.invader = function()
     perks = {  -- TODO
       class.hit_dice(8),
     },
+  })
+
+  creature.init(result)
+  return result
+end
+
+solids_entities.pig = function()
+  local result = Table.extend(animated.mixin("assets/sprites/animations/pig"), creature.mixin(), {
+    name = "",
+    codename = "",
+    base_abilities = abilities.new(10, 14, 10, 4, 10, 6),
+    level = 1,
+    ai = wandering_ai.new(),
+    max_hp = 4,
+    faction = "village",
   })
 
   creature.init(result)
