@@ -13,6 +13,12 @@ return {
     run = function(self)
       State.quests.order = {"feast"}
       State.hostility:set("invaders", "village", "enemy")
+
+      State.hostility:set("predators", "village", "enemy")
+      State.hostility:set("village", "predators", "enemy")
+      State.hostility:set("predators", "player", "enemy")
+      State.hostility:set("player", "predators", "enemy")
+
       State.hostility:set("player", "village", "ally")
       State.hostility:set("player", "khaned", "ally")
       State.hostility:set("player", "likka", "ally")
