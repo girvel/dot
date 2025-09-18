@@ -11,7 +11,7 @@
 	"iid": "4894b9b0-5e50-11f0-9d19-d9d5556a9dde",
 	"jsonVersion": "1.5.3",
 	"appBuildId": 473703,
-	"nextUid": 365,
+	"nextUid": 368,
 	"identifierStyle": "Free",
 	"toc": [],
 	"worldLayout": "Free",
@@ -132,7 +132,7 @@
 			"parallaxFactorX": 0,
 			"parallaxFactorY": 0,
 			"parallaxScaling": true,
-			"requiredTags": ["items"],
+			"requiredTags": [ "items", "on_solids" ],
 			"excludedTags": [],
 			"autoTilesKilledByOtherLayerUid": null,
 			"uiFilterTags": [],
@@ -5899,6 +5899,41 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "mosquito",
+			"uid": 366,
+			"tags": ["on_solids"],
+			"exportToToc": false,
+			"allowOutOfBounds": false,
+			"doc": null,
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"minWidth": null,
+			"maxWidth": null,
+			"minHeight": null,
+			"maxHeight": null,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#124E89",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 365,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 365, "x": 0, "y": 0, "w": 16, "h": 16 },
+			"uiTileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -6219,6 +6254,25 @@
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": { "opaqueTiles": "0000", "averageColors": "1bd61bd61bd61bd6" }
+		},
+		{
+			"__cWid": 4,
+			"__cHei": 1,
+			"identifier": "mosquito",
+			"uid": 365,
+			"relPath": "../../assets/sprites/animations/mosquito/idle_01.png",
+			"embedAtlas": null,
+			"pxWid": 64,
+			"pxHei": 16,
+			"tileGridSize": 16,
+			"spacing": 0,
+			"padding": 0,
+			"tags": ["solids"],
+			"tagsSourceEnumUid": null,
+			"enumTags": [],
+			"customData": [],
+			"savedSelections": [],
+			"cachedPixelData": { "opaqueTiles": "0000", "averageColors": "0444044404440444" }
 		}
 	], "enums": [{ "identifier": "Layers", "uid": 103, "values": [
 		{ "id": "tiles", "tileRect": null, "color": 12470831 },
@@ -6517,6 +6571,22 @@
 							"fieldInstances": [],
 							"__worldX": 2368,
 							"__worldY": 80
+						},
+						{
+							"__identifier": "mosquito",
+							"__grid": [61,8],
+							"__pivot": [0,0],
+							"__tags": ["on_solids"],
+							"__tile": { "tilesetUid": 365, "x": 0, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#124E89",
+							"iid": "82c68d90-8560-11f0-960a-65bc49f71f7d",
+							"width": 16,
+							"height": 16,
+							"defUid": 366,
+							"px": [976,128],
+							"fieldInstances": [],
+							"__worldX": 2432,
+							"__worldY": 128
 						}
 					]
 				},
