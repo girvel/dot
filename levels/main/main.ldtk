@@ -15297,6 +15297,22 @@
 							"fieldInstances": [],
 							"__worldX": 2320,
 							"__worldY": 64
+						},
+						{
+							"__identifier": "pig",
+							"__grid": [53,3],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#124E89",
+							"iid": "ba110050-8560-11f0-960a-477579059e29",
+							"width": 16,
+							"height": 16,
+							"defUid": 360,
+							"px": [848,48],
+							"fieldInstances": [],
+							"__worldX": 2304,
+							"__worldY": 48
 						}
 					]
 				},
