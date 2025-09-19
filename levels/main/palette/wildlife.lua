@@ -3,6 +3,7 @@ local abilities = require("engine.mech.abilities")
 local creature    = require("engine.mech.creature")
 local wandering_ai = require("engine.mech.ais.wandering")
 local combat_ai = require("engine.mech.ais.combat")
+local perks     = require("engine.mech.perks")
 
 
 local wildlife = {}
@@ -32,6 +33,9 @@ wildlife.pig = function()
     max_hp = 4,
     faction = "neutral",
     cues = PIG_CUES,
+    perks = {
+      perks.passive,
+    },
   })
 end
 
@@ -77,6 +81,9 @@ wildlife.frog = function()
     max_hp = 1,
     faction = "neutral",
     no_blood_flag = true,
+    perks = {
+      perks.passive,
+    },
   })
 end
 
