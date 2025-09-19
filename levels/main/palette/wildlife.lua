@@ -31,7 +31,7 @@ wildlife.pig = function()
     level = 1,
     ai = wandering_ai.new(),
     max_hp = 4,
-    faction = "neutral",
+    faction = "pigs",
     cues = PIG_CUES,
     perks = {
       perks.passive,
@@ -79,7 +79,7 @@ wildlife.frog = function()
     level = 1,
     ai = wandering_ai.new(),
     max_hp = 1,
-    faction = "neutral",
+    faction = "frogs_" .. State.uid:next(),
     no_blood_flag = true,
     perks = {
       perks.passive,

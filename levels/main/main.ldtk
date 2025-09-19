@@ -15472,38 +15472,6 @@
 							"fieldInstances": [],
 							"__worldX": 2304,
 							"__worldY": 48
-						},
-						{
-							"__identifier": "frog",
-							"__grid": [60,9],
-							"__pivot": [0,0],
-							"__tags": ["solids"],
-							"__tile": { "tilesetUid": 364, "x": 48, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#124E89",
-							"iid": "c3bb2700-8560-11f0-960a-b18b3298274b",
-							"width": 16,
-							"height": 16,
-							"defUid": 363,
-							"px": [960,144],
-							"fieldInstances": [],
-							"__worldX": 2416,
-							"__worldY": 144
-						},
-						{
-							"__identifier": "pig",
-							"__grid": [57,9],
-							"__pivot": [0,0],
-							"__tags": ["solids"],
-							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#124E89",
-							"iid": "2714bbe0-8560-11f0-960a-83f1603fab1b",
-							"width": 16,
-							"height": 16,
-							"defUid": 360,
-							"px": [912,144],
-							"fieldInstances": [],
-							"__worldX": 2368,
-							"__worldY": 144
 						}
 					]
 				},
