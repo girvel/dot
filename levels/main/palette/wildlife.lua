@@ -55,7 +55,7 @@ wildlife.boar = function()
     codename = "boar",
     base_abilities = abilities.new(13, 12, 12, 2, 9, 5),
     level = 1,
-    ai = combat_ai.new(),
+    ai = combat_ai.new({scan_range = 5}),
     max_hp = 11,
     faction = "predators",
     inventory = {

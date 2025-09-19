@@ -6587,6 +6587,22 @@
 							"fieldInstances": [],
 							"__worldX": 2432,
 							"__worldY": 128
+						},
+						{
+							"__identifier": "mosquito",
+							"__grid": [56,19],
+							"__pivot": [0,0],
+							"__tags": ["on_solids"],
+							"__tile": { "tilesetUid": 365, "x": 0, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#124E89",
+							"iid": "0a924040-8560-11f0-9423-35dd89d14e38",
+							"width": 16,
+							"height": 16,
+							"defUid": 366,
+							"px": [896,304],
+							"fieldInstances": [],
+							"__worldX": 2352,
+							"__worldY": 304
 						}
 					]
 				},
@@ -15472,6 +15488,22 @@
 							"fieldInstances": [],
 							"__worldX": 2304,
 							"__worldY": 48
+						},
+						{
+							"__identifier": "boar",
+							"__grid": [61,19],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#891212",
+							"iid": "97721800-8560-11f0-9423-69ed964f947c",
+							"width": 16,
+							"height": 16,
+							"defUid": 362,
+							"px": [976,304],
+							"fieldInstances": [],
+							"__worldX": 2432,
+							"__worldY": 304
 						}
 					]
 				},
