@@ -33,7 +33,9 @@ end
 
 local get_base = function(codename)
   if codename == "doorc" then
-    return interactive.mixin(open_door)
+    local result = interactive.mixin(open_door)
+    result.name = "дверь"
+    return result
   end
   return {}
 end
@@ -60,10 +62,10 @@ return factoring.from_atlas(
     "stage_13",  "stage_14",  "stage_15", "stage_16", "fence",      "fence",      "fence",      "fence",
   },
   function(codename)
-    local base = get_base(codename)
-    base.transparent_flag = is_low(codename)
-    base.low_flag = is_low(codename)
-    base.boring_flag = true
-    return base
+    local result = get_base(codename)
+    result.transparent_flag = is_low(codename)
+    result.low_flag = is_low(codename)
+    result.boring_flag = true
+    return result
   end
 )
