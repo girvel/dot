@@ -1,5 +1,7 @@
+local on_solids = require("levels.main.palette.on_solids")
 local factoring = require("engine.tech.factoring")
 local config = require("levels.main.config")
+local interactive = require("engine.tech.interactive")
 
 local lows = Table.set {
   "stool", "godfruit",
@@ -18,6 +20,22 @@ local is_low = function(codename)
     or codename:starts_with("bed")
     or codename:starts_with("fence")
   )
+end
+
+local add_open_door = function(self)
+  State:add(on_solids.dooro(), {position = self.position, grid_layer = "on_solids"})
+end
+
+local open_door = function(self)
+  self.on_remove = add_open_door
+  State:remove(self)
+end
+
+local get_base = function(codename)
+  if codename == "doorc" then
+    return interactive.mixin(open_door)
+  end
+  return {}
 end
 
 return factoring.from_atlas(
@@ -42,10 +60,10 @@ return factoring.from_atlas(
     "stage_13",  "stage_14",  "stage_15", "stage_16", "fence",      "fence",      "fence",      "fence",
   },
   function(codename)
-    return {
-      transparent_flag = is_low(codename),
-      boring_flag = true,
-      low_flag = is_low(codename),
-    }
+    local base = get_base(codename)
+    base.transparent_flag = is_low(codename)
+    base.low_flag = is_low(codename)
+    base.boring_flag = true
+    return base
   end
 )
