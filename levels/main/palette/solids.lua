@@ -19,6 +19,7 @@ local is_low = function(codename)
     or codename:starts_with("bush")
     or codename:starts_with("bed")
     or codename:starts_with("fence")
+    or codename:starts_with("candles")
   )
 end
 
