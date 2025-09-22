@@ -11,8 +11,7 @@ items_entities.knife = function()
     {
       name = "кухонный нож",
       codename = "knife",
-      damage_roll = D(2),
-      bonus = 1,
+      damage_roll = D(4),
       tags = {
         finesse = true,
         light = true,
@@ -94,12 +93,25 @@ items_entities.halberd = function()
     {
       name = "алебарда",
       codename = "halberd",
-      damage_roll = D(8),
+      damage_roll = D(10),
       tags = {
         heavy = true,
         two_handed = true,
-        versatile = true,
       },
+      slot = "hands",
+    }
+  )
+end
+
+items_entities.sword = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/sword"),
+    {
+      name = "меч",
+      codename = "sword",
+      damage_roll = D(8),
+      bonus = 1,
+      tags = {},
       slot = "hands",
     }
   )
