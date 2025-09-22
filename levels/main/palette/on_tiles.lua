@@ -9,14 +9,14 @@ local get_walk_sounds = function(codename)
 end
 
 return factoring.from_atlas("assets/sprites/atlases/on_tiles.png", config.cell_size, {
-  "snow",   "snow",   "snow",   "snow",   "fern",    false, false, false,
-  "snow",   "snow",   "snow",   "snow",   "bones",   false, false, false,
-  "snow",   "snow",   "snow",   "snow",   "bonef",   false, false, false,
-  "snow",   "snow",   "snow",   "snow",   "scastle", false, false, false,
-  "carpet", "carpet", "carpet", "carpet", "scastle", false, false, false,
-  "carpet", "carpet", "carpet", "carpet", false,     false, false, false,
-  "carpet", "carpet", "carpet", "carpet", false,     false, false, false,
-  "carpet", "carpet", "carpet", "carpet", false,     false, false, false,
+  "snow",   "snow",   "snow",   "snow",   "fern",    false,     false, false,
+  "snow",   "snow",   "snow",   "snow",   "bones",   false,     false, false,
+  "snow",   "snow",   "snow",   "snow",   "bonef",   false,     false, false,
+  "snow",   "snow",   "snow",   "snow",   "scastle", "scastle", false, false,
+  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
 }, function(codename)
   local walk_sounds = get_walk_sounds(codename)
   return {
