@@ -73,22 +73,19 @@ npcs.likka = function()
 end
 
 npcs.villager = function()
-  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+  return creature.make(humanoid.mixin(), {
     name = "Абориген",
     codename = "villager",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),  -- TODO
     level = 3,  -- TODO
-    ai = combat_ai.new(),
     inventory = {
     },
     faction = "village",
     perks = {  -- TODO
       class.hit_dice(8),
     },
+    direction = Random.choice(Vector.directions),
   })
-
-  creature.init(result)
-  return result
 end
 
 npcs.red_priest = function()
