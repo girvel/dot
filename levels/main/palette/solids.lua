@@ -61,6 +61,7 @@ return factoring.from_atlas(
     "stage_5",   "stage_6",   "stage_7",  "stage_8",  "fence",      "fence",      "fence",      "fence",
     "stage_9",   "stage_10",  "stage_11", "stage_12", "fence",      "fence",      "fence",      "fence",
     "stage_13",  "stage_14",  "stage_15", "stage_16", "fence",      "fence",      "fence",      "fence",
+    "cabinetc",  "cabineto",  "shelfc",   "shelfo",   false,        false,        false,        false,
   },
   function(codename)
     local result = get_base(codename)
