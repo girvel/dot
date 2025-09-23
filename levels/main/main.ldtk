@@ -7290,6 +7290,31 @@
 							}] }],
 							"__worldX": 2416,
 							"__worldY": 112
+						},
+						{
+							"__identifier": "entity_capture",
+							"__grid": [77,2],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 48, "w": 16, "h": 16 },
+							"__smartColor": "#EAD4AA",
+							"iid": "45fe6e30-8560-11f0-abe5-39bd7512d751",
+							"width": 16,
+							"height": 16,
+							"defUid": 105,
+							"px": [1232,32],
+							"fieldInstances": [
+								{ "__identifier": "rails_name", "__type": "String", "__value": "knife_chest", "__tile": null, "defUid": 106, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["knife_chest"]
+								}] },
+								{ "__identifier": "layer", "__type": "LocalEnum.Layers", "__value": "solids", "__tile": null, "defUid": 107, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["solids"]
+								}] }
+							],
+							"__worldX": 2688,
+							"__worldY": 32
 						}
 					]
 				},
