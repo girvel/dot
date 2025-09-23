@@ -47,6 +47,8 @@ return {
       State.hostility:set("player", "village", "ally")
       State.hostility:set("player", "khaned", "ally")
       State.hostility:set("player", "likka", "ally")
+
+      health.set_hp(State.player, State.player:get_max_hp() - 2)
     end,
   },
 
