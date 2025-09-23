@@ -79,8 +79,7 @@ return {
 
     --- @param self scene
     run = function(self)
-      State.rails:location_intro()
-      State.rails:location_upper_village()  -- TODO directly
+      State.rails:location_upper_village()
     end,
   },
 }
