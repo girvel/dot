@@ -6244,7 +6244,7 @@
 					"acceptFileTypes": null,
 					"defaultOverride": {
 						"id": "V_String",
-						"params": ["red_priest"]
+						"params": ["green_priest"]
 					},
 					"textLanguageMode": null,
 					"symmetricalRef": false,
@@ -17360,7 +17360,7 @@
 							"height": 16,
 							"defUid": 393,
 							"px": [976,592],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest", "__tile": null, "defUid": 394, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "green_priest", "__tile": null, "defUid": 394, "realEditorValues": [] }],
 							"__worldX": 2432,
 							"__worldY": 592
 						}

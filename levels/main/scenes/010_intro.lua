@@ -38,9 +38,16 @@ return {
         sp:finish_options()
         sp:lines()
 
-        api.rotate(ch.likka, ch.khaned)
-
+        ch.khaned:rotate(Vector.right)
         sp:lines()
+
+        api.rotate(ch.likka, ch.khaned)
+        sp:lines()
+
+        api.rotate(ch.khaned, ch.likka)
+        sp:lines()
+
+        ch.khaned:rotate(Vector.right)
 
         local n = api.options(sp:start_options())
           if n == 1 then
@@ -77,20 +84,7 @@ return {
           },
         }
         api.journal_update()
-
-        -- while ch.player.position ~= Runner.positions.start_location_exit do
-        --   coroutine.yield()
-        -- end
-
-        -- sp:start_branches()
-        -- if not ch.player.inventory.hand then
-        --   Runner.locked_entities[ch.player] = true
-        --   sp:start_branch(1)
-        --     sp:lines()
-        --   sp:finish_branch()
-        --   Runner.locked_entities[ch.player] = nil
-        -- end
-        -- sp:finish_branches()
+        State.rails:location_upper_village()
       sp:finish()
     end,
   },
