@@ -7393,6 +7393,38 @@
 							"fieldInstances": [],
 							"__worldX": 2512,
 							"__worldY": 192
+						},
+						{
+							"__identifier": "pyre_1",
+							"__grid": [63,37],
+							"__pivot": [0,0],
+							"__tags": ["on_solids"],
+							"__tile": { "tilesetUid": 386, "x": 0, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#124E89",
+							"iid": "6b39fd50-8560-11f0-abe5-41fc57c62b2b",
+							"width": 16,
+							"height": 16,
+							"defUid": 389,
+							"px": [1008,592],
+							"fieldInstances": [],
+							"__worldX": 2464,
+							"__worldY": 592
+						},
+						{
+							"__identifier": "pyre_2",
+							"__grid": [64,37],
+							"__pivot": [0,0],
+							"__tags": ["on_solids"],
+							"__tile": { "tilesetUid": 386, "x": 16, "y": 0, "w": 16, "h": 16 },
+							"__smartColor": "#124E89",
+							"iid": "6cbf3dc0-8560-11f0-abe5-a111bc7e2022",
+							"width": 16,
+							"height": 16,
+							"defUid": 390,
+							"px": [1024,592],
+							"fieldInstances": [],
+							"__worldX": 2480,
+							"__worldY": 592
 						}
 					]
 				},
@@ -7465,7 +7497,7 @@
 					"layerDefUid": 385,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
@@ -15647,7 +15679,7 @@
 						},
 						{
 							"__identifier": "villager",
-							"__grid": [69,28],
+							"__grid": [70,28],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 4, "x": 32, "y": 0, "w": 16, "h": 16 },
@@ -15656,9 +15688,9 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 127,
-							"px": [1104,448],
+							"px": [1120,448],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
-							"__worldX": 2560,
+							"__worldX": 2576,
 							"__worldY": 448
 						},
 						{
@@ -17164,6 +17196,38 @@
 							"fieldInstances": [],
 							"__worldX": 1552,
 							"__worldY": 416
+						},
+						{
+							"__identifier": "pyre_3",
+							"__grid": [63,38],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 386, "x": 0, "y": 16, "w": 16, "h": 16 },
+							"__smartColor": "#E4A672",
+							"iid": "e06add20-8560-11f0-abe5-cb59d7d3889d",
+							"width": 16,
+							"height": 16,
+							"defUid": 387,
+							"px": [1008,608],
+							"fieldInstances": [],
+							"__worldX": 2464,
+							"__worldY": 608
+						},
+						{
+							"__identifier": "pyre_4",
+							"__grid": [64,38],
+							"__pivot": [0,0],
+							"__tags": ["solids"],
+							"__tile": { "tilesetUid": 386, "x": 16, "y": 16, "w": 16, "h": 16 },
+							"__smartColor": "#E4A672",
+							"iid": "6f1ae100-8560-11f0-abe5-6b47496a74c4",
+							"width": 16,
+							"height": 16,
+							"defUid": 388,
+							"px": [1024,608],
+							"fieldInstances": [],
+							"__worldX": 2480,
+							"__worldY": 608
 						}
 					]
 				},
