@@ -3,6 +3,8 @@ local factoring = require("engine.tech.factoring")
 local config = require("levels.main.config")
 local interactive = require("engine.tech.interactive")
 
+local solids
+
 local lows = Table.set {
   "stool", "godfruit",
 }
@@ -26,12 +28,31 @@ local is_low = function(codename)
   )
 end
 
-local add_open_door = function(self)
-  State:add(on_solids.dooro(), {position = self.position, grid_layer = "on_solids"})
+local open_door = function(self)
+  self.on_remove = function(self)
+    State:add(on_solids.dooro(), {position = self.position, grid_layer = "on_solids"})
+  end
+  State:remove(self)
 end
 
-local open_door = function(self)
-  self.on_remove = add_open_door
+local open_chest = function(self)
+  self.on_remove = function(self)
+    State:add(solids.chesto(), {position = self.position, grid_layer = "solids"})
+  end
+  State:remove(self)
+end
+
+local open_shelf = function(self)
+  self.on_remove = function(self)
+    State:add(solids.shelfo(), {position = self.position, grid_layer = "solids"})
+  end
+  State:remove(self)
+end
+
+local open_cabinet = function(self)
+  self.on_remove = function(self)
+    State:add(solids.cabineto(), {position = self.position, grid_layer = "solids"})
+  end
   State:remove(self)
 end
 
@@ -40,11 +61,23 @@ local get_base = function(codename)
     local result = interactive.mixin(open_door)
     result.name = "дверь"
     return result
+  elseif codename == "chestc" then
+    local result = interactive.mixin(open_chest)
+    result.name = "сундук"
+    return result
+  elseif codename == "shelfc" then
+    local result = interactive.mixin(open_shelf)
+    result.name = "полки"
+    return result
+  elseif codename == "cabinetc" then
+    local result = interactive.mixin(open_cabinet)
+    result.name = "шкаф"
+    return result
   end
   return {}
 end
 
-return factoring.from_atlas(
+solids = factoring.from_atlas(
   "assets/sprites/atlases/solids.png", config.cell_size,
   {
     "wall_1",    "wall_2",    "wall_3",   "wall_4",   "hutwall_1",  "hutwall_2",  "hutwall_3",  "hutwall_4",
@@ -56,7 +89,7 @@ return factoring.from_atlas(
     "slope_h",   "slope_6",   "stool",    "trunk_5",  "trunk_6",    "rock_1",     "rock_2",     "table_1",
     false,       "slope",     "slope",    "statue_1", "statue_2",   "statue_3",   "statue_4",   "table_2",
     false,       "slope",     "slope",    false,      "table_5",    "table_6",    "table_7",    "table_3",
-    "owall_1",   "owall_2",   "owall_3",  "owall_4",  false,        "chest",      "chest_open", "table_4",
+    "owall_1",   "owall_2",   "owall_3",  "owall_4",  false,        "chestc",     "chesto",     "table_4",
     "owall_5",   "owall_6",   "owall_7",  "owall_8",  false,        "bed_1",      "bed_2",      false,
     "owall_9",   "owall_10",  "owall_11", "owall_12", "candles_1",  "candles_2",  "candles_3",  false,
     "owall_13",  "owall_14",  "owall_15", "owall_16", "doorc",      false,        false,        false,
@@ -74,3 +107,5 @@ return factoring.from_atlas(
     return result
   end
 )
+
+return solids
