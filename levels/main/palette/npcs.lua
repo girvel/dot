@@ -89,8 +89,7 @@ npcs.villager = function()
 end
 
 npcs.red_priest = function()
-  -- TODO base villager?
-  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+  return creature.make(humanoid.mixin(), {
     name = "Красный жрец",
     codename = "red_priest",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
@@ -104,9 +103,23 @@ npcs.red_priest = function()
       class.hit_dice(8),
     },
   })
+end
 
-  creature.init(result)
-  return result
+npcs.green_priest = function()
+  return creature.make(humanoid.mixin(), {
+    name = "Бирюзовый жрец",
+    codename = "green_priest",
+    base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
+    level = 3,
+    ai = combat_ai.new(),
+    inventory = {
+      head = items.green_mask(),
+    },
+    faction = "village",
+    perks = {
+      class.hit_dice(8),
+    },
+  })
 end
 
 npcs.invader = function()

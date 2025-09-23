@@ -180,6 +180,17 @@ items_entities.red_mask = function()
   })
 end
 
+items_entities.green_mask = function()
+  return Table.extend(item.mixin("assets/sprites/animations/green_mask"), {
+    name = "ритуальная маска",
+    codename = "red_mask",
+    slot = "head",
+    perks = {
+      gear.helmet,
+    },
+  })
+end
+
 items_entities.invader_helmet = function()
   return Table.extend(item.mixin("assets/sprites/animations/invader_helmet"), {
     name = "шлем пришельца",
