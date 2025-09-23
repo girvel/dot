@@ -2,7 +2,7 @@ local rails = {}
 
 --- @class rails
 --- @field runner rails_runner
---- @field location "0_intro"|"1_upper_village"
+--- @field location "0_intro"|"1_upper_village"?
 local methods = {}
 local mt = {__index = methods}
 
@@ -11,24 +11,36 @@ local mt = {__index = methods}
 rails.new = function(runner)
   return setmetatable({
     runner = runner,
-    location = "0_intro",
+    location = nil,
   }, mt)
 end
 
+local intro_scenes = require("levels.main.scenes.0_intro.010_intro")
+
+methods.location_intro = function(self)
+  Log.info("Transitioning to location intro")
+  assert(self.location == nil)
+  self.location = "0_intro"
+  Table.join(self.runner.scenes, intro_scenes)
+end
+
+local upper_village_scenes = Table.join({},
+  require("levels.main.scenes.1_upper_village.011_exiting_house"),
+  require("levels.main.scenes.1_upper_village.018_getting_sword"),
+  require("levels.main.scenes.1_upper_village.loc")
+)
+
 methods.location_upper_village = function(self)
+  Log.info("Transitioning to location upper village")
+  assert(self.location == "0_intro")
   self.location = "1_upper_village"
 
-  local scenes = self.runner.scenes
-  for k, v in pairs(scenes) do
-    if type(k) == "string" and k:starts_with("loc_1") then
-      v.enabled = true
-    end
+  for k, v in pairs(intro_scenes) do
+    assert(not self.runner:is_running(v))
+    self.runner:remove(v)
   end
 
-  scenes._011_exiting_house.enabled = true
-  scenes._018_getting_sword.enabled = true
-
-  scenes._010_intro.enabled = nil
+  Table.join(self.runner.scenes, upper_village_scenes)
 end
 
 Ldump.mark(rails, {}, ...)

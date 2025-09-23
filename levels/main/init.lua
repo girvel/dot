@@ -24,6 +24,6 @@ return {
 
   rails = {
     factory = require("levels.main.rails").new,
-    scenes = require("levels.main.scenes"),
+    scenes = require("levels.main.scenes.000_base"),
   },
 }

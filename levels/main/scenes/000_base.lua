@@ -49,6 +49,16 @@ return {
       State.hostility:set("player", "likka", "ally")
 
       health.set_hp(State.player, State.player:get_max_hp() - 2)
+
+      for k, v in pairs(State.rails.runner.scenes) do
+        if type(k) == "string" and k:starts_with("cp") and v.enabled then
+          return
+        end
+      end
+
+      if State.rails.location == nil then
+        State.rails:location_intro()
+      end
     end,
   },
 
@@ -69,7 +79,8 @@ return {
 
     --- @param self scene
     run = function(self)
-      State.rails:location_upper_village()
+      State.rails:location_intro()
+      State.rails:location_upper_village()  -- TODO directly
     end,
   },
 }
