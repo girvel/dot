@@ -17,14 +17,16 @@ rails.new = function(runner)
   }, mt)
 end
 
-local scenes_by_location = {
-  ["0_intro"] = require("levels.main.scenes.0_intro.010_intro"),
-  ["1_upper_village"] = Table.join({},
-    require("levels.main.scenes.1_upper_village.011_exiting_house"),
-    require("levels.main.scenes.1_upper_village.018_getting_sword"),
-    require("levels.main.scenes.1_upper_village.loc")
-  ),
-}
+local scenes_by_location do
+  scenes_by_location = {}
+  local scenes_folder = Table.require_folder("levels.main.scenes")
+  for k, subfolder in pairs(scenes_folder) do
+    scenes_by_location[k] = {}
+    for _, v in pairs(subfolder) do
+      Table.join(scenes_by_location[k], v)
+    end
+  end
+end
 
 --- @param location rails_location
 --- @param forced boolean?
