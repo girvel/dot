@@ -3,6 +3,8 @@ local screenplay = require("engine.tech.screenplay")
 
 return {
   _018_getting_sword = {
+    enabled = true,
+
     characters = {
       player = {},
       plus_one_sword = {},

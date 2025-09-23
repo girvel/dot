@@ -4,6 +4,8 @@ local items_entities = require "levels.main.palette.items_entities"
 
 return {
   loc_1_drop_knife = {
+    enabled = true,
+
     --- @param self scene
     --- @param dt number
     start_predicate = function(self, dt)

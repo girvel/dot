@@ -3,6 +3,8 @@ local screenplay = require("engine.tech.screenplay")
 
 return {
   _011_exiting_house = {
+    enabled = true,
+
     characters = {
       player = {},
     },

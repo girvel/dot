@@ -36,8 +36,8 @@ methods.location_upper_village = function(self)
   self.location = "1_upper_village"
 
   for k, v in pairs(intro_scenes) do
-    assert(not self.runner:is_running(v))
-    self.runner:remove(v)
+    -- doesn't stop scenes
+    Table.remove_pair(self.runner.scenes, v)
   end
 
   Table.join(self.runner.scenes, upper_village_scenes)
