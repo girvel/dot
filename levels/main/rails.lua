@@ -32,7 +32,8 @@ methods._location_transition = function(self, location, forced)
   assert(
     forced
       or self.location == nil and location and location:sub(1, 1) == "0"
-      or location and self.location and location:sub(1, 1) == self.location:sub(1, 1) + 1,
+      or location and self.location
+        and tonumber(location:sub(1, 1)) - tonumber(self.location:sub(1, 1)) == 1,
     ("Out of order transition %s -> %s"):format(self.location, location)
   )
   Log.info("Location transition", self.location, "->", location)
