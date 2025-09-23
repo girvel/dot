@@ -26,6 +26,9 @@ methods.location_upper_village = function(self)
   end
 
   scenes._011_exiting_house.enabled = true
+  scenes._018_getting_sword.enabled = true
+
+  scenes._010_intro.enabled = nil
 end
 
 Ldump.mark(rails, {}, ...)

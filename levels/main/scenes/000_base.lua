@@ -59,4 +59,17 @@ return {
     run = function(self)
     end,
   },
+
+  cp1 = {
+    --- @param self scene
+    --- @param dt number
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    --- @param self scene
+    run = function(self)
+      State.rails:location_upper_village()
+    end,
+  },
 }

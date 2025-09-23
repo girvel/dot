@@ -17,7 +17,7 @@ return {
     --- @param dt number
     --- @param ch rails_characters
     start_predicate = function(self, dt, ch)
-      return State.player
+      return State.is_loaded
     end,
 
     --- @param self scene
