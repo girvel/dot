@@ -79,7 +79,7 @@ return {
 
     --- @param self scene
     run = function(self)
-      State.rails:location_upper_village()
+      State.rails:location_upper_village(true)
     end,
   },
 }

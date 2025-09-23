@@ -27,7 +27,14 @@ local scenes_by_location = {
 }
 
 --- @param location rails_location
-methods._location_transition = function(self, location)
+--- @param forced boolean?
+methods._location_transition = function(self, location, forced)
+  assert(
+    forced
+      or self.location == nil and location and location:sub(1, 1) == "0"
+      or location and self.location and location:sub(1, 1) == self.location:sub(1, 1) + 1,
+    ("Out of order transition %s -> %s"):format(self.location, location)
+  )
   Log.info("Location transition", self.location, "->", location)
 
   if self.location then
@@ -41,12 +48,14 @@ methods._location_transition = function(self, location)
   self.location = location
 end
 
-methods.location_intro = function(self)
-  self:_location_transition("0_intro")
+--- @param forced boolean?
+methods.location_intro = function(self, forced)
+  self:_location_transition("0_intro", forced)
 end
 
-methods.location_upper_village = function(self)
-  self:_location_transition("1_upper_village")
+--- @param forced boolean?
+methods.location_upper_village = function(self, forced)
+  self:_location_transition("1_upper_village", forced)
 end
 
 Ldump.mark(rails, {}, ...)
