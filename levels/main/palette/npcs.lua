@@ -6,6 +6,7 @@ local items = require("levels.main.palette.items_entities")
 local rogue   = require("engine.mech.class.rogue")
 local combat_ai = require("engine.mech.ais.combat")
 local creature  = require("engine.mech.creature")
+local no_op     = require("engine.mech.ais.no_op")
 
 
 local npcs = {}
@@ -78,8 +79,8 @@ npcs.villager = function()
     codename = "villager",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),  -- TODO
     level = 3,  -- TODO
-    inventory = {
-    },
+    ai = no_op.new(),
+    inventory = {},
     faction = "village",
     perks = {  -- TODO
       class.hit_dice(8),

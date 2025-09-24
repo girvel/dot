@@ -7492,6 +7492,25 @@
 							}] }],
 							"__worldX": 2448,
 							"__worldY": 592
+						},
+						{
+							"__identifier": "position",
+							"__grid": [59,36],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "b0a20980-8560-11f0-b266-3f875edde1e9",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [944,576],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dance_1", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dance_1"]
+							}] }],
+							"__worldX": 2400,
+							"__worldY": 576
 						}
 					]
 				},
@@ -17241,7 +17260,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [944,496],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "girl_2", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["girl_2"]
+							}] }],
 							"__worldX": 2400,
 							"__worldY": 496
 						},
@@ -17359,7 +17381,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [912,560],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "girl_1", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["girl_1"]
+							}] }],
 							"__worldX": 2368,
 							"__worldY": 560
 						},
@@ -17439,7 +17464,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1040,576],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "girl_3", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["girl_3"]
+							}] }],
 							"__worldX": 2496,
 							"__worldY": 576
 						},
