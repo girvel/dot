@@ -80,6 +80,7 @@ return {
     --- @param self scene
     run = function(self)
       State.rails:location_upper_village(true)
+      level.unsafe_move(State.player, State.rails.runner.positions.cp1)
     end,
   },
 }

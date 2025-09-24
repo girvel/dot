@@ -7340,6 +7340,82 @@
 							],
 							"__worldX": 2512,
 							"__worldY": 192
+						},
+						{
+							"__identifier": "position",
+							"__grid": [34,15],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "0b9dfbe0-8560-11f0-b266-5d1b575e2b38",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [544,240],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dungeon_entrance_1", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dungeon_entrance_1"]
+							}] }],
+							"__worldX": 2000,
+							"__worldY": 240
+						},
+						{
+							"__identifier": "position",
+							"__grid": [35,15],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "101441c0-8560-11f0-b266-87f9f80e1050",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [560,240],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dungeon_entrance_2", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dungeon_entrance_2"]
+							}] }],
+							"__worldX": 2016,
+							"__worldY": 240
+						},
+						{
+							"__identifier": "position",
+							"__grid": [36,14],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "13c62630-8560-11f0-b266-6b4e19649db7",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [576,224],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dungeon_entrance_3", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dungeon_entrance_3"]
+							}] }],
+							"__worldX": 2032,
+							"__worldY": 224
+						},
+						{
+							"__identifier": "position",
+							"__grid": [41,16],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "387d88d0-8560-11f0-b266-a3abcfb6bf00",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [656,256],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "cp1", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["cp1"]
+							}] }],
+							"__worldX": 2112,
+							"__worldY": 256
 						}
 					]
 				},
