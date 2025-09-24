@@ -5488,10 +5488,10 @@
 					"uid": 128,
 					"type": "F_String",
 					"isArray": false,
-					"canBeNull": false,
+					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "Hidden",
+					"editorDisplayMode": "ValueOnly",
 					"editorDisplayScale": 1,
 					"editorDisplayPos": "Above",
 					"editorLinkStyle": "StraightArrow",
@@ -7416,6 +7416,82 @@
 							}] }],
 							"__worldX": 2112,
 							"__worldY": 256
+						},
+						{
+							"__identifier": "position",
+							"__grid": [52,23],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "941ff6c0-8560-11f0-b266-d7af4f31aebf",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [832,368],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "feast_start", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["feast_start"]
+							}] }],
+							"__worldX": 2288,
+							"__worldY": 368
+						},
+						{
+							"__identifier": "position",
+							"__grid": [67,32],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "a50167d0-8560-11f0-b266-fdf7a81b165b",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [1072,512],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "feast_finish", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["feast_finish"]
+							}] }],
+							"__worldX": 2528,
+							"__worldY": 512
+						},
+						{
+							"__identifier": "position",
+							"__grid": [59,26],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "b1fcc510-8560-11f0-b266-114177b3f6f6",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [944,416],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "feast_observe", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["feast_observe"]
+							}] }],
+							"__worldX": 2400,
+							"__worldY": 416
+						},
+						{
+							"__identifier": "position",
+							"__grid": [62,37],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "04947740-8560-11f0-b266-210252180c1b",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [992,592],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "feast_camera", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["feast_camera"]
+							}] }],
+							"__worldX": 2448,
+							"__worldY": 592
 						}
 					]
 				},
@@ -15917,7 +15993,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1104,448],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2560,
 							"__worldY": 448
 						},
@@ -15933,7 +16009,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1104,432],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2560,
 							"__worldY": 432
 						},
@@ -17165,7 +17241,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [944,496],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2400,
 							"__worldY": 496
 						},
@@ -17181,7 +17257,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [928,544],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "boy_1", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["boy_1"]
+							}] }],
 							"__worldX": 2384,
 							"__worldY": 544
 						},
@@ -17197,7 +17276,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1088,528],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2544,
 							"__worldY": 528
 						},
@@ -17213,7 +17292,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1104,528],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2560,
 							"__worldY": 528
 						},
@@ -17229,7 +17308,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1008,512],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "boy_3", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["boy_3"]
+							}] }],
 							"__worldX": 2464,
 							"__worldY": 512
 						},
@@ -17245,7 +17327,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1008,496],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2464,
 							"__worldY": 496
 						},
@@ -17261,7 +17343,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1040,528],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2496,
 							"__worldY": 528
 						},
@@ -17277,7 +17359,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [912,560],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2368,
 							"__worldY": 560
 						},
@@ -17293,7 +17375,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [864,608],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2320,
 							"__worldY": 608
 						},
@@ -17309,7 +17391,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [880,624],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2336,
 							"__worldY": 624
 						},
@@ -17325,7 +17407,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [864,624],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2320,
 							"__worldY": 624
 						},
@@ -17341,7 +17423,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1024,576],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2480,
 							"__worldY": 576
 						},
@@ -17357,7 +17439,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1040,576],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2496,
 							"__worldY": 576
 						},
@@ -17373,7 +17455,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [976,528],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "boy_2", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["boy_2"]
+							}] }],
 							"__worldX": 2432,
 							"__worldY": 528
 						},
@@ -17389,7 +17474,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [976,512],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2432,
 							"__worldY": 512
 						},
@@ -17405,7 +17490,7 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1040,512],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "", "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
 							"__worldX": 2496,
 							"__worldY": 512
 						},
