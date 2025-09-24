@@ -7511,6 +7511,63 @@
 							}] }],
 							"__worldX": 2400,
 							"__worldY": 576
+						},
+						{
+							"__identifier": "position",
+							"__grid": [60,34],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "a63cb1b0-8560-11f0-818d-db6511a32b7d",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [960,544],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dance_2", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dance_2"]
+							}] }],
+							"__worldX": 2416,
+							"__worldY": 544
+						},
+						{
+							"__identifier": "position",
+							"__grid": [64,34],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "a6da0320-8560-11f0-818d-85f4b73e6cd9",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [1024,544],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dance_3", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dance_3"]
+							}] }],
+							"__worldX": 2480,
+							"__worldY": 544
+						},
+						{
+							"__identifier": "position",
+							"__grid": [63,37],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "a8f350c0-8560-11f0-818d-d32e0bd56fba",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [1008,592],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "green_priest_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["green_priest_feast"]
+							}] }],
+							"__worldX": 2464,
+							"__worldY": 592
 						}
 					]
 				},

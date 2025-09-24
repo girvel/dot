@@ -1,3 +1,4 @@
+local level = require("engine.tech.level")
 local async = require("engine.tech.async")
 local actions = require("engine.mech.actions")
 local screenplay = require "engine.tech.screenplay"
@@ -7,25 +8,41 @@ local api        = require "engine.tech.api"
 --- @param inviter entity
 --- @param invitee entity
 --- @param left_corner vector
+--- @param passes_n integer
 --- @return promise, scene
-local dance = function(inviter, invitee, left_corner)
+local dance = function(inviter, invitee, left_corner, passes_n)
   return State.rails.runner:run_task(function()
-    local t1 = api.travel_scripted(inviter, left_corner)
-    local t2 = api.travel_scripted(invitee, left_corner + Vector.right)
+    api.travel_scripted(inviter, invitee.position):await()
+    async.sleep(1)
 
-    t1:await()
-    t2:await()
+    do
+      local t1 = api.travel_scripted(inviter, left_corner)
+      local t2 = api.travel_scripted(invitee, left_corner + Vector.right)
 
-    for _ = 1, 10 do
+      t1:await()
+      t2:await()
+
+      -- two moving people, sometimes one stops one cell short,
+      -- thinking the other one is an immovable solid
+      level.unsafe_move(inviter, left_corner)
+      level.unsafe_move(invitee, left_corner + Vector.right)
+
+      api.rotate(inviter, invitee)
+      api.rotate(invitee, inviter)
+    end
+
+    for _ = 1, passes_n do
       -- NEXT! sync dances
       -- NEXT! more complex dance
       async.sleep(1)
       actions.move(Vector.right):act(invitee)
       actions.move(Vector.right):act(inviter)
+      invitee:rotate(Vector.left)
 
       async.sleep(1)
       actions.move(Vector.left):act(inviter)
       actions.move(Vector.left):act(invitee)
+      inviter:rotate(Vector.right)
     end
   end)
 end
@@ -58,6 +75,7 @@ return {
     run = function(self, ch)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
         api.travel_scripted(ch.player, State.rails.runner.positions.feast_observe):await()
+        ch.player:rotate(Vector.down)
         api.move_camera(State.rails.runner.positions.feast_camera)
 
         sp:lines()
@@ -70,9 +88,15 @@ return {
         sp:lines()
         task:await()
 
-        task = dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1)
+        task = api.travel_scripted(ch.green_priest, State.rails.runner.positions.green_priest_feast)
+
+        local task_1 = dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10)
+        local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10)
+        local task_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 10)
         sp:lines()
-        task:await()
+        task_1:await()
+        task_2:await()
+        task_3:await()
       sp:finish()
     end,
   },
