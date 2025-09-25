@@ -1,3 +1,5 @@
+local projectile = require("engine.tech.projectile")
+local animated = require("engine.tech.animated")
 local level = require("engine.tech.level")
 local async = require("engine.tech.async")
 local actions = require("engine.mech.actions")
@@ -52,6 +54,40 @@ local dance = function(inviter, invitee, left_corner, passes_n)
   end)
 end
 
+--- @return item
+local snowball_new = function()
+  return Table.extend(animated.mixin("assets/sprites/animations/snowball"), {
+    codename = "snowball",
+    boring_flag = true,
+    tags = {},
+    slot = "hand",
+    direction = Vector.right,  -- non-directional, for compatibility with projectile
+  })
+end
+
+--- @param thrower entity
+--- @param position vector
+--- @return promise, scene
+local throw_snow = function(thrower, position)
+  local pyre_position = State.rails.runner.positions[
+    Random.choice({"feast_pyre_1", "feast_pyre_2"})
+  ]
+
+  return State.rails.runner:run_task(function()
+    api.travel_scripted(thrower, position):await()
+    async.sleep(.2)
+    thrower:rotate((pyre_position - position):normalized2())
+    async.sleep(.3)
+
+    local snowball = State:add(snowball_new())
+    thrower.inventory.hand = snowball
+    thrower:animate("throw", true):next(function()
+      thrower.inventory.hand = nil
+      projectile.launch(thrower, snowball, pyre_position, 12)
+    end):await()
+  end)
+end
+
 return {
   _020_feast = {
     enabled = true,
@@ -93,26 +129,32 @@ return {
           async.sleep(.3)
         end
 
-        local task = State.rails.runner:run_task(function()
-          give_fruit("boy_1")
-          give_fruit("boy_2")
-          give_fruit("boy_3")
-        end)
+        -- local priest_task = State.rails.runner:run_task(function()
+        --   give_fruit("boy_1")
+        --   give_fruit("boy_2")
+        --   give_fruit("boy_3")
+        -- end)
         sp:lines()
-        task:await()
+        --priest_task:await()
 
-        task = api.travel_scripted(ch.green_priest, State.rails.runner.positions.green_priest_feast)
-          :next(function() ch.green_priest:rotate(Vector.up) end)
+        priest_task = api.travel_scripted(
+          ch.green_priest, State.rails.runner.positions.feast_green_priest
+        ):next(function() ch.green_priest:rotate(Vector.up) end)
 
-        local task_1 = dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10)
-        local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10)
-        local task_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 10)
+        -- local task_1 = dance(ch.girl_2, ch.boy_1, State.rails.runner.positions.dance_1, 4)
+        -- local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 4)
+        -- local task_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 4)
         sp:lines()
-        task_1:await()
-        task_2:await()
-        task_3:await()
+        -- task_1:await()
+        -- task_2:await()
+        -- task_3:await()
 
-        task:await()
+        priest_task:await()
+
+        priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest)
+        sp:lines()
+        priest_task:await()
+        async.sleep(5)
       sp:finish()
     end,
   },
