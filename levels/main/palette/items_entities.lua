@@ -118,11 +118,9 @@ items_entities.sword = function()
 end
 
 local arrow = function()
-  return Table.extend(animated.mixin("assets/sprites/animations/arrow"), {
+  return Table.extend(animated.mixin("assets/sprites/animations/arrow"), item.mixin_min("hand"), {
     codename = "arrow",
     boring_flag = true,
-    slot = "hand",
-    tags = {},
   })
 end
 

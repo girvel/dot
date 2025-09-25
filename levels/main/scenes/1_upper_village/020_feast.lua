@@ -5,6 +5,7 @@ local async = require("engine.tech.async")
 local actions = require("engine.mech.actions")
 local screenplay = require "engine.tech.screenplay"
 local api        = require "engine.tech.api"
+local item       = require "engine.tech.item"
 
 
 --- @param inviter entity
@@ -56,13 +57,14 @@ end
 
 --- @return item
 local snowball_new = function()
-  return Table.extend(animated.mixin("assets/sprites/animations/snowball"), {
-    codename = "snowball",
-    boring_flag = true,
-    tags = {},
-    slot = "hand",
-    direction = Vector.right,  -- non-directional, for compatibility with projectile
-  })
+  return Table.extend(
+    animated.mixin("assets/sprites/animations/snowball"),
+    item.mixin_min("hand"),
+    {
+      codename = "snowball",
+      boring_flag = true,
+    }
+  )
 end
 
 --- @param thrower entity
