@@ -67,6 +67,17 @@ local snowball_new = function()
   )
 end
 
+local fruit_new = function()
+  return Table.extend(
+    animated.mixin("assets/sprites/animations/fruit"),
+    item.mixin_min("hand"),
+    {
+      codename = "fruit",
+      boring_flag = true,
+    }
+  )
+end
+
 --- @param thrower entity
 --- @param position vector
 --- @param repetitions_n integer
@@ -185,14 +196,20 @@ return {
 
             api.travel_scripted(guy, fruit_pos):await()
             api.rotate(guy, fruit_pos)
-            guy:animate("interact")
-            async.sleep(2)
+            async.sleep(1)
+            guy:animate("interact"):await()
+            guy.inventory.hand = State:add(fruit_new())
+            async.sleep(1)
+
             api.travel_scripted(guy, sac_pos):await()
             api.rotate(guy, State.rails.runner.positions.feast_pyre)
             guy:animate("interact"):await()
+            State:remove(guy.inventory.hand)
+            guy.inventory.hand = nil
           end)
         end
 
+        ch.green_priest:animate("gesture"):await()
         local fruits = Promise.all(
           sac_fruit("boy_1", "feast_fruit_1", "feast_sac_1"),
           sac_fruit("boy_2", "feast_fruit_2", "feast_sac_2"),
