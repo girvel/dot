@@ -139,9 +139,11 @@ return {
           ch.green_priest, State.rails.runner.positions.feast_green_priest
         ):next(function() ch.green_priest:rotate(Vector.up) end)
 
-        local dance_1 = dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10)
-        local dance_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10)
-        local dance_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 10)
+        local dancing = Promise.all(
+          dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10),
+          dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10),
+          dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 10)
+        )
         sp:lines()
 
         priest_task:await()
@@ -151,19 +153,18 @@ return {
         priest_task:await()
         async.sleep(.5)
 
-        local snow_1 = throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1)
-        local snow_2 = throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2)
-        local snow_3 = throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3)
-        local snow_4 = throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4) sp:lines() snow_1:await()
-        snow_2:await()
-        snow_3:await()
-        snow_4:await()
+        local snowballs = Promise.all(
+          throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1),
+          throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2),
+          throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3),
+          throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4),
+          throw_snow(ch.thrower_5, State.rails.runner.positions.feast_throw_5)
+        )
+        snowballs:await()
 
         -- NEXT more snowballs
 
-        dance_1:await()
-        dance_2:await()
-        dance_3:await()
+        dancing:await()
       sp:finish()
     end,
   },
