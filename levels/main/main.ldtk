@@ -7815,6 +7815,44 @@
 							}] }],
 							"__worldX": 2480,
 							"__worldY": 592
+						},
+						{
+							"__identifier": "position",
+							"__grid": [68,36],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "d2e8e170-8560-11f0-93f3-8fd72da2008e",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [1088,576],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dance_4", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dance_4"]
+							}] }],
+							"__worldX": 2544,
+							"__worldY": 576
+						},
+						{
+							"__identifier": "position",
+							"__grid": [57,38],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "d8d9e070-8560-11f0-93f3-a390240cbb9f",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [912,608],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "dance_5", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["dance_5"]
+							}] }],
+							"__worldX": 2368,
+							"__worldY": 608
 						}
 					]
 				},
@@ -17762,7 +17800,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1024,576],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "extra_dancer", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["extra_dancer"]
+							}] }],
 							"__worldX": 2480,
 							"__worldY": 576
 						},

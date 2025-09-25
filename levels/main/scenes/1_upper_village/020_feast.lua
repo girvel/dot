@@ -122,9 +122,12 @@ return {
       thrower_3 = {},
       thrower_4 = {},
       thrower_5 = {},
+      extra_dancer = {},
     },
 
-    --- @param self scene
+    final_dancing_scenes = {},
+
+    --- @param self scene|table
     --- @param dt number
     --- @param ch rails_characters
     start_predicate = function(self, dt, ch)
@@ -132,7 +135,7 @@ return {
         and ch.player.position <= State.rails.runner.positions.feast_finish
     end,
 
-    --- @param self scene
+    --- @param self scene|table
     --- @param ch rails_characters
     run = function(self, ch)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
@@ -219,7 +222,7 @@ return {
         fruits:await()
 
         local human_sac = State.rails.runner:run_task(function()
-          for _, target in ipairs {"boy_1", "boy_2", "boy_3"} do
+          for _, target in ipairs {"boy_3", "boy_2", "boy_1"} do
             api.travel_scripted(ch.green_priest, ch[target].position):await()
             async.sleep(.5)
             ch.green_priest:animate("interact")
@@ -232,6 +235,26 @@ return {
         end)
         sp:lines()
         human_sac:await()
+
+        async.sleep(5)
+        local next_dance = function(inviter, invitee, corner)
+          inviter = ch[inviter]
+          invitee = ch[invitee]
+          corner = State.rails.runner.positions[corner]
+
+          async.sleep(Random.float(0, .3))
+          local promise, scene = dance(inviter, invitee, corner, 20)
+          table.insert(self.final_dancing_scenes, scene)
+          return promise
+        end
+
+        next_dance("green_priest", "girl_1", "dance_1")
+        next_dance("thrower_4", "girl_2", "dance_2")
+        next_dance("extra_dancer", "girl_3", "dance_3")
+        next_dance("thrower_5", "thrower_3", "dance_4")
+        next_dance("thrower_2", "thrower_1", "dance_5")
+        sp:lines()
+        async.sleep(5)
       sp:finish()
     end,
   },
