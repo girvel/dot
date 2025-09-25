@@ -217,6 +217,21 @@ return {
         )
         sp:lines()
         fruits:await()
+
+        local human_sac = State.rails.runner:run_task(function()
+          for _, target in ipairs {"boy_1", "boy_2", "boy_3"} do
+            api.travel_scripted(ch.green_priest, ch[target].position):await()
+            async.sleep(.5)
+            ch.green_priest:animate("interact")
+            async.sleep(.3)
+            ch[target]:animate("lying")
+            coroutine.yield()
+            ch[target]:animation_set_paused(true)
+            async.sleep(1)
+          end
+        end)
+        sp:lines()
+        human_sac:await()
       sp:finish()
     end,
   },
