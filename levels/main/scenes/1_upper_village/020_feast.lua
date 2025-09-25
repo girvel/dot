@@ -39,14 +39,18 @@ local dance = function(inviter, invitee, left_corner, passes_n)
       actions.move(Vector.right):act(invitee)
       actions.move(Vector.right):act(inviter)
       invitee:rotate(Vector.left)
-      invitee:animate("move")
+      invitee:animate("move"):await()
+      invitee:animate("hand_attack")
+      inviter:animate("offhand_attack")
 
       sec = math.floor(love.timer.getTime())
       while love.timer.getTime() - sec < 1 do coroutine.yield() end
       actions.move(Vector.left):act(inviter)
       actions.move(Vector.left):act(invitee)
       inviter:rotate(Vector.right)
-      inviter:animate("move")
+      inviter:animate("move"):await()
+      invitee:animate("offhand_attack")
+      inviter:animate("hand_attack"):await()
     end
   end)
 end
@@ -130,7 +134,7 @@ return {
           api.rotate(ch.green_priest, ch[receiver_name])
           async.sleep(.2)
           api.rotate(ch[receiver_name], ch.green_priest)
-          async.sleep(.3)
+          ch.green_priest:animate("hand_attack", true):await()
         end
 
         local priest_task = State.rails.runner:run_task(function()
@@ -163,11 +167,11 @@ return {
         async.sleep(.5)
 
         local snowballs = Promise.all(
-          throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1, 3),
-          throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2, 3),
-          throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3, 3),
-          throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4, 3),
-          throw_snow(ch.thrower_5, State.rails.runner.positions.feast_throw_5, 3)
+          throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1, math.random(2, 3)),
+          throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2, math.random(2, 3)),
+          throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3, math.random(2, 3)),
+          throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4, math.random(2, 3)),
+          throw_snow(ch.thrower_5, State.rails.runner.positions.feast_throw_5, math.random(2, 3))
         )
         sp:lines()
         snowballs:await()
@@ -181,9 +185,11 @@ return {
 
             api.travel_scripted(guy, fruit_pos):await()
             api.rotate(guy, fruit_pos)
+            guy:animate("hand_attack")
             async.sleep(2)
-            api.travel_scripted(guy, sac_pos)
+            api.travel_scripted(guy, sac_pos):await()
             api.rotate(guy, State.rails.runner.positions.feast_pyre)
+            guy:animate("hand_attack"):await()
           end)
         end
 
