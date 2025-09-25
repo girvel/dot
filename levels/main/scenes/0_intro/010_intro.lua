@@ -74,17 +74,9 @@ return {
         api.wait(2)
 
         sp:lines()
-        Runner.locked_entities[ch.player] = nil
 
-        State.quests.items.feast = {
-          name = sp:literal(),
-          objectives = {
-            {status = "new", text = sp:literal()},
-            {status = "new", text = sp:literal()},
-          },
-        }
-        api.journal_update()
         State.rails:location_upper_village()
+        State.rails:feast_start()
       sp:finish()
     end,
   },

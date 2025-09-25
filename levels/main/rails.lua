@@ -1,3 +1,4 @@
+local api = require "engine.tech.api"
 local rails = {}
 
 --- @alias rails_location "0_intro"|"1_upper_village"?
@@ -5,6 +6,7 @@ local rails = {}
 --- @class rails
 --- @field runner rails_runner
 --- @field location rails_location
+--- @field feast "started"|"weapon_found"|"return_weapon"|"ceremony"
 local methods = {}
 local mt = {__index = methods}
 
@@ -13,7 +15,6 @@ local mt = {__index = methods}
 rails.new = function(runner)
   return setmetatable({
     runner = runner,
-    location = nil,
   }, mt)
 end
 
@@ -53,12 +54,39 @@ end
 
 --- @param forced boolean?
 methods.location_intro = function(self, forced)
+  api.autosave("Начало")
   self:_location_transition("0_intro", forced)
 end
 
 --- @param forced boolean?
 methods.location_upper_village = function(self, forced)
+  api.autosave("Церемония")
   self:_location_transition("1_upper_village", forced)
+end
+
+local feast_base = {
+  name = "Празднование",
+  objectives = {
+    {status = "new", text = "Взять оружие"},
+    {status = "new", text = "Присоединиться к церемонии"},
+  },
+}
+
+methods.feast_start = function(self)
+  self.feast = "started"
+  State.quests.items.feast = feast_base
+  api.journal_update("new_task")
+end
+
+--- @param forced boolean?
+methods.feast_weapon_found = function(self, forced)
+  if forced then
+    State.quests.items.feast = feast_base
+  else
+    assert(self.feast == "started")
+  end
+  State.quests.items.feast.objectives[1].status = "done"
+  api.journal_update("task_completed")
 end
 
 Ldump.mark(rails, {}, ...)

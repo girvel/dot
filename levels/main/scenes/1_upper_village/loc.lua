@@ -1,5 +1,6 @@
 local iteration = require("engine.tech.iteration")
 local items_entities = require "levels.main.palette.items_entities"
+local api            = require "engine.tech.api"
 
 
 return {
@@ -24,6 +25,25 @@ return {
       end
 
       State:add(items_entities.knife(), {position = placement, grid_layer = "items"})
+    end,
+  },
+
+  weapon_found = {
+    enabled = true,
+
+    --- @param self scene|table
+    --- @param dt number
+    --- @param ch rails_characters
+    start_predicate = function(self, dt, ch)
+      local hand = State.player.inventory.hand
+      local offhand = State.player.inventory.offhand
+      return hand and hand.damage_roll or offhand and offhand.damage_roll
+    end,
+
+    --- @param self scene|table
+    --- @param ch rails_characters
+    run = function(self, ch)
+      State.rails:feast_weapon_found()
     end,
   },
 }
