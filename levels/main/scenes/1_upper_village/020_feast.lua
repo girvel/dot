@@ -77,12 +77,12 @@ local throw_snow = function(thrower, position, repetitions_n)
     thrower:rotate((pyre_position - position):normalized2())
 
     for _ = 1, repetitions_n do
-      async.sleep(.3)
+      async.sleep(Random.float(0, .6))
       local snowball = State:add(snowball_new())
       thrower.inventory.hand = snowball
       local projectile_task
       thrower:animate("throw", true):next(function()
-        projectile_task = projectile.launch(thrower, "hand", pyre_position, 14)
+        projectile_task = projectile.launch(thrower, "hand", pyre_position, Random.float(10, 16))
       end):await()
       projectile_task:await()
     end
@@ -148,14 +148,15 @@ return {
         ):next(function() ch.green_priest:rotate(Vector.up) end)
 
         local dancing = Promise.all(
-          dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10),
-          dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10),
-          dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 10)
+          dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 7),
+          dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 7),
+          dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 6)
         )
         sp:lines()
 
         priest_task:await()
 
+        async.sleep(4)
         priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest, 1)
         sp:lines()
         priest_task:await()
@@ -170,8 +171,29 @@ return {
         )
         sp:lines()
         snowballs:await()
-
         dancing:await()
+
+        local sac_fruit = function(ch_name, fruit_pos, sac_pos)
+          return State.rails.runner:run_task(function()
+            local guy = ch[ch_name]
+            fruit_pos = State.rails.runner.positions[fruit_pos]
+            sac_pos = State.rails.runner.positions[sac_pos]
+
+            api.travel_scripted(guy, fruit_pos):await()
+            api.rotate(guy, fruit_pos)
+            async.sleep(2)
+            api.travel_scripted(guy, sac_pos)
+            api.rotate(guy, State.rails.runner.positions.feast_pyre)
+          end)
+        end
+
+        local fruits = Promise.all(
+          sac_fruit("boy_1", "feast_fruit_1", "feast_sac_1"),
+          sac_fruit("boy_2", "feast_fruit_2", "feast_sac_2"),
+          sac_fruit("boy_3", "feast_fruit_3", "feast_sac_3")
+        )
+        sp:lines()
+        fruits:await()
       sp:finish()
     end,
   },
