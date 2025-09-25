@@ -69,9 +69,7 @@ end
 --- @param position vector
 --- @return promise, scene
 local throw_snow = function(thrower, position)
-  local pyre_position = State.rails.runner.positions[
-    Random.choice({"feast_pyre_1", "feast_pyre_2"})
-  ]
+  local pyre_position = State.rails.runner.positions.feast_pyre + V(.5, -.25)
 
   return State.rails.runner:run_task(function()
     api.travel_scripted(thrower, position):await()
@@ -82,8 +80,7 @@ local throw_snow = function(thrower, position)
     local snowball = State:add(snowball_new())
     thrower.inventory.hand = snowball
     thrower:animate("throw", true):next(function()
-      thrower.inventory.hand = nil
-      projectile.launch(thrower, snowball, pyre_position, 12)
+      projectile.launch(thrower, "hand", pyre_position, 8)
     end):await()
   end)
 end

@@ -4,6 +4,8 @@ local async = require("engine.tech.async")
 local sound = require "engine.tech.sound"
 local health = require("engine.mech.health")
 local tcod   = require("engine.tech.tcod")
+local item   = require("engine.tech.item")
+local items_entities = require("levels.main.palette.items_entities")
 
 
 return {
@@ -81,6 +83,7 @@ return {
     run = function(self)
       State.rails:location_upper_village(true)
       level.unsafe_move(State.player, State.rails.runner.positions.cp1)
+      item.give(State.player, State:add(items_entities.short_bow()))
     end,
   },
 }
