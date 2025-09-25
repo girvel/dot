@@ -76,7 +76,7 @@ local throw_snow = function(thrower, position)
     local snowball = State:add(snowball_new())
     thrower.inventory.hand = snowball
     thrower:animate("throw", true):next(function()
-      projectile.launch(thrower, "hand", pyre_position, 8)
+      projectile.launch(thrower, "hand", pyre_position, 14)
     end):await()
   end)
 end
@@ -94,6 +94,11 @@ return {
       girl_1 = {},
       girl_2 = {},
       girl_3 = {},
+      thrower_1 = {},
+      thrower_2 = {},
+      thrower_3 = {},
+      thrower_4 = {},
+      thrower_5 = {},
     },
 
     --- @param self scene
@@ -144,6 +149,15 @@ return {
         priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest)
         sp:lines()
         priest_task:await()
+        async.sleep(.5)
+
+        local snow_1 = throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1)
+        local snow_2 = throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2)
+        local snow_3 = throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3)
+        local snow_4 = throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4) sp:lines() snow_1:await()
+        snow_2:await()
+        snow_3:await()
+        snow_4:await()
 
         -- NEXT more snowballs
 
