@@ -14,6 +14,8 @@ local item       = require "engine.tech.item"
 --- @param passes_n integer
 --- @return promise, scene
 local dance = function(inviter, invitee, left_corner, passes_n)
+  -- really not a strict implementation of the simplistic idea I had in mind
+  -- but this looks even better
   return State.rails.runner:run_task(function()
     api.travel_scripted(inviter, invitee.position):await()
     api.rotate(inviter, invitee)
@@ -21,25 +23,17 @@ local dance = function(inviter, invitee, left_corner, passes_n)
     api.rotate(invitee, inviter)
     async.sleep(1)
 
-    do
+    for _ = 1, passes_n do
+      -- both stabilization & traveling to the starting positions
       local t1 = api.travel_scripted(inviter, left_corner)
       local t2 = api.travel_scripted(invitee, left_corner + Vector.right)
 
       t1:await()
       t2:await()
 
-      -- two moving people, sometimes one stops one cell short,
-      -- thinking the other one is an immovable solid
-      level.unsafe_move(inviter, left_corner)
-      level.unsafe_move(invitee, left_corner + Vector.right)
-
       api.rotate(inviter, invitee)
       api.rotate(invitee, inviter)
-    end
 
-    for _ = 1, passes_n do
-      -- TODO more complex dance
-      -- TODO stabilize invitee/inviter positions on the beginning of each pass
       local sec = math.floor(love.timer.getTime())
       while love.timer.getTime() - sec < 1 do coroutine.yield() end
       actions.move(Vector.right):act(invitee)
@@ -140,20 +134,22 @@ return {
           ch.green_priest, State.rails.runner.positions.feast_green_priest
         ):next(function() ch.green_priest:rotate(Vector.up) end)
 
-        local task_1 = dance(ch.girl_2, ch.boy_1, State.rails.runner.positions.dance_1, 4)
-        local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 4)
-        local task_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 4)
+        local dance_1 = dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10)
+        local dance_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10)
+        local dance_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 10)
         sp:lines()
-        task_1:await()
-        task_2:await()
-        task_3:await()
 
         priest_task:await()
 
         priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest)
         sp:lines()
         priest_task:await()
-        async.sleep(5)
+
+        -- NEXT more snowballs
+
+        dance_1:await()
+        dance_2:await()
+        dance_3:await()
       sp:finish()
     end,
   },
