@@ -13,7 +13,7 @@ _common.water = function(velocity)
       boring_flag = true,
       water_velocity = velocity,
       shader = shaders.water("assets/sprites/palette.png", 39),
-    }, animated.mixin("assets/sprites/animations/water"))
+    }, animated.mixin("assets/sprites/animations/water", 1))
 
     return result
   end
