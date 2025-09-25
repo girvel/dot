@@ -39,12 +39,14 @@ local dance = function(inviter, invitee, left_corner, passes_n)
       actions.move(Vector.right):act(invitee)
       actions.move(Vector.right):act(inviter)
       invitee:rotate(Vector.left)
+      invitee:animate("move")
 
       sec = math.floor(love.timer.getTime())
       while love.timer.getTime() - sec < 1 do coroutine.yield() end
       actions.move(Vector.left):act(inviter)
       actions.move(Vector.left):act(invitee)
       inviter:rotate(Vector.right)
+      inviter:animate("move")
     end
   end)
 end
