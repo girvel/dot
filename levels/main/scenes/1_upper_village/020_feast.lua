@@ -63,21 +63,27 @@ end
 
 --- @param thrower entity
 --- @param position vector
+--- @param repetitions_n integer
 --- @return promise, scene
-local throw_snow = function(thrower, position)
-  local pyre_position = State.rails.runner.positions.feast_pyre + V(.5, -.25)
+local throw_snow = function(thrower, position, repetitions_n)
+  local pyre_position = State.rails.runner.positions.feast_pyre
+    + V(.5 + Random.float(-0.125, 0.125), -.25 + Random.float(-0.125, 0.125))
 
   return State.rails.runner:run_task(function()
     api.travel_scripted(thrower, position):await()
     async.sleep(.2)
     thrower:rotate((pyre_position - position):normalized2())
-    async.sleep(.3)
 
-    local snowball = State:add(snowball_new())
-    thrower.inventory.hand = snowball
-    thrower:animate("throw", true):next(function()
-      projectile.launch(thrower, "hand", pyre_position, 14)
-    end):await()
+    for _ = 1, repetitions_n do
+      async.sleep(.3)
+      local snowball = State:add(snowball_new())
+      thrower.inventory.hand = snowball
+      local projectile_task
+      thrower:animate("throw", true):next(function()
+        projectile_task = projectile.launch(thrower, "hand", pyre_position, 14)
+      end):await()
+      projectile_task:await()
+    end
   end)
 end
 
@@ -148,21 +154,20 @@ return {
 
         priest_task:await()
 
-        priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest)
+        priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest, 1)
         sp:lines()
         priest_task:await()
         async.sleep(.5)
 
         local snowballs = Promise.all(
-          throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1),
-          throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2),
-          throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3),
-          throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4),
-          throw_snow(ch.thrower_5, State.rails.runner.positions.feast_throw_5)
+          throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1, 3),
+          throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2, 3),
+          throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3, 3),
+          throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4, 3),
+          throw_snow(ch.thrower_5, State.rails.runner.positions.feast_throw_5, 3)
         )
+        sp:lines()
         snowballs:await()
-
-        -- NEXT more snowballs
 
         dancing:await()
       sp:finish()
