@@ -13,6 +13,9 @@ local api        = require "engine.tech.api"
 local dance = function(inviter, invitee, left_corner, passes_n)
   return State.rails.runner:run_task(function()
     api.travel_scripted(inviter, invitee.position):await()
+    api.rotate(inviter, invitee)
+    async.sleep(.3)
+    api.rotate(invitee, inviter)
     async.sleep(1)
 
     do
@@ -32,14 +35,16 @@ local dance = function(inviter, invitee, left_corner, passes_n)
     end
 
     for _ = 1, passes_n do
-      -- NEXT! sync dances
-      -- NEXT! more complex dance
-      async.sleep(1)
+      -- TODO more complex dance
+      -- TODO stabilize invitee/inviter positions on the beginning of each pass
+      local sec = math.floor(love.timer.getTime())
+      while love.timer.getTime() - sec < 1 do coroutine.yield() end
       actions.move(Vector.right):act(invitee)
       actions.move(Vector.right):act(inviter)
       invitee:rotate(Vector.left)
 
-      async.sleep(1)
+      sec = math.floor(love.timer.getTime())
+      while love.timer.getTime() - sec < 1 do coroutine.yield() end
       actions.move(Vector.left):act(inviter)
       actions.move(Vector.left):act(invitee)
       inviter:rotate(Vector.right)
@@ -80,15 +85,24 @@ return {
 
         sp:lines()
 
+        local give_fruit = function(receiver_name)
+          api.travel_scripted(ch.green_priest, ch[receiver_name].position):await()
+          api.rotate(ch.green_priest, ch[receiver_name])
+          async.sleep(.2)
+          api.rotate(ch[receiver_name], ch.green_priest)
+          async.sleep(.3)
+        end
+
         local task = State.rails.runner:run_task(function()
-          api.travel_scripted(ch.green_priest, ch.boy_1.position):await()
-          api.travel_scripted(ch.green_priest, ch.boy_2.position):await()
-          api.travel_scripted(ch.green_priest, ch.boy_3.position):await()
+          give_fruit("boy_1")
+          give_fruit("boy_2")
+          give_fruit("boy_3")
         end)
         sp:lines()
         task:await()
 
         task = api.travel_scripted(ch.green_priest, State.rails.runner.positions.green_priest_feast)
+          :next(function() ch.green_priest:rotate(Vector.up) end)
 
         local task_1 = dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 10)
         local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 10)
@@ -97,6 +111,8 @@ return {
         task_1:await()
         task_2:await()
         task_3:await()
+
+        task:await()
       sp:finish()
     end,
   },
