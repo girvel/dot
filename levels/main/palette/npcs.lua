@@ -22,7 +22,7 @@ npcs.ai_tester = function(faction)
       offhand = items.short_bow(),
     },
     max_hp = 30,
-    faction = faction,
+    faction = faction or State.uid:next(),
   })
 
   creature.init(result)
@@ -44,6 +44,7 @@ npcs.khaned = function()
     perks = {
       fighter.hit_dice,
     },
+    essential_flag = true,
     -- TODO perks
   })
 
@@ -66,6 +67,7 @@ npcs.likka = function()
     perks = {
       rogue.hit_dice,
     },
+    essential_flag = true,
     -- TODO perks
   })
 
@@ -86,6 +88,7 @@ npcs.villager = function()
       class.hit_dice(8),
     },
     direction = Random.choice(Vector.directions),
+    essential_flag = true,
   })
 end
 
@@ -103,6 +106,7 @@ npcs.red_priest = function()
     perks = {
       class.hit_dice(8),
     },
+    essential_flag = true,
   })
 end
 
@@ -120,6 +124,7 @@ npcs.green_priest = function()
     perks = {
       class.hit_dice(8),
     },
+    essential_flag = true,
   })
 end
 
@@ -139,6 +144,7 @@ npcs.invader = function()
     perks = {  -- TODO
       class.hit_dice(8),
     },
+    essential_flag = true,
   })
 
   creature.init(result)
