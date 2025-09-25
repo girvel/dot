@@ -134,7 +134,7 @@ return {
           api.rotate(ch.green_priest, ch[receiver_name])
           async.sleep(.2)
           api.rotate(ch[receiver_name], ch.green_priest)
-          ch.green_priest:animate("hand_attack", true):await()
+          ch.green_priest:animate("interact", true):await()
         end
 
         local priest_task = State.rails.runner:run_task(function()
@@ -185,11 +185,11 @@ return {
 
             api.travel_scripted(guy, fruit_pos):await()
             api.rotate(guy, fruit_pos)
-            guy:animate("hand_attack")
+            guy:animate("interact")
             async.sleep(2)
             api.travel_scripted(guy, sac_pos):await()
             api.rotate(guy, State.rails.runner.positions.feast_pyre)
-            guy:animate("hand_attack"):await()
+            guy:animate("interact"):await()
           end)
         end
 
