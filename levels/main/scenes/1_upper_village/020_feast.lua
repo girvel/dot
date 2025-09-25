@@ -114,11 +114,9 @@ return {
     --- @param ch rails_characters
     run = function(self, ch)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
-        api.travel_scripted(ch.player, State.rails.runner.positions.feast_observe):await()
+        api.travel_scripted(ch.player, State.rails.runner.positions.feast_observe)
         ch.player:rotate(Vector.down)
-        api.move_camera(State.rails.runner.positions.feast_camera)
-
-        sp:lines()
+        api.move_camera(State.rails.runner.positions.feast_camera):await()
 
         local give_fruit = function(receiver_name)
           api.travel_scripted(ch.green_priest, ch[receiver_name].position):await()
@@ -128,25 +126,27 @@ return {
           async.sleep(.3)
         end
 
-        -- local priest_task = State.rails.runner:run_task(function()
-        --   give_fruit("boy_1")
-        --   give_fruit("boy_2")
-        --   give_fruit("boy_3")
-        -- end)
+        local priest_task = State.rails.runner:run_task(function()
+          give_fruit("boy_1")
+          give_fruit("boy_2")
+          give_fruit("boy_3")
+        end)
+
+        sp:lines()  -- don't wait for narration to start priest movement
         sp:lines()
-        --priest_task:await()
+        priest_task:await()
 
         priest_task = api.travel_scripted(
           ch.green_priest, State.rails.runner.positions.feast_green_priest
         ):next(function() ch.green_priest:rotate(Vector.up) end)
 
-        -- local task_1 = dance(ch.girl_2, ch.boy_1, State.rails.runner.positions.dance_1, 4)
-        -- local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 4)
-        -- local task_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 4)
+        local task_1 = dance(ch.girl_2, ch.boy_1, State.rails.runner.positions.dance_1, 4)
+        local task_2 = dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 4)
+        local task_3 = dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 4)
         sp:lines()
-        -- task_1:await()
-        -- task_2:await()
-        -- task_3:await()
+        task_1:await()
+        task_2:await()
+        task_3:await()
 
         priest_task:await()
 
