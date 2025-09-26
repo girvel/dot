@@ -1,9 +1,18 @@
+local async = require("engine.tech.async")
 local actions = require("engine.mech.actions")
 local health = require("engine.mech.health")
 local level = require("engine.tech.level")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
 
+
+local CROWD = {
+  "boy_1", "boy_2", "boy_3",
+  "girl_1", "girl_2", "girl_3",
+  "thrower_1", "thrower_2", "thrower_3", "thrower_4", "thrower_5",
+  "watcher_1", "watcher_2", "watcher_3", "watcher_4",
+  "extra_dancer", "green_priest",
+}
 
 return {
   --- @type scene|table
@@ -76,13 +85,7 @@ return {
 
         ch.red_priest:rotate(Vector.right)
         ch.khaned:rotate(Vector.down)
-        for _, name in ipairs {
-          "boy_1", "boy_2", "boy_3",
-          "girl_1", "girl_2", "girl_3",
-          "thrower_1", "thrower_2", "thrower_3", "thrower_4", "thrower_5",
-          "watcher_1", "watcher_2", "watcher_3", "watcher_4",
-          "extra_dancer", "green_priest",
-        } do
+        for _, name in ipairs(CROWD) do
           local e = Runner.entities[name]
           if State:exists(e) then
             State.rails.runner:run_task(function()
@@ -118,7 +121,7 @@ return {
           end
         sp:finish_branches()
 
-        ch.red_priest:rotate(Vector.left)
+        api.rotate(ch.red_priest, ch.khaned)
         sp:lines()
 
         local n = api.options(sp:start_options())
@@ -142,7 +145,18 @@ return {
         sp:lines()
 
         ch.red_priest:animate("gesture"):await()
-        -- NEXT claps, fast_gestures
+        for _, name in ipairs(CROWD) do
+          local e = Runner.entities[name]
+          if State:exists(e) and Random.chance(.8) then
+            local animation_name = Random.choice({"fast_gesture", "clap"})
+            Runner:run_task(function()
+              for _ = 1, 6 do
+                async.sleep(Random.float(0, .2))
+                e:animate(animation_name):await()
+              end
+            end)
+          end
+        end
         sp:lines()
 
         local priest_giving = Runner:run_task(function()
@@ -154,16 +168,16 @@ return {
             api.travel_scripted(ch.red_priest, ch[target].position):await()
             ch.red_priest:animate("interact"):await()
           end
-          api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+          api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest):await()
           api.rotate(ch.red_priest, ch.khaned)
         end)
         sp:lines()
         priest_giving:await()
 
-        -- NEXT animate clap
+        ch.red_priest:animate("clap", true):await()
         sp:lines()
 
-        -- NEXT animate bow
+        async.sleep(1)
         local _, khaned_leaving_scene = api.travel_scripted(ch.khaned, Runner.positions.gtf_khaned)
         sp:lines()
 

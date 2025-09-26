@@ -12,11 +12,20 @@ local item       = require "engine.tech.item"
 --- @param invitee entity
 --- @param left_corner vector
 --- @param passes_n integer
+--- @param applause? boolean
 --- @return promise, scene
-local dance = function(inviter, invitee, left_corner, passes_n)
+local dance = function(inviter, invitee, left_corner, passes_n, applause)
   -- really not a strict implementation of the simplistic idea I had in mind
   -- but this looks even better
   return State.rails.runner:run_task(function()
+    if applause then
+      for _ = 1, math.random(2, 3) do
+        async.sleep(Random.float(0, .2))
+        inviter:animate("clap")
+        invitee:animate("clap"):await()
+      end
+    end
+
     api.travel_scripted(inviter, invitee.position):await()
     api.rotate(inviter, invitee)
     async.sleep(.3)
@@ -243,7 +252,7 @@ return {
           corner = State.rails.runner.positions[corner]
 
           async.sleep(Random.float(0, .3))
-          local promise, scene = dance(inviter, invitee, corner, 20)
+          local promise, scene = dance(inviter, invitee, corner, 20, true)
           table.insert(self.final_dancing_scenes, scene)
           return promise
         end
