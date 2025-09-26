@@ -172,15 +172,24 @@ return {
           ch.ceremony_food = nil
           for _, target in ipairs {"player", "likka", "khaned"} do
             api.travel_scripted(ch.red_priest, ch[target].position):await()
+            api.rotate(ch[target], ch.red_priest)
             ch.red_priest:animate("interact"):await()
           end
-          api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest):await()
+          local t = api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+          async.sleep(.1)
+          ch.khaned:rotate(Vector.down)
+          async.sleep(.2)
+          ch.likka:rotate(Vector.down)
+          async.sleep(.1)
+          ch.player:rotate(Vector.down)
+          t:await()
           api.rotate(ch.red_priest, ch.khaned)
         end)
         sp:lines()
         priest_giving:await()
 
-        ch.red_priest:animate("clap", true):await()
+        async.sleep(.5)
+        ch.red_priest:animate("clap", true)
         sp:lines()
 
         async.sleep(1)
@@ -192,11 +201,12 @@ return {
         sp:lines()
         player_moving:await()
 
-        api.travel_scripted(ch.player, Runner.positions.ceremony_player_away_2)
+        player_moving = api.travel_scripted(ch.player, Runner.positions.ceremony_player_away_2)
+        api.free_camera()
         api.fade_out()
+        player_moving:await()
         Runner:remove(khaned_leaving_scene)
         Runner:remove(likka_leaving_scene)
-        api.free_camera()
       sp:finish()
       Runner.scenes._040_going_to_forest:run(ch)
     end,
