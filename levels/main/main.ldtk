@@ -7891,6 +7891,107 @@
 							}] }],
 							"__worldX": 2288,
 							"__worldY": 624
+						},
+						{
+							"__identifier": "position",
+							"__grid": [12,39],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "675c1090-8560-11f0-85da-21817eb33573",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [192,624],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "gtf_khaned", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["gtf_khaned"]
+							}] }],
+							"__worldX": 1648,
+							"__worldY": 624
+						},
+						{
+							"__identifier": "position",
+							"__grid": [14,40],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "c5f23cb0-8560-11f0-85da-cdff57fcfede",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [224,640],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "gtf_likka", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["gtf_likka"]
+							}] }],
+							"__worldX": 1680,
+							"__worldY": 640
+						},
+						{
+							"__identifier": "position",
+							"__grid": [38,39],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "cca2e230-8560-11f0-85da-81e702cdba0a",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [608,624],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_player_away", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ceremony_player_away"]
+							}] }],
+							"__worldX": 2064,
+							"__worldY": 624
+						},
+						{
+							"__identifier": "position",
+							"__grid": [34,39],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "1c7c2af0-8560-11f0-85da-6d09d8009423",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [544,624],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_player_away_2", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ceremony_player_away_2"]
+							}] }],
+							"__worldX": 2000,
+							"__worldY": 624
+						},
+						{
+							"__identifier": "entity_capture",
+							"__grid": [39,37],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 48, "w": 16, "h": 16 },
+							"__smartColor": "#733E39",
+							"iid": "25f0a400-8560-11f0-85da-77eb91b1979b",
+							"width": 16,
+							"height": 16,
+							"defUid": 105,
+							"px": [624,592],
+							"fieldInstances": [
+								{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_food", "__tile": null, "defUid": 106, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["ceremony_food"]
+								}] },
+								{ "__identifier": "layer", "__type": "LocalEnum.Layers", "__value": "on_solids", "__tile": null, "defUid": 107, "realEditorValues": [{
+									"id": "V_String",
+									"params": ["on_solids"]
+								}] }
+							],
+							"__worldX": 2080,
+							"__worldY": 592
 						}
 					]
 				},

@@ -1,3 +1,5 @@
+local actions = require("engine.mech.actions")
+local health = require("engine.mech.health")
 local level = require("engine.tech.level")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
@@ -14,6 +16,7 @@ return {
       khaned = {},
       likka = {},
       red_priest = {},
+      ceremony_food = {},
     },
 
     --- @param self scene|table
@@ -71,6 +74,8 @@ return {
         end
         feast_scene.enabled = nil
 
+        ch.red_priest:rotate(Vector.right)
+        ch.khaned:rotate(Vector.down)
         for _, name in ipairs {
           "boy_1", "boy_2", "boy_3",
           "girl_1", "girl_2", "girl_3",
@@ -88,11 +93,92 @@ return {
         end
 
         api.move_camera(ch.likka.position)
+        api.rotate(ch.likka, ch.player)
+        sp:lines()
+        api.rotate(ch.likka, ch.red_priest)
+
+        api.move_camera(ch.red_priest.position)
+        api.travel_scripted(ch.player, Runner.positions.ceremony_player):await()
+        api.rotate(ch.player, ch.red_priest)
+
         sp:lines()
 
+        sp:start_branches()
+          if ch.player:ability_check("religion", 16) then
+            -- SOUND ominous 1
+            sp:start_branch(1)
+              sp:lines()
+            sp:finish_branch()
+          end
+          if ch.player:ability_check("perception", 16) then
+            -- SOUND ominous 2
+            sp:start_branch(2)
+              sp:lines()
+            sp:finish_branch()
+          end
+        sp:finish_branches()
+
+        ch.red_priest:rotate(Vector.left)
+        sp:lines()
+
+        local n = api.options(sp:start_options())
+          if n == 1 or n == 3 then
+            sp:start_option(1)
+              api.travel_scripted(ch.khaned, ch.player.position):await()
+              api.rotate(ch.khaned, ch.player)
+              ch.khaned:animate("offhand_attack"):await()
+              health.damage(ch.player, 1)
+
+              sp:lines()
+              api.options(sp:start_options())
+              sp:finish_options()
+
+              api.rotate(ch.khaned, ch.red_priest)
+            sp:finish_option()
+          end
+        sp:finish_options()
+
+        api.rotate(ch.red_priest, ch.khaned)
+        sp:lines()
+
+        ch.red_priest:animate("gesture"):await()
+        -- NEXT claps, fast_gestures
+        sp:lines()
+
+        local priest_giving = Runner:run_task(function()
+          api.travel_scripted(ch.red_priest, ch.ceremony_food.position):await()
+          ch.red_priest:animate("interact"):await()
+          State:remove(ch.ceremony_food)
+          ch.ceremony_food = nil
+          for _, target in ipairs {"player", "likka", "khaned"} do
+            api.travel_scripted(ch.red_priest, ch[target].position):await()
+            ch.red_priest:animate("interact"):await()
+          end
+          api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+          api.rotate(ch.red_priest, ch.khaned)
+        end)
+        sp:lines()
+        priest_giving:await()
+
+        -- NEXT animate clap
+        sp:lines()
+
+        -- NEXT animate bow
+        local _, khaned_leaving_scene = api.travel_scripted(ch.khaned, Runner.positions.gtf_khaned)
+        sp:lines()
+
+        local _, likka_leaving_scene = api.travel_scripted(ch.likka, Runner.positions.gtf_likka)
+        local player_moving = api.travel_scripted(ch.player, Runner.positions.ceremony_player_away)
+        sp:lines()
+        player_moving:await()
+
+        api.travel_scripted(ch.player, Runner.positions.ceremony_player_away_2)
+        api.fade_out()
+        Runner:remove(khaned_leaving_scene)
+        Runner:remove(likka_leaving_scene)
         api.free_camera()
-        api.travel_scripted(ch.player, Runner.positions.ceremony_player)
       sp:finish()
+      Runner.scenes._040_going_to_forest:run(ch)
     end,
   },
 }
