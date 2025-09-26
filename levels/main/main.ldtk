@@ -7265,9 +7265,9 @@
 							"height": 16,
 							"defUid": 108,
 							"px": [736,608],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "player_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_player", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["player_feast"]
+								"params": ["ceremony_player"]
 							}] }],
 							"__worldX": 2192,
 							"__worldY": 608
@@ -7872,6 +7872,25 @@
 							}] }],
 							"__worldX": 2144,
 							"__worldY": 560
+						},
+						{
+							"__identifier": "position",
+							"__grid": [52,39],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "ed4ff640-8560-11f0-85da-cd1604be42dc",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [832,624],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_crowd", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ceremony_crowd"]
+							}] }],
+							"__worldX": 2288,
+							"__worldY": 624
 						}
 					]
 				},

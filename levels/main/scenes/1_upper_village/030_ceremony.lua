@@ -43,7 +43,9 @@ return {
         end
 
         sp:start_branches()
-        if ch.player.inventory.hand.bonus or ch.player.inventory.offhand.bonus then
+        local hand = ch.player.inventory.hand
+        local offhand = ch.player.inventory.offhand
+        if hand and hand.bonus or offhand and offhand.bonus then
           api.move_camera(ch.khaned.position):await()
           if self._first_time then
             sp:start_branch(1)
@@ -62,6 +64,34 @@ return {
         end
         sp:finish_branches()
         self.enabled = nil
+
+        local feast_scene = Runner.scenes._020_feast
+        for _, scene in ipairs(feast_scene.final_dancing_scenes) do
+          Runner:remove(scene)
+        end
+        feast_scene.enabled = nil
+
+        for _, name in ipairs {
+          "boy_1", "boy_2", "boy_3",
+          "girl_1", "girl_2", "girl_3",
+          "thrower_1", "thrower_2", "thrower_3", "thrower_4", "thrower_5",
+          "watcher_1", "watcher_2", "watcher_3", "watcher_4",
+          "extra_dancer", "green_priest",
+        } do
+          local e = Runner.entities[name]
+          if State:exists(e) then
+            State.rails.runner:run_task(function()
+              api.travel_persistent(e, Runner.positions.ceremony_crowd, 2)
+              e:rotate(Vector.left)
+            end)
+          end
+        end
+
+        api.move_camera(ch.likka.position)
+        sp:lines()
+
+        api.free_camera()
+        api.travel_scripted(ch.player, Runner.positions.ceremony_player)
       sp:finish()
     end,
   },
