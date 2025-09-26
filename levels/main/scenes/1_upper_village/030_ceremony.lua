@@ -41,10 +41,12 @@ return {
     --- @param ch rails_characters
     run = function(self, ch)
       local sp = screenplay.new("assets/screenplay/030_ceremony.ms", ch)
+        local did_player_come_first = false
         while ch.likka.position ~= Runner.positions.ceremony_likka
           or ch.khaned.position ~= Runner.positions.ceremony_khaned
           or ch.red_priest.position ~= Runner.positions.ceremony_red_priest
         do
+          did_player_come_first = true
           coroutine.yield()
           if Period(15, self, "start") then
             level.unsafe_move(ch.likka, Runner.positions.ceremony_likka)
@@ -95,10 +97,14 @@ return {
           end
         end
 
-        api.move_camera(ch.likka.position)
-        api.rotate(ch.likka, ch.player)
-        sp:lines()
-        api.rotate(ch.likka, ch.red_priest)
+        sp:start_single_branch()
+        if not did_player_come_first then
+          api.move_camera(ch.likka.position)
+          api.rotate(ch.likka, ch.player)
+          sp:lines()
+          api.rotate(ch.likka, ch.red_priest)
+        end
+        sp:finish_single_branch()
 
         api.move_camera(ch.red_priest.position)
         api.travel_scripted(ch.player, Runner.positions.ceremony_player):await()
