@@ -62,6 +62,11 @@ end
 methods.location_upper_village = function(self, forced)
   api.autosave("Церемония")
   self:_location_transition("1_upper_village", forced)
+  local ch = Runner.entities
+  api.travel_scripted(ch.khaned, Runner.positions.ceremony_khaned)
+  api.travel_scripted(ch.likka,  Runner.positions.ceremony_likka)
+  api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+    :next(function() ch.red_priest:rotate(Vector.up) end)
 end
 
 local feast_base = {

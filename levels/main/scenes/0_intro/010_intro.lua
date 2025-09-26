@@ -64,13 +64,11 @@ return {
         sp:lines()
         api.travel_scripted(ch.red_priest, Runner.positions.red_priest_1):await()
         sp:lines()
-        api.travel_scripted(ch.red_priest, Runner.positions.red_priest_3)
+        api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
           :next(function() ch.red_priest:rotate(Vector.up) end)
         api.wait(2)
 
         sp:lines()
-        api.travel_scripted(ch.khaned, Runner.positions.khaned_feast)
-        api.travel_scripted(ch.likka, Runner.positions.likka_feast)
         api.wait(2)
 
         sp:lines()

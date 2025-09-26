@@ -84,7 +84,7 @@ return {
       State.rails:location_upper_village(true)
       State.rails:feast_start()
       level.unsafe_move(State.player, State.rails.runner.positions.cp1)
-      item.give(State.player, State:add(items_entities.short_bow()))
+      item.give(State.player, State:add(items_entities.sword()))
     end,
   },
 }

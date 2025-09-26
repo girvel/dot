@@ -7208,9 +7208,9 @@
 							"height": 16,
 							"defUid": 108,
 							"px": [736,672],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "red_priest_3", "__tile": null, "defUid": 109, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_red_priest", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["red_priest_3"]
+								"params": ["ceremony_red_priest"]
 							}] }],
 							"__worldX": 2192,
 							"__worldY": 672
@@ -7227,9 +7227,9 @@
 							"height": 16,
 							"defUid": 108,
 							"px": [720,624],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "likka_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_likka", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["likka_feast"]
+								"params": ["ceremony_likka"]
 							}] }],
 							"__worldX": 2176,
 							"__worldY": 624
@@ -7246,9 +7246,9 @@
 							"height": 16,
 							"defUid": 108,
 							"px": [752,624],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "khaned_feast", "__tile": null, "defUid": 109, "realEditorValues": [{
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_khaned", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
-								"params": ["khaned_feast"]
+								"params": ["ceremony_khaned"]
 							}] }],
 							"__worldX": 2208,
 							"__worldY": 624
@@ -7853,6 +7853,25 @@
 							}] }],
 							"__worldX": 2368,
 							"__worldY": 608
+						},
+						{
+							"__identifier": "position",
+							"__grid": [43,35],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "c5bd6120-8560-11f0-85da-8be6e34905b7",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [688,560],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "ceremony_start", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["ceremony_start"]
+							}] }],
+							"__worldX": 2144,
+							"__worldY": 560
 						}
 					]
 				},
@@ -17638,7 +17657,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1088,528],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "watcher_4", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["watcher_4"]
+							}] }],
 							"__worldX": 2544,
 							"__worldY": 528
 						},
@@ -17711,7 +17733,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [1040,528],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "watcher_3", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["watcher_3"]
+							}] }],
 							"__worldX": 2496,
 							"__worldY": 528
 						},
@@ -17784,7 +17809,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [864,624],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "watcher_1", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["watcher_1"]
+							}] }],
 							"__worldX": 2320,
 							"__worldY": 624
 						},
@@ -17857,7 +17885,10 @@
 							"height": 16,
 							"defUid": 127,
 							"px": [976,512],
-							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": null, "__tile": null, "defUid": 128, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "watcher_2", "__tile": null, "defUid": 128, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["watcher_2"]
+							}] }],
 							"__worldX": 2432,
 							"__worldY": 512
 						},
