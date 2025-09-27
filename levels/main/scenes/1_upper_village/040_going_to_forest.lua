@@ -7,22 +7,6 @@ local screenplay = require("engine.tech.screenplay")
 
 return {
   --- @type scene|table
-  _040_fetch_snow = {
-    enabled = true,
-
-    --- @param self scene|table
-    --- @param dt number
-    start_predicate = function(self, dt)
-      return true
-    end,
-
-    --- @param self scene|table
-    run = function(self)
-      self.snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
-    end,
-  },
-
-  --- @type scene|table
   _040_going_to_forest = {
     characters = {
       player = {},
@@ -90,19 +74,8 @@ return {
         sp:lines()
         curtain:await()
 
+        State.rails:winter_end()
         curtain = api.curtain(5, transparent)
-        for _, e in ipairs(Runner.scenes._040_fetch_snow.snow) do
-          State:add(e, {life_time = Random.float(0, 30)})
-        end
-        local start = ps.create_water_start
-        local finish = ps.create_water_finish
-        for x = start.x, finish.x do
-          for y = start.y, finish.y do
-            if not State.grids.solids:unsafe_get(x, y) then
-              State:add(solids_entities.water(), {position = V(x, y), grid_layer = "solids"})
-            end
-          end
-        end
         curtain:await()
 
         sp:lines()

@@ -1,4 +1,6 @@
+local solids_entities = require("levels.main.palette.solids_entities")
 local api = require "engine.tech.api"
+local winter = require "engine.tech.shaders.winter"
 local rails = {}
 
 --- @alias rails_location "0_intro"|"1_upper_village"?
@@ -6,7 +8,8 @@ local rails = {}
 --- @class rails
 --- @field runner rails_runner
 --- @field location rails_location
---- @field feast "started"|"weapon_found"|"return_weapon"|"ceremony"
+--- @field feast "started"|"weapon_found"|"return_weapon"|"ceremony"?
+--- @field winter "initialized"|"ended"?
 local methods = {}
 local mt = {__index = methods}
 
@@ -66,6 +69,42 @@ methods.location_upper_village = function(self, forced)
   api.travel_scripted(ch.khaned, Runner.positions.ceremony_khaned)
   api.travel_scripted(ch.likka,  Runner.positions.ceremony_likka)
   api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+end
+
+local snow = {}
+
+methods.winter_init = function(self)
+  assert(self.winter == nil)
+
+  State.shader = winter
+  snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
+  self.winter = "initialized"
+
+  Log.info("Winter initialized")
+end
+
+methods.winter_end = function(self)
+  assert(self.winter == "initialized")
+
+  for _, e in ipairs(snow) do
+    State:add(e, {life_time = Random.float(0, 30)})
+  end
+
+  local ps = Runner.positions
+  local start = ps.create_water_start
+  local finish = ps.create_water_finish
+  for x = start.x, finish.x do
+    for y = start.y, finish.y do
+      if not State.grids.solids:unsafe_get(x, y) then
+        State:add(solids_entities.water(), {position = V(x, y), grid_layer = "solids"})
+      end
+    end
+  end
+
+  State.shader = nil
+  self.winter = "ended"
+
+  Log.info("Winter ends")
 end
 
 local feast_base = {
