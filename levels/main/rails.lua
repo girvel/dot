@@ -45,7 +45,7 @@ methods._location_transition = function(self, location, forced)
         and tonumber(location:sub(1, 1)) - tonumber(self.location:sub(1, 1)) == 1,
     ("Out of order transition %s -> %s"):format(self.location, location)
   )
-  Log.info("Location transition", self.location, "->", location)
+  Log.info("Location transition %s -> %s", self.location, location)
 
   if self.location then
     for _, v in pairs(scenes_by_location[self.location]) do

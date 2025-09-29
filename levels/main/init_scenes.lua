@@ -29,11 +29,11 @@ return {
         end
 
         if #misses > 0 then
-          Log.warn("Vision blocker misses:", table.concat(misses, ", "))
+          Log.warn("Vision blocker misses: %s", table.concat(misses, ", "))
         end
 
         tcod.snapshot(State.grids.solids):update_transparency()
-        Log.info("Blocked vision for", updated_n, "cells")
+        Log.info("Blocked vision for %s cells", updated_n)
       end
 
       State.quests.order = {"seekers", "feast"}
