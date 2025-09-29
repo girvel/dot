@@ -94,6 +94,10 @@ return {
 
         ft_khaned:await()
         ft_likka:await()
+
+        State.rails:location_forest()
+        State.rails:feast_end()
+        State.rails:seekers_start()
       sp:finish()
     end,
   },

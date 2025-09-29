@@ -1,15 +1,18 @@
 local solids_entities = require("levels.main.palette.solids_entities")
 local api = require "engine.tech.api"
 local winter = require "engine.tech.shaders.winter"
+
+
 local rails = {}
 
---- @alias rails_location "0_intro"|"1_upper_village"?
+--- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"?
 
 --- @class rails
 --- @field runner rails_runner
 --- @field location rails_location
---- @field feast "started"|"weapon_found"|"return_weapon"|"ceremony"?
+--- @field feast "started"|"weapon_found"|"ceremony"|"done"?
 --- @field winter "initialized"|"ended"?
+--- @field seekers "started"?
 local methods = {}
 local mt = {__index = methods}
 
@@ -65,10 +68,22 @@ end
 methods.location_upper_village = function(self, forced)
   api.autosave("Церемония")
   self:_location_transition("1_upper_village", forced)
+
   local ch = Runner.entities
   api.travel_scripted(ch.khaned, Runner.positions.ceremony_khaned)
   api.travel_scripted(ch.likka,  Runner.positions.ceremony_likka)
   api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+end
+
+--- @param forced boolean?
+methods.location_forest = function(self, forced)
+  api.autosave("Лес")
+  self:_location_transition("2_forest", forced)
+
+  local ch = Runner.entities
+  local ps = Runner.positions
+  api.assert_position(ch.khaned, ps.sk_khaned)
+  api.assert_position(ch.likka, ps.sl_likka)
 end
 
 local snow = {}
@@ -116,20 +131,39 @@ local feast_base = {
 }
 
 methods.feast_start = function(self)
+  assert(self.feast == nil)
   self.feast = "started"
   State.quests.items.feast = feast_base
   api.journal_update("new_task")
 end
 
---- @param forced boolean?
-methods.feast_weapon_found = function(self, forced)
-  if forced then
-    State.quests.items.feast = feast_base
-  else
-    assert(self.feast == "started")
+methods.feast_end = function(self)
+  assert(self.feast == "started" or self.feast == "weapon_found")
+  self.feast = "done"
+  for _, o in ipairs(State.quests.items.feast.objectives) do
+    o.status = "done"
   end
+  api.journal_update("task_completed")
+end
+
+methods.feast_weapon_found = function(self)
+  assert(self.feast == "started")
   State.quests.items.feast.objectives[1].status = "done"
   api.journal_update("task_completed")
+end
+
+local seekers_base = {
+  name = "Искатели",
+  objectives = {
+    {status = "new", text = "Найти плод дерева Акуль"},
+  },
+}
+
+methods.seekers_start = function(self)
+  assert(self.seekers == nil)
+  State.quests.items.seekers = seekers_base
+  self.seekers = "started"
+  api.journal_update("new_task")
 end
 
 Ldump.mark(rails, {}, ...)

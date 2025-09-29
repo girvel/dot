@@ -1,12 +1,9 @@
-local level = require("engine.tech.level")
 local api = require("engine.tech.api")
-local async = require("engine.tech.async")
-local sound = require "engine.tech.sound"
+local level = require("engine.tech.level")
 local health = require("engine.mech.health")
 local tcod   = require("engine.tech.tcod")
 local item   = require("engine.tech.item")
 local items_entities = require("levels.main.palette.items_entities")
-local winter         = require("engine.tech.shaders.winter")
 
 
 return {
@@ -39,7 +36,7 @@ return {
         Log.info("Blocked vision for", updated_n, "cells")
       end
 
-      State.quests.order = {"feast"}
+      State.quests.order = {"seekers", "feast"}
       State.hostility:set("invaders", "village", "enemy")
 
       State.hostility:set("predators", "village", "enemy")
@@ -53,16 +50,14 @@ return {
 
       health.set_hp(State.player, State.player:get_max_hp() - 2)
 
-      for k, v in pairs(State.rails.runner.scenes) do
-        if type(k) == "string" and k:starts_with("cp") and v.enabled then
+      for _, scene in pairs(State.args.enable_scenes) do
+        if scene:starts_with("cp") then
           return
         end
       end
 
       State.rails:winter_init()
-      if State.rails.location == nil then
-        State.rails:location_intro()
-      end
+      State.rails:location_intro()
     end,
   },
 
@@ -86,7 +81,28 @@ return {
       State.rails:winter_init()
       State.rails:location_upper_village(true)
       State.rails:feast_start()
-      level.unsafe_move(State.player, State.rails.runner.positions.cp1)
+      api.assert_position(State.player, State.rails.runner.positions.cp1)
+      item.give(State.player, State:add(items_entities.short_bow()))
+    end,
+  },
+
+  --- @type scene|table
+  cp2 = {
+    --- @param self scene|table
+    --- @param dt number
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    --- @param self scene|table
+    run = function(self)
+      State.rails:winter_init()
+      State.rails:winter_end()
+      State.rails:location_forest(true)
+      State.rails:feast_start()
+      State.rails:feast_end()
+      State.rails:seekers_start()
+      api.assert_position(State.player, Runner.positions.cp2)
       item.give(State.player, State:add(items_entities.short_bow()))
     end,
   },
