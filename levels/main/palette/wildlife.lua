@@ -87,4 +87,5 @@ wildlife.frog = function()
   })
 end
 
+Ldump.mark(wildlife, "const", ...)
 return wildlife

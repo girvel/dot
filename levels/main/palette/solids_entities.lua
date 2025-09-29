@@ -28,4 +28,5 @@ solids_entities.pyre_4 = function()
   })
 end
 
+Ldump.mark(solids_entities, "const", ...)
 return solids_entities

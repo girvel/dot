@@ -40,5 +40,5 @@ player.new = function()
   return result
 end
 
-Ldump.mark(player, {}, ...)
+Ldump.mark(player, "const", ...)
 return player

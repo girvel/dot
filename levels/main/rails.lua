@@ -13,26 +13,28 @@ local rails = {}
 --- @field feast "started"|"weapon_found"|"ceremony"|"done"?
 --- @field winter "initialized"|"ended"?
 --- @field seekers "started"?
+--- @field _scenes_by_location table
 local methods = {}
 local mt = {__index = methods}
 
 --- @param runner state_runner
 --- @return rails
 rails.new = function(runner)
-  return setmetatable({
-    runner = runner,
-  }, mt)
-end
-
-local scenes_by_location do
-  scenes_by_location = {}
-  local scenes_folder = Table.require_folder("levels.main.scenes")
-  for k, subfolder in pairs(scenes_folder) do
-    scenes_by_location[k] = {}
-    for _, v in pairs(subfolder) do
-      Table.join(scenes_by_location[k], v)
+  local scenes_by_location do
+    scenes_by_location = {}
+    local scenes_folder = Table.require_folder("levels.main.scenes")
+    for k, subfolder in pairs(scenes_folder) do
+      scenes_by_location[k] = {}
+      for _, v in pairs(subfolder) do
+        Table.join(scenes_by_location[k], v)
+      end
     end
   end
+
+  return setmetatable({
+    runner = runner,
+    _scenes_by_location = scenes_by_location,
+  }, mt)
 end
 
 --- @param location rails_location
@@ -48,13 +50,13 @@ methods._location_transition = function(self, location, forced)
   Log.info("Location transition %s -> %s", self.location, location)
 
   if self.location then
-    for _, v in pairs(scenes_by_location[self.location]) do
+    for _, v in pairs(self._scenes_by_location[self.location]) do
       -- doesn't stop scenes
       Table.remove_pair(State.runner.scenes, v)
     end
   end
 
-  Table.join(State.runner.scenes, scenes_by_location[location])
+  Table.join(State.runner.scenes, self._scenes_by_location[location])
   self.location = location
 end
 
@@ -70,9 +72,10 @@ methods.location_upper_village = function(self, forced)
   self:_location_transition("1_upper_village", forced)
 
   local ch = State.runner.entities
-  api.travel_scripted(ch.khaned, State.runner.positions.ceremony_khaned)
-  api.travel_scripted(ch.likka,  State.runner.positions.ceremony_likka)
-  api.travel_scripted(ch.red_priest, State.runner.positions.ceremony_red_priest)
+  local ps = State.runner.positions
+  api.travel_scripted(ch.khaned,     ps.ceremony_khaned)
+  api.travel_scripted(ch.likka,      ps.ceremony_likka)
+  api.travel_scripted(ch.red_priest, ps.ceremony_red_priest)
 end
 
 --- @param forced boolean?

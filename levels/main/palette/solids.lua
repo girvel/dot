@@ -108,4 +108,5 @@ solids = factoring.from_atlas(
   end
 )
 
+Ldump.mark(solids, "const", ...)
 return solids

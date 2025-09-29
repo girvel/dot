@@ -61,7 +61,7 @@ local dance = function(inviter, invitee, left_corner, passes_n, applause)
       invitee:animate("offhand_attack")
       inviter:animate("hand_attack"):await()
     end
-  end)
+  end, "dance")
 end
 
 --- @return item
@@ -110,7 +110,7 @@ local throw_snow = function(thrower, position, repetitions_n)
       end):await()
       projectile_task:await()
     end
-  end)
+  end, "throw_snow")
 end
 
 return {
@@ -148,7 +148,7 @@ return {
     --- @param self scene|table
     --- @param ch runner_characters
     --- @param ps runner_positions
-    run = function(self, ch, ps)
+    run = Ldump.ignore_upvalue_size(function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
         api.travel_scripted(ch.player, ps.feast_observe)
         ch.player:rotate(Vector.down)
@@ -166,7 +166,7 @@ return {
           give_fruit("boy_1")
           give_fruit("boy_2")
           give_fruit("boy_3")
-        end)
+        end, "priest_gives_fruit")
 
         sp:lines()  -- don't wait for narration to start priest movement
         sp:lines()
@@ -220,7 +220,7 @@ return {
             guy:animate("interact"):await()
             State:remove(guy.inventory.hand)
             guy.inventory.hand = nil
-          end)
+          end, "sac_fruit")
         end
 
         ch.green_priest:animate("gesture"):await()
@@ -243,7 +243,7 @@ return {
             ch[target]:animation_set_paused(true)
             async.sleep(1)
           end
-        end)
+        end, "human_sac")
         sp:lines()
         human_sac:await()
 
@@ -267,6 +267,6 @@ return {
         sp:lines()
         async.sleep(5)
       sp:finish()
-    end,
+    end),
   },
 }

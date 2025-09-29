@@ -156,4 +156,5 @@ npcs.invader = function()
 end
 
 
+Ldump.mark(npcs, "const", ...)
 return npcs

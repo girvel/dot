@@ -6,4 +6,5 @@ end
 
 vision_invisible[562] = vision_invisible.blocker
 
+Ldump.mark(vision_invisible, "const", ...)
 return vision_invisible

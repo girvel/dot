@@ -95,7 +95,7 @@ return {
             State.runner:run_task(function()
               api.travel_persistent(e, ps.ceremony_crowd, 2)
               e:rotate(Vector.left)
-            end)
+            end, "crowd_travel")
           end
         end
 
@@ -166,7 +166,7 @@ return {
                 async.sleep(Random.float(0, .2))
                 e:animate(animation_name):await()
               end
-            end)
+            end, "crowd_gesture")
           end
         end
         sp:lines()
@@ -190,7 +190,7 @@ return {
           ch.player:rotate(Vector.down)
           t:await()
           api.rotate(ch.red_priest, ch.khaned)
-        end)
+        end, "priest_giving")
         sp:lines()
         priest_giving:await()
 

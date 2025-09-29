@@ -15,7 +15,7 @@ local get_base = function(codename)
   return {}
 end
 
-return factoring.from_atlas("assets/sprites/atlases/on_tiles.png", config.cell_size, {
+local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", config.cell_size, {
   "snow",   "snow",   "snow",   "snow",   "fern",    false,     false, false,
   "snow",   "snow",   "snow",   "snow",   "bones",   false,     false, false,
   "snow",   "snow",   "snow",   "snow",   "bonef",   false,     false, false,
@@ -37,3 +37,6 @@ return factoring.from_atlas("assets/sprites/atlases/on_tiles.png", config.cell_s
 
   return result
 end)
+
+Ldump.mark(on_tiles, "const", ...)
+return on_tiles

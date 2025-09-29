@@ -19,4 +19,5 @@ _common.water = function(velocity)
   end
 end
 
+Ldump.mark(_common, "const", ...)
 return _common

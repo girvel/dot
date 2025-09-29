@@ -22,4 +22,5 @@ on_solids_entities.pyre_2 = function()
   })
 end
 
+Ldump.mark(on_solids_entities, "const", ...)
 return on_solids_entities

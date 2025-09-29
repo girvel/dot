@@ -23,4 +23,5 @@ insects.mosquito = function()
   })
 end
 
+Ldump.mark(insects, "const", ...)
 return insects
