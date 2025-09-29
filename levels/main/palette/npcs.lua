@@ -1,3 +1,4 @@
+local animated = require("engine.tech.animated")
 local abilities = require("engine.mech.abilities")
 local humanoid    = require("engine.mech.humanoid")
 local fighter   = require("engine.mech.class.fighter")
@@ -30,7 +31,7 @@ npcs.ai_tester = function(faction)
 end
 
 npcs.khaned = function()
-  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+  return creature.make(animated.mixin("assets/sprites/animations/no_arm"), {
     name = "Ханед",
     codename = "khaned",
     base_abilities = abilities.new(16, 14, 18, 8, 10, 8),
@@ -41,15 +42,20 @@ npcs.khaned = function()
       -- TODO bear spear
     },
     faction = "khaned",
+    -- TODO perks
     perks = {
       fighter.hit_dice,
+      {
+        -- no right hand
+        modify_activation = function(self, entity, value, codename)
+          if codename == "hand_attack" then return false end
+          return value
+        end,
+      },
     },
     essential_flag = true,
-    -- TODO perks
+    transparent_flag = true,
   })
-
-  creature.init(result)
-  return result
 end
 
 npcs.likka = function()
