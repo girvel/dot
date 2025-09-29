@@ -17,18 +17,20 @@ return {
 
     --- @param self scene|table
     --- @param dt number
-    --- @param ch rails_characters
-    start_predicate = function(self, dt, ch)
-      return ch.player.position == State.rails.runner.positions.dungeon_entrance_1
-        or ch.player.position == State.rails.runner.positions.dungeon_entrance_2
-        or ch.player.position == State.rails.runner.positions.dungeon_entrance_3
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    start_predicate = function(self, dt, ch, ps)
+      return ch.player.position == ps.dungeon_entrance_1
+        or ch.player.position == ps.dungeon_entrance_2
+        or ch.player.position == ps.dungeon_entrance_3
     end,
 
     first_time = true,
 
     --- @param self scene|table
-    --- @param ch rails_characters
-    run = function(self, ch)
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/027_dungeon.ms", ch)
         sp:lines()
 

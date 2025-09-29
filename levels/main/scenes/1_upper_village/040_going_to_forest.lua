@@ -16,15 +16,16 @@ return {
 
     --- @param self scene|table
     --- @param dt number
-    --- @param ch rails_characters
-    start_predicate = function(self, dt, ch)
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    start_predicate = function(self, dt, ch, ps)
       return false  -- manually triggered scene
     end,
 
     --- @param self scene|table
-    --- @param ch rails_characters
-    run = function(self, ch)
-      local ps = Runner.positions
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/040_going_to_forest.ms", ch)
         level.unsafe_move(ch.khaned, ps.gtf_khaned)
         level.unsafe_move(ch.likka, ps.gtf_likka)

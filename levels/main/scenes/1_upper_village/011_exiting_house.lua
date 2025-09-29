@@ -11,14 +11,16 @@ return {
 
     --- @param self scene
     --- @param dt number
-    --- @param ch rails_characters
-    start_predicate = function(self, dt, ch)
-      return ch.player.position == Runner.positions.start_location_exit
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    start_predicate = function(self, dt, ch, ps)
+      return ch.player.position == ps.start_location_exit
     end,
 
     --- @param self scene
-    --- @param ch rails_characters
-    run = function(self, ch)
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    run = function(self, ch, ps)
       if ch.player.inventory.hand
         or ch.player.inventory.offhand and ch.player.inventory.offhand.tags.ranged
       then return end

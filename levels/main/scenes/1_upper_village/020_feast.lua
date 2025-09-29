@@ -17,7 +17,7 @@ local item       = require "engine.tech.item"
 local dance = function(inviter, invitee, left_corner, passes_n, applause)
   -- really not a strict implementation of the simplistic idea I had in mind
   -- but this looks even better
-  return State.rails.runner:run_task(function()
+  return State.runner:run_task(function()
     if applause then
       for _ = 1, math.random(2, 3) do
         async.sleep(Random.float(0, .2))
@@ -92,10 +92,10 @@ end
 --- @param repetitions_n integer
 --- @return promise, scene
 local throw_snow = function(thrower, position, repetitions_n)
-  local pyre_position = State.rails.runner.positions.feast_pyre
+  local pyre_position = State.runner.positions.feast_pyre
     + V(.5 + Random.float(-0.125, 0.125), -.25 + Random.float(-0.125, 0.125))
 
-  return State.rails.runner:run_task(function()
+  return State.runner:run_task(function()
     api.travel_scripted(thrower, position):await()
     async.sleep(.2)
     thrower:rotate((pyre_position - position):normalized2())
@@ -138,19 +138,21 @@ return {
 
     --- @param self scene|table
     --- @param dt number
-    --- @param ch rails_characters
-    start_predicate = function(self, dt, ch)
-      return ch.player.position >= State.rails.runner.positions.feast_start
-        and ch.player.position <= State.rails.runner.positions.feast_finish
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    start_predicate = function(self, dt, ch, ps)
+      return ch.player.position >= ps.feast_start
+        and ch.player.position <= ps.feast_finish
     end,
 
     --- @param self scene|table
-    --- @param ch rails_characters
-    run = function(self, ch)
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
-        api.travel_scripted(ch.player, State.rails.runner.positions.feast_observe)
+        api.travel_scripted(ch.player, ps.feast_observe)
         ch.player:rotate(Vector.down)
-        api.move_camera(State.rails.runner.positions.feast_camera):await()
+        api.move_camera(ps.feast_camera):await()
 
         local give_fruit = function(receiver_name)
           api.travel_scripted(ch.green_priest, ch[receiver_name].position):await()
@@ -160,7 +162,7 @@ return {
           ch.green_priest:animate("interact", true):await()
         end
 
-        local priest_task = State.rails.runner:run_task(function()
+        local priest_task = State.runner:run_task(function()
           give_fruit("boy_1")
           give_fruit("boy_2")
           give_fruit("boy_3")
@@ -171,40 +173,40 @@ return {
         priest_task:await()
 
         priest_task = api.travel_scripted(
-          ch.green_priest, State.rails.runner.positions.feast_green_priest
+          ch.green_priest, ps.feast_green_priest
         ):next(function() ch.green_priest:rotate(Vector.up) end)
 
         local dancing = Promise.all(
-          dance(ch.girl_1, ch.boy_1, State.rails.runner.positions.dance_1, 7),
-          dance(ch.girl_2, ch.boy_2, State.rails.runner.positions.dance_2, 7),
-          dance(ch.girl_3, ch.boy_3, State.rails.runner.positions.dance_3, 6)
+          dance(ch.girl_1, ch.boy_1, ps.dance_1, 7),
+          dance(ch.girl_2, ch.boy_2, ps.dance_2, 7),
+          dance(ch.girl_3, ch.boy_3, ps.dance_3, 6)
         )
         sp:lines()
 
         priest_task:await()
 
         async.sleep(4)
-        priest_task = throw_snow(ch.green_priest, State.rails.runner.positions.feast_throw_priest, 1)
+        priest_task = throw_snow(ch.green_priest, ps.feast_throw_priest, 1)
         sp:lines()
         priest_task:await()
         async.sleep(.5)
 
         local snowballs = Promise.all(
-          throw_snow(ch.thrower_1, State.rails.runner.positions.feast_throw_1, math.random(2, 3)),
-          throw_snow(ch.thrower_2, State.rails.runner.positions.feast_throw_2, math.random(2, 3)),
-          throw_snow(ch.thrower_3, State.rails.runner.positions.feast_throw_3, math.random(2, 3)),
-          throw_snow(ch.thrower_4, State.rails.runner.positions.feast_throw_4, math.random(2, 3)),
-          throw_snow(ch.thrower_5, State.rails.runner.positions.feast_throw_5, math.random(2, 3))
+          throw_snow(ch.thrower_1, ps.feast_throw_1, math.random(2, 3)),
+          throw_snow(ch.thrower_2, ps.feast_throw_2, math.random(2, 3)),
+          throw_snow(ch.thrower_3, ps.feast_throw_3, math.random(2, 3)),
+          throw_snow(ch.thrower_4, ps.feast_throw_4, math.random(2, 3)),
+          throw_snow(ch.thrower_5, ps.feast_throw_5, math.random(2, 3))
         )
         sp:lines()
         snowballs:await()
         dancing:await()
 
         local sac_fruit = function(ch_name, fruit_pos, sac_pos)
-          return State.rails.runner:run_task(function()
+          return State.runner:run_task(function()
             local guy = ch[ch_name]
-            fruit_pos = State.rails.runner.positions[fruit_pos]
-            sac_pos = State.rails.runner.positions[sac_pos]
+            fruit_pos = ps[fruit_pos]
+            sac_pos = ps[sac_pos]
 
             api.travel_scripted(guy, fruit_pos):await()
             api.rotate(guy, fruit_pos)
@@ -214,7 +216,7 @@ return {
             async.sleep(1)
 
             api.travel_scripted(guy, sac_pos):await()
-            api.rotate(guy, State.rails.runner.positions.feast_pyre)
+            api.rotate(guy, ps.feast_pyre)
             guy:animate("interact"):await()
             State:remove(guy.inventory.hand)
             guy.inventory.hand = nil
@@ -230,7 +232,7 @@ return {
         sp:lines()
         fruits:await()
 
-        local human_sac = State.rails.runner:run_task(function()
+        local human_sac = State.runner:run_task(function()
           for _, target in ipairs {"boy_3", "boy_2", "boy_1"} do
             api.travel_scripted(ch.green_priest, ch[target].position):await()
             async.sleep(.5)
@@ -249,7 +251,7 @@ return {
         local next_dance = function(inviter, invitee, corner)
           inviter = ch[inviter]
           invitee = ch[invitee]
-          corner = State.rails.runner.positions[corner]
+          corner = ps[corner]
 
           async.sleep(Random.float(0, .3))
           local promise, scene = dance(inviter, invitee, corner, 20, true)

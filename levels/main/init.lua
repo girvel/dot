@@ -22,8 +22,6 @@ return {
 
   cell_size = config.cell_size,
 
-  rails = {
-    factory = require("levels.main.rails").new,
-    scenes = require("levels.main.init_scenes"),
-  },
+  rails_factory = require("levels.main.rails").new,
+  scenes = require("levels.main.init_scenes"),
 }

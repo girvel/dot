@@ -8,7 +8,7 @@ local rails = {}
 --- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"?
 
 --- @class rails
---- @field runner rails_runner
+--- @field runner state_runner
 --- @field location rails_location
 --- @field feast "started"|"weapon_found"|"ceremony"|"done"?
 --- @field winter "initialized"|"ended"?
@@ -16,7 +16,7 @@ local rails = {}
 local methods = {}
 local mt = {__index = methods}
 
---- @param runner rails_runner
+--- @param runner state_runner
 --- @return rails
 rails.new = function(runner)
   return setmetatable({
@@ -50,11 +50,11 @@ methods._location_transition = function(self, location, forced)
   if self.location then
     for _, v in pairs(scenes_by_location[self.location]) do
       -- doesn't stop scenes
-      Table.remove_pair(self.runner.scenes, v)
+      Table.remove_pair(State.runner.scenes, v)
     end
   end
 
-  Table.join(self.runner.scenes, scenes_by_location[location])
+  Table.join(State.runner.scenes, scenes_by_location[location])
   self.location = location
 end
 
@@ -69,10 +69,10 @@ methods.location_upper_village = function(self, forced)
   api.autosave("Церемония")
   self:_location_transition("1_upper_village", forced)
 
-  local ch = Runner.entities
-  api.travel_scripted(ch.khaned, Runner.positions.ceremony_khaned)
-  api.travel_scripted(ch.likka,  Runner.positions.ceremony_likka)
-  api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+  local ch = State.runner.entities
+  api.travel_scripted(ch.khaned, State.runner.positions.ceremony_khaned)
+  api.travel_scripted(ch.likka,  State.runner.positions.ceremony_likka)
+  api.travel_scripted(ch.red_priest, State.runner.positions.ceremony_red_priest)
 end
 
 --- @param forced boolean?
@@ -80,8 +80,8 @@ methods.location_forest = function(self, forced)
   api.autosave("Лес")
   self:_location_transition("2_forest", forced)
 
-  local ch = Runner.entities
-  local ps = Runner.positions
+  local ch = State.runner.entities
+  local ps = State.runner.positions
   api.assert_position(ch.khaned, ps.sk_khaned)
   api.assert_position(ch.likka, ps.sl_likka)
 end
@@ -105,7 +105,7 @@ methods.winter_end = function(self)
     State:add(e, {life_time = Random.float(0, 30)})
   end
 
-  local ps = Runner.positions
+  local ps = State.runner.positions
   local start = ps.create_water_start
   local finish = ps.create_water_finish
   for x = start.x, finish.x do

@@ -10,14 +10,14 @@ return {
     --- @param self scene
     --- @param dt number
     start_predicate = function(self, dt)
-      return not State:exists(Runner.entities.knife_chest)
+      return not State:exists(State.runner.entities.knife_chest)
     end,
 
     --- @param self scene
     run = function(self)
       local placement
       for d in iteration.rhombus(5) do
-        local p = d:add_mut(Runner.entities.knife_chest.position)
+        local p = d:add_mut(State.runner.entities.knife_chest.position)
         if not State.grids.solids:slow_get(p, true) and not State.grids.items:slow_get(p) then
           placement = p
           break
@@ -33,7 +33,7 @@ return {
 
     --- @param self scene|table
     --- @param dt number
-    --- @param ch rails_characters
+    --- @param ch runner_characters
     start_predicate = function(self, dt, ch)
       local hand = State.player.inventory.hand
       local offhand = State.player.inventory.offhand
@@ -41,7 +41,7 @@ return {
     end,
 
     --- @param self scene|table
-    --- @param ch rails_characters
+    --- @param ch runner_characters
     run = function(self, ch)
       State.rails:feast_weapon_found()
     end,

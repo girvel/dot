@@ -15,14 +15,15 @@ return {
 
     --- @param self scene
     --- @param dt number
-    --- @param ch rails_characters
+    --- @param ch runner_characters
     start_predicate = function(self, dt, ch)
       return State.is_loaded
     end,
 
     --- @param self scene
-    --- @param ch rails_characters
-    run = function(self, ch)
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/010_intro.ms", ch)
         ch.khaned:rotate(Vector.up)
         ch.likka:rotate(Vector.up)
@@ -62,9 +63,9 @@ return {
         sp:finish_options()
 
         sp:lines()
-        api.travel_scripted(ch.red_priest, Runner.positions.red_priest_1):await()
+        api.travel_scripted(ch.red_priest, ps.red_priest_1):await()
         sp:lines()
-        api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+        api.travel_scripted(ch.red_priest, ps.ceremony_red_priest)
           :next(function() ch.red_priest:rotate(Vector.up) end)
         api.wait(2)
 

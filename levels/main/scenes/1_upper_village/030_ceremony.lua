@@ -30,28 +30,30 @@ return {
 
     --- @param self scene|table
     --- @param dt number
-    --- @param ch rails_characters
-    start_predicate = function(self, dt, ch)
-      return (State.rails.runner.positions.ceremony_start - ch.player.position):abs2() <= 2
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    start_predicate = function(self, dt, ch, ps)
+      return (ps.ceremony_start - ch.player.position):abs2() <= 2
     end,
 
     _first_time = true,
 
     --- @param self scene|table
-    --- @param ch rails_characters
-    run = function(self, ch)
+    --- @param ch runner_characters
+    --- @param ps runner_positions
+    run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/030_ceremony.ms", ch)
         local did_player_come_first = false
-        while ch.likka.position ~= Runner.positions.ceremony_likka
-          or ch.khaned.position ~= Runner.positions.ceremony_khaned
-          or ch.red_priest.position ~= Runner.positions.ceremony_red_priest
+        while ch.likka.position ~= ps.ceremony_likka
+          or ch.khaned.position ~= ps.ceremony_khaned
+          or ch.red_priest.position ~= ps.ceremony_red_priest
         do
           did_player_come_first = true
           coroutine.yield()
           if Period(15, self, "start") then
-            level.unsafe_move(ch.likka, Runner.positions.ceremony_likka)
-            level.unsafe_move(ch.khaned, Runner.positions.ceremony_khaned)
-            level.unsafe_move(ch.red_priest, Runner.positions.ceremony_red_priest)
+            level.unsafe_move(ch.likka, ps.ceremony_likka)
+            level.unsafe_move(ch.khaned, ps.ceremony_khaned)
+            level.unsafe_move(ch.red_priest, ps.ceremony_red_priest)
             break
           end
         end
@@ -79,19 +81,19 @@ return {
         sp:finish_branches()
         self.enabled = nil
 
-        local feast_scene = Runner.scenes._020_feast
+        local feast_scene = State.runner.scenes._020_feast
         for _, scene in ipairs(feast_scene.final_dancing_scenes) do
-          Runner:remove(scene)
+          State.runner:remove(scene)
         end
         feast_scene.enabled = nil
 
         ch.red_priest:rotate(Vector.right)
         ch.khaned:rotate(Vector.down)
         for _, name in ipairs(CROWD) do
-          local e = Runner.entities[name]
+          local e = State.runner.entities[name]
           if State:exists(e) then
-            State.rails.runner:run_task(function()
-              api.travel_persistent(e, Runner.positions.ceremony_crowd, 2)
+            State.runner:run_task(function()
+              api.travel_persistent(e, ps.ceremony_crowd, 2)
               e:rotate(Vector.left)
             end)
           end
@@ -107,7 +109,7 @@ return {
         sp:finish_single_branch()
 
         api.move_camera(ch.red_priest.position)
-        api.travel_scripted(ch.player, Runner.positions.ceremony_player):await()
+        api.travel_scripted(ch.player, ps.ceremony_player):await()
         api.rotate(ch.player, ch.red_priest)
 
         sp:lines()
@@ -156,10 +158,10 @@ return {
 
         ch.red_priest:animate("gesture"):await()
         for _, name in ipairs(CROWD) do
-          local e = Runner.entities[name]
+          local e = State.runner.entities[name]
           if State:exists(e) and Random.chance(.8) then
             local animation_name = Random.choice({"fast_gesture", "clap"})
-            Runner:run_task(function()
+            State.runner:run_task(function()
               for _ = 1, 6 do
                 async.sleep(Random.float(0, .2))
                 e:animate(animation_name):await()
@@ -169,7 +171,7 @@ return {
         end
         sp:lines()
 
-        local priest_giving = Runner:run_task(function()
+        local priest_giving = State.runner:run_task(function()
           api.travel_scripted(ch.red_priest, ch.ceremony_food.position):await()
           ch.red_priest:animate("interact"):await()
           State:remove(ch.ceremony_food)
@@ -179,7 +181,7 @@ return {
             api.rotate(ch[target], ch.red_priest)
             ch.red_priest:animate("interact"):await()
           end
-          local t = api.travel_scripted(ch.red_priest, Runner.positions.ceremony_red_priest)
+          local t = api.travel_scripted(ch.red_priest, ps.ceremony_red_priest)
           async.sleep(.1)
           ch.khaned:rotate(Vector.down)
           async.sleep(.2)
@@ -197,22 +199,22 @@ return {
         sp:lines()
 
         async.sleep(1)
-        local _, khaned_leaving_scene = api.travel_scripted(ch.khaned, Runner.positions.gtf_khaned)
+        local _, khaned_leaving_scene = api.travel_scripted(ch.khaned, ps.gtf_khaned)
         sp:lines()
 
-        local _, likka_leaving_scene = api.travel_scripted(ch.likka, Runner.positions.gtf_likka)
-        local player_moving = api.travel_scripted(ch.player, Runner.positions.ceremony_player_away)
+        local _, likka_leaving_scene = api.travel_scripted(ch.likka, ps.gtf_likka)
+        local player_moving = api.travel_scripted(ch.player, ps.ceremony_player_away)
         sp:lines()
         player_moving:await()
 
-        player_moving = api.travel_scripted(ch.player, Runner.positions.ceremony_player_away_2)
+        player_moving = api.travel_scripted(ch.player, ps.ceremony_player_away_2)
         api.free_camera()
         api.fade_out()
         player_moving:await()
-        Runner:remove(khaned_leaving_scene)
-        Runner:remove(likka_leaving_scene)
+        State.runner:remove(khaned_leaving_scene)
+        State.runner:remove(likka_leaving_scene)
       sp:finish()
-      Runner.scenes._040_going_to_forest:run(ch)
+      State.runner.scenes._040_going_to_forest:run(ch, ps)
     end,
   },
 }

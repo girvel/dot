@@ -81,7 +81,7 @@ return {
       State.rails:winter_init()
       State.rails:location_upper_village(true)
       State.rails:feast_start()
-      api.assert_position(State.player, State.rails.runner.positions.cp1)
+      api.assert_position(State.player, State.runner.positions.cp1)
       item.give(State.player, State:add(items_entities.short_bow()))
     end,
   },
@@ -102,7 +102,7 @@ return {
       State.rails:feast_start()
       State.rails:feast_end()
       State.rails:seekers_start()
-      api.assert_position(State.player, Runner.positions.cp2)
+      api.assert_position(State.player, State.runner.positions.cp2)
       item.give(State.player, State:add(items_entities.short_bow()))
     end,
   },
