@@ -117,6 +117,20 @@ items_entities.sword = function()
   )
 end
 
+items_entities.macuahuitl = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/macuahuitl"),
+    {
+      name = "Макуауитль",
+      codename = "macuahuitl",
+      damage_roll = D(8),
+      bonus = 0,
+      tags = {},
+      slot = "hands",
+    }
+  )
+end
+
 local arrow = function()
   return Table.extend(animated.mixin("assets/sprites/animations/arrow"), item.mixin_min("hand"), {
     codename = "arrow",

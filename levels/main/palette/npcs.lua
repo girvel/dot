@@ -39,6 +39,7 @@ npcs.khaned = function()
     ai = combat_ai.new(),
     inventory = {
       tatoo = items.head_tatoo_1(),
+      offhand = items.macuahuitl(),
       -- TODO bear spear
     },
     faction = "khaned",
@@ -59,7 +60,7 @@ npcs.khaned = function()
 end
 
 npcs.likka = function()
-  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+  return creature.make(humanoid.mixin(), {
     name = "Ликка",
     codename = "likka",
     base_abilities = abilities.new(16, 14, 18, 8, 10, 8),
@@ -67,7 +68,7 @@ npcs.likka = function()
     ai = combat_ai.new(),
     inventory = {
       bag = items.bag(),
-      -- TODO spear
+      offhand = items.short_bow(),
     },
     faction = "likka",
     perks = {
@@ -76,9 +77,6 @@ npcs.likka = function()
     essential_flag = true,
     -- TODO perks
   })
-
-  creature.init(result)
-  return result
 end
 
 npcs.villager = function()

@@ -133,6 +133,9 @@ return {
         local n = api.options(sp:start_options())
           if n == 1 or n == 3 then
             sp:start_option(1)
+              local khaned_weapon = ch.khaned.inventory.offhand
+              ch.khaned.inventory.offhand = nil
+
               api.travel_scripted(ch.khaned, ch.player.position):await()
               api.rotate(ch.khaned, ch.player)
               ch.khaned:animate("offhand_attack"):await()
@@ -142,6 +145,7 @@ return {
               api.options(sp:start_options())
               sp:finish_options()
 
+              ch.khaned.inventory.offhand = khaned_weapon
               api.rotate(ch.khaned, ch.red_priest)
             sp:finish_option()
           end
