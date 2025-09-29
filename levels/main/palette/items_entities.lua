@@ -227,4 +227,5 @@ items_entities.invader_armor = function()
   })
 end
 
+Ldump.mark(items_entities, "const", ...)
 return items_entities

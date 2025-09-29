@@ -46,4 +46,5 @@ on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", config.
   return result
 end)
 
+Ldump.mark(on_solids, "const", ...)
 return on_solids

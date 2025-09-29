@@ -14,6 +14,7 @@ local rails = {}
 --- @field winter "initialized"|"ended"?
 --- @field seekers "started"?
 --- @field _scenes_by_location table
+--- @field _snow entity[]
 local methods = {}
 local mt = {__index = methods}
 
@@ -89,13 +90,11 @@ methods.location_forest = function(self, forced)
   api.assert_position(ch.likka, ps.sl_likka)
 end
 
-local snow = {}
-
 methods.winter_init = function(self)
   assert(self.winter == nil)
 
   State.shader = winter
-  snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
+  self._snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
   self.winter = "initialized"
 
   Log.info("Winter initialized")
@@ -104,7 +103,7 @@ end
 methods.winter_end = function(self)
   assert(self.winter == "initialized")
 
-  for _, e in ipairs(snow) do
+  for _, e in ipairs(self._snow) do
     State:add(e, {life_time = Random.float(0, 30)})
   end
 
