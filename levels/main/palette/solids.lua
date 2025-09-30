@@ -25,6 +25,7 @@ local is_low = function(codename)
     or codename:starts_with("hutwallt")
     or codename:starts_with("cabinet")
     or codename:starts_with("shelf")
+    or codename:starts_with("log")
   )
 end
 
@@ -97,7 +98,11 @@ solids = factoring.from_atlas(
     "stage_5",   "stage_6",   "stage_7",  "stage_8",  "fence",      "fence",      "fence",      "fence",
     "stage_9",   "stage_10",  "stage_11", "stage_12", "fence",      "fence",      "fence",      "fence",
     "stage_13",  "stage_14",  "stage_15", "stage_16", "fence",      "fence",      "fence",      "fence",
-    "cabinetc",  "cabineto",  "shelfc",   "shelfo",   "hutwallt",   "hutwallt",   false,        false,
+    "cabinetc",  "cabineto",  "shelfc",   "shelfo",   "hutwallt",   "hutwallt",   "rubble",     false,
+    "log",       "log",       "log",      false,      false,        false,        false,        false,
+    "log",       false,       false,      false,      false,        false,        false,        false,
+    "log",       false,       false,      false,      false,        false,        false,        false,
+    "log",       false,       false,      false,      false,        false,        false,        false,
   },
   function(codename)
     local result = get_base(codename)

@@ -16,14 +16,14 @@ local get_base = function(codename)
 end
 
 local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", config.cell_size, {
-  "snow",   "snow",   "snow",   "snow",   "fern",    false,     false, false,
-  "snow",   "snow",   "snow",   "snow",   "bones",   false,     false, false,
-  "snow",   "snow",   "snow",   "snow",   "bonef",   false,     false, false,
-  "snow",   "snow",   "snow",   "snow",   "scastle", "scastle", false, false,
-  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
-  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
-  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
-  "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet", "carpet",
+  "snow",   "snow",   "snow",   "snow",   "fern",    "shroom",  "shroom", "shroom",
+  "snow",   "snow",   "snow",   "snow",   "bones",   "htail",   "htail",  "htail",
+  "snow",   "snow",   "snow",   "snow",   "bonef",   "poodle",  "poodle", "poodle",
+  "snow",   "snow",   "snow",   "snow",   "scastle", "scastle", false,    false,
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
 }, function(codename)
   local result = get_base(codename)
   result.boring_flag = true
