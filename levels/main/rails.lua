@@ -28,7 +28,7 @@ rails.new = function(runner)
     for k, subfolder in pairs(scenes_folder) do
       scenes_by_location[k] = {}
       for _, v in pairs(subfolder) do
-        Table.join(scenes_by_location[k], v)
+        Table.extend_strict(scenes_by_location[k], v)
       end
     end
   end
@@ -58,7 +58,7 @@ methods._location_transition = function(self, location, forced)
     end
   end
 
-  Table.join(State.runner.scenes, self._scenes_by_location[location])
+  State.runner:add(self._scenes_by_location[location])
   self.location = location
 end
 
