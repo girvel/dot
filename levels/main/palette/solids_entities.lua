@@ -6,7 +6,10 @@ local animated  = require("engine.tech.animated")
 local solids_entities = {}
 
 solids_entities.player = player.new
-solids_entities.water = _common.water(Vector.down * .5)
+
+solids_entities.water_down = _common.water(Vector.down * .5)
+solids_entities.water_left = _common.water(Vector.right * .5)
+solids_entities.water_still = _common.water(Vector.zero)
 
 Table.extend(
   solids_entities,
