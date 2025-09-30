@@ -1,4 +1,3 @@
-local solids_entities = require("levels.main.palette.solids_entities")
 local api = require("engine.tech.api")
 local async = require("engine.tech.async")
 local level = require("engine.tech.level")

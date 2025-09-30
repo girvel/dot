@@ -13,6 +13,7 @@ local rails = {}
 --- @field feast "started"|"weapon_found"|"ceremony"|"done"?
 --- @field winter "initialized"|"ended"?
 --- @field seekers "started"?
+--- @field tried_berries "once"|"twice"?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?

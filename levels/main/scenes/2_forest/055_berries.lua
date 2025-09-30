@@ -1,0 +1,60 @@
+local screenplay = require("engine.tech.screenplay")
+local interactive = require("engine.tech.interactive")
+
+
+return {
+  --- @type scene|table
+  _050_berries = {
+    enabled = true,
+    characters = {
+      player = {},
+    },
+
+    _berries = nil,
+    on_add = function(self)
+      self._berries = State.grids.on_solids:iter()
+        :filter(function(e) return e.codename == "berriesp" end)
+        :totable()
+
+      for _, b in ipairs(self._berries) do
+        State:add(b, interactive.mixin(function(self_entity)
+          self.berry = self_entity
+        end), {name = "ягоды"})
+      end
+    end,
+
+    berry = nil,
+    start_predicate = function(self, dt, ch, ps)
+      return self.berry
+    end,
+
+    run = function(self, ch, ps)
+      local sp = screenplay.new("assets/screenplay/055_berries.ms", ch)
+        sp:start_branches()
+          local ate_berries
+          if not State.rails.tried_berries then
+            if State.runner.scenes.eating_berries_1:run(ch, ps) then
+              ate_berries = true
+              State.rails.tried_berries = "once"
+            end
+          else
+            assert(State.rails.tried_berries == "once")
+            sp:start_branch(2)
+              sp:lines()
+            sp:finish_branch()
+            if State.runner.scenes.eating_berries_2:run(ch, ps) then
+              ate_berries = true
+              State.rails.tried_berries = "twice"
+            end
+          end
+
+          if ate_berries then
+            for _, b in ipairs(self._berries) do
+              b.interact = nil
+            end
+          end
+        sp:finish_branches()
+      sp:finish()
+    end,
+  },
+}
