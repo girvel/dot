@@ -8154,7 +8154,7 @@
 						},
 						{
 							"__identifier": "position",
-							"__grid": [1,41],
+							"__grid": [1,39],
 							"__pivot": [0,0],
 							"__tags": ["positions"],
 							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
@@ -8163,13 +8163,13 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 108,
-							"px": [16,656],
+							"px": [16,624],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "create_water_start", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["create_water_start"]
 							}] }],
 							"__worldX": 1472,
-							"__worldY": 656
+							"__worldY": 624
 						},
 						{
 							"__identifier": "position",

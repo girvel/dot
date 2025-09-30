@@ -113,7 +113,11 @@ methods.winter_end = function(self)
   for x = start.x, finish.x do
     for y = start.y, finish.y do
       if not State.grids.solids:unsafe_get(x, y) then
-        State:add(solids_entities.water(), {position = V(x, y), grid_layer = "solids"})
+        State:add(solids_entities.water_down(), {position = V(x, y), grid_layer = "solids"})
+      end
+      local tile = State.grids.tiles:unsafe_get(x, y)
+      if tile then
+        State:remove(tile)
       end
     end
   end
