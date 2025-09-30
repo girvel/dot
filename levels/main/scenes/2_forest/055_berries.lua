@@ -60,9 +60,11 @@ return {
       end
 
       State.runner.locked_entities[ch.player] = nil
-      State.shader = bad_trip
-      async.sleep(60)
-      if State.shader == bad_trip then
+
+      local DURATION = 60
+      State.shader = bad_trip.new(DURATION)
+      async.sleep(DURATION)
+      if getmetatable(State.shader) == bad_trip.mt then
         State.shader = nil
       end
     end,

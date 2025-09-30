@@ -1,5 +1,5 @@
+local async = require("engine.tech.async")
 local api = require("engine.tech.api")
-local level = require("engine.tech.level")
 local health = require("engine.mech.health")
 local tcod   = require("engine.tech.tcod")
 local item   = require("engine.tech.item")
@@ -67,8 +67,7 @@ return {
     start_predicate = function(self, dt) return State.debug end,
 
     run = function(self)
-      coroutine.yield()
-      State.shader = bad_trip
+      coroutine.yield()  -- race condition safety
     end,
   },
 
