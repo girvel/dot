@@ -1,3 +1,5 @@
+local bad_trip = require("engine.tech.shaders.bad_trip")
+local async = require("engine.tech.async")
 local screenplay = require("engine.tech.screenplay")
 local interactive = require("engine.tech.interactive")
 
@@ -47,14 +49,20 @@ return {
               State.rails.tried_berries = "twice"
             end
           end
-
-          if ate_berries then
-            for _, b in ipairs(self._berries) do
-              b.interact = nil
-            end
-          end
         sp:finish_branches()
       sp:finish()
+
+      if not ate_berries then return end
+
+      for _, b in ipairs(self._berries) do
+        b.interact = nil
+      end
+
+      State.runner.locked_entities[ch.player] = nil
+      local prev = State.shader
+      State.shader = bad_trip
+      async.sleep(60)
+      State.shader = prev
     end,
   },
 }
