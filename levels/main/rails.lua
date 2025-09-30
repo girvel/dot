@@ -14,7 +14,8 @@ local rails = {}
 --- @field winter "initialized"|"ended"?
 --- @field seekers "started"?
 --- @field _scenes_by_location table
---- @field _snow entity[]
+--- @field _snow entity[]?
+--- @field _water entity[]?
 local methods = {}
 local mt = {__index = methods}
 
@@ -95,6 +96,7 @@ methods.winter_init = function(self)
 
   State.shader = winter
   self._snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
+  self._water = State.grids.solids:iter():filter(function(e) return e.water_velocity end):totable()
   self.winter = "initialized"
 
   Log.info("Winter initialized")
@@ -113,13 +115,20 @@ methods.winter_end = function(self)
   for x = start.x, finish.x do
     for y = start.y, finish.y do
       if not State.grids.solids:unsafe_get(x, y) then
-        State:add(solids_entities.water_down(), {position = V(x, y), grid_layer = "solids"})
+        local w = State:add(
+          solids_entities.water_down(), {position = V(x, y), grid_layer = "solids"}
+        )
+        table.insert(self._water, w)
       end
       local tile = State.grids.tiles:unsafe_get(x, y)
       if tile then
         State:remove(tile)
       end
     end
+  end
+
+  for _, water in ipairs(self._water) do
+    water.water_velocity = water.water_velocity * 4
   end
 
   State.shader = nil
