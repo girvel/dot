@@ -6,7 +6,7 @@ local interactive = require("engine.tech.interactive")
 
 return {
   --- @type scene|table
-  _050_berries = {
+  _055_berries = {
     enabled = true,
     characters = {
       player = {},
@@ -20,7 +20,8 @@ return {
 
       for _, b in ipairs(self._berries) do
         State:add(b, interactive.mixin(function(self_entity)
-          self.berry = self_entity
+          local scene = State.runner.scenes._055_berries
+          if scene then scene.berry = self_entity end
         end), {name = "ягоды"})
       end
     end,
@@ -59,10 +60,15 @@ return {
       end
 
       State.runner.locked_entities[ch.player] = nil
-      local prev = State.shader
       State.shader = bad_trip
       async.sleep(60)
-      State.shader = prev
+      if State.shader == bad_trip then
+        State.shader = nil
+      end
+    end,
+
+    on_cancel = function(self)
+      State.shader = nil
     end,
   },
 }

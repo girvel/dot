@@ -4,6 +4,7 @@ local health = require("engine.mech.health")
 local tcod   = require("engine.tech.tcod")
 local item   = require("engine.tech.item")
 local items_entities = require("levels.main.palette.items_entities")
+local bad_trip       = require("engine.tech.shaders.bad_trip")
 
 
 return {
@@ -66,6 +67,8 @@ return {
     start_predicate = function(self, dt) return State.debug end,
 
     run = function(self)
+      coroutine.yield()
+      State.shader = bad_trip
     end,
   },
 

@@ -19,8 +19,6 @@ return {
       return true
     end,
 
-    _prev_shader = nil,
-
     --- @param self scene|table
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -32,13 +30,11 @@ return {
 
       if is_under_aquule then
         if State.shader ~= aquule then
-          self._prev_shader = State.shader
           State.shader = aquule
         end
       else
         if State.shader == aquule then
-          State.shader = self._prev_shader
-          self._prev_shader = nil
+          State.shader = nil
         end
       end
     end,
