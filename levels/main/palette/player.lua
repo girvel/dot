@@ -15,6 +15,7 @@ local player = {}
 --- @return player
 player.new = function()
   local result = Table.extend(base_player.mixin(), humanoid.mixin(), {
+    name = "Протагонист",
     base_abilities = abilities.new(16, 14, 14, 8, 12, 10),
     level = 3,
     perks = {
