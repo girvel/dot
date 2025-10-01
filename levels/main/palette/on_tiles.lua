@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local sound = require("engine.tech.sound")
 local factoring = require("engine.tech.factoring")
 local config = require("levels.main.config")
@@ -9,6 +10,17 @@ local get_walk_sounds = function(codename)
 end
 
 local get_base = function(codename)
+  if codename:starts_with("scastle") then
+    return {
+      ai = {
+        observe = function(self, entity)
+          if State.grids.solids[entity.position] then
+            State:remove(entity)
+          end
+        end,
+      }
+    }
+  end
   if codename:starts_with("snow") then
     return {winter_flag = true}
   end
