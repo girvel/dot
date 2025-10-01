@@ -25,20 +25,25 @@ return {
         or ch.player.position == ps.dungeon_entrance_3
     end,
 
-    first_time = true,
+    time_i = 0,
 
     --- @param self scene|table
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)
+      self.time_i = self.time_i + 1
       local sp = screenplay.new("assets/screenplay/027_dungeon.ms", ch)
         sp:lines()
 
-        if not self.first_time then
+        sp:start_single_branch()
+        if self.time_i == 2 then
+          sp:lines()
+        end
+        sp:finish_single_branch()
+
+        if self.time_i > 1 then
           actions.move(Vector.down):act(ch.player)
           return
-        else
-          self.first_time = false
         end
 
         sp:lines()
