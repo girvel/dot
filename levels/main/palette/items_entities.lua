@@ -174,6 +174,14 @@ items_entities.head_tatoo_1 = function()
   })
 end
 
+items_entities.gatherer_scar = function()
+  return Table.extend(item.mixin("assets/sprites/animations/gatherer_scar"), {
+    codename = "gatherer_scar",
+    slot = "tatoo",
+    anchor = "head",
+  })
+end
+
 items_entities.bag = function()
   return Table.extend(item.mixin("assets/sprites/animations/bag"), {
     name = "сумка",
