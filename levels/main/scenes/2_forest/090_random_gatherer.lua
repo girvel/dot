@@ -1,3 +1,5 @@
+local level = require("engine.tech.level")
+local health = require("engine.mech.health")
 local async = require("engine.tech.async")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
@@ -27,6 +29,9 @@ return {
     end,
 
     run = function(self, ch, ps)
+      local SOCIAL_DC = 16
+      local subs = {["ИМЯ"] = "Она"}
+
       local sp = screenplay.new("assets/screenplay/090_random_gatherer.ms", ch)
         sp:lines()
 
@@ -45,7 +50,7 @@ return {
             sp:lines()
           sp:finish_branch()
 
-          if ch.player:ability_check("perception", 12) then
+          if ch.player:ability_check("perception", SOCIAL_DC) then
             sp:start_branch(4)
               sp:lines()
             sp:finish_branch()
@@ -53,6 +58,167 @@ return {
         sp:finish_branches()
 
         sp:lines()
+
+        sp:start_branches()
+          if ch.player:ability_check("religion", 12) then
+            sp:start_branch(1)
+              sp:lines()
+            sp:finish_branch()
+          end
+
+          if State.rails.fruit then
+            sp:start_branch(2)
+              sp:lines()
+            sp:finish_branch()
+          else
+            sp:start_branch(3)
+              sp:lines()
+
+              sp:start_single_branch(
+                State.rails.seen_rotten_fruit and 1
+                or State.rails.seen_companion_fruit and 2
+                or 3
+              )
+                sp:lines()
+              sp:finish_single_branch()
+            sp:finish_branch()
+          end
+        sp:finish_branches()
+
+        sp:lines()
+
+        sp:start_single_branch(State.rails.fruit and 1 or 2)
+          sp:lines()
+        sp:finish_single_branch()
+
+        if api.options(sp:start_options()) == 2 then return end
+        sp:finish_options()
+
+        sp:lines()
+
+        sp:start_single_branch()
+        if ch.player:ability_check("insight", SOCIAL_DC) then
+          sp:lines()
+        end
+        sp:finish_single_branch()
+
+        sp:lines()
+
+        sp:start_single_branch()
+        if ch.player:ability_check("insight", SOCIAL_DC) then
+          sp:lines()
+        end
+        sp:finish_single_branch()
+
+        sp:lines()
+
+        async.sleep(2)
+        sp:lines()
+
+        if api.options(sp:start_options()) == 1 then
+          sp:start_option(1)
+            sp:start_branches()
+              sp:start_branch(ch.player:ability_check("insight", SOCIAL_DC) and 1 or 2)
+                sp:lines()
+              sp:finish_branch()
+              for _ = 1, 3 do
+                sp:start_branch(3)
+                  sp:lines()
+
+                  if api.options(sp:start_options()) == 2 then return end
+                  sp:finish_options()
+                sp:finish_branch()
+              end
+            sp:finish_branches()
+
+            ch.gatherer:rotate(Vector.left)
+            sp:lines()
+            return
+          sp:finish_option()
+        end
+        sp:finish_options()
+
+        sp:lines()
+        sp:start_single_branch()
+          if ch.player:ability_check("perception", SOCIAL_DC) then
+            sp:lines()
+          end
+        sp:finish_single_branch()
+
+        if api.options(sp:start_options()) == 2 then return end
+        sp:finish_options()
+
+        api.travel_scripted(ch.player, ps.rg_player_close)
+        sp:lines()
+
+        sp:start_branches()
+          if ch.player:ability_check("perception", SOCIAL_DC) then
+            sp:start_branch(1)
+              sp:lines()
+            sp:finish_branch()
+          end
+
+          if ch.player:ability_check("insight", SOCIAL_DC) then
+            sp:start_branch(2)
+              sp:lines()
+            sp:finish_branch()
+          end
+        sp:finish_branches()
+
+        local options = sp:start_options()
+          while true do
+            local n = api.options(options, true)
+            if n == 1 then break end
+            if n == 3 then return end
+
+            sp:start_option(2)
+              sp:lines()
+              ch.gatherer.name = "Дарра"
+              subs["ИМЯ"] = "Дарра"
+              sp:start_single_branch()
+                if ch.player:ability_check("insight", SOCIAL_DC) then
+                  sp:lines()
+                end
+              sp:finish_single_branch()
+            sp:finish_option()
+          end
+        sp:finish_options()
+
+        sp:start_branches()
+          if ch.player:ability_check("sleight_of_hand", 16) then
+            sp:start_branch(1)
+              sp:lines()
+
+              sp:start_single_branch()
+                if ch.player:ability_check("insight", SOCIAL_DC) then
+                  sp:lines(subs)
+                end
+              sp:finish_single_branch()
+
+              if api.options(sp:start_options()) == 2 then return end
+              sp:finish_options()
+
+              sp:lines()
+            sp:finish_branch()
+          else
+            sp:start_branch(2)
+              sp:lines()
+            sp:finish_branch()
+          end
+        sp:finish_branches()
+
+        local kick = State.runner:run_task(function()
+          level.unsafe_move(ch.player, ch.player.position + Vector.right)
+          health.damage(ch.player, 1)
+          api.curtain(.2, Vector.black):await()
+          api.curtain(.2, Vector.transparent):await()
+        end)
+        sp:lines(subs)
+        kick:await()
+
+        local ft = api.fast_travel(ch.gatherer, ps.rg_ft, ps.rg_ft_to)
+        sp:lines()
+        ft:await()
       sp:finish()
     end,
   },

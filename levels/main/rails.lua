@@ -14,6 +14,9 @@ local rails = {}
 --- @field winter "initialized"|"ended"?
 --- @field seekers "started"?
 --- @field tried_berries "once"|"twice"?
+--- @field fruit "likka"|"khaned"|"found"?
+--- @field seen_rotten_fruit boolean
+--- @field seen_companion_fruit boolean
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
