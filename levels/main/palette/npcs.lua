@@ -49,7 +49,7 @@ npcs.khaned = function()
       {
         -- no right hand
         modify_activation = function(self, entity, value, codename)
-          if codename == "hand_attack" then return false end
+          if codename == "hand_attack" or codename == "opportunity_attack" then return false end
           return value
         end,
       },
@@ -132,19 +132,19 @@ npcs.green_priest = function()
   })
 end
 
-npcs.invader = function()
+npcs.invader = function(faction)
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     name = "Пришелец",
     codename = "invader",
-    base_abilities = abilities.new(12, 12, 12, 12, 12, 12),  -- TODO
-    level = 3,  -- TODO
+    base_abilities = abilities.new(16, 14, 16, 10, 10, 10),  -- TODO
+    level = 4,
     ai = combat_ai.new(),
     inventory = {
       head = items.invader_helmet(),
       body = items.invader_armor(),
       hand = items.halberd(),
     },
-    faction = "invaders",
+    faction = faction or "invaders",
     perks = {  -- TODO
       class.hit_dice(8),
     },
