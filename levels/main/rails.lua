@@ -247,6 +247,7 @@ methods.khaned_offscreen_death = function(self)
   State:remove(ch.khaned)
   State:remove(ch.khaned_fruit)
   State:remove(ch.invader)
+  api.autosave("Повидался с Ханедом")
 
   self.khaned_status = "dead"
 end
@@ -261,6 +262,7 @@ methods.khaned_leaves = function(self)
     Log.warn("Khaned's fruit not properly removed")
     State:remove(ch.khaned_fruit)
   end
+  api.autosave("Пришелец побеждён")
 
   self.khaned_status = "survived"
 end

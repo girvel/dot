@@ -116,7 +116,6 @@ return {
 
             async.sleep(1)
             State.rails:khaned_offscreen_death()
-            api.autosave("Забрал фрукт")
             return
           elseif n == 4 then
             local leaving = api.travel_scripted(ch.player, ps.sk_leaving_2)
@@ -124,7 +123,6 @@ return {
             sp:lines()
             leaving:await()
             State.rails:khaned_offscreen_death()
-            api.autosave("Повидался с Ханедом")
             return
           end
           sp:finish_option()
