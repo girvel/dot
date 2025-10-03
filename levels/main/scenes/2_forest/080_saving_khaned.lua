@@ -115,6 +115,7 @@ return {
             sp:lines()
 
             async.sleep(1)
+            State.rails:khaned_offscreen_death()
             api.autosave("Забрал фрукт")
             return
           elseif n == 4 then
@@ -122,6 +123,7 @@ return {
             async.sleep(1.5)
             sp:lines()
             leaving:await()
+            State.rails:khaned_offscreen_death()
             api.autosave("Повидался с Ханедом")
             return
           end

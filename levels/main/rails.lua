@@ -20,6 +20,7 @@ local rails = {}
 --- @field seen_companion_fruit boolean?
 --- @field has_blessing boolean?
 --- @field has_fruit boolean?
+--- @field khaned_status "dead"|"survived"?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
@@ -227,6 +228,31 @@ end
 
 methods.fruit_see_companion = function(self)
   self.seen_companion_fruit = true
+end
+
+methods.khaned_offscreen_death = function(self)
+  assert(self.khaned_status == nil)
+
+  local ch = State.runner.entities
+  State:remove(ch.khaned)
+  State:remove(ch.khaned_fruit)
+  State:remove(ch.invader)
+
+  self.khaned_status = "dead"
+end
+
+methods.khaned_leaves = function(self)
+  assert(self.khaned_status == nil)
+
+  local ch = State.runner.entities
+  local ps = State.runner.positions
+  api.assert_position(ch.khaned, ps.feast_sac_1)
+  if State:exists(ch.khaned_fruit) then
+    Log.warn("Khaned's fruit not properly removed")
+    State:remove(ch.khaned_fruit)
+  end
+
+  self.khaned_status = "survived"
 end
 
 Ldump.mark(rails, {}, ...)
