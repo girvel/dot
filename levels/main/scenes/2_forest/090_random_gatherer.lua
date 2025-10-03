@@ -35,7 +35,8 @@ return {
       local sp = screenplay.new("assets/screenplay/090_random_gatherer.ms", ch)
         sp:lines()
 
-        api.travel_scripted(ch.player, ps.rg_player)
+        api.travel_scripted(ch.player, ps.rg_player):await()
+        api.rotate(ch.player, ch.gatherer)
 
         sp:start_branches()
           local branch =
@@ -66,7 +67,7 @@ return {
             sp:finish_branch()
           end
 
-          if State.rails.fruit then
+          if State.rails.fruit_source then
             sp:start_branch(2)
               sp:lines()
             sp:finish_branch()
@@ -87,7 +88,7 @@ return {
 
         sp:lines()
 
-        sp:start_single_branch(State.rails.fruit and 1 or 2)
+        sp:start_single_branch(State.rails.fruit_source and 1 or 2)
           sp:lines()
         sp:finish_single_branch()
 

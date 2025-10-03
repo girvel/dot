@@ -43,13 +43,14 @@ return {
         sp:finish_single_branch()
 
         api.rotate(ch.player, ch.khaned_fruit)
+        State.rails:fruit_see_companion()
         sp:lines()
 
         api.rotate(ch.player, ch.khaned)
         sp:lines()
 
         local options = sp:start_options()
-        if State.rails.fruit then
+        if State.rails.fruit_source then
           options[3] = nil
         end
 
@@ -75,8 +76,7 @@ return {
           elseif n == 3 then
             api.travel_scripted(ch.player, ch.khaned_fruit.position):await()
             local interact = ch.player:animate("interact"):next(function()
-              State:remove(ch.khaned_fruit)
-              State.rails.fruit = "khaned"
+              State.rails:fruit_take_khaneds()
             end)
             sp:lines()
 
@@ -98,12 +98,14 @@ return {
             sp:lines()
 
             async.sleep(1)
+            api.autosave("Забрал фрукт")
             return
           elseif n == 4 then
             local leaving = api.travel_scripted(ch.player, ps.sk_leaving_2)
             async.sleep(1.5)
             sp:lines()
             leaving:await()
+            api.autosave("Повидался с Ханедом")
             return
           end
           sp:finish_option()

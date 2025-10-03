@@ -12,20 +12,22 @@ local rails = {}
 --- @field location rails_location
 --- @field feast "started"|"weapon_found"|"ceremony"|"done"?
 --- @field winter "initialized"|"ended"?
---- @field seekers "started"?
+--- @field seekers "started"|"fruit_found"?
 --- @field tried_berries "once"|"twice"?
---- @field fruit "likka"|"khaned"|"found"?
---- @field seen_rotten_fruit boolean
---- @field seen_companion_fruit boolean
+--- @field fruit_source "likka"|"khaned"|"found"?
+--- @field seen_rotten_fruit boolean?
+--- @field eaten_rotten_fruit boolean?
+--- @field seen_companion_fruit boolean?
+--- @field has_blessing boolean?
+--- @field has_fruit boolean?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
 local methods = {}
 local mt = {__index = methods}
 
---- @param runner state_runner
 --- @return rails
-rails.new = function(runner)
+rails.new = function()
   local scenes_by_location do
     scenes_by_location = {}
     local scenes_folder = Table.require_folder("levels.main.scenes")
@@ -38,7 +40,6 @@ rails.new = function(runner)
   end
 
   return setmetatable({
-    runner = runner,
     _scenes_by_location = scenes_by_location,
   }, mt)
 end
@@ -152,7 +153,7 @@ local feast_base = {
 methods.feast_start = function(self)
   assert(self.feast == nil)
   self.feast = "started"
-  State.quests.items.feast = feast_base
+  State.quests.items.feast = Table.deep_copy(feast_base)
   api.journal_update("new_task")
 end
 
@@ -180,9 +181,47 @@ local seekers_base = {
 
 methods.seekers_start = function(self)
   assert(self.seekers == nil)
-  State.quests.items.seekers = seekers_base
+  State.quests.items.seekers = Table.deep_copy(seekers_base)
   self.seekers = "started"
   api.journal_update("new_task")
+end
+
+methods.seekers_fruit_is_found = function(self)
+  assert(self.seekers == "started")
+  local seekers = State.quests.items.seekers
+  seekers.objectives[1].status = "done"
+  seekers.objectives[2] = {
+    status = "new",
+    text = "Вернуться на праздник",
+  }
+  self.seekers = "fruit_found"
+  api.journal_update("new_task")
+end
+
+methods.berries_eat = function(self)
+  if not self.tried_berries then
+    self.tried_berries = "once"
+  elseif self.tried_berries == "once" then
+    self.tried_berries = "twice"
+  else
+    Error("Eating berries more than 1 time (%s)", self.tried_berries)
+  end
+end
+
+methods.fruit_take_khaneds = function(self)
+  assert(self.fruit_source == nil)
+  State:remove(State.runner.entities.khaned_fruit)
+  self.fruit_source = "khaned"
+  self.has_fruit = true
+end
+
+methods.fruit_eat = function(self)
+  self.has_fruit = false
+  self.has_blessing = true
+end
+
+methods.fruit_see_companion = function(self)
+  self.seen_companion_fruit = true
 end
 
 Ldump.mark(rails, {}, ...)

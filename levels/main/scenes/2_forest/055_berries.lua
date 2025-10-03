@@ -38,7 +38,7 @@ return {
           if not State.rails.tried_berries then
             if State.runner.scenes.eating_berries_1:run(ch, ps) then
               ate_berries = true
-              State.rails.tried_berries = "once"
+              State.rails:berries_eat()
             end
           else
             assert(State.rails.tried_berries == "once")
@@ -47,7 +47,7 @@ return {
             sp:finish_branch()
             if State.runner.scenes.eating_berries_2:run(ch, ps) then
               ate_berries = true
-              State.rails.tried_berries = "twice"
+              State.rails:berries_eat()
             end
           end
         sp:finish_branches()
