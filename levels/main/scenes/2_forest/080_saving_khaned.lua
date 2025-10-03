@@ -1,6 +1,7 @@
 local async = require("engine.tech.async")
 local api = require("engine.tech.api")
 local screenplay = require "engine.tech.screenplay"
+local solids_entities = require "levels.main.palette.solids_entities"
 
 
 return {
@@ -71,6 +72,22 @@ return {
             State.hostility:set(ch.player.faction, ch.invader.faction, "enemy")
 
             ch.invader.essential_flag = nil
+
+            State:start_combat({ch.invader, ch.khaned, ch.player})
+            coroutine.yield()
+
+            local sub
+            sub = State.hostility:subscribe(function()
+              State.runner.scenes._081_after_khaned_fight.player_was_attacking = true
+              State.hostility:unsubscribe(sub)
+            end)
+
+            local next_scene = State.runner.scenes._081_after_khaned_fight
+            next_scene.enabled = true
+            next_scene.path_blocker = State:add(
+              solids_entities.path_blocker(),
+              {position = ps.sk_path_blocker, grid_layer = "solids"}
+            )
 
             return
           elseif n == 3 then

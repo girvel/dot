@@ -8,9 +8,11 @@ local bad_trip       = require("engine.tech.shaders.bad_trip")
 
 
 return {
+  --- @type scene|table
   init = {
     enabled = true,
     start_predicate = function(self, dt) return State.is_loaded end,
+    in_combat_flag = true,
 
     run = function(self)
       do
@@ -62,23 +64,25 @@ return {
     end,
   },
 
+  --- @type scene|table
   init_debug = {
     enabled = true,
     start_predicate = function(self, dt) return State.debug end,
+    in_combat_flag = true,
 
     run = function(self)
       coroutine.yield()  -- race condition safety
     end,
   },
 
+  --- @type scene|table
   cp1 = {
-    --- @param self scene
-    --- @param dt number
+    in_combat_flag = true,
+
     start_predicate = function(self, dt)
       return true
     end,
 
-    --- @param self scene
     run = function(self)
       State.rails:winter_init()
       State.rails:location_upper_village(true)
@@ -90,13 +94,12 @@ return {
 
   --- @type scene|table
   cp2 = {
-    --- @param self scene|table
-    --- @param dt number
+    in_combat_flag = true,
+
     start_predicate = function(self, dt)
       return true
     end,
 
-    --- @param self scene|table
     run = function(self)
       State.rails:winter_init()
       State.rails:winter_end()

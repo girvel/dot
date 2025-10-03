@@ -5,6 +5,7 @@ local api            = require "engine.tech.api"
 return {
   loc_1_drop_knife = {
     enabled = true,
+    in_combat_flag = true,
 
     --- @param self scene
     --- @param dt number
@@ -29,6 +30,7 @@ return {
 
   weapon_found = {
     enabled = true,
+    in_combat_flag = true,
 
     --- @param self scene|table
     --- @param dt number

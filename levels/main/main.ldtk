@@ -37456,6 +37456,44 @@
 							}] }],
 							"__worldX": 272,
 							"__worldY": 544
+						},
+						{
+							"__identifier": "position",
+							"__grid": [11,33],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "476e9530-8560-11f0-a8ce-bf1d5eb8041e",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [176,528],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "sk_khaned_ft", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["sk_khaned_ft"]
+							}] }],
+							"__worldX": 176,
+							"__worldY": 528
+						},
+						{
+							"__identifier": "position",
+							"__grid": [8,29],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "d80692f0-8560-11f0-a8ce-b9009f5722e3",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [128,464],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "sk_path_blocker", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["sk_path_blocker"]
+							}] }],
+							"__worldX": 128,
+							"__worldY": 464
 						}
 					]
 				},

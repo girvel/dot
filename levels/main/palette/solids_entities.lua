@@ -1,6 +1,7 @@
 local _common     = require("levels.main.palette._common")
 local player    = require("levels.main.palette.player")
 local animated  = require("engine.tech.animated")
+local sprite    = require("engine.tech.sprite")
 
 
 local solids_entities = {}
@@ -29,6 +30,14 @@ solids_entities.pyre_4 = function()
     codename = "pyre_4",
     transparent_flag = true,
   })
+end
+
+solids_entities.path_blocker = function()
+  return {
+    sprite = sprite.image("assets/sprites/empty.png"),
+    codename = "path_blocker",
+    transparent_flag = true,
+  }
 end
 
 Ldump.mark(solids_entities, "const", ...)
