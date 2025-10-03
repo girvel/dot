@@ -145,8 +145,12 @@ npcs.invader = function(faction)
       hand = items.halberd(),
     },
     faction = faction or "invaders",
-    perks = {  -- TODO
-      class.hit_dice(8),
+    perks = {
+      fighter.hit_dice,
+      fighter.second_wind,
+      fighter.fighting_styles.defense,
+      class.skill_proficiency("athletics"),
+      class.skill_proficiency("acrobatics"),
     },
     essential_flag = true,
   })

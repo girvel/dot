@@ -105,7 +105,8 @@ return {
       State.rails:feast_end()
       State.rails:seekers_start()
       api.assert_position(State.player, State.runner.positions.cp2)
-      item.give(State.player, State:add(items_entities.short_bow()))
+      item.give(State.player, State:add(items_entities.axe()))
+      item.give(State.player, State:add(items_entities.shield()))
     end,
   },
 }
