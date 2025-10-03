@@ -145,6 +145,7 @@ end
 
 local feast_base = {
   name = "Празднование",
+  status = "new",
   objectives = {
     {status = "new", text = "Взять оружие"},
     {status = "new", text = "Присоединиться к церемонии"},
@@ -158,23 +159,28 @@ methods.feast_start = function(self)
   api.journal_update("new_task")
 end
 
-methods.feast_end = function(self)
-  assert(self.feast == "started" or self.feast == "weapon_found")
-  self.feast = "done"
-  for _, o in ipairs(State.quests.items.feast.objectives) do
-    o.status = "done"
-  end
-  api.journal_update("task_completed")
-end
-
 methods.feast_weapon_found = function(self)
   assert(self.feast == "started")
   State.quests.items.feast.objectives[1].status = "done"
   api.journal_update("task_completed")
 end
 
+methods.feast_end = function(self)
+  assert(self.feast == "started" or self.feast == "weapon_found")
+
+  local q = State.quests.items.feast
+  q.status = "done"
+  for _, o in ipairs(q.objectives) do
+    o.status = "done"
+  end
+  api.journal_update("task_completed")
+
+  self.feast = "done"
+end
+
 local seekers_base = {
   name = "Искатели",
+  status = "new",
   objectives = {
     {status = "new", text = "Найти плод дерева Акуль"},
   },
@@ -182,21 +188,25 @@ local seekers_base = {
 
 methods.seekers_start = function(self)
   assert(self.seekers == nil)
+
   State.quests.items.seekers = Table.deep_copy(seekers_base)
-  self.seekers = "started"
   api.journal_update("new_task")
+
+  self.seekers = "started"
 end
 
 local seekers_fruit_is_found = function(self)
   assert(self.seekers == "started")
+
   local seekers = State.quests.items.seekers
   seekers.objectives[1].status = "done"
   seekers.objectives[2] = {
     status = "new",
     text = "Вернуться на праздник",
   }
-  self.seekers = "fruit_found"
   api.journal_update("new_task")
+
+  self.seekers = "fruit_found"
 end
 
 methods.berries_eat = function(self)
