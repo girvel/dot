@@ -50,7 +50,7 @@ return {
         do
           did_player_come_first = true
           coroutine.yield()
-          if Period(15, self, "start") then
+          if State.period:absolute(15, self, "start") then
             level.unsafe_move(ch.likka, ps.ceremony_likka)
             level.unsafe_move(ch.khaned, ps.ceremony_khaned)
             level.unsafe_move(ch.red_priest, ps.ceremony_red_priest)

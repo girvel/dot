@@ -37187,7 +37187,7 @@
 						},
 						{
 							"__identifier": "position",
-							"__grid": [14,30],
+							"__grid": [36,62],
 							"__pivot": [0,0],
 							"__tags": ["positions"],
 							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
@@ -37196,13 +37196,13 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 108,
-							"px": [224,480],
+							"px": [576,992],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "cp2", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["cp2"]
 							}] }],
-							"__worldX": 224,
-							"__worldY": 480
+							"__worldX": 576,
+							"__worldY": 992
 						},
 						{
 							"__identifier": "position",

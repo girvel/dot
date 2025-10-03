@@ -68,6 +68,9 @@ wildlife.boar = function()
       },
     },
     cues = PIG_CUES,
+    perks = {
+      perks.relentless,
+    },
   })
 end
 
