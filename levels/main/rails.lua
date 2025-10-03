@@ -186,7 +186,7 @@ methods.seekers_start = function(self)
   api.journal_update("new_task")
 end
 
-methods.seekers_fruit_is_found = function(self)
+local seekers_fruit_is_found = function(self)
   assert(self.seekers == "started")
   local seekers = State.quests.items.seekers
   seekers.objectives[1].status = "done"
@@ -213,11 +213,16 @@ methods.fruit_take_khaneds = function(self)
   State:remove(State.runner.entities.khaned_fruit)
   self.fruit_source = "khaned"
   self.has_fruit = true
+
+  seekers_fruit_is_found(self)
 end
 
 methods.fruit_eat = function(self)
   self.has_fruit = false
   self.has_blessing = true
+
+  assert(self.seekers == "fruit_found")
+  State.quests.items.seekers.objectives[1].status = "failed"
 end
 
 methods.fruit_see_companion = function(self)
