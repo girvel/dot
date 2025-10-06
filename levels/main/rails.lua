@@ -21,6 +21,7 @@ local rails = {}
 --- @field has_blessing boolean?
 --- @field has_fruit boolean?
 --- @field khaned_status "dead"|"survived"?
+--- @field gatherer_status "ran_away"?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
@@ -265,6 +266,11 @@ methods.khaned_leaves = function(self)
   api.autosave("Пришелец побеждён")
 
   self.khaned_status = "survived"
+end
+
+methods.gatherer_run_away = function(self)
+  assert(self.gatherer_status == nil)
+  self.gatherer_status = "ran_away"
 end
 
 Ldump.mark(rails, {}, ...)

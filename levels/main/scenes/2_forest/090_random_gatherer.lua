@@ -220,6 +220,8 @@ return {
         local ft = api.fast_travel(ch.gatherer, ps.rg_ft, ps.rg_ft_to)
         sp:lines()
         ft:await()
+
+        State.rails:gatherer_run_away()
       sp:finish()
     end,
   },
