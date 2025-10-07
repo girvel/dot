@@ -3,6 +3,7 @@ local screenplay = require("engine.tech.screenplay")
 
 
 return {
+  --- @type scene|table
   _010_intro = {
     enabled = true,
 
@@ -13,18 +14,13 @@ return {
       red_priest = {},
     },
 
-    --- @param self scene
-    --- @param dt number
-    --- @param ch runner_characters
     start_predicate = function(self, dt, ch)
       return State.is_loaded
     end,
 
-    --- @param self scene
-    --- @param ch runner_characters
-    --- @param ps runner_positions
     run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/010_intro.ms", ch)
+        ch.player:rotate(Vector.down)
         ch.khaned:rotate(Vector.up)
         ch.likka:rotate(Vector.up)
 

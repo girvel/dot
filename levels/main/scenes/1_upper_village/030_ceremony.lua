@@ -79,6 +79,12 @@ return {
           return
         end
         sp:finish_branches()
+
+        if api.options(sp:start_options()) == 2 then
+          api.travel_scripted(ch.player, ch.player.position + Vector.up * 3):await()
+          return
+        end
+        sp:finish_options()
         self.enabled = nil
 
         local feast_scene = State.runner.scenes._020_feast

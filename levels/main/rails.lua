@@ -148,8 +148,8 @@ local feast_base = {
   name = "Празднование",
   status = "new",
   objectives = {
-    {status = "new", text = "Взять оружие"},
-    {status = "new", text = "Присоединиться к церемонии"},
+    {status = "new", text = "Найти оружие"},
+    {status = "new", text = "Присоединиться к церемонии на храмовой площади"},
   },
 }
 
@@ -183,7 +183,7 @@ local seekers_base = {
   name = "Искатели",
   status = "new",
   objectives = {
-    {status = "new", text = "Найти плод дерева Акуль"},
+    {status = "new", text = "Найти плод дерева Акуль в лесу"},
   },
 }
 
@@ -203,7 +203,7 @@ local seekers_fruit_is_found = function(self)
   seekers.objectives[1].status = "done"
   seekers.objectives[2] = {
     status = "new",
-    text = "Вернуться на праздник",
+    text = "Вернуться на праздник в деревню",
   }
   api.journal_update("new_task")
 

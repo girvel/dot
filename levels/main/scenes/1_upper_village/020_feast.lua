@@ -150,8 +150,9 @@ return {
     --- @param ps runner_positions
     run = Ldump.ignore_upvalue_size(function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
-        api.travel_scripted(ch.player, ps.feast_observe)
-        ch.player:rotate(Vector.down)
+        api.travel_scripted(ch.player, ps.feast_observe):next(function()
+          ch.player:rotate(Vector.down)
+        end)
         api.move_camera(ps.feast_camera):await()
 
         local give_fruit = function(receiver_name)
@@ -254,7 +255,9 @@ return {
           corner = ps[corner]
 
           async.sleep(Random.float(0, .3))
-          local promise, scene = dance(inviter, invitee, corner, 20, true)
+          local promise, scene = dance(
+            inviter, invitee, corner, 20, not inviter:ends_with("priest")
+          )
           table.insert(self.final_dancing_scenes, scene)
           return promise
         end
