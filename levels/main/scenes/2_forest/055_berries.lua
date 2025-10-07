@@ -3,6 +3,7 @@ local bad_trip = require("engine.tech.shaders.bad_trip")
 local async = require("engine.tech.async")
 local screenplay = require("engine.tech.screenplay")
 local interactive = require("engine.tech.interactive")
+local api         = require("engine.tech.api")
 
 
 return {
@@ -68,11 +69,14 @@ return {
       local likka = State.runner.entities.likka
       local start = love.timer.getTime()
       while love.timer.getTime() - start < DURATION do
-        if not State.rails.likka_saw_bad_trip
-          and State:exists(likka)
+        if State:exists(likka)
           and tcod.snapshot(State.grids.solids):is_visible_unsafe(unpack(likka.position))
         then
           State.rails.likka_saw_bad_trip = true
+
+          if State.period:absolute(.5, self, "likka_turning") then
+            api.rotate(likka, ch.player)
+          end
         end
         coroutine.yield()
       end

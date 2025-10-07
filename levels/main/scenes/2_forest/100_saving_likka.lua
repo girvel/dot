@@ -1,3 +1,4 @@
+local bad_trip = require("engine.tech.shaders.bad_trip")
 local health = require("engine.mech.health")
 local level = require("engine.tech.level")
 local screenplay = require("engine.tech.screenplay")
@@ -19,6 +20,7 @@ return {
 
     start_predicate = function(self, dt, ch, ps)
       return (ps.sl_start - ch.player.position):abs2() <= 2
+        and (not State.shader or getmetatable(State.shader) ~= bad_trip.mt)
     end,
 
     _first_time = true,
@@ -34,6 +36,7 @@ return {
         sp:start_branches()
           if State.rails.likka_saw_bad_trip and State.period:once(self, "bad_trip") then
             sp:start_branch(1)
+              api.rotate(ch.likka, ch.player)
               sp:lines()
             sp:finish_branch()
           elseif self._first_time then
