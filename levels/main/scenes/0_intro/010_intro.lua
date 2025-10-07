@@ -65,12 +65,12 @@ return {
           :next(function() ch.red_priest:rotate(Vector.up) end)
         api.wait(2)
 
+        State.rails:location_upper_village()
         sp:lines()
         api.wait(2)
 
         sp:lines()
 
-        State.rails:location_upper_village()
         State.rails:feast_start()
       sp:finish()
     end,
