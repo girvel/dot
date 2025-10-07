@@ -26,6 +26,8 @@ return {
     _first_time = true,
     _last_talked = nil,
 
+    _initial_options = nil,
+
     run = function(self, ch, ps)
       self._last_talked = love.timer.getTime()
 
@@ -61,9 +63,11 @@ return {
         sp:finish_branches()
 
         local options = sp:start_options()
+        self._initial_options = self._initial_options or options
         while true do
-          local n = api.options(options, true)
+          local n = api.options(self._initial_options)
           if n == 1 then
+            self._initial_options[1] = nil
             sp:start_option(1)
               api.travel_scripted(ch.player, ps.sl_start):wait()
               -- NEXT! animate kneeling?
