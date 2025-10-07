@@ -59,7 +59,7 @@ return {
         sp:finish_options()
 
         sp:lines()
-        api.travel_scripted(ch.red_priest, ps.red_priest_1):await()
+        api.travel_scripted(ch.red_priest, ps.red_priest_1):wait()
         sp:lines()
         api.travel_scripted(ch.red_priest, ps.ceremony_red_priest)
           :next(function() ch.red_priest:rotate(Vector.up) end)

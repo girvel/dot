@@ -22,11 +22,11 @@ local dance = function(inviter, invitee, left_corner, passes_n, applause)
       for _ = 1, math.random(2, 3) do
         async.sleep(Random.float(0, .2))
         inviter:animate("clap")
-        invitee:animate("clap"):await()
+        invitee:animate("clap"):wait()
       end
     end
 
-    api.travel_scripted(inviter, invitee.position):await()
+    api.travel_scripted(inviter, invitee.position):wait()
     api.rotate(inviter, invitee)
     async.sleep(.3)
     api.rotate(invitee, inviter)
@@ -37,8 +37,8 @@ local dance = function(inviter, invitee, left_corner, passes_n, applause)
       local t1 = api.travel_scripted(inviter, left_corner)
       local t2 = api.travel_scripted(invitee, left_corner + Vector.right)
 
-      t1:await()
-      t2:await()
+      t1:wait()
+      t2:wait()
 
       api.rotate(inviter, invitee)
       api.rotate(invitee, inviter)
@@ -48,7 +48,7 @@ local dance = function(inviter, invitee, left_corner, passes_n, applause)
       actions.move(Vector.right):act(invitee)
       actions.move(Vector.right):act(inviter)
       invitee:rotate(Vector.left)
-      invitee:animate("move"):await()
+      invitee:animate("move"):wait()
       invitee:animate("hand_attack")
       inviter:animate("offhand_attack")
 
@@ -57,9 +57,9 @@ local dance = function(inviter, invitee, left_corner, passes_n, applause)
       actions.move(Vector.left):act(inviter)
       actions.move(Vector.left):act(invitee)
       inviter:rotate(Vector.right)
-      inviter:animate("move"):await()
+      inviter:animate("move"):wait()
       invitee:animate("offhand_attack")
-      inviter:animate("hand_attack"):await()
+      inviter:animate("hand_attack"):wait()
     end
   end, "dance")
 end
@@ -96,7 +96,7 @@ local throw_snow = function(thrower, position, repetitions_n)
     + V(.5 + Random.float(-0.125, 0.125), -.25 + Random.float(-0.125, 0.125))
 
   return State.runner:run_task(function()
-    api.travel_scripted(thrower, position):await()
+    api.travel_scripted(thrower, position):wait()
     async.sleep(.2)
     thrower:rotate((pyre_position - position):normalized2())
 
@@ -107,8 +107,8 @@ local throw_snow = function(thrower, position, repetitions_n)
       local projectile_task
       thrower:animate("throw", true):next(function()
         projectile_task = projectile.launch(thrower, "hand", pyre_position, Random.float(10, 16))
-      end):await()
-      projectile_task:await()
+      end):wait()
+      projectile_task:wait()
     end
   end, "throw_snow")
 end
@@ -153,14 +153,14 @@ return {
         api.travel_scripted(ch.player, ps.feast_observe):next(function()
           ch.player:rotate(Vector.down)
         end)
-        api.move_camera(ps.feast_camera):await()
+        api.move_camera(ps.feast_camera):wait()
 
         local give_fruit = function(receiver_name)
-          api.travel_scripted(ch.green_priest, ch[receiver_name].position):await()
+          api.travel_scripted(ch.green_priest, ch[receiver_name].position):wait()
           api.rotate(ch.green_priest, ch[receiver_name])
           async.sleep(.2)
           api.rotate(ch[receiver_name], ch.green_priest)
-          ch.green_priest:animate("interact", true):await()
+          ch.green_priest:animate("interact", true):wait()
         end
 
         local priest_task = State.runner:run_task(function()
@@ -171,7 +171,7 @@ return {
 
         sp:lines()  -- don't wait for narration to start priest movement
         sp:lines()
-        priest_task:await()
+        priest_task:wait()
 
         priest_task = api.travel_scripted(
           ch.green_priest, ps.feast_green_priest
@@ -184,12 +184,12 @@ return {
         )
         sp:lines()
 
-        priest_task:await()
+        priest_task:wait()
 
         async.sleep(4)
         priest_task = throw_snow(ch.green_priest, ps.feast_throw_priest, 1)
         sp:lines()
-        priest_task:await()
+        priest_task:wait()
         async.sleep(.5)
 
         local snowballs = Promise.all(
@@ -200,8 +200,8 @@ return {
           throw_snow(ch.thrower_5, ps.feast_throw_5, math.random(2, 3))
         )
         sp:lines()
-        snowballs:await()
-        dancing:await()
+        snowballs:wait()
+        dancing:wait()
 
         local sac_fruit = function(ch_name, fruit_pos, sac_pos)
           return State.runner:run_task(function()
@@ -209,33 +209,33 @@ return {
             fruit_pos = ps[fruit_pos]
             sac_pos = ps[sac_pos]
 
-            api.travel_scripted(guy, fruit_pos):await()
+            api.travel_scripted(guy, fruit_pos):wait()
             api.rotate(guy, fruit_pos)
             async.sleep(1)
-            guy:animate("interact"):await()
+            guy:animate("interact"):wait()
             guy.inventory.hand = State:add(fruit_new())
             async.sleep(1)
 
-            api.travel_scripted(guy, sac_pos):await()
+            api.travel_scripted(guy, sac_pos):wait()
             api.rotate(guy, ps.feast_pyre)
-            guy:animate("interact"):await()
+            guy:animate("interact"):wait()
             State:remove(guy.inventory.hand)
             guy.inventory.hand = nil
           end, "sac_fruit")
         end
 
-        ch.green_priest:animate("gesture"):await()
+        ch.green_priest:animate("gesture"):wait()
         local fruits = Promise.all(
           sac_fruit("boy_1", "feast_fruit_1", "feast_sac_1"),
           sac_fruit("boy_2", "feast_fruit_2", "feast_sac_2"),
           sac_fruit("boy_3", "feast_fruit_3", "feast_sac_3")
         )
         sp:lines()
-        fruits:await()
+        fruits:wait()
 
         local human_sac = State.runner:run_task(function()
           for _, target in ipairs {"boy_3", "boy_2", "boy_1"} do
-            api.travel_scripted(ch.green_priest, ch[target].position):await()
+            api.travel_scripted(ch.green_priest, ch[target].position):wait()
             async.sleep(.5)
             ch.green_priest:animate("interact")
             async.sleep(.3)
@@ -246,7 +246,7 @@ return {
           end
         end, "human_sac")
         sp:lines()
-        human_sac:await()
+        human_sac:wait()
 
         async.sleep(5)
         local next_dance = function(inviter, invitee, corner)

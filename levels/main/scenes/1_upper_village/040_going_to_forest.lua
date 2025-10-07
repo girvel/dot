@@ -49,11 +49,11 @@ return {
         local player_moving = api.travel_scripted(ch.player, ps.gtf_player_1)
         async.sleep(2)
         sp:lines()
-        player_moving:await()
+        player_moving:wait()
         async.sleep(1)
         ch.player:rotate(Vector.right)
         async.sleep(.5)
-        api.travel_scripted(ch.player, ps.gtf_player_2):await()
+        api.travel_scripted(ch.player, ps.gtf_player_2):wait()
         api.move_camera(ch.likka.position)
 
         async.sleep(.4)
@@ -62,7 +62,7 @@ return {
         async.sleep(.2)
         api.rotate(ch.likka, ch.player)
         sp:lines()
-        api.move_camera(ch.player.position):await()
+        api.move_camera(ch.player.position):wait()
         ch.player:rotate(Vector.right)
         sp:lines()
 
@@ -72,11 +72,11 @@ return {
         api.curtain(0, transparent)
         local curtain = api.curtain(3, flash_color)
         sp:lines()
-        curtain:await()
+        curtain:wait()
 
         State.rails:winter_end()
         curtain = api.curtain(5, transparent)
-        curtain:await()
+        curtain:wait()
 
         sp:lines()
         sp:start_single_branch()
@@ -87,13 +87,13 @@ return {
         sp:lines()
 
         local ft_khaned = api.fast_travel(ch.khaned, ps.gtf_khaned_ft, ps.sk_khaned)
-        api.travel_scripted(ch.likka, ch.player.position):await()
+        api.travel_scripted(ch.likka, ch.player.position):wait()
 
         sp:lines()
         local ft_likka = api.fast_travel(ch.likka, ps.gtf_likka_ft, ps.sl_likka)
 
-        ft_khaned:await()
-        ft_likka:await()
+        ft_khaned:wait()
+        ft_likka:wait()
 
         State.rails:location_forest()
         State.rails:feast_end()

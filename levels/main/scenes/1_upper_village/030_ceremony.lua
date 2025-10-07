@@ -62,7 +62,7 @@ return {
         local hand = ch.player.inventory.hand
         local offhand = ch.player.inventory.offhand
         if hand and hand.bonus or offhand and offhand.bonus then
-          api.move_camera(ch.khaned.position):await()
+          api.move_camera(ch.khaned.position):wait()
           if self._first_time then
             sp:start_branch(1)
               sp:lines()
@@ -75,13 +75,13 @@ return {
               sp:lines()
             sp:finish_branch()
           end
-          api.travel_scripted(ch.player, ch.player.position + Vector.up * 3):await()
+          api.travel_scripted(ch.player, ch.player.position + Vector.up * 3):wait()
           return
         end
         sp:finish_branches()
 
         if api.options(sp:start_options()) == 2 then
-          api.travel_scripted(ch.player, ch.player.position + Vector.up * 3):await()
+          api.travel_scripted(ch.player, ch.player.position + Vector.up * 3):wait()
           return
         end
         sp:finish_options()
@@ -115,7 +115,7 @@ return {
         sp:finish_single_branch()
 
         api.move_camera(ch.red_priest.position)
-        api.travel_scripted(ch.player, ps.ceremony_player):await()
+        api.travel_scripted(ch.player, ps.ceremony_player):wait()
         api.rotate(ch.player, ch.red_priest)
 
         sp:lines()
@@ -144,9 +144,9 @@ return {
               local khaned_weapon = ch.khaned.inventory.offhand
               ch.khaned.inventory.offhand = nil
 
-              api.travel_scripted(ch.khaned, ch.player.position):await()
+              api.travel_scripted(ch.khaned, ch.player.position):wait()
               api.rotate(ch.khaned, ch.player)
-              ch.khaned:animate("offhand_attack"):await()
+              ch.khaned:animate("offhand_attack"):wait()
               health.damage(ch.player, 1)
 
               sp:lines()
@@ -162,7 +162,7 @@ return {
         api.rotate(ch.red_priest, ch.khaned)
         sp:lines()
 
-        ch.red_priest:animate("gesture"):await()
+        ch.red_priest:animate("gesture"):wait()
         for _, name in ipairs(CROWD) do
           local e = State.runner.entities[name]
           if State:exists(e) and Random.chance(.8) then
@@ -170,7 +170,7 @@ return {
             State.runner:run_task(function()
               for _ = 1, 6 do
                 async.sleep(Random.float(0, .2))
-                e:animate(animation_name):await()
+                e:animate(animation_name):wait()
               end
             end, "crowd_gesture")
           end
@@ -178,14 +178,14 @@ return {
         sp:lines()
 
         local priest_giving = State.runner:run_task(function()
-          api.travel_scripted(ch.red_priest, ch.ceremony_food.position):await()
-          ch.red_priest:animate("interact"):await()
+          api.travel_scripted(ch.red_priest, ch.ceremony_food.position):wait()
+          ch.red_priest:animate("interact"):wait()
           State:remove(ch.ceremony_food)
           ch.ceremony_food = nil
           for _, target in ipairs {"player", "likka", "khaned"} do
-            api.travel_scripted(ch.red_priest, ch[target].position):await()
+            api.travel_scripted(ch.red_priest, ch[target].position):wait()
             api.rotate(ch[target], ch.red_priest)
-            ch.red_priest:animate("interact"):await()
+            ch.red_priest:animate("interact"):wait()
           end
           local t = api.travel_scripted(ch.red_priest, ps.ceremony_red_priest)
           async.sleep(.1)
@@ -194,11 +194,11 @@ return {
           ch.likka:rotate(Vector.down)
           async.sleep(.1)
           ch.player:rotate(Vector.down)
-          t:await()
+          t:wait()
           api.rotate(ch.red_priest, ch.khaned)
         end, "priest_giving")
         sp:lines()
-        priest_giving:await()
+        priest_giving:wait()
 
         async.sleep(.5)
         ch.red_priest:animate("clap", true)
@@ -211,12 +211,12 @@ return {
         local _, likka_leaving_scene = api.travel_scripted(ch.likka, ps.gtf_likka)
         local player_moving = api.travel_scripted(ch.player, ps.ceremony_player_away)
         sp:lines()
-        player_moving:await()
+        player_moving:wait()
 
         player_moving = api.travel_scripted(ch.player, ps.ceremony_player_away_2)
         api.free_camera()
         api.fade_out()
-        player_moving:await()
+        player_moving:wait()
         State.runner:remove(khaned_leaving_scene)
         State.runner:remove(likka_leaving_scene)
       sp:finish()

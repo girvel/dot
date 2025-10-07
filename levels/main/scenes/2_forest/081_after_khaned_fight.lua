@@ -31,15 +31,15 @@ return {
         sp:lines()
 
         if ch.player.position == ps.sk_start then
-          api.travel_scripted(ch.player, ch.player.position + Vector.left):await()
+          api.travel_scripted(ch.player, ch.player.position + Vector.left):wait()
         end
 
-        api.travel_scripted(ch.khaned, ch.khaned_fruit.position):await()
-        ch.khaned:animate("interact"):await()
+        api.travel_scripted(ch.khaned, ch.khaned_fruit.position):wait()
+        ch.khaned:animate("interact"):wait()
         State:remove(ch.khaned_fruit)
 
         async.sleep(.3)
-        api.fast_travel(ch.khaned, ps.sk_khaned_ft, ps.feast_sac_1):await()
+        api.fast_travel(ch.khaned, ps.sk_khaned_ft, ps.feast_sac_1):wait()
         State.rails:khaned_leaves()
       sp:finish()
     end,

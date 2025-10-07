@@ -67,7 +67,7 @@ return {
         -- SOUND hornets
         health.damage(ch.player, 3, true)
         sp:lines()
-        api.travel_scripted(ch.player, ps.hn_runaway):await()
+        api.travel_scripted(ch.player, ps.hn_runaway):wait()
       sp:finish()
     end,
   },

@@ -35,7 +35,7 @@ return {
       local sp = screenplay.new("assets/screenplay/090_random_gatherer.ms", ch)
         sp:lines()
 
-        api.travel_scripted(ch.player, ps.rg_player):await()
+        api.travel_scripted(ch.player, ps.rg_player):wait()
         api.rotate(ch.player, ch.gatherer)
 
         sp:start_branches()
@@ -211,15 +211,15 @@ return {
         local kick = State.runner:run_task(function()
           level.unsafe_move(ch.player, ch.player.position + Vector.right)
           health.damage(ch.player, 1)
-          api.curtain(.2, Vector.black):await()
-          api.curtain(.2, Vector.transparent):await()
+          api.curtain(.2, Vector.black):wait()
+          api.curtain(.2, Vector.transparent):wait()
         end)
         sp:lines(subs)
-        kick:await()
+        kick:wait()
 
         local ft = api.fast_travel(ch.gatherer, ps.rg_ft, ps.rg_ft_to)
         sp:lines()
-        ft:await()
+        ft:wait()
 
         State.rails:gatherer_run_away()
       sp:finish()

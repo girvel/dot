@@ -64,7 +64,7 @@ return {
           elseif n == 2 then
             local travel = api.travel_scripted(ch.player, ch.player.position + Vector.left)
             sp:lines()
-            travel:await()
+            travel:wait()
 
             State.hostility:set(ch.invader.faction, ch.khaned.faction, "enemy")
             State.hostility:set(ch.invader.faction, ch.player.faction, "enemy")
@@ -91,13 +91,13 @@ return {
 
             return
           elseif n == 3 then
-            api.travel_scripted(ch.player, ch.khaned_fruit.position):await()
+            api.travel_scripted(ch.player, ch.khaned_fruit.position):wait()
             local interact = ch.player:animate("interact"):next(function()
               State.rails:fruit_take_khaneds()
             end)
             sp:lines()
 
-            interact:await()
+            interact:wait()
             async.sleep(.5)
 
             ch.player:rotate(Vector.down)
@@ -106,7 +106,7 @@ return {
             sp:lines()
             async.sleep(.2)
             local leaving = api.travel_scripted(ch.player, ps.sk_leaving_2)
-            leaving:await()
+            leaving:wait()
 
             async.sleep(.8)
             sp:lines()
@@ -121,7 +121,7 @@ return {
             local leaving = api.travel_scripted(ch.player, ps.sk_leaving_2)
             async.sleep(1.5)
             sp:lines()
-            leaving:await()
+            leaving:wait()
             State.rails:khaned_offscreen_death()
             return
           end
