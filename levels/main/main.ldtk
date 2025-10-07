@@ -37187,7 +37187,7 @@
 						},
 						{
 							"__identifier": "position",
-							"__grid": [14,31],
+							"__grid": [47,115],
 							"__pivot": [0,0],
 							"__tags": ["positions"],
 							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
@@ -37196,13 +37196,13 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 108,
-							"px": [224,496],
+							"px": [752,1840],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "cp2", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["cp2"]
 							}] }],
-							"__worldX": 224,
-							"__worldY": 496
+							"__worldX": 752,
+							"__worldY": 1840
 						},
 						{
 							"__identifier": "position",
@@ -45707,7 +45707,7 @@
 						},
 						{
 							"__identifier": "boar",
-							"__grid": [61,128],
+							"__grid": [47,116],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
@@ -45716,10 +45716,10 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 362,
-							"px": [976,2048],
+							"px": [752,1856],
 							"fieldInstances": [],
-							"__worldX": 976,
-							"__worldY": 2048
+							"__worldX": 752,
+							"__worldY": 1856
 						},
 						{
 							"__identifier": "invader",
@@ -46068,7 +46068,7 @@
 						},
 						{
 							"__identifier": "boar",
-							"__grid": [60,132],
+							"__grid": [48,115],
 							"__pivot": [0,0],
 							"__tags": ["solids"],
 							"__tile": { "tilesetUid": 361, "x": 48, "y": 0, "w": 16, "h": 16 },
@@ -46077,10 +46077,10 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 362,
-							"px": [960,2112],
+							"px": [768,1840],
 							"fieldInstances": [],
-							"__worldX": 960,
-							"__worldY": 2112
+							"__worldX": 768,
+							"__worldY": 1840
 						},
 						{
 							"__identifier": "villager",

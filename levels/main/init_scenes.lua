@@ -5,6 +5,8 @@ local tcod   = require("engine.tech.tcod")
 local item   = require("engine.tech.item")
 local items_entities = require("levels.main.palette.items_entities")
 local bad_trip       = require("engine.tech.shaders.bad_trip")
+local actions        = require("engine.mech.actions")
+local perks          = require("engine.mech.perks")
 
 
 return {
@@ -42,10 +44,10 @@ return {
       State.quests.order = {"seekers", "feast"}
       State.hostility:set("invaders", "village", "enemy")
 
-      State.hostility:set("predators", "village", "enemy")
-      State.hostility:set("village", "predators", "enemy")
-      State.hostility:set("predators", "player", "enemy")
-      State.hostility:set("player", "predators", "enemy")
+      State.hostility:set("boars", "village", "enemy")
+      State.hostility:set("village", "boars", "enemy")
+      State.hostility:set("boars", "player", "enemy")
+      State.hostility:set("player", "boars", "enemy")
 
       State.hostility:set("player", "village", "ally")
       State.hostility:set("player", "khaned", "ally")

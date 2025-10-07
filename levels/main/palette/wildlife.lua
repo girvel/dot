@@ -43,6 +43,7 @@ local tusks = function()
   return Table.extend(animated.mixin("assets/sprites/animations/tusks"), {
     name = "Клыки",
     codename = "tusks",
+    boring_flag = true,
     slot = "head",
     no_drop_flag = true,
     tags = {},
@@ -57,10 +58,13 @@ wildlife.boar = function()
     level = 1,
     ai = combat_ai.new({scan_range = 5}),
     max_hp = 11,
-    faction = "predators",
+    faction = "boars",
     inventory = {
       head = tusks(),
       hand = {
+        codename = "natural_weapon",
+        boring_flag = true,
+
         damage_roll = D(6),
         slot = "hand",
         no_drop_flag = true,
