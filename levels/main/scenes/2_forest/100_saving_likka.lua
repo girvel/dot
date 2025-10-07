@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local bad_trip = require("engine.tech.shaders.bad_trip")
 local health = require("engine.mech.health")
 local level = require("engine.tech.level")
@@ -115,9 +116,9 @@ return {
               end
             sp:finish_branches()
           elseif n == 2 then
+            local success = ch.player:ability_check("acrobatics", 12)
             sp:lines()
 
-            local success = ch.player:ability_check("acrobatics", 12)
             level.unsafe_move(ch.player, ps.sl_fall)
             if not success then health.damage(ch.player, 1) end
 
@@ -135,7 +136,9 @@ return {
         sp:finish_options()
 
         sp:lines()
-        sp:start_single_branch(ch.player:ability_check("performance", 12) and 1 or 2)
+        local success = ch.player:ability_check("performance", 12)
+        sp:start_single_branch(success and 1 or 2)
+          if not success then async.sleep(1.5) end
           sp:lines()
         sp:finish_single_branch()
       sp:finish()
