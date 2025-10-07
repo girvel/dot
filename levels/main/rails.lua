@@ -22,6 +22,7 @@ local rails = {}
 --- @field has_fruit boolean?
 --- @field khaned_status "dead"|"survived"?
 --- @field gatherer_status "ran_away"?
+--- @field likka_saw_bad_trip boolean?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?

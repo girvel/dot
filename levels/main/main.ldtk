@@ -6966,7 +6966,7 @@
 			"savedSelections": [{ "ids": [37,45,38,46,39,47], "mode": "Random" }],
 			"cachedPixelData": {
 				"opaqueTiles": "00001111010011110000111100001111100000000100000010000000100000001001000011110000111100001111000011111111111100001111000011110000111100001100111000011111011111110111111101111111111111111111111111111111",
-				"averageColors": "f433f433f433f444f864f754f864f965f433f433f433f444f754f543f754f864f433f433f433f444f864f753f864f965f444f433f444e444f965f864f965fa75f43484344964ba76ea7642426243a2438434f4348434cb86cb86824362429243f55584343665cb86cb86666566669665fe54855485543eee3eee3ccc3cccb765fe5485558555f444a665a665a665d766f433f433f433f4336bbb96559655b665f433f333f433f4336bbb776564442876f433f433f433f4332c961c962b962876f433f433f433f433f443fe54fe54fe54f445f455f445f4443655465536552655f445f445f444f4444655565546553655f444f444f444f4444655565546553655f444f444f444f4443655465536552655f444f343a443a343f864f864f4335b96744494443444fe54fe54fe54fe54fe543444fe54fe54fe54fe54fe54fe54fe549444fe54fe54fe54fe54fe54fe54fe547444fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54"
+				"averageColors": "f444f444f444f444f864f754f864f975f444f444f444f444f754f643f754f864f444f444f444f444f864f754f864f975f444f444f444e444f975f864f975fa75f43484344964ba76ea7642426243a2438434f4348434cb86cb86824362429243f55584343665cb86cb86666566669665fe54855485543eee3eee3ccc3cccb765fe5485558555f444a665a665a665d766f433f433f433f4446bbb96559655b665f433f433f433f4336bbb776564442876f433f433f433f4442c961c962b962876f444f433f444f444f443fe54fe54fe54f445f455f445f4443655465536552655f445f445f444f4444655565546553655f444f444f444f4444655565546553655f444f444f444f4443655465536552655f444f343a443a343f864f864f4335b96744494443444fe54fe54fe54fe54fe543444fe54fe54fe54fe54fe54fe54fe549444fe54fe54fe54fe54fe54fe54fe547444fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54fe54"
 			}
 		},
 		{
@@ -37187,7 +37187,7 @@
 						},
 						{
 							"__identifier": "position",
-							"__grid": [79,57],
+							"__grid": [18,119],
 							"__pivot": [0,0],
 							"__tags": ["positions"],
 							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
@@ -37196,13 +37196,13 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 108,
-							"px": [1264,912],
+							"px": [288,1904],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "cp2", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["cp2"]
 							}] }],
-							"__worldX": 1264,
-							"__worldY": 912
+							"__worldX": 288,
+							"__worldY": 1904
 						},
 						{
 							"__identifier": "position",
@@ -37494,6 +37494,44 @@
 							}] }],
 							"__worldX": 128,
 							"__worldY": 464
+						},
+						{
+							"__identifier": "position",
+							"__grid": [18,122],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "e2005540-8560-11f0-82be-a769376255b2",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [288,1952],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "sl_start", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["sl_start"]
+							}] }],
+							"__worldX": 288,
+							"__worldY": 1952
+						},
+						{
+							"__identifier": "position",
+							"__grid": [18,125],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "78d50430-8560-11f0-82be-9b050bee28c4",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [288,2000],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "sl_fall", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["sl_fall"]
+							}] }],
+							"__worldX": 288,
+							"__worldY": 2000
 						}
 					]
 				},

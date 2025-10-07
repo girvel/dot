@@ -27,7 +27,7 @@ items_entities.ritual_blade = function()
     {
       name = "ритуальный клинок",
       codename = "ritual_blade",
-      damage_roll = D(2),
+      damage_roll = D(6),
       bonus = 1,
       tags = {
         finesse = true,

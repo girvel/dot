@@ -128,11 +128,6 @@ return {
           sp:finish_option()
         end
         sp:finish_options()
-
-        -- NEXT! consequences
-        --   State.rails:khaned_left_to_die()
-
-        -- NEXT! lock location
       sp:finish()
     end,
   },
