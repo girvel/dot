@@ -3,6 +3,7 @@ local async = require("engine.tech.async")
 
 
 local NEUTRAL_DISTANCE = 4
+local ADHD_PERIOD = 15
 
 return {
   --- @type scene|table
@@ -25,6 +26,7 @@ return {
         return distance <= 1 or distance > NEUTRAL_DISTANCE
       end
 
+      local last_action_t = love.timer.getTime()
       while self.enabled do
         if needs_travel() then
           local target = State.player.position
@@ -36,9 +38,20 @@ return {
             if path then
               api.follow_path(ch.likka, path, false, 7.5)
               api.rotate(ch.likka, State.player)
+              last_action_t = love.timer.getTime()
               break
             end
           end
+        end
+
+        if love.timer.getTime() - last_action_t >= ADHD_PERIOD
+          and State.period:absolute(1, self, "ADHD")
+          and Random.chance(.3)
+        then
+          last_action_t = love.timer.getTime()
+          ch.likka:rotate(Random.choice(Vector.directions))
+          async.sleep(Random.float(.5, 3))
+          ch.likka:rotate(Random.choice(Vector.directions))
         end
 
         coroutine.yield()
