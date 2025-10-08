@@ -24,6 +24,7 @@ return {
     start_predicate = function(self, dt, ch, ps)
       -- not every tick to not potentially block cutscenes
       return State.period:absolute(.1, self, "start")
+        and State.hostility:get(ch.likka, State.player) ~= "enemy"
     end,
 
     _last_action_t = nil,
