@@ -71,7 +71,6 @@ return {
             self._initial_options[1] = nil
             sp:start_option(1)
               api.travel_scripted(ch.player, ps.sl_start):wait()
-              -- NEXT! animate kneeling?
               sp:lines()
             sp:finish_option()
           elseif n == 2 then
@@ -120,14 +119,15 @@ return {
           ch.player.grid_layer = "solids"
           level.put(ch.player)
 
-          ch.player.animation.next = "idle"
+          ch.player:animate("idle", false, true)
 
           ch.player.inventory.hand = hand
           ch.player.inventory.offhand = offhand
         end
 
         options = sp:start_options()
-        while true do
+        local quit
+        while not quit do
           local n = api.options(options, true)
 
           sp:start_option(n)
@@ -142,12 +142,12 @@ return {
                   sp:lines()
 
                   get_down()
-                  health.damage(ch.player, 2)  -- NEXT! animate lying
+                  -- no lying animation, because lying fucks up items anchoring
+                  health.damage(ch.player, 2)
                   sp:lines()
                 sp:finish_branch()
 
-                sp:finish_branches()
-                break
+                quit = true
               end
             sp:finish_branches()
           elseif n == 2 then
@@ -161,8 +161,7 @@ return {
               sp:lines()
             sp:finish_single_branch()
 
-            sp:finish_option()
-            break
+            quit = true
           else
             sp:lines()
           end
