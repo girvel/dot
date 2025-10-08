@@ -176,6 +176,8 @@ return {
           if not success then async.sleep(1.5) end
           sp:lines()
         sp:finish_single_branch()
+
+        State.runner.scenes.likka_following.enabled = true
       sp:finish()
     end,
   },
