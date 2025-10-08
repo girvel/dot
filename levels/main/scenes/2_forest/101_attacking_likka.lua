@@ -16,8 +16,10 @@ return {
     attacked = false,
 
     on_add = function(self, ch, ps)
-      self._sub = State.hostility:subscribe(function()
-        self.attacked = true
+      self._sub = State.hostility:subscribe(function(attacker, target)
+        if attacker == State.player and target == ch.likka then
+          self.attacked = true
+        end
       end)
     end,
 
