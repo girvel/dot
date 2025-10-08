@@ -74,6 +74,8 @@ return {
 
     run = function(self)
       coroutine.yield()  -- race condition safety
+      State.player.inventory.body = State:add(items_entities.invader_armor())
+      State.player.inventory.head = State:add(items_entities.invader_helmet())
     end,
   },
 

@@ -85,12 +85,46 @@ return {
 
         self.enabled = false
         api.travel_scripted(ch.player, ps.sl_start)
-        sp:lines()  -- NEXT! animate player, blood, armor, ...
+        sp:lines()
+
+        local hand, offhand do
+          level.remove(ch.player)
+          ch.player.position = ps.sl_start + Vector.down
+          ch.player.grid_layer = "on_solids"
+          ch.player:rotate(Vector.up)
+          level.put(ch.player)
+
+          ch.player:animate("hanging", false, true)
+
+          hand = ch.player.inventory.hand
+          offhand = ch.player.inventory.offhand
+          ch.player.inventory.hand = nil
+          ch.player.inventory.offhand = nil
+        end
+        sp:lines()
+
+        ch.player:rotate(Vector.right)
+        sp:lines()
+
+        ch.player:rotate(Vector.up)
+        sp:lines()
 
         api.options(sp:start_options())
         sp:finish_options()
 
         sp:lines()
+
+        local get_down = function()
+          level.remove(ch.player)
+          ch.player.position = ps.sl_fall
+          ch.player.grid_layer = "solids"
+          level.put(ch.player)
+
+          ch.player.animation.next = "idle"
+
+          ch.player.inventory.hand = hand
+          ch.player.inventory.offhand = offhand
+        end
 
         options = sp:start_options()
         while true do
@@ -106,7 +140,8 @@ return {
               else
                 sp:start_branch(2)
                   sp:lines()
-                  level.unsafe_move(ch.player, ps.sl_fall)
+
+                  get_down()
                   health.damage(ch.player, 2)  -- NEXT! animate lying
                   sp:lines()
                 sp:finish_branch()
@@ -119,7 +154,7 @@ return {
             local success = ch.player:ability_check("acrobatics", 12)
             sp:lines()
 
-            level.unsafe_move(ch.player, ps.sl_fall)
+            get_down()
             if not success then health.damage(ch.player, 1) end
 
             sp:start_single_branch(success and 1 or 2)
@@ -135,6 +170,7 @@ return {
         end
         sp:finish_options()
 
+        api.rotate(ch.player, ch.likka)
         sp:lines()
         local success = ch.player:ability_check("performance", 12)
         sp:start_single_branch(success and 1 or 2)
