@@ -29,8 +29,16 @@ return {
         if needs_travel() then
           local target = State.player.position
           local norm = (target - ch.likka.position):normalized2()
-          api.travel(ch.likka, target - norm * 2, false, 7.5)
-          api.rotate(ch.likka, State.player)
+          local shift = norm:rotate()
+
+          for _, offset in ipairs {Vector.zero, shift, -shift} do
+            local path = api.build_path(ch.likka.position, target - norm * 2 + offset)
+            if path then
+              api.follow_path(ch.likka, path, false, 7.5)
+              api.rotate(ch.likka, State.player)
+              break
+            end
+          end
         end
 
         coroutine.yield()
