@@ -36,8 +36,8 @@ on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", config.
   "vines",    "vines",     "vines",     "cobweb_1", "cobweb_2", "statue_1", "statue_2", "window",
   false,      "candles_1", "candles_2", "cobweb_3", "cobweb_4", "statue_3", "statue_4", "cobweb",
   "stage",    "candles_3", "skull",     "dooro",    "statue_5", "statue_6", "statue_7", "cobweb",
-  "pot_1",    "pot_2",     "pot_3",     "plate",    "plate",    false,      false,      false,
-  "pot_4",    "pot_5",     "pot_6",     "cloth",    "food",     "food",     false,      false,
+  "pot_1",    "pot_2",     "pot_3",     "plate",    "plate",    false,      false,      "cobweb",
+  "pot_4",    "pot_5",     "pot_6",     "cloth",    "food",     "food",     false,      "cobweb",
   "berriesp", "berries",   "berries",   "herbs",    "herbs",    "reeds",    "grass",    "grass",
   "berriesp", "berries",   "berries",   false,      false,      false,      false,      false,
 }, function(codename)
