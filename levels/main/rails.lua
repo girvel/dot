@@ -280,6 +280,7 @@ methods.temple_enter = function(self)
   assert(self.location == "2_forest")
 
   State.runner.scenes.likka_following.enabled = true
+  State.hostility:set(State.player.faction, "likka")
 
   self.temple = "entered"
 end
@@ -289,6 +290,7 @@ methods.temple_exit = function(self)
   assert(self.location == "2_forest")
 
   State.runner.scenes.likka_following.enabled = false
+  State.hostility:set(State.player.faction, "likka", "ally")
 
   self.temple = "exited"
 end
