@@ -15,16 +15,26 @@ return {
     },
 
     start_predicate = function(self, dt, ch, ps)
-      if State.combat then return false end
-      local distance = (ch.likka.position - State.player.position):abs2()
-      return distance <= 1 or distance > NEUTRAL_DISTANCE
+      return true
     end,
 
     run = function(self, ch, ps)
-      local target = State.player.position
-      local norm = (target - ch.likka.position):normalized2()
-      api.travel(ch.likka, target - norm * 2)
-      api.rotate(ch.likka, State.player)
+      local needs_travel = function()
+        if State.combat then return false end
+        local distance = (ch.likka.position - State.player.position):abs2()
+        return distance <= 1 or distance > NEUTRAL_DISTANCE
+      end
+
+      while self.enabled do
+        if needs_travel() then
+          local target = State.player.position
+          local norm = (target - ch.likka.position):normalized2()
+          api.travel(ch.likka, target - norm * 2, false, 7.5)
+          api.rotate(ch.likka, State.player)
+        end
+
+        coroutine.yield()
+      end
     end,
   },
 }
