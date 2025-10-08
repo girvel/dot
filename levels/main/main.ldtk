@@ -37532,6 +37532,25 @@
 							}] }],
 							"__worldX": 288,
 							"__worldY": 2000
+						},
+						{
+							"__identifier": "position",
+							"__grid": [20,130],
+							"__pivot": [0,0],
+							"__tags": ["positions"],
+							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
+							"__smartColor": "#3E2731",
+							"iid": "fa8106f0-8560-11f0-9f97-27e1d94a7580",
+							"width": 16,
+							"height": 16,
+							"defUid": 108,
+							"px": [320,2080],
+							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "cpt", "__tile": null, "defUid": 109, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["cpt"]
+							}] }],
+							"__worldX": 320,
+							"__worldY": 2080
 						}
 					]
 				},

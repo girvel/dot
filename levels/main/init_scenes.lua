@@ -14,7 +14,6 @@ return {
   init = {
     enabled = true,
     start_predicate = function(self, dt) return State.is_loaded end,
-    in_combat_flag = true,
 
     run = function(self)
       do
@@ -81,8 +80,6 @@ return {
 
   --- @type scene|table
   cp1 = {
-    in_combat_flag = true,
-
     start_predicate = function(self, dt)
       return true
     end,
@@ -98,6 +95,26 @@ return {
 
   --- @type scene|table
   cp2 = {
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    run = function(self)
+      State.rails:winter_init()
+      State.rails:winter_end()
+      State.rails:location_forest(true)
+      State.rails:feast_start()
+      State.rails:feast_end()
+      State.rails:seekers_start()
+
+      api.assert_position(State.player, State.runner.positions.cp2, true)
+      item.give(State.player, State:add(items_entities.axe()))
+      item.give(State.player, State:add(items_entities.shield()))
+    end,
+  },
+
+  --- @type scene|table
+  cpt = {
     in_combat_flag = true,
 
     start_predicate = function(self, dt)
@@ -111,9 +128,13 @@ return {
       State.rails:feast_start()
       State.rails:feast_end()
       State.rails:seekers_start()
-      api.assert_position(State.player, State.runner.positions.cp2, true)
+      State.rails:temple_enter()
+
+      api.assert_position(State.player, State.runner.positions.cpt, true)
       item.give(State.player, State:add(items_entities.axe()))
       item.give(State.player, State:add(items_entities.shield()))
+
+      State.runner.scenes._100_saving_likka.enabled = false
     end,
   },
 }

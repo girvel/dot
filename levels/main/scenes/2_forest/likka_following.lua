@@ -24,6 +24,7 @@ return {
       local target = State.player.position
       local norm = (target - ch.likka.position):normalized2()
       api.travel(ch.likka, target - norm * 2)
+      api.rotate(ch.likka, State.player)
     end,
   },
 }

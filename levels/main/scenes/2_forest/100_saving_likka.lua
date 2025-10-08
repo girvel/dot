@@ -177,7 +177,7 @@ return {
           sp:lines()
         sp:finish_single_branch()
 
-        State.runner.scenes.likka_following.enabled = true
+        State.rails:temple_enter()
       sp:finish()
     end,
   },

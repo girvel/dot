@@ -23,6 +23,7 @@ local rails = {}
 --- @field khaned_status "dead"|"survived"?
 --- @field gatherer_status "ran_away"?
 --- @field likka_saw_bad_trip boolean?
+--- @field temple "entered"|"exited"?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
@@ -95,8 +96,8 @@ methods.location_forest = function(self, forced)
 
   local ch = State.runner.entities
   local ps = State.runner.positions
-  api.assert_position(ch.khaned, ps.sk_khaned)
-  api.assert_position(ch.likka, ps.sl_likka)
+  api.assert_position(ch.khaned, ps.sk_khaned, forced)
+  api.assert_position(ch.likka, ps.sl_likka, forced)
 end
 
 methods.winter_init = function(self)
@@ -272,6 +273,24 @@ end
 methods.gatherer_run_away = function(self)
   assert(self.gatherer_status == nil)
   self.gatherer_status = "ran_away"
+end
+
+methods.temple_enter = function(self)
+  assert(self.temple == nil)
+  assert(self.location == "2_forest")
+
+  State.runner.scenes.likka_following.enabled = true
+
+  self.temple = "entered"
+end
+
+methods.temple_exit = function(self)
+  assert(self.temple == "entered")
+  assert(self.location == "2_forest")
+
+  State.runner.scenes.likka_following.enabled = false
+
+  self.temple = "exited"
 end
 
 Ldump.mark(rails, {}, ...)
