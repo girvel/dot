@@ -13,23 +13,23 @@ return {
 
     _sub = nil,
     _counter = 0,
-    attacked = false,
+    attacked = 0,
 
     on_add = function(self, ch, ps)
       self._sub = State.hostility:subscribe(function(attacker, target)
         if attacker == State.player and target == ch.likka then
-          self.attacked = true
+          self.attacked = self.attacked + 1
         end
       end)
     end,
 
     start_predicate = function(self, dt, ch, ps)
-      return self.attacked
+      return self.attacked > 0
     end,
 
     run = function(self, ch, ps)
-      self.attacked = false
-      self._counter = self._counter + 1
+      self._counter = self._counter + self.attacked
+      self.attacked = 0
 
       local sp = screenplay.new("assets/screenplay/101_attacking_likka.ms", ch)
         if self._counter == 1 or self._counter == 2 then

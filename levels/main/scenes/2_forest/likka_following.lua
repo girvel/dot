@@ -32,6 +32,8 @@ return {
     run = function(self, ch, ps)
       -- one iteration at a time, because needs to be disabled in cutscenes
       if needs_travel(ch.likka) then
+        async.sleep(Random.float(.1, .3))
+
         local target = State.player.position
         local norm = (target - ch.likka.position):normalized2()
         local shift = norm:rotate()
@@ -40,7 +42,10 @@ return {
           local path = api.build_path(ch.likka.position, target - norm * 2 + offset)
           if path then
             api.follow_path(ch.likka, path, false, 7.5)
-            api.rotate(ch.likka, State.player)
+            async.sleep(Random.float(.1, .2))
+            if not needs_travel(ch.likka) then
+              api.rotate(ch.likka, State.player)
+            end
             self._last_action_t = love.timer.getTime()
             break
           end
