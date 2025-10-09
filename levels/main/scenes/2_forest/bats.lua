@@ -16,8 +16,16 @@ return {
 
     run = function(self, ch, ps)
       local counter = 0
-      for p in State.grids.solids:find_free_positions(State.player.position) do
+      local bfs = State.grids.solids:bfs(ch.player.position)
+      bfs()
+      for p, e in bfs do
+        if e then
+          bfs:discard()
+          goto continue
+        end
+
         if Random.chance(.3) then
+          Log.trace(p)
           State
             :add(wildlife.bat(), {position = p, grid_layer = "solids"})
             :animate("appear")
@@ -25,6 +33,8 @@ return {
 
           if counter == 7 then break end
         end
+
+        ::continue::
       end
       health.damage(ch.player, 1)
     end,
