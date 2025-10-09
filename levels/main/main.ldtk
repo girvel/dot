@@ -37619,7 +37619,7 @@
 						},
 						{
 							"__identifier": "position",
-							"__grid": [20,130],
+							"__grid": [12,159],
 							"__pivot": [0,0],
 							"__tags": ["positions"],
 							"__tile": { "tilesetUid": 325, "x": 256, "y": 64, "w": 16, "h": 16 },
@@ -37628,13 +37628,13 @@
 							"width": 16,
 							"height": 16,
 							"defUid": 108,
-							"px": [320,2080],
+							"px": [192,2544],
 							"fieldInstances": [{ "__identifier": "rails_name", "__type": "String", "__value": "cpt", "__tile": null, "defUid": 109, "realEditorValues": [{
 								"id": "V_String",
 								"params": ["cpt"]
 							}] }],
-							"__worldX": 320,
-							"__worldY": 2080
+							"__worldX": 192,
+							"__worldY": 2544
 						},
 						{
 							"__identifier": "position",
@@ -47848,22 +47848,6 @@
 							"fieldInstances": [],
 							"__worldX": 640,
 							"__worldY": 2176
-						},
-						{
-							"__identifier": "bat",
-							"__grid": [12,135],
-							"__pivot": [0,0],
-							"__tags": ["solids"],
-							"__tile": { "tilesetUid": 401, "x": 16, "y": 0, "w": 16, "h": 16 },
-							"__smartColor": "#891212",
-							"iid": "e545f0f0-8560-11f0-83d7-7905829e2966",
-							"width": 16,
-							"height": 16,
-							"defUid": 402,
-							"px": [192,2160],
-							"fieldInstances": [],
-							"__worldX": 192,
-							"__worldY": 2160
 						}
 					]
 				},

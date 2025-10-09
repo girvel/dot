@@ -1,3 +1,4 @@
+local health = require("engine.mech.health")
 local wildlife = require "levels.main.palette.wildlife"
 
 
@@ -25,6 +26,7 @@ return {
           if counter == 7 then break end
         end
       end
+      health.damage(ch.player, 1)
     end,
   },
 }
