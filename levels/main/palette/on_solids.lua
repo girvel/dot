@@ -33,13 +33,14 @@ local get_base = function(codename)
 end
 
 on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", config.cell_size, {
-  "vines",    "vines",     "vines",     "cobweb_1", "cobweb_2", "statue_1", "statue_2", "window",
-  false,      "candles_1", "candles_2", "cobweb_3", "cobweb_4", "statue_3", "statue_4", "cobweb",
-  "stage",    "candles_3", "skull",     "dooro",    "statue_5", "statue_6", "statue_7", "cobweb",
-  "pot_1",    "pot_2",     "pot_3",     "plate",    "plate",    false,      false,      "cobweb",
-  "pot_4",    "pot_5",     "pot_6",     "cloth",    "food",     "food",     false,      "cobweb",
-  "berriesp", "berries",   "berries",   "herbs",    "herbs",    "reeds",    "grass",    "grass",
-  "berriesp", "berries",   "berries",   false,      false,      false,      false,      false,
+  "vines",    "vines",   "vines",   "cobweb", "cobweb", "statue", "statue", "window",
+  false,      "candles", "candles", "cobweb", "cobweb", "statue", "statue", "cobweb",
+  "stage",    "candles", "skull",   "dooro",  "statue", "statue", "statue", "cobweb",
+  "pot_1",    "pot_2",   "pot_3",   "plate",  "plate",  false,    false,    "cobweb",
+  "pot_4",    "pot_5",   "pot_6",   "cloth",  "food",   "food",   false,    "cobweb",
+  "berriesp", "berries", "berries", "herbs",  "herbs",  "reeds",  "grass",  "grass",
+  "berriesp", "berries", "berries", false,    false,    false,    "cobweb", "cobweb",
+  false,      false,     false,     false,    false,    false,    "cobweb", "cobweb",
 }, function(codename)
   local result = get_base(codename)
   result.boring_flag = true
