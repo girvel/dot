@@ -4,6 +4,7 @@ local creature    = require("engine.mech.creature")
 local wandering_ai = require("engine.mech.ais.wandering")
 local combat_ai = require("engine.mech.ais.combat")
 local perks     = require("engine.mech.perks")
+local item      = require("engine.tech.item")
 
 
 local wildlife = {}
@@ -61,19 +62,26 @@ wildlife.boar = function()
     faction = "boars",
     inventory = {
       head = tusks(),
-      hand = {
-        codename = "natural_weapon",
-        boring_flag = true,
-
-        damage_roll = D(6),
-        slot = "hand",
-        no_drop_flag = true,
-        tags = {},
-      },
+      hand = item.natural_weapon(D(6)),
     },
     cues = PIG_CUES,
     perks = {
       perks.relentless,
+    },
+  })
+end
+
+wildlife.bat = function()
+  return creature.make(animated.mixin("assets/sprites/animations/bat"), {
+    name = "Летучая мышь",
+    codename = "bat",
+    base_abilities = abilities.new(6, 15, 8, 2, 12, 4),
+    level = 1,
+    ai = combat_ai.new({scan_range = 8}),
+    max_hp = 1,
+    faction = "bats",
+    inventory = {
+      hand = item.natural_weapon(D.new({}, 3)),
     },
   })
 end

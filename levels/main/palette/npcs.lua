@@ -41,10 +41,8 @@ npcs.khaned = function()
     inventory = {
       tatoo = items.head_tatoo_1(),
       offhand = items.macuahuitl(),
-      -- TODO bear spear
     },
     faction = "khaned",
-    -- TODO perks
     perks = {
       fighter.hit_dice,
       {

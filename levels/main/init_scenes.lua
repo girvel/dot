@@ -9,6 +9,16 @@ local actions        = require("engine.mech.actions")
 local perks          = require("engine.mech.perks")
 
 
+local hostile = function(a, b)
+  State.hostility:set(a, b, "enemy")
+  State.hostility:set(b, a, "enemy")
+end
+
+local ally = function(a, b)
+  State.hostility:set(a, b, "ally")
+  State.hostility:set(b, a, "ally")
+end
+
 return {
   --- @type scene|table
   init = {
@@ -41,17 +51,13 @@ return {
       end
 
       State.quests.order = {"seekers", "feast"}
-      State.hostility:set("invaders", "village", "enemy")
 
-      State.hostility:set("boars", "village", "enemy")
-      State.hostility:set("village", "boars", "enemy")
-      State.hostility:set("boars", "player", "enemy")
-      State.hostility:set("player", "boars", "enemy")
+      hostile("boars", "player")
+      hostile("bats", "player")
 
       State.hostility:set("player", "village", "ally")
       State.hostility:set("player", "khaned", "ally")
-      State.hostility:set("player", "likka", "ally")
-      State.hostility:set("likka", "player", "ally")
+      ally("player", "likka")
 
       health.set_hp(State.player, State.player:get_max_hp() - 2)
 
@@ -76,7 +82,6 @@ return {
       coroutine.yield()  -- race condition safety
       State.player.inventory.body = State:add(items_entities.invader_armor())
       State.player.inventory.head = State:add(items_entities.invader_helmet())
-      health.set_hp(State.player, 1)
     end,
   },
 
