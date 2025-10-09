@@ -60,7 +60,11 @@ return {
 
         ::continue::
       end
-      health.damage(ch.player, 1)
+
+      if i == 1 then
+        health.damage(ch.player, 1)
+      end
+
       coroutine.yield()
       State:start_combat(to_combat)  -- to prevent aggression FX
     end,
