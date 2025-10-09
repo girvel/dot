@@ -36,6 +36,10 @@ local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", con
   "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
   "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
   "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
+  "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
 }, function(codename)
   local result = get_base(codename)
   result.boring_flag = true

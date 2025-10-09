@@ -33,6 +33,7 @@ end
 
 npcs.khaned = function()
   return creature.make(animated.mixin("assets/sprites/animations/no_arm"), {
+    cues = humanoid.cues,
     name = "Ханед",
     codename = "khaned",
     base_abilities = abilities.new(16, 14, 18, 8, 10, 8),

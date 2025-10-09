@@ -1,3 +1,4 @@
+local health = require("engine.mech.health")
 local on_solids = require("levels.main.palette.on_solids")
 local factoring = require("engine.tech.factoring")
 local config = require("levels.main.config")
@@ -7,7 +8,8 @@ local solids
 
 local lows = {
   "stool", "godfruit", "slope", "stage", "statue", "table", "chest", "bush", "bed", "fence",
-  "candles", "hutwallt", "cabinet", "shelf", "log", "campfire",
+  "candles", "hutwallt", "cabinet", "shelf", "log", "campfire", "scabinet", "sshelf", "sbin",
+  "cobweb",
 }
 
 --- @param codename string
@@ -25,25 +27,13 @@ local open_door = function(self)
   State:remove(self)
 end
 
-local open_chest = function(self)
-  self.on_remove = function(self)
-    State:add(solids.chesto(), {position = self.position, grid_layer = "solids"})
+local open_solid = function(name)
+  return function(self)
+    self.on_remove = function(self)
+      State:add(solids[name](), {position = self.position, grid_layer = "solids"})
+    end
+    State:remove(self)
   end
-  State:remove(self)
-end
-
-local open_shelf = function(self)
-  self.on_remove = function(self)
-    State:add(solids.shelfo(), {position = self.position, grid_layer = "solids"})
-  end
-  State:remove(self)
-end
-
-local open_cabinet = function(self)
-  self.on_remove = function(self)
-    State:add(solids.cabineto(), {position = self.position, grid_layer = "solids"})
-  end
-  State:remove(self)
 end
 
 local get_base = function(codename)
@@ -52,46 +42,72 @@ local get_base = function(codename)
     result.name = "дверь"
     return result
   elseif codename == "chestc" then
-    local result = interactive.mixin(open_chest)
+    local result = interactive.mixin(open_solid("chesto"))
     result.name = "сундук"
     return result
   elseif codename == "shelfc" then
-    local result = interactive.mixin(open_shelf)
+    local result = interactive.mixin(open_solid("shelfo"))
     result.name = "полки"
     return result
   elseif codename == "cabinetc" then
-    local result = interactive.mixin(open_cabinet)
+    local result = interactive.mixin(open_solid("cabineto"))
     result.name = "шкаф"
     return result
+  elseif codename == "sshelfc" then
+    local result = interactive.mixin(open_solid("sshelfo"))
+    result.name = "полки"
+    return result
+  elseif codename == "scabinetc" then
+    local result = interactive.mixin(open_solid("scabineto"))
+    result.name = "шкаф"
+    return result
+  elseif codename == "sbinc" then
+    local result = interactive.mixin(open_solid("sbino"))
+    result.name = "урна"
+    return result
+  elseif codename == "cobweb" then
+    return {
+      hp = 1,
+      _cobweb_flag = true,
+      on_death = function(self)
+        for _, d in ipairs(Vector.directions) do
+          local e = State.grids[self.grid_layer]:slow_get(self.position + d)
+          if e and e._cobweb_flag and e.hp > 0 then
+            health.damage(e, 1)
+          end
+        end
+      end,
+    }
+  else
+    return {}
   end
-  return {}
 end
 
 solids = factoring.from_atlas(
   "assets/sprites/atlases/solids.png", config.cell_size,
   {
-    "wall_1",    "wall_2",    "wall_3",   "wall_4",   "hutwall_1",  "hutwall_2",  "hutwall_3",  "hutwall_4",
-    "wall_5",    "wall_6",    "wall_7",   "wall_8",   "hutwall_5",  "hutwall_6",  "hutwall_7",  "hutwall_8",
-    "wall_9",    "wall_10",   "wall_11",  "wall_12",  "hutwall_9",  "hutwall_10", "hutwall_11", "hutwall_12",
-    "wall_13",   "wall_14",   "wall_15",  "wall_16",  "hutwall_13", "hutwall_14", "hutwall_15", "hutwall_16",
-    "slope_1",   "slope_2",   "godfruit", "trunk_1",  "trunk_2",    "bush",       "bush",       "bbush",
-    "slope_3",   "slope_4",   "slope_5",  "trunk_3",  "trunk_4",    "bush",       "bush",       "bbush",
-    "slope_h",   "slope_6",   "stool",    "trunk_5",  "trunk_6",    "rock_1",     "rock_2",     "table_1",
-    false,       "slope",     "slope",    "statue_1", "statue_2",   "statue_3",   "statue_4",   "table_2",
-    false,       "slope",     "slope",    false,      "table_5",    "table_6",    "table_7",    "table_3",
-    "owall_1",   "owall_2",   "owall_3",  "owall_4",  false,        "chestc",     "chesto",     "table_4",
-    "owall_5",   "owall_6",   "owall_7",  "owall_8",  false,        "bed_1",      "bed_2",      false,
-    "owall_9",   "owall_10",  "owall_11", "owall_12", "candles_1",  "candles_2",  "candles_3",  false,
-    "owall_13",  "owall_14",  "owall_15", "owall_16", "doorc",      false,        false,        false,
-    "stage_1",   "stage_2",   "stage_3",  "stage_4",  "fence",      "fence",      "fence",      "fence",
-    "stage_5",   "stage_6",   "stage_7",  "stage_8",  "fence",      "fence",      "fence",      "fence",
-    "stage_9",   "stage_10",  "stage_11", "stage_12", "fence",      "fence",      "fence",      "fence",
-    "stage_13",  "stage_14",  "stage_15", "stage_16", "fence",      "fence",      "fence",      "fence",
-    "cabinetc",  "cabineto",  "shelfc",   "shelfo",   "hutwallt",   "hutwallt",   "rubble",     "campfire",
-    "log",       "log",       "log",      false,      false,        false,        false,        false,
-    "log",       false,       false,      false,      false,        false,        false,        false,
-    "log",       false,       false,      false,      false,        false,        false,        false,
-    "log",       false,       false,      false,      false,        false,        false,        false,
+    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "slope",    "slope",    "godfruit", "trunk",  "trunk",     "bush",      "bush",    "bbush",
+    "slope",    "slope",    "slope",    "trunk",  "trunk",     "bush",      "bush",    "bbush",
+    "slope_h",  "slope",    "stool",    "trunk",  "trunk",     "rock",      "rock",    "table",
+    false,      "slope",    "slope",    "statue", "statue",    "statue",    "statue",  "table",
+    false,      "slope",    "slope",    false,    "table",     "table",     "table",   "table",
+    "owall",    "owall",    "owall",    "owall",  false,       "chestc",    "chesto",  "table",
+    "owall",    "owall",    "owall",    "owall",  false,       "bed",       "bed",     false,
+    "owall",    "owall",    "owall",    "owall",  "candles",   "candles",   "candles", false,
+    "owall",    "owall",    "owall",    "owall",  "doorc",     false,       false,     false,
+    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "cabinetc", "cabineto", "shelfc",   "shelfo", "hutwallt",  "hutwallt",  "rubble",  "campfire",
+    "log",      "log",      "log",      "cobweb", "scabinetc", "scabineto", "sshelfc", "shelfo",
+    "log",      "cobweb",   "cobweb",   "cobweb", false,        false,      "sbinc",   "sbino",
+    "log",      false,      false,      false,    false,        false,      false,     false,
+    "log",      false,      false,      false,    false,        false,      false,     false,
   },
   function(codename)
     local result = get_base(codename)
