@@ -66,6 +66,7 @@ return {
                 - ch.player.position
               if d:abs2() == 1 then
                 actions.move(d):act(ch.player)
+                api.rotate(ch.likka, ch.player)
               end
               sp:lines()
 
@@ -73,6 +74,7 @@ return {
               sp:start_option(n)
                 if n == 1 then
                   api.travel_scripted(ch.player, ch.likka.position):wait()
+                  api.rotate(ch.likka, ch.player)
                 end
                 sp:lines()
                 if n == 2 then return end

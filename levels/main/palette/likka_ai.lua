@@ -1,0 +1,71 @@
+local async = require("engine.tech.async")
+local combat = require "engine.mech.ais.combat"
+local api    = require "engine.tech.api"
+
+
+local likka_ai = {}
+
+--- @class likka_ai: ai
+--- @field _combat_component combat_ai
+--- @field _last_action_t number
+local methods = {}
+likka_ai.mt = {__index = methods}
+
+--- @param combat_ai combat_ai
+--- @return likka_ai: ai
+likka_ai.new = function(combat_ai)
+  return setmetatable({
+    _combat_component = combat_ai,
+    _last_action_t = love.timer.getTime(),
+  }, likka_ai.mt)
+end
+
+local NEUTRAL_DISTANCE = 4
+local ADHD_PERIOD = 15
+
+local needs_travel = function(likka)
+  local distance = (likka.position - State.player.position):abs2()
+  return distance <= 1 or distance > NEUTRAL_DISTANCE
+end
+
+methods.control = function(self, entity)
+  if State.combat then
+    return self._combat_component:control(entity)
+  end
+
+  if State.hostility:get(self, State.player) == "enemy" then return end
+
+  if needs_travel(entity) then
+    async.sleep(Random.float(.1, .3))
+
+    local target = State.player.position
+    local norm = (target - entity.position):normalized2()
+    local shift = norm:rotate()
+
+    for _, offset in ipairs {Vector.zero, shift, -shift} do
+      local path = api.build_path(entity.position, target - norm * 2 + offset)
+      if path then
+        api.follow_path(entity, path, false, 7.5)
+        async.sleep(Random.float(.1, .2))
+        if not needs_travel(entity) then
+          api.rotate(entity, State.player)
+        end
+        self._last_action_t = love.timer.getTime()
+        break
+      end
+    end
+  end
+
+  if love.timer.getTime() - self._last_action_t >= ADHD_PERIOD
+    and State.period:absolute(1, self, "ADHD")
+    and Random.chance(.3)
+  then
+    self._last_action_t = love.timer.getTime()
+    entity:rotate(Random.choice(Vector.directions))
+    async.sleep(Random.float(.5, 3))
+    entity:rotate(Random.choice(Vector.directions))
+  end
+end
+
+Ldump.mark(likka_ai, {mt = "const"}, ...)
+return likka_ai

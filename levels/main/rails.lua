@@ -1,6 +1,8 @@
 local solids_entities = require("levels.main.palette.solids_entities")
 local api = require "engine.tech.api"
 local winter = require "engine.tech.shaders.winter"
+local combat = require "engine.mech.ais.combat"
+local likka_ai = require "levels.main.palette.likka_ai"
 
 
 local rails = {}
@@ -279,7 +281,9 @@ methods.temple_enter = function(self)
   assert(self.temple == nil)
   assert(self.location == "2_forest")
 
-  State.runner.scenes.likka_following.enabled = true
+  local ch = State.runner.entities
+  assert(getmetatable(ch.likka.ai) == combat.mt)
+  ch.likka.ai = likka_ai.new(ch.likka.ai --[[@as combat_ai]])
   State.hostility:set(State.player.faction, "likka")
 
   self.temple = "entered"
@@ -289,7 +293,9 @@ methods.temple_exit = function(self)
   assert(self.temple == "entered")
   assert(self.location == "2_forest")
 
-  State.runner.scenes.likka_following.enabled = false
+  local ch = State.runner.entities
+  assert(getmetatable(ch.likka.ai) == likka_ai.mt)
+  ch.likka.ai = ch.likka.ai._combat_component
   State.hostility:set(State.player.faction, "likka", "ally")
 
   self.temple = "exited"
