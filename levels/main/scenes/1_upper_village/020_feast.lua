@@ -112,6 +112,7 @@ local throw_snow = function(thrower, position, repetitions_n)
     end
   end, "throw_snow")
 end
+Ldump.ignore_upvalue_size(throw_snow)
 
 return {
   _020_feast = {

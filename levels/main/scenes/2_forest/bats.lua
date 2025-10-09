@@ -67,6 +67,9 @@ return {
 
       coroutine.yield()
       State:start_combat(to_combat)  -- to prevent aggression FX
+      if State.period:once(self, "enable_healing_scene") then
+        State.runner.scenes._110_healing_player_starter.enabled = true
+      end
     end,
   },
 }

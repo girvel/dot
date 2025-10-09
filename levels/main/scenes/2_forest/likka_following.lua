@@ -27,7 +27,7 @@ return {
         and State.hostility:get(ch.likka, State.player) ~= "enemy"
     end,
 
-    _last_action_t = nil,
+    _last_action_t = 0,
 
     run = function(self, ch, ps)
       -- one iteration at a time, because needs to be disabled in cutscenes
