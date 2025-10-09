@@ -85,7 +85,7 @@ npcs.likka = function()
     codename = "likka",
     base_abilities = abilities.new(14, 18, 16, 8, 10, 8),
     level = 3,
-    ai = combat_ai.new(),
+    ai = combat_ai.new({support_range = 50, range = 50}),
     inventory = {
       bag = items.bag(),
       offhand = items.short_bow(),

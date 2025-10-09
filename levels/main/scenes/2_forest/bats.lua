@@ -16,8 +16,10 @@ return {
 
     run = function(self, ch, ps)
       local counter = 0
+      local to_combat = {ch.player}
       local bfs = State.grids.solids:bfs(ch.player.position)
       bfs()
+
       for p, e in bfs do
         if e then
           bfs:discard()
@@ -25,10 +27,9 @@ return {
         end
 
         if Random.chance(.3) then
-          Log.trace(p)
-          State
-            :add(wildlife.bat(), {position = p, grid_layer = "solids"})
-            :animate("appear")
+          e = State:add(wildlife.bat(), {position = p, grid_layer = "solids"})
+          e:animate("appear")
+          table.insert(to_combat, e)
           counter = counter + 1
 
           if counter == 7 then break end
@@ -37,6 +38,8 @@ return {
         ::continue::
       end
       health.damage(ch.player, 1)
+      coroutine.yield()
+      State:start_combat(to_combat)  -- to prevent aggression FX
     end,
   },
 }
