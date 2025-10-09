@@ -9,14 +9,20 @@ local actions        = require("engine.mech.actions")
 local perks          = require("engine.mech.perks")
 
 
-local hostile = function(a, b)
-  State.hostility:set(a, b, "enemy")
-  State.hostility:set(b, a, "enemy")
+local hostile = function(a, ...)
+  for i = 1, select("#", ...) do
+    local b = select(i, ...)
+    State.hostility:set(a, b, "enemy")
+    State.hostility:set(b, a, "enemy")
+  end
 end
 
-local ally = function(a, b)
-  State.hostility:set(a, b, "ally")
-  State.hostility:set(b, a, "ally")
+local ally = function(a, ...)
+  for i = 1, select("#", ...) do
+    local b = select(i, ...)
+    State.hostility:set(a, b, "ally")
+    State.hostility:set(b, a, "ally")
+  end
 end
 
 return {
@@ -52,12 +58,8 @@ return {
 
       State.quests.order = {"seekers", "feast"}
 
-      hostile("boars", "player")
-      hostile("bats", "player")
-
-      State.hostility:set("player", "village", "ally")
-      State.hostility:set("player", "khaned", "ally")
-      ally("player", "likka")
+      hostile("predators", "player", "likka", "khaned")
+      ally("player", "likka", "khaned", "village")
 
       health.set_hp(State.player, State.player:get_max_hp() - 2)
 

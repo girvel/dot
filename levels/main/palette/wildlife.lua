@@ -59,7 +59,7 @@ wildlife.boar = function()
     level = 1,
     ai = combat_ai.new({scan_range = 5}),
     max_hp = 11,
-    faction = "boars",
+    faction = "predators",
     inventory = {
       head = tusks(),
       hand = item.natural_weapon(D(6)),
@@ -79,7 +79,7 @@ wildlife.bat = function()
     level = 1,
     ai = combat_ai.new({scan_range = 8}),
     max_hp = 1,
-    faction = "bats",
+    faction = "predators",
     inventory = {
       hand = item.natural_weapon(D.new({}, 3)),
     },
