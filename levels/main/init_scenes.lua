@@ -1,3 +1,4 @@
+local shadows = require("levels.main.palette.shadows")
 local async = require("engine.tech.async")
 local api = require("engine.tech.api")
 local health = require("engine.mech.health")
@@ -29,6 +30,7 @@ return {
   --- @type scene|table
   init = {
     enabled = true,
+    mode = "once",
     start_predicate = function(self, dt) return State.is_loaded end,
 
     run = function(self)
@@ -75,8 +77,63 @@ return {
   },
 
   --- @type scene|table
+  init_shadows = {
+    enabled = true,
+    mode = "once",
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    run = function(self)
+      coroutine.yield()  -- wait for checkpoints
+      local size = State.level.grid_size
+
+      --- @type vector[]
+      local trees do
+        trees = {}
+        for x = 1, size.x do
+        for y = 1, size.y do
+          local e = State.grids.solids:unsafe_get(x, y)
+          if e and e._tree_flag then
+            table.insert(trees, e.position)
+          end
+        end
+        end
+      end
+
+      local shadow_values = Grid.new(size, function() return 0 end)
+      for _, tree in ipairs(trees) do
+        local R1 = 4
+        local R2 = 2
+        local R1_SQ = 16
+        local R2_SQ = 4
+        for x = -R1, R2 do
+        for y = -R1, R2 do
+          local d_sq = x*x + y*y
+          if d_sq <= R2_SQ then
+            shadow_values:unsafe_set(tree.x + x, tree.y + y, 4)
+          elseif d_sq <= R1_SQ then
+            shadow_values:unsafe_set(tree.x + x, tree.y + y, 2)
+          end
+        end
+        end
+      end
+
+      for x = 1, size.x do
+      for y = 1, size.y do
+        local n = shadow_values:unsafe_get(x, y)
+        if n > 0 and not State.grids.shadows:unsafe_get(x, y) then
+          State:add(shadows[16 - n](), {position = V(x, y), grid_layer = "shadows"})
+        end
+      end
+      end
+    end,
+  },
+
+  --- @type scene|table
   init_debug = {
     enabled = true,
+    mode = "once",
     start_predicate = function(self, dt) return State.debug end,
     in_combat_flag = true,
 
@@ -89,6 +146,7 @@ return {
 
   --- @type scene|table
   cp1 = {
+    mode = "once",
     start_predicate = function(self, dt)
       return true
     end,
@@ -104,6 +162,7 @@ return {
 
   --- @type scene|table
   cp2 = {
+    mode = "once",
     start_predicate = function(self, dt)
       return true
     end,
@@ -124,6 +183,7 @@ return {
 
   --- @type scene|table
   cpt = {
+    mode = "once",
     in_combat_flag = true,
 
     start_predicate = function(self, dt)

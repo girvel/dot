@@ -78,6 +78,8 @@ local get_base = function(codename)
         end
       end,
     }
+  elseif codename == "trunk" then
+    return {_tree_flag = true}
   else
     return {}
   end
