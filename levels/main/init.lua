@@ -18,6 +18,7 @@ return {
     "solids",
     "fx_over",
     "on_solids",
+    "shadows",
   },
 
   cell_size = config.cell_size,
