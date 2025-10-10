@@ -8,6 +8,7 @@ return {
   items_entities = require("levels.main.palette.items_entities"),
   on_solids_entities = require("levels.main.palette.on_solids_entities"),
   on_solids = require("levels.main.palette.on_solids"),
-  shadows = require("levels.main.palette.shadows"),
+  shadows = {ATLAS_IMAGE = love.graphics.newImage("engine/assets/sprites/shadow.png")},
+  shadows_invisible = require("levels.main.palette.shadows_invisible"),
   sounds_invisible = require("levels.main.palette.sounds_invisible"),
 }
