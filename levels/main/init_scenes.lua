@@ -109,11 +109,19 @@ return {
         local R2_SQ = 4
         for x = -R1, R2 do
         for y = -R1, R2 do
-          local d_sq = x*x + y*y
+          local p = V(x, y)
+          local d_sq = p:square_abs()
+          local value
           if d_sq <= R2_SQ then
-            shadow_values:unsafe_set(tree.x + x, tree.y + y, 4)
+            value = 4
           elseif d_sq <= R1_SQ then
-            shadow_values:unsafe_set(tree.x + x, tree.y + y, 2)
+            value = 2
+          else
+            value = 0
+          end
+          p:add_mut(tree)
+          if shadow_values:can_fit(p) then
+            shadow_values[p] = math.max(value, shadow_values[p])
           end
         end
         end

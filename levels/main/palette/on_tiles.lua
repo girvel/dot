@@ -1,7 +1,6 @@
-local async = require("engine.tech.async")
 local sound = require("engine.tech.sound")
 local factoring = require("engine.tech.factoring")
-local config = require("levels.main.config")
+local level  = require("engine.tech.level")
 
 local get_walk_sounds = function(codename)
   if codename:starts_with("snow") then
@@ -27,7 +26,7 @@ local get_base = function(codename)
   return {}
 end
 
-local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", config.cell_size, {
+local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", Constants.cell_size, {
   "snow",   "snow",   "snow",   "snow",   "fern",    "shroom",  "shroom", "shroom",
   "snow",   "snow",   "snow",   "snow",   "bones",   "htail",   "htail",  "htail",
   "snow",   "snow",   "snow",   "snow",   "bonef",   "poodle",  "poodle", "poodle",

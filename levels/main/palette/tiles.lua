@@ -1,5 +1,4 @@
 local factoring = require("engine.tech.factoring")
-local config = require("levels.main.config")
 local sound  = require("engine.tech.sound")
 
 local walk_sounds = {
@@ -8,7 +7,7 @@ local walk_sounds = {
   planks    = sound.multiple("assets/sounds/walk/planks",  .2),
 }
 
-local tiles = factoring.from_atlas("assets/sprites/atlases/tiles.png", config.cell_size, {
+local tiles = factoring.from_atlas("assets/sprites/atlases/tiles.png", Constants.cell_size, {
   "grass_1",  "grass_2",  "dirt",      "sand",      "roots",  "leaves_1", "flowers_1", "planks",
   "stone_1",  "stone_2",  "walkway_1", "walkway_2", "snow",   "leaves_2", "flowers_2", false,
   "bricks_1", "bricks_2", "gray",      false,       false,    false,      "flowers_3", false,

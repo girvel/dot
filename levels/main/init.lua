@@ -1,28 +1,7 @@
-local config = require("levels.main.config")
-
-
 --- @type level_definition
 return {
-  ldtk = {
-    path = "levels/main/main.ldtk",
-    level = "Level_0",
-  },
-
+  ldtk_path = "levels/main/main.ldtk",
   palette = require("levels.main.palette"),
-
-  layers = {
-    "tiles",
-    "on_tiles",
-    "fx_under",
-    "items",
-    "solids",
-    "fx_over",
-    "on_solids",
-    "shadows",
-  },
-
-  cell_size = config.cell_size,
-
-  rails_factory = require("levels.main.rails").new,
+  rails = require("levels.main.rails").new(),
   scenes = require("levels.main.init_scenes"),
 }

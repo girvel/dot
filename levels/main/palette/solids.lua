@@ -1,7 +1,6 @@
 local health = require("engine.mech.health")
 local on_solids = require("levels.main.palette.on_solids")
 local factoring = require("engine.tech.factoring")
-local config = require("levels.main.config")
 local interactive = require("engine.tech.interactive")
 
 local solids
@@ -86,7 +85,7 @@ local get_base = function(codename)
 end
 
 solids = factoring.from_atlas(
-  "assets/sprites/atlases/solids.png", config.cell_size,
+  "assets/sprites/atlases/solids.png", Constants.cell_size,
   {
     "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
     "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",

@@ -1,5 +1,4 @@
 local factoring = require("engine.tech.factoring")
-local config = require("levels.main.config")
 local interactive = require("engine.tech.interactive")
 local health      = require("engine.mech.health")
 
@@ -32,7 +31,7 @@ local get_base = function(codename)
   return {}
 end
 
-on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", config.cell_size, {
+on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constants.cell_size, {
   "vines",    "vines",   "vines",   "cobweb", "cobweb", "statue", "statue", "window",
   false,      "candles", "candles", "cobweb", "cobweb", "statue", "statue", "cobweb",
   "stage",    "candles", "skull",   "dooro",  "statue", "statue", "statue", "cobweb",
