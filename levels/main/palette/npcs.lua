@@ -123,7 +123,7 @@ npcs.villager = function()
     perks = {  -- TODO
       class.hit_dice(8),
     },
-    direction = Random.choice(Vector.directions),
+    direction = Random.item(Vector.directions),
     essential_flag = true,
   })
 end

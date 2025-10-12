@@ -166,7 +166,7 @@ return {
         for _, name in ipairs(CROWD) do
           local e = State.runner.entities[name]
           if State:exists(e) and Random.chance(.8) then
-            local animation_name = Random.choice({"fast_gesture", "clap"})
+            local animation_name = Random.choice("fast_gesture", "clap")
             State.runner:run_task(function()
               for _ = 1, 6 do
                 async.sleep(Random.float(0, .2))

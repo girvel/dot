@@ -61,9 +61,9 @@ methods.control = function(self, entity)
     and Random.chance(.3)
   then
     self._last_action_t = love.timer.getTime()
-    entity:rotate(Random.choice(Vector.directions))
+    entity:rotate(Random.item(Vector.directions))
     async.sleep(Random.float(.5, 3))
-    entity:rotate(Random.choice(Vector.directions))
+    entity:rotate(Random.item(Vector.directions))
   end
 end
 

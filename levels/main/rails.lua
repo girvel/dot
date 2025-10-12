@@ -126,7 +126,7 @@ methods.winter_end = function(self)
 
       if tile and tile.codename == "grassl" and not solid and not on_solid then
         State:add(
-          Random.choice({on_solids.grassl, on_solids.grassh})(),
+          Random.choice(on_solids.grassl, on_solids.grassh)(),
           {position = self.position, grid_layer = "on_solids"}
         )
       end

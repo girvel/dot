@@ -107,11 +107,10 @@ return {
         local R2 = 2
         local R1_SQ = 16
         local R2_SQ = 4
-        for x = -R1, R2 do
-        for y = -R1, R2 do
+        for x = -R1, R1 do
+        for y = -R1, R1 do
           local p = V(x, y)
-          local d_sq = p:square_abs()
-          local value
+          local d_sq = p:square_abs() + math.random(-2, 2)
           if d_sq <= R2_SQ then
             value = 4
           elseif d_sq <= R1_SQ then
