@@ -2,6 +2,24 @@ local screenplay = require("engine.tech.screenplay")
 local aquule     = require("engine.tech.shaders.aquule")
 
 
+local is_under_aquule = function()
+  local ps = State.runner.positions
+  return Math.inside_polygon(State.player.position, {
+    ps.aquule_1,
+    ps.aquule_2,
+    ps.aquule_3,
+    ps.aquule_4,
+    ps.aquule_5,
+    ps.aquule_6,
+    ps.aquule_7,
+    ps.aquule_8,
+    ps.aquule_9,
+    ps.aquule_10,
+    ps.aquule_11,
+    ps.aquule_12,
+  })
+end
+
 return {
   --- @type scene|table
   aquule_shader = {
@@ -23,12 +41,7 @@ return {
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)
-      local is_under_aquule = (
-        (State.player.position >= ps.aquule_start_1 and State.player.position <= ps.aquule_end_1) or
-        (State.player.position >= ps.aquule_start_2 and State.player.position <= ps.aquule_end_2)
-      )
-
-      if is_under_aquule then
+      if is_under_aquule() then
         if State.shader ~= aquule then
           State.shader = aquule
         end
@@ -53,10 +66,7 @@ return {
     --- @param ch runner_characters
     --- @param ps runner_positions
     start_predicate = function(self, dt, ch, ps)
-      return (
-        (ch.player.position >= ps.aquule_start_1 and ch.player.position <= ps.aquule_end_1) or
-        (ch.player.position >= ps.aquule_start_2 and ch.player.position <= ps.aquule_end_2)
-      )
+      return is_under_aquule()
     end,
 
     --- @param self scene|table
