@@ -8,7 +8,7 @@ local walk_sounds = {
 }
 
 local tiles = factoring.from_atlas("assets/sprites/atlases/tiles.png", Constants.cell_size, {
-  "grass_1",  "grass_2",  "dirt",      "sand",      "roots",  "leaves_1", "flowers_1", "planks",
+  "grassl",   "grassh",   "dirt",      "sand",      "roots",  "leaves_1", "flowers_1", "planks",
   "stone_1",  "stone_2",  "walkway_1", "walkway_2", "snow",   "leaves_2", "flowers_2", false,
   "bricks_1", "bricks_2", "gray",      false,       false,    false,      "flowers_3", false,
   "bricks_3", "bricks_4", false,       false,       false,    false,      "flowers_4", false,
