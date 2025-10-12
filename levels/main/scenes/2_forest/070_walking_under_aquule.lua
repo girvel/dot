@@ -2,9 +2,9 @@ local screenplay = require("engine.tech.screenplay")
 local aquule     = require("engine.tech.shaders.aquule")
 
 
-local is_under_aquule = function()
+local polygon = Memoize(function()
   local ps = State.runner.positions
-  return Math.inside_polygon(State.player.position, {
+  return Polygon.new {
     ps.aquule_1,
     ps.aquule_2,
     ps.aquule_3,
@@ -17,8 +17,8 @@ local is_under_aquule = function()
     ps.aquule_10,
     ps.aquule_11,
     ps.aquule_12,
-  })
-end
+  }
+end)
 
 return {
   --- @type scene|table
@@ -41,7 +41,7 @@ return {
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)
-      if is_under_aquule() then
+      if polygon():includes(State.player.position) then
         if State.shader ~= aquule then
           State.shader = aquule
         end
@@ -66,7 +66,7 @@ return {
     --- @param ch runner_characters
     --- @param ps runner_positions
     start_predicate = function(self, dt, ch, ps)
-      return is_under_aquule()
+      return polygon():includes(State.player.position)
     end,
 
     --- @param self scene|table
