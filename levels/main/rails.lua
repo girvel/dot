@@ -138,16 +138,24 @@ methods.winter_end = function(self)
   local finish = ps.create_water_finish
   for x = start.x, finish.x do
     for y = start.y, finish.y do
+      local p = V(x, y)
+      local tile = State.grids.tiles:unsafe_get(x, y)
+      if p == ps.create_water_exception then
+        table.insert(self._water, tile)
+        goto continue
+      end
+
       if not State.grids.solids:unsafe_get(x, y) then
         local w = State:add(
-          solids_entities.water_down(), {position = V(x, y), grid_layer = "solids"}
+          solids_entities.water_down(), {position = p, grid_layer = "solids"}
         )
         table.insert(self._water, w)
       end
-      local tile = State.grids.tiles:unsafe_get(x, y)
       if tile then
         State:remove(tile)
       end
+
+      ::continue::
     end
   end
 
