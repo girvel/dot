@@ -1,7 +1,9 @@
+local sound = require("engine.tech.sound")
 local health = require("engine.mech.health")
 local on_solids = require("levels.main.palette.on_solids")
 local factoring = require("engine.tech.factoring")
 local interactive = require("engine.tech.interactive")
+local async       = require("engine.tech.async")
 
 local solids
 
@@ -11,6 +13,16 @@ local lows = {
   "cobweb",
 }
 
+local opening_sounds = {
+  cabineto = sound.multiple("assets/sounds/cabinet/open", .8),
+  chesto   = sound.multiple("assets/sounds/chest/open"),
+}
+
+opening_sounds.shelfo = opening_sounds.cabineto
+opening_sounds.sshelfo = opening_sounds.cabineto
+opening_sounds.scabineto = opening_sounds.cabineto
+opening_sounds.schesto = opening_sounds.chesto
+
 --- @param codename string
 local is_low = function(codename)
   for _, prefix in ipairs(lows) do
@@ -19,49 +31,63 @@ local is_low = function(codename)
   return false
 end
 
-local open_door = function(self)
-  self.on_remove = function(self)
-    State:add(on_solids.dooro(), {position = self.position, grid_layer = "on_solids"})
+local open = Memoize(function(name, target_layer)
+  local sounds = opening_sounds[name]
+  local create_open
+  if target_layer then
+    assert(target_layer == "on_solids")
+    create_open = on_solids[name]
+  else
+    create_open = solids[name]
   end
-  State:remove(self)
-end
 
-local open_solid = function(name)
   return function(self)
-    self.on_remove = function(self)
-      State:add(solids[name](), {position = self.position, grid_layer = "solids"})
+    local open_itself = function()
+      State:remove(self)
+      State:add(create_open(), {
+        position = self.position,
+        grid_layer = target_layer or self.grid_layer
+      })
     end
-    State:remove(self)
+
+    local _, scene = State.runner:run_task(function()
+      if sounds then
+        sounds:play_at(self.position)
+      end
+      async.sleep(.18)
+      open_itself()
+    end)
+    scene.on_cancel = open_itself
   end
-end
+end)
 
 local get_base = function(codename)
   if codename == "doorc" then
-    local result = interactive.mixin(open_door)
+    local result = interactive.mixin(open("dooro", "on_solids"))
     result.name = "дверь"
     return result
   elseif codename == "chestc" then
-    local result = interactive.mixin(open_solid("chesto"))
+    local result = interactive.mixin(open("chesto"))
     result.name = "сундук"
     return result
   elseif codename == "shelfc" then
-    local result = interactive.mixin(open_solid("shelfo"))
+    local result = interactive.mixin(open("shelfo"))
     result.name = "полки"
     return result
   elseif codename == "cabinetc" then
-    local result = interactive.mixin(open_solid("cabineto"))
+    local result = interactive.mixin(open("cabineto"))
     result.name = "шкаф"
     return result
   elseif codename == "sshelfc" then
-    local result = interactive.mixin(open_solid("sshelfo"))
+    local result = interactive.mixin(open("sshelfo"))
     result.name = "полки"
     return result
   elseif codename == "scabinetc" then
-    local result = interactive.mixin(open_solid("scabineto"))
+    local result = interactive.mixin(open("scabineto"))
     result.name = "шкаф"
     return result
   elseif codename == "sbinc" then
-    local result = interactive.mixin(open_solid("sbino"))
+    local result = interactive.mixin(open("sbino"))
     result.name = "урна"
     return result
   elseif codename == "cobweb" then
@@ -105,7 +131,7 @@ solids = factoring.from_atlas(
     "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
     "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
     "cabinetc", "cabineto", "shelfc",   "shelfo", "hutwallt",  "hutwallt",  "rubble",  "campfire",
-    "log",      "log",      "log",      "cobweb", "scabinetc", "scabineto", "sshelfc", "shelfo",
+    "log",      "log",      "log",      "cobweb", "scabinetc", "scabineto", "sshelfc", "sshelfo",
     "log",      "cobweb",   "cobweb",   "cobweb", false,        false,      "sbinc",   "sbino",
     "log",      false,      false,      false,    false,        false,      false,     false,
     "log",      false,      false,      false,    false,        false,      false,     false,
