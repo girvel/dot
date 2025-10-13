@@ -19,6 +19,7 @@ local polygon = Memoize(function()
     ps.aquule_12,
   }
 end)
+Ldump.ignore_size(polygon)
 
 return {
   --- @type scene|table
