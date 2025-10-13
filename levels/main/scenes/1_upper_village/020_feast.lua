@@ -251,13 +251,14 @@ return {
 
         async.sleep(5)
         local next_dance = function(inviter, invitee, corner)
+          local is_priest = not inviter:ends_with("priest")
           inviter = ch[inviter]
           invitee = ch[invitee]
           corner = ps[corner]
 
           async.sleep(Random.float(0, .3))
           local promise, scene = dance(
-            inviter, invitee, corner, 20, not inviter:ends_with("priest")
+            inviter, invitee, corner, 20, is_priest
           )
           table.insert(self.final_dancing_scenes, scene)
           return promise
