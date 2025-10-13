@@ -306,6 +306,7 @@ methods.temple_enter = function(self)
   assert(getmetatable(ch.likka.ai) == combat.mt)
   ch.likka.ai = likka_ai.new(ch.likka.ai --[[@as combat_ai]])
   State.hostility:set(State.player.faction, "likka")
+  State.hostility:set("likka", State.player.faction, "ally")
 
   self.temple = "entered"
 end
@@ -318,6 +319,7 @@ methods.temple_exit = function(self)
   assert(getmetatable(ch.likka.ai) == likka_ai.mt)
   ch.likka.ai = ch.likka.ai._combat_component
   State.hostility:set(State.player.faction, "likka", "ally")
+  State.hostility:set("likka", State.player.faction)
 
   self.temple = "exited"
 end
