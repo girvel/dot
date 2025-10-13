@@ -45,6 +45,8 @@ return {
         sp:lines()
         p:wait()
 
+        sp:lines()
+
         sp:start_branches()
           if ch.player:ability_check("insight", 12) then
             sp:start_branch(1)
