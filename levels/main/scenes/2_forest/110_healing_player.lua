@@ -99,6 +99,7 @@ return {
             sp:finish_single_branch()
           else
             sp:lines()
+            State.rails:empathy_raise()
           end
         sp:finish_option()
         sp:finish_options()

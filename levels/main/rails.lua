@@ -27,6 +27,7 @@ local rails = {}
 --- @field gatherer_status "ran_away"?
 --- @field likka_saw_bad_trip boolean?
 --- @field temple "entered"|"exited"?
+--- @field empathy integer|"present"|"denied"?
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
@@ -322,6 +323,30 @@ methods.temple_exit = function(self)
   State.hostility:set("likka", State.player.faction)
 
   self.temple = "exited"
+end
+
+methods.empathy_start_conversation = function(self)
+  assert(self.empathy == nil)
+  self.empathy = 0
+end
+
+methods.empathy_raise = function(self)
+  assert(type(self.empathy) == "number")
+  self.empathy = self.empathy + 1
+end
+
+methods.empathy_lower = function(self)
+  assert(type(self.empathy) == "number")
+  self.empathy = self.empathy - 1
+end
+
+methods.empathy_finalize = function(self)
+  assert(type(self.empathy) == "number")
+  if self.empathy >= 0 then
+    self.empathy = "present"
+  else
+    self.empathy = "denied"
+  end
 end
 
 Ldump.mark(rails, {}, ...)

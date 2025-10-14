@@ -211,8 +211,37 @@ return {
       State.rails:feast_end()
       State.rails:seekers_start()
       State.rails:temple_enter()
+      State.rails:empathy_start_conversation()
 
       api.assert_position(State.player, State.runner.positions.cpt, true)
+      item.give(State.player, State:add(items_entities.axe()))
+      item.give(State.player, State:add(items_entities.shield()))
+
+      State.runner.scenes._100_saving_likka.enabled = false
+    end,
+  },
+
+  --- @type scene|table
+  cpt2 = {
+    mode = "once",
+    in_combat_flag = true,
+
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    run = function(self)
+      State.rails:winter_init()
+      State.rails:winter_end()
+      State.rails:location_forest(true)
+      State.rails:feast_start()
+      State.rails:feast_end()
+      State.rails:seekers_start()
+      State.rails:temple_enter()
+      State.rails:empathy_start_conversation()
+
+      api.assert_position(State.player, State.runner.positions.cpt2, true)
+      api.assert_position(State.runner.entities.likka, State.runner.positions.cpt2 + Vector.right, true)
       item.give(State.player, State:add(items_entities.axe()))
       item.give(State.player, State:add(items_entities.shield()))
 

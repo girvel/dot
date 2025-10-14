@@ -1,0 +1,47 @@
+local screenplay = require("engine.tech.screenplay")
+local api = require("engine.tech.api")
+
+
+return {
+  --- @type scene|table
+  _114_entering_corridor = {
+    enabled = true,
+    characters = {
+      likka = {},
+      player = {},
+    },
+
+    start_predicate = function(self, dt, ch, ps)
+      return (State.player.position - ps.ec_start):abs2() <= 2
+    end,
+
+    run = function(self, ch, ps)
+      local sp = screenplay.new("assets/screenplay/114_entering_corridor.ms", ch)
+        if not api.is_visible(ch.likka) then
+          api.travel_scripted(ch.likka, ch.player.position):wait()
+        end
+
+        api.rotate(ch.likka, ch.player)
+        sp:lines()
+
+        api.rotate(ch.player, ch.likka)
+        local n = api.options(sp:start_options())
+          sp:start_option(n)
+            if n == 1 then
+              sp:lines()
+              State.rails:empathy_lower()
+            elseif n == 3 then
+              sp:lines()
+              sp:start_single_branch()
+                if ch.player:ability_check("insight", 12) then
+                  sp:lines()
+                end
+              sp:finish_single_branch()
+              State.rails:empathy_raise()
+            end
+          sp:finish_option()
+        sp:finish_options()
+      sp:finish()
+    end,
+  },
+}

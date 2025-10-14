@@ -178,6 +178,7 @@ return {
         sp:finish_single_branch()
 
         State.rails:temple_enter()
+        State.rails:empathy_start_conversation()
       sp:finish()
     end,
   },
