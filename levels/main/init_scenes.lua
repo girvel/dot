@@ -158,6 +158,21 @@ return {
   },
 
   --- @type scene|table
+  test_scrolling = {
+    characters = {
+      player = {},
+    },
+
+    start_predicate = function(self, dt, ch, ps)
+      return true
+    end,
+
+    run = function(self, ch, ps)
+      api.line(nil, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+    end,
+  },
+
+  --- @type scene|table
   cp1 = {
     mode = "once",
     start_predicate = function(self, dt)
