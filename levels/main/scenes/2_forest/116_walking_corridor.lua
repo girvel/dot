@@ -10,6 +10,8 @@ return {
     characters = {
       player = {},
       likka = {},
+      skeleton_1 = {},
+      skeleton_2 = {},
     },
 
     start_predicate = function(self, dt, ch, ps)
@@ -45,8 +47,32 @@ return {
           end
         sp:finish_options()
 
+        local skeletons_enter = Promise.all(
+          api.travel_scripted(ch.skeleton_1, ps.wc_skeleton_1),
+          api.travel_scripted(ch.skeleton_2, ps.wc_skeleton_2)
+        )
+
         async.sleep(1.5)
         sp:lines()
+
+        api.rotate(ch.player, ps.wc_skeleton_1)
+        api.rotate(ch.likka, ps.wc_skeleton_1)
+        local camera_move = api.move_camera(ps.wc_camera)
+        skeletons_enter:wait()
+        camera_move:wait()
+
+        api.free_camera()
+        local retreat = Promise.all(
+          api.travel_scripted(ch.likka, ps.wc_retreat_likka),
+          api.travel_scripted(ch.player, ps.wc_retreat_player)
+        )
+        retreat:wait()
+        api.rotate(ch.player, ch.likka)
+        api.rotate(ch.likka, ch.player)
+
+        sp:lines()
+
+        api.autosave("Руины - Термы")
       sp:finish()
     end,
   },
