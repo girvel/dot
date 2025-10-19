@@ -32,20 +32,19 @@ npcs.ai_tester = function(faction)
 end
 
 local skeleton_base = function()
-  return creature.make(animated.mixin("engine/assets/sprites/animations/skeleton"), {
+  return Table.extend(animated.mixin("engine/assets/sprites/animations/skeleton"), {
     name = "скелет",
     base_abilities = abilities.new(10, 14, 15, 6, 8, 5),
     armor = 13,
     level = 1,
     ai = combat_ai.new(),
-    max_hp = 13,
     faction = "predators",
     no_blood_flag = true,
   })
 end
 
 npcs.skeleton_light = function()
-  return Table.extend(skeleton_base(), {
+  return creature.make(skeleton_base(), {
     codename = "skeleton_light",
     max_hp = 6,
     inventory = {
@@ -55,7 +54,7 @@ npcs.skeleton_light = function()
 end
 
 npcs.skeleton_heavy = function()
-  return Table.extend(skeleton_base(), {
+  return creature.make(skeleton_base(), {
     codename = "skeleton_heavy",
     max_hp = 20,
     inventory = {
