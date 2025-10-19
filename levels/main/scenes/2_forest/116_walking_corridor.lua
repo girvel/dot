@@ -33,7 +33,7 @@ return {
         end
 
         api.rotate(ch.likka, ch.player)
-        api.rotate(ch.player, ch.likka)
+        api.rotate(ch.plaeer, ch.likka)
 
         sp:lines()
 
@@ -72,8 +72,68 @@ return {
 
         sp:lines()
 
-        api.autosave("Руины - Термы")
-      sp:finish()
+        State.runner.scenes.skeletons_coming.enabled = true
+      sp:finish() api.autosave("Руины - Термы") end,
+  },
+
+  --- @type scene|table
+  skeletons_coming = {
+    characters = {
+      skeleton_1 = {},
+      skeleton_2 = {},
+      skeleton_3 = {},
+      skeleton_4 = {},
+      skeleton_5 = {},
+    },
+
+    start_predicate = function(self, dt, ch, ps)
+      return true
+    end,
+
+    run = function(self, ch, ps)
+      local promises = {}
+      local scenes = {}
+      for i = 1, 5 do
+        local promise, scene = api.travel_scripted(
+          ch["skeleton_" .. i],
+          ps["skeleton_coming_" .. i]
+        )
+
+        table.insert(promises, promise)
+        table.insert(scenes, scene)
+      end
+
+      local all = Promise.all(unpack(promises))
+      while not all.is_resolved do
+        local is_seen = false
+        for i = 1, 5 do
+          local skeleton = ch["skeleton_" .. i]
+          if (State.player.position - skeleton.position):abs2() <= 10
+            and api.is_visible(skeleton)
+          then
+            is_seen = true
+          end
+        end
+
+        if is_seen then
+          for _, scene in ipairs(scenes) do
+            State.runner:stop(scene, true)
+          end
+
+          State:start_combat({
+            ch.player,
+            ch.skeleton_1,
+            ch.skeleton_2,
+            ch.skeleton_3,
+            ch.skeleton_4,
+            ch.skeleton_5,
+          })
+
+          break
+        end
+
+        async.sleep(Random.float(.05, .15))
+      end
     end,
   },
 }

@@ -255,10 +255,15 @@ return {
       State.rails:temple_enter()
       State.rails:empathy_start_conversation()
 
-      api.assert_position(State.player, State.runner.positions.cpt2, true)
-      api.assert_position(State.runner.entities.likka, State.runner.positions.cpt2 + Vector.right, true)
-      item.give(State.player, State:add(items_entities.axe()))
-      item.give(State.player, State:add(items_entities.shield()))
+      local ch = State.runner.entities
+      local ps = State.runner.positions
+
+      api.assert_position(ch.player, ps.cpt2, true)
+      api.assert_position(ch.likka, ps.cpt2 + Vector.right, true)
+      item.give(ch.player, State:add(items_entities.axe()))
+      item.give(ch.player, State:add(items_entities.shield()))
+
+      health.damage(ch.cpt2_cobweb, 1)
 
       State.runner.scenes._100_saving_likka.enabled = false
     end,
