@@ -45,9 +45,7 @@ items_entities.axe = function()
       name = "топорик",
       codename = "axe",
       damage_roll = D(6),
-      tags = {
-        finesse = true,
-      },
+      tags = {},
       slot = "hands",
     }
   )
