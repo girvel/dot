@@ -1,3 +1,4 @@
+local core = require("levels.main.core")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
 
@@ -17,10 +18,7 @@ return {
 
     run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/114_entering_corridor.ms", ch)
-        if not api.is_visible(ch.likka) then
-          api.travel_scripted(ch.likka, ch.player.position):wait()
-        end
-
+        core.bring_likka()
         api.rotate(ch.likka, ch.player)
         sp:lines()
 

@@ -28,6 +28,7 @@ local rails = {}
 --- @field likka_saw_bad_trip boolean?
 --- @field temple "entered"|"exited"?
 --- @field empathy integer|"present"|"denied"?
+--- @field fought_skeleton_group? boolean
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?

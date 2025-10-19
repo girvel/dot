@@ -1,3 +1,4 @@
+local core = require("levels.main.core")
 local async = require("engine.tech.async")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
@@ -20,10 +21,7 @@ return {
 
     run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/116_walking_corridor.ms", ch)
-        if not api.is_visible(ch.likka) then
-          api.travel_scripted(ch.likka, ch.player.position):wait()
-        end
-
+        core.bring_likka()
         sp:lines()
 
         local n = api.options(sp:start_options())
@@ -120,6 +118,8 @@ return {
             State.runner:stop(scene, true)
           end
 
+          State.rails.fought_skeleton_group = true
+
           State:start_combat({
             State.player,
             ch.skeleton_1,
@@ -128,12 +128,15 @@ return {
             ch.skeleton_4,
             ch.skeleton_5,
           })
+          coroutine.yield()
 
           break
         end
 
         async.sleep(Random.float(.05, .15))
       end
+
+      State.runner.scenes._118_after_danger.enabled = true
     end,
   },
 }
