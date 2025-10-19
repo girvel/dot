@@ -33,7 +33,7 @@ return {
         end
 
         api.rotate(ch.likka, ch.player)
-        api.rotate(ch.plaeer, ch.likka)
+        api.rotate(ch.player, ch.likka)
 
         sp:lines()
 
@@ -121,7 +121,7 @@ return {
           end
 
           State:start_combat({
-            ch.player,
+            State.player,
             ch.skeleton_1,
             ch.skeleton_2,
             ch.skeleton_3,
