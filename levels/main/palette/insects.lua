@@ -15,7 +15,6 @@ insects.mosquito = function()
     level = 1,
     ai = wandering_ai.new(3),
     max_hp = 1,
-    no_blood_flag = true,
     no_sound_flag = true,
     perks = {
       perks.passive,

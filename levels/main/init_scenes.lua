@@ -63,7 +63,6 @@ return {
       hostile("predators", "player", "likka", "khaned")
       ally("player", "khaned", "village")
 
-      State.hostility:set("player", "likka", "ally")
       -- player is likka's ally only inside the temple
 
       health.set_hp(State.player, State.player:get_max_hp() - 2)
@@ -74,6 +73,7 @@ return {
         end
       end
 
+      State.hostility:set("player", "likka", "ally")
       State.rails:winter_init()
       State.rails:location_intro()
     end,

@@ -1,3 +1,4 @@
+local humanoid = require("engine.mech.humanoid")
 local animated = require("engine.tech.animated")
 local abilities = require("engine.mech.abilities")
 local creature    = require("engine.mech.creature")
@@ -37,6 +38,8 @@ wildlife.pig = function()
     perks = {
       perks.passive,
     },
+    on_half_hp = humanoid.add_blood_mark,
+    on_death = humanoid.add_blood_mark,
   })
 end
 
@@ -68,6 +71,8 @@ wildlife.boar = function()
     perks = {
       perks.relentless,
     },
+    on_half_hp = humanoid.add_blood_mark,
+    on_death = humanoid.add_blood_mark,
   })
 end
 
@@ -84,6 +89,7 @@ wildlife.bat = function()
     inventory = {
       hand = item.natural_weapon(D.new({}, 3)),
     },
+    on_death = humanoid.add_blood_mark,
   })
 end
 
@@ -96,10 +102,10 @@ wildlife.frog = function()
     ai = wandering_ai.new(),
     max_hp = 1,
     faction = "frogs_" .. State.uid:next(),
-    no_blood_flag = true,
     perks = {
       perks.passive,
     },
+    on_death = humanoid.add_blood_mark,
   })
 end
 

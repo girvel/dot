@@ -39,6 +39,8 @@ return {
         else
           State.hostility:set(ch.likka.faction, State.player.faction, "enemy")
           ch.likka.essential_flag = nil
+          self.enabled = false
+          State.hostility:unsubscribe(self._sub)
         end
       sp:finish()
     end,

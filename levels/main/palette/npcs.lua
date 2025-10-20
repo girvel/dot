@@ -1,3 +1,5 @@
+local on_tiles = require("levels.main.palette.on_tiles")
+local mark = require("engine.tech.mark")
 local health = require("engine.mech.health")
 local animated = require("engine.tech.animated")
 local abilities = require("engine.mech.abilities")
@@ -39,7 +41,7 @@ local skeleton_base = function()
     level = 1,
     ai = combat_ai.new(),
     faction = "predators",
-    no_blood_flag = true,
+    on_death = mark(on_tiles.bones, "on_tiles"),
   })
 end
 
@@ -88,6 +90,8 @@ npcs.khaned = function()
     },
     essential_flag = true,
     transparent_flag = true,
+    on_half_hp = humanoid.add_blood_mark,
+    on_death = humanoid.add_blood_mark,
   })
 end
 
