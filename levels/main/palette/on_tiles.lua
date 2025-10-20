@@ -29,8 +29,8 @@ end
 local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", Constants.cell_size, {
   "snow",   "snow",   "snow",   "snow",   "fern",    "shroom",  "shroom", "shroom",
   "snow",   "snow",   "snow",   "snow",   "bones",   "htail",   "htail",  "htail",
-  "snow",   "snow",   "snow",   "snow",   "bonef",   "poodle",  "poodle", "poodle",
-  "snow",   "snow",   "snow",   "snow",   "scastle", "scastle", false,    false,
+  "snow",   "snow",   "snow",   "snow",   "bonef",   "poodle",  "poodle", "bonef",
+  "snow",   "snow",   "snow",   "snow",   "scastle", "scastle", "bones",  "bones",
   "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
   "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
   "carpet", "carpet", "carpet", "carpet", "carpet",  "carpet",  "carpet", "carpet",
