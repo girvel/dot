@@ -1,5 +1,4 @@
 local async = require("engine.tech.async")
-local actions = require("engine.mech.actions")
 local health = require("engine.mech.health")
 local level = require("engine.tech.level")
 local api = require("engine.tech.api")
@@ -28,19 +27,12 @@ return {
       ceremony_food = {},
     },
 
-    --- @param self scene|table
-    --- @param dt number
-    --- @param ch runner_characters
-    --- @param ps runner_positions
-    start_predicate = function(self, dt, ch, ps)
+    start_predicate = function(self, _dt, ch, ps)
       return (ps.ceremony_start - ch.player.position):abs2() <= 2
     end,
 
     _first_time = true,
 
-    --- @param self scene|table
-    --- @param ch runner_characters
-    --- @param ps runner_positions
     run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/030_ceremony.ms", ch)
         local did_player_come_first = false
@@ -205,21 +197,16 @@ return {
         sp:lines()
 
         async.sleep(1)
-        local _, khaned_leaving_scene = api.travel_scripted(ch.khaned, ps.gtf_khaned)
+        local khaned_leaving = api.travel_scripted(ch.khaned, ps.gtf_khaned)
         sp:lines()
 
-        local _, likka_leaving_scene = api.travel_scripted(ch.likka, ps.gtf_likka)
-        local player_moving = api.travel_scripted(ch.player, ps.ceremony_player_away)
-        sp:lines()
-        player_moving:wait()
-
-        player_moving = api.travel_scripted(ch.player, ps.ceremony_player_away_2)
+        local likka_leaving = api.travel_scripted(ch.likka, ps.gtf_likka)
+        local player_leaving = api.travel_scripted(ch.player, ps.gtf_player)
         api.free_camera()
-        api.fade_out()
-        player_moving:wait()
-        State.runner:remove(khaned_leaving_scene)
-        State.runner:remove(likka_leaving_scene)
+        sp:lines()
       sp:finish()
+
+      Promise.all(khaned_leaving, likka_leaving, player_leaving):wait()
       State.runner.scenes._040_going_to_forest:run(ch, ps)
     end,
   },

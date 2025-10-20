@@ -26,16 +26,15 @@ return {
     --- @param ps runner_positions
     run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/040_going_to_forest.ms", ch)
-        level.unsafe_move(ch.khaned, ps.gtf_khaned)
-        level.unsafe_move(ch.likka, ps.gtf_likka)
-        level.unsafe_move(ch.player, ps.gtf_player)
+        api.assert_position(ch.khaned, ps.gtf_khaned)
+        api.assert_position(ch.likka, ps.gtf_likka)
+        api.assert_position(ch.player, ps.gtf_player)
 
         ch.khaned:rotate(Vector.left)
         ch.likka:rotate(Vector.left)
         ch.player:rotate(Vector.left)
 
         async.sleep(3)
-        api.fade_in()
 
         sp:lines()
         api.travel_scripted(ch.likka, ps.gtf_likka_1)
@@ -87,6 +86,7 @@ return {
         sp:lines()
 
         local ft_khaned = api.fast_travel(ch.khaned, ps.gtf_khaned_ft, ps.sk_khaned)
+        async.sleep(1)
         api.travel_scripted(ch.likka, ch.player.position):wait()
 
         sp:lines()
