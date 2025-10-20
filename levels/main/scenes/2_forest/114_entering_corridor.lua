@@ -4,7 +4,7 @@ local api = require("engine.tech.api")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _114_entering_corridor = {
     enabled = true,
     characters = {

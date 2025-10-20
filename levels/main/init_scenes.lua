@@ -27,7 +27,7 @@ local ally = function(a, ...)
 end
 
 return {
-  --- @type scene|table
+  --- @type scene
   init = {
     enabled = true,
     mode = "once",
@@ -79,10 +79,11 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   init_shadows = {
     enabled = true,
     mode = "once",
+    lag_flag = true,
     start_predicate = function(self, dt)
       return true
     end,
@@ -144,7 +145,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   init_debug = {
     enabled = true,
     mode = "once",
@@ -158,7 +159,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   test_scrolling = {
     characters = {
       player = {},
@@ -173,7 +174,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   cp1 = {
     mode = "once",
     start_predicate = function(self, dt)
@@ -189,7 +190,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   cp2 = {
     mode = "once",
     start_predicate = function(self, dt)
@@ -210,7 +211,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   cpt = {
     mode = "once",
     in_combat_flag = true,
@@ -237,7 +238,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   cpt2 = {
     mode = "once",
     in_combat_flag = true,

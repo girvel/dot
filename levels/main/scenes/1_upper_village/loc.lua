@@ -32,7 +32,7 @@ return {
     enabled = true,
     in_combat_flag = true,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     start_predicate = function(self, dt, ch)
@@ -41,7 +41,7 @@ return {
       return hand and hand.damage_roll or offhand and offhand.damage_roll
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     run = function(self, ch)
       State.rails:feast_weapon_found()

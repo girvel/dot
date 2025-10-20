@@ -14,7 +14,7 @@ local CROWD = {
 }
 
 return {
-  --- @type scene|table
+  --- @type scene
   _030_ceremony = {
     enabled = true,
     mode = "sequential",

@@ -5,7 +5,7 @@ local solids_entities = require "levels.main.palette.solids_entities"
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _080_saving_khaned = {
     enabled = true,
 

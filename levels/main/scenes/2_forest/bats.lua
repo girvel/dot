@@ -5,7 +5,7 @@ local wildlife = require "levels.main.palette.wildlife"
 local BATS_NS = {7, 5, 6, 11}
 
 return {
-  --- @type scene|table
+  --- @type scene
   bats = {
     enabled = true,
     mode = "sequential",

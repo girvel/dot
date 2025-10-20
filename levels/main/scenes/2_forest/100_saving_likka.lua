@@ -9,7 +9,7 @@ local api = require("engine.tech.api")
 local LONG_TIME = 600
 
 return {
-  --- @type scene|table
+  --- @type scene
   _100_saving_likka = {
     enabled = true,
     mode = "sequential",

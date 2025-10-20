@@ -4,7 +4,7 @@ local api  = require("engine.tech.api")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _081_after_khaned_fight = {
     characters = {
       player = {},

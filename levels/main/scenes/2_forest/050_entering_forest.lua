@@ -2,7 +2,7 @@ local screenplay = require("engine.tech.screenplay")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _050_entering_forest = {
     enabled = true,
 
@@ -10,7 +10,7 @@ return {
       player = {},
     },
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -18,7 +18,7 @@ return {
       return not (ch.player.position >= ps.beach_start and ch.player.position <= ps.beach_end)
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)

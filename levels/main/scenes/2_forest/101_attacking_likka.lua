@@ -2,7 +2,7 @@ local screenplay = require("engine.tech.screenplay")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _101_attacking_likka = {
     enabled = true,
     mode = "sequential",

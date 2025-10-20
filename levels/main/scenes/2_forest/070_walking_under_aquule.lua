@@ -8,7 +8,7 @@ end)
 Ldump.ignore_size(polygon)
 
 return {
-  --- @type scene|table
+  --- @type scene
   aquule_shader = {
     enabled = true,
     boring_flag = true,
@@ -16,7 +16,7 @@ return {
 
     characters = {},
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -24,7 +24,7 @@ return {
       return true
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)
@@ -40,7 +40,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   _070_walking_under_aquule = {
     enabled = true,
 
@@ -48,7 +48,7 @@ return {
       player = {},
     },
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -56,7 +56,7 @@ return {
       return polygon():includes(State.player.position)
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)

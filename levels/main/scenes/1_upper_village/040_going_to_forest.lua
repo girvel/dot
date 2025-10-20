@@ -5,7 +5,7 @@ local screenplay = require("engine.tech.screenplay")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _040_going_to_forest = {
     characters = {
       player = {},
@@ -13,7 +13,7 @@ return {
       likka = {},
     },
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -21,7 +21,7 @@ return {
       return false  -- manually triggered scene
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)

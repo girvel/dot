@@ -6,7 +6,7 @@ local actions = require("engine.mech.actions")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _110_healing_player_starter = {
     _there_was_combat = false,
 
@@ -24,7 +24,7 @@ return {
     end,
   },
 
-  --- @type scene|table
+  --- @type scene
   _110_healing_player = {
     characters = {
       player = {},

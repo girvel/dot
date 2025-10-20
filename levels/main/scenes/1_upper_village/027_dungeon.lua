@@ -15,7 +15,7 @@ return {
 
     mode = "sequential",
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -27,7 +27,7 @@ return {
 
     time_i = 0,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)

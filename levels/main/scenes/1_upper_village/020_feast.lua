@@ -137,7 +137,7 @@ return {
 
     final_dancing_scenes = {},
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -146,7 +146,7 @@ return {
         and ch.player.position <= ps.feast_finish
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = Ldump.ignore_upvalue_size(function(self, ch, ps)

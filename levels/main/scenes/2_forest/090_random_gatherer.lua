@@ -8,7 +8,7 @@ local items_entities = require("levels.main.palette.items_entities")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _090_random_gatherer = {
     enabled = true,
 

@@ -3,13 +3,13 @@ local api = require("engine.tech.api")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   eating_berries_1 = {
     characters = {
       player = {},
     },
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param dt number
     --- @param ch runner_characters
     --- @param ps runner_positions
@@ -17,7 +17,7 @@ return {
       return false  -- manually triggered scene
     end,
 
-    --- @param self scene|table
+    --- @param self scene
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = function(self, ch, ps)

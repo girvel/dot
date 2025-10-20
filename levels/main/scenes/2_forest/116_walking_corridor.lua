@@ -5,7 +5,7 @@ local api = require("engine.tech.api")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _116_walking_corridor = {
     enabled = true,
     characters = {
@@ -74,7 +74,7 @@ return {
       sp:finish() api.autosave("Руины - Термы") end,
   },
 
-  --- @type scene|table
+  --- @type scene
   skeletons_coming = {
     characters = {
       skeleton_1 = {},

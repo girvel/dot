@@ -5,7 +5,7 @@ local screenplay = require("engine.tech.screenplay")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _118_after_danger = {
     characters = {
       likka = {},

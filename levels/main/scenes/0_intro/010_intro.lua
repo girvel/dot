@@ -3,7 +3,7 @@ local screenplay = require("engine.tech.screenplay")
 
 
 return {
-  --- @type scene|table
+  --- @type scene
   _010_intro = {
     enabled = true,
 
