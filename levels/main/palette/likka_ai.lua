@@ -36,7 +36,7 @@ methods.control = function(self, entity)
   if State.hostility:get(self, State.player) == "enemy" then return end
 
   if needs_travel(entity) then
-    async.sleep(Random.float(.1, .3))
+    async.sleep(Random.float(.05, .15))
 
     local target = State.player.position
     local norm = (target - entity.position):normalized2()
@@ -45,9 +45,9 @@ methods.control = function(self, entity)
     for _, offset in ipairs {Vector.zero, shift, -shift} do
       local path = api.build_path(entity.position, target - norm * 2 + offset)
       if path then
-        api.follow_path(entity, path, false, 7.5)
-        async.sleep(Random.float(.1, .2))
+        api.follow_path(entity, path, false, 10)
         if not needs_travel(entity) then
+          async.sleep(Random.float(.1, .2))
           api.rotate(entity, State.player)
         end
         self._last_action_t = love.timer.getTime()
