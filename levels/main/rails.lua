@@ -350,5 +350,29 @@ methods.empathy_finalize = function(self)
   end
 end
 
+local cache
+
+--- @param position vector
+methods.is_indoors = function(self, position)
+  if not cache then cache = Grid.new(State.level.grid_size) end
+
+  local result = cache:slow_get(position)
+  if result ~= nil then return result end
+
+  local starts = State.runner:position_sequence("house")
+  local ends = State.runner:position_sequence("house_end")
+  result = false
+
+  for i = 1, #starts do
+    if starts[i] <= position and position <= ends[i] then
+      result = true
+      break
+    end
+  end
+
+  cache[position] = result
+  return result
+end
+
 Ldump.mark(rails, {}, ...)
 return rails
