@@ -3,21 +3,7 @@ local aquule     = require("engine.tech.shaders.aquule")
 
 
 local polygon = Memoize(function()
-  local ps = State.runner.positions
-  return Polygon.new {
-    ps.aquule_1,
-    ps.aquule_2,
-    ps.aquule_3,
-    ps.aquule_4,
-    ps.aquule_5,
-    ps.aquule_6,
-    ps.aquule_7,
-    ps.aquule_8,
-    ps.aquule_9,
-    ps.aquule_10,
-    ps.aquule_11,
-    ps.aquule_12,
-  }
+  return Polygon.new(State.runner:position_sequence("aquule"))
 end)
 Ldump.ignore_size(polygon)
 
