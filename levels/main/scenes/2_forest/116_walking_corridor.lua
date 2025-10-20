@@ -61,8 +61,8 @@ return {
 
         api.free_camera()
         local retreat = Promise.all(
-          api.travel_scripted(ch.likka, ps.wc_retreat_likka),
-          api.travel_scripted(ch.player, ps.wc_retreat_player)
+          api.travel_scripted(ch.likka, ps.wc_retreat_likka, 8),
+          api.travel_scripted(ch.player, ps.wc_retreat_player, 8)
         )
         retreat:wait()
         api.rotate(ch.player, ch.likka)

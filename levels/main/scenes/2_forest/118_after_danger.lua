@@ -65,7 +65,7 @@ return {
           sp:lines()
         sp:finish_single_branch()
 
-        sp:lines()
+        async.sleep(1.5)
 
         n = api.options(sp:start_options())
         sp:start_option(n)
