@@ -91,6 +91,7 @@ return {
       coroutine.yield()  -- wait for checkpoints
 
       local size = State.level.grid_size
+      local exclude = State.runner:position_sequence("no_tree_shadow")
 
       --- @type vector[]
       local trees do
@@ -98,7 +99,7 @@ return {
         for x = 1, size.x do
         for y = 1, size.y do
           local e = State.grids.solids:unsafe_get(x, y)
-          if e and e._tree_flag then
+          if e and e._tree_flag and not Table.contains(exclude, e.position) then
             table.insert(trees, e.position)
           end
         end
