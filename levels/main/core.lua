@@ -14,7 +14,7 @@ end
 
 --- @param entity entity
 --- @param name string
-core.placeholder = function(entity, name)
+core.activator = function(entity, name)
   State:add(entity, interactive.mixin(), {name = name})
   item.set_cue(entity, "highlight", true)
 end
