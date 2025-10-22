@@ -16,11 +16,10 @@ return {
     },
 
     on_add = function(self)
-      local e = State:add(interactive.mixin(function(self) State:remove(self) end), {
+      local e = State:add(interactive.mixin(function(e) State:remove(e) end), {
         name = "Дупло",
         position = State.runner.positions.hn_nest,
         grid_layer = "on_solids",
-        sprite = sprite.image("assets/sprites/empty.png"),
       })
       item.set_cue(e, "highlight", true)
       State.runner.entities.hornets_nest = e

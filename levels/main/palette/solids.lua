@@ -132,9 +132,9 @@ solids = factoring.from_atlas(
     "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
     "cabinetc", "cabineto", "shelfc",   "shelfo", "hutwallt",  "hutwallt",  "rubble",  "campfire",
     "log",      "log",      "log",      "cobweb", "scabinetc", "scabineto", "sshelfc", "sshelfo",
-    "log",      "cobweb",   "cobweb",   "cobweb", "cobweb",     "cobweb",   "sbinc",   "sbino",
-    "log",      false,      false,      false,    false,        false,      false,     false,
-    "log",      false,      false,      false,    false,        false,      false,     false,
+    "log",      "cobweb",   "cobweb",   "cobweb", "cobweb",    "cobweb",    "sbinc",   "sbino",
+    "log",      false,      false,      false,    false,       false,       false,     false,
+    "log",      false,      false,      false,    false,       false,       false,     false,
   },
   function(codename)
     local result = get_base(codename)

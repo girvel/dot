@@ -42,6 +42,7 @@ on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constan
   "mold",     "mold",    "mold",    "mold",   false,    false,    "cobweb", "cobweb",
   false,      false,     false,     false,    false,    false,    "cobweb", "cobweb",
   "bonef",    "bonef",   "bones",   "bones",  "bones",  false,    false,    false,
+  "sign",
 }, function(codename)
   local result = get_base(codename)
   result.boring_flag = true

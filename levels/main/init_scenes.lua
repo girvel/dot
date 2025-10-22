@@ -270,4 +270,37 @@ return {
       State.runner.scenes._100_saving_likka.enabled = false
     end,
   },
+
+  --- @type scene
+  cpt3 = {
+    mode = "once",
+    in_combat_flag = true,
+
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    run = function(self)
+      State.rails:winter_init()
+      State.rails:winter_end()
+      State.rails:location_forest(true)
+      State.rails:feast_start()
+      State.rails:feast_end()
+      State.rails:seekers_start()
+      State.rails:temple_enter()
+      State.rails:empathy_start_conversation()
+
+      local ch = State.runner.entities
+      local ps = State.runner.positions
+
+      api.assert_position(ch.player, ps.cpt3, true)
+      api.assert_position(ch.likka, ps.cpt3 + Vector.right, true)
+      item.give(ch.player, State:add(items_entities.axe()))
+      item.give(ch.player, State:add(items_entities.shield()))
+
+      health.damage(ch.cpt2_cobweb, 1)
+
+      State.runner.scenes._100_saving_likka.enabled = false
+    end,
+  },
 }
