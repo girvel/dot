@@ -29,6 +29,7 @@ local rails = {}
 --- @field temple "entered"|"exited"?
 --- @field empathy integer|"present"|"denied"?
 --- @field fought_skeleton_group? boolean
+--- @field met_nea? boolean
 --- @field _scenes_by_location table
 --- @field _snow entity[]?
 --- @field _water entity[]?
@@ -372,6 +373,11 @@ methods.is_indoors = function(self, position)
 
   cache[position] = result
   return result
+end
+
+methods.nea_meet = function(self)
+  assert(self.met_nea == nil)
+  self.met_nea = true
 end
 
 Ldump.mark(rails, {}, ...)
