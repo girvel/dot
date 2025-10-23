@@ -105,9 +105,13 @@ return {
         ::continue::
       end
 
-      local distribution = Random.distribute(1620, #temple_containers)
+      local money_dist = Random.distribute(1620, #temple_containers)
+      -- local item_dist = Random.distribute_items(
+      --   {items_entities.ritual_blade(), items_entities.small_shield()},
+      --   #temple_containers
+      -- )
 
-      for _, e, amount in Fun.zip(temple_containers, distribution) do
+      for _, e, amount in Fun.zip(temple_containers, money_dist) do
         local base_interact = assert(e.on_interact)
         e.on_interact = function(...)
           State.player.bag.money = State.player.bag.money + amount
@@ -248,7 +252,7 @@ return {
 
       api.assert_position(State.player, State.runner.positions.cp2, true)
       item.give(State.player, State:add(items_entities.axe()))
-      item.give(State.player, State:add(items_entities.shield()))
+      item.give(State.player, State:add(items_entities.small_shield()))
     end,
   },
 
@@ -273,7 +277,7 @@ return {
 
       api.assert_position(State.player, State.runner.positions.cpt, true)
       item.give(State.player, State:add(items_entities.axe()))
-      item.give(State.player, State:add(items_entities.shield()))
+      item.give(State.player, State:add(items_entities.small_shield()))
 
       State.runner.scenes._100_saving_likka.enabled = false
     end,
@@ -304,7 +308,7 @@ return {
       api.assert_position(ch.player, ps.cpt2, true)
       api.assert_position(ch.likka, ps.cpt2 + Vector.right, true)
       item.give(ch.player, State:add(items_entities.axe()))
-      item.give(ch.player, State:add(items_entities.shield()))
+      item.give(ch.player, State:add(items_entities.small_shield()))
 
       health.damage(ch.cpt2_cobweb, 1)
 
@@ -337,7 +341,7 @@ return {
       api.assert_position(ch.player, ps.cpt3, true)
       api.assert_position(ch.likka, ps.cpt3 + Vector.right, true)
       item.give(ch.player, State:add(items_entities.axe()))
-      item.give(ch.player, State:add(items_entities.shield()))
+      item.give(ch.player, State:add(items_entities.small_shield()))
 
       health.damage(ch.cpt2_cobweb, 1)
 

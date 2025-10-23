@@ -19,5 +19,13 @@ core.activator = function(entity, name)
   item.set_cue(entity, "highlight", true)
 end
 
+--- @param position vector
+--- @param ... item
+core.drops = function(position, ...)
+  if not item.drops(position, ...) == select("#", ...) then
+    Log.warn("Item drop missed at %s", position)
+  end
+end
+
 Ldump.mark(core, {}, ...)
 return core

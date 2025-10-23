@@ -153,13 +153,24 @@ items_entities.short_bow = function()
   )
 end
 
-items_entities.shield = function()
-  return Table.extend(item.mixin("assets/sprites/animations/shield"), {
+items_entities.small_shield = function()
+  return Table.extend(item.mixin("assets/sprites/animations/small_shield"), {
     name = "маленький щит",
-    codename = "shield",
+    codename = "small_shield",
     slot = "offhand",
     perks = {
       gear.weak_shield,
+    },
+  })
+end
+
+items_entities.shield = function()
+  return Table.extend(item.mixin("assets/sprites/animations/shield"), {
+    name = "щит",
+    codename = "shield",
+    slot = "offhand",
+    perks = {
+      gear.shield,
     },
   })
 end
