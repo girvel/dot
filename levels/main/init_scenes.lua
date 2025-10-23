@@ -1,3 +1,4 @@
+local floater = require("engine.tech.floater")
 local sound = require("engine.tech.sound")
 local shadows = require("levels.main.palette.shadows")
 local async = require("engine.tech.async")
@@ -114,11 +115,13 @@ return {
 
       for _, e, amount, items in Fun.zip(temple_containers, money_dist, item_dist) do
         local base_interact = assert(e.on_interact)
-        e.on_interact = function(...)
+        e.on_interact = function(self_e, other)
+          if other ~= State.player then return end
           State.player.bag.money = State.player.bag.money + amount
+          State:add(floater.new("+" .. amount, State.player.position, Vector.hex("ededed")))
           item.drops(e.position, unpack(items))
           sound.multiple("assets/sounds/money", .15):play()
-          base_interact(...)
+          base_interact(self_e, other)
         end
       end
 
