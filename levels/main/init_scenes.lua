@@ -106,15 +106,16 @@ return {
       end
 
       local money_dist = Random.distribute(1620, #temple_containers)
-      -- local item_dist = Random.distribute_items(
-      --   {items_entities.ritual_blade(), items_entities.small_shield()},
-      --   #temple_containers
-      -- )
+      local item_dist = Random.distribute_items(
+        {items_entities.ritual_blade(), items_entities.small_shield()},
+        #temple_containers
+      )
 
-      for _, e, amount in Fun.zip(temple_containers, money_dist) do
+      for _, e, amount, items in Fun.zip(temple_containers, money_dist, item_dist) do
         local base_interact = assert(e.on_interact)
         e.on_interact = function(...)
           State.player.bag.money = State.player.bag.money + amount
+          item.drops(e.position, unpack(items))
           -- SOUND
           base_interact(...)
         end
