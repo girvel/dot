@@ -1,3 +1,4 @@
+local sprite = require("engine.tech.sprite")
 local on_tiles = require("levels.main.palette.on_tiles")
 local mark = require("engine.tech.mark")
 local health = require("engine.mech.health")
@@ -33,6 +34,15 @@ npcs.ai_tester = function(faction)
   return result
 end
 
+local bones_mark = function()
+  local atlas = love.image.newImageData("assets/sprites/atlases/on_tiles.png")
+  return {
+    codename = "bones_mark",
+    boring_flag = true,
+    sprite = sprite.image(sprite.utility.select(atlas, Random.choice(13, 31, 32))),
+  }
+end
+
 local skeleton_base = function()
   return Table.extend(animated.mixin("engine/assets/sprites/animations/skeleton"), {
     name = "скелет",
@@ -41,7 +51,7 @@ local skeleton_base = function()
     level = 1,
     ai = combat_ai.new({range = 30}),
     faction = "predators",
-    on_death = mark(on_tiles.bones, "on_tiles"),
+    on_death = mark(bones_mark),
     _is_a_skeleton = true,
   })
 end
