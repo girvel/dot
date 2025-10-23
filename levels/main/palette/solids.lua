@@ -31,6 +31,14 @@ local is_low = function(codename)
   return false
 end
 
+--- @param codename string
+local is_container = function(codename)
+  for _, suffix in ipairs {"cabinetc", "shelfc", "binc", "chestc"} do
+    if codename:find(suffix, 1, true) then return true end
+  end
+  return nil
+end
+
 local open = Memoize(function(name, target_layer)
   local sounds = opening_sounds[name]
   local create_open
@@ -141,6 +149,7 @@ solids = factoring.from_atlas(
     result.transparent_flag = is_low(codename)
     result.low_flag = is_low(codename)
     result.boring_flag = true
+    result._is_container = is_container(codename)
     return result
   end
 )

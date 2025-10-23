@@ -80,6 +80,47 @@ return {
   },
 
   --- @type scene
+  init_loot = {
+    enabled = true,
+    start_predicate = function(self, dt)
+      return true
+    end,
+
+    run = function(self)
+      coroutine.yield()  -- wait for checkpoints
+
+      local starts = State.runner:position_sequence("loot_temple")
+      local ends = State.runner:position_sequence("loot_temple_end")
+
+      local temple_containers = {}
+      for e in pairs(State._entities) do
+        if not e._is_container then goto continue end
+        for i = 1, #starts do
+          if starts[i] <= e.position and e.position <= ends[i] then
+            table.insert(temple_containers, e)
+            break
+          end
+        end
+
+        ::continue::
+      end
+
+      local distribution = Random.distribute(1620, #temple_containers)
+
+      for _, e, amount in Fun.zip(temple_containers, distribution) do
+        local base_interact = assert(e.on_interact)
+        e.on_interact = function(...)
+          State.player.bag.money = State.player.bag.money + amount
+          -- SOUND
+          base_interact(...)
+        end
+      end
+
+      Log.info("Distributed temple loot between %s containers", #temple_containers)
+    end,
+  },
+
+  --- @type scene
   init_shadows = {
     enabled = true,
     mode = "once",
