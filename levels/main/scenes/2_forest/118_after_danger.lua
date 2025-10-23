@@ -81,6 +81,8 @@ return {
           end
         sp:finish_option()
         sp:finish_options()
+
+        State.rails:empathy_finalize()
       sp:finish()
     end,
   },

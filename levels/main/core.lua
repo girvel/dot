@@ -7,7 +7,9 @@ local core = {}
 
 core.bring_likka = function()
   local ch = State.runner.entities
-  if State:exists(ch.likka) and not api.is_visible(ch.likka) then
+  if State:exists(ch.likka)
+    and (not api.is_visible(ch.likka) or (ch.likka.position - State.player.position):abs2() > 5)
+  then
     api.travel_scripted(ch.likka, ch.player.position, 8):wait()
   end
 end

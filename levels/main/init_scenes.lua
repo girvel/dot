@@ -339,6 +339,7 @@ return {
       State.rails:seekers_start()
       State.rails:temple_enter()
       State.rails:empathy_start_conversation()
+      State.rails:empathy_finalize()
 
       local ch = State.runner.entities
       local ps = State.runner.positions
