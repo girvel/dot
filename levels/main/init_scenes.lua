@@ -1,3 +1,4 @@
+local sound = require("engine.tech.sound")
 local shadows = require("levels.main.palette.shadows")
 local async = require("engine.tech.async")
 local api = require("engine.tech.api")
@@ -116,7 +117,7 @@ return {
         e.on_interact = function(...)
           State.player.bag.money = State.player.bag.money + amount
           item.drops(e.position, unpack(items))
-          -- SOUND
+          sound.multiple("assets/sounds/money", .15):play()
           base_interact(...)
         end
       end
