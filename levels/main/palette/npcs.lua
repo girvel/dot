@@ -42,6 +42,7 @@ local skeleton_base = function()
     ai = combat_ai.new({range = 30}),
     faction = "predators",
     on_death = mark(on_tiles.bones, "on_tiles"),
+    _is_a_skeleton = true,
   })
 end
 

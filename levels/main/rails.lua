@@ -1,3 +1,5 @@
+local no_op = require("engine.mech.ais.no_op")
+local combat = require("engine.mech.ais.combat")
 local on_solids = require("levels.main.palette.on_solids")
 local solids_entities = require("levels.main.palette.solids_entities")
 local api = require "engine.tech.api"
@@ -104,6 +106,12 @@ methods.location_forest = function(self, forced)
   local ps = State.runner.positions
   api.assert_position(ch.khaned, ps.sk_khaned, forced)
   api.assert_position(ch.likka, ps.sl_likka, forced)
+
+  for e in pairs(State._entities) do
+    if e._is_a_skeleton then
+      e.ai = no_op.new()
+    end
+  end
 end
 
 methods.winter_init = function(self)
@@ -311,6 +319,12 @@ methods.temple_enter = function(self)
   State.hostility:set(State.player.faction, "likka")
   State.hostility:set("likka", State.player.faction, "ally")
 
+  for e in pairs(State._entities) do
+    if e._is_a_skeleton then
+      e.ai = combat.new({range = 30})
+    end
+  end
+
   self.temple = "entered"
 end
 
@@ -323,6 +337,12 @@ methods.temple_exit = function(self)
   ch.likka.ai = ch.likka.ai._combat_component
   State.hostility:set(State.player.faction, "likka", "ally")
   State.hostility:set("likka", State.player.faction)
+
+  for e in pairs(State._entities) do
+    if e._is_a_skeleton then
+      e.ai = no_op.new()
+    end
+  end
 
   self.temple = "exited"
 end
