@@ -37,9 +37,9 @@ return {
 
         n = api.options(sp:start_options())
           if n == 2 then
-            sp:start_branch(2)
+            sp:start_option(2)
               sp:lines()
-            sp:finish_branch()
+            sp:finish_option()
           elseif n == 4 then
             State.rails:empathy_lower()
           end
