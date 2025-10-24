@@ -1,7 +1,6 @@
 local fighter = require("engine.mech.class.fighter")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
-local async = require("engine.tech.async")
 local actions = require("engine.mech.actions")
 
 

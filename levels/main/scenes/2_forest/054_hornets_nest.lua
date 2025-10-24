@@ -1,4 +1,3 @@
-local sprite = require("engine.tech.sprite")
 local health = require("engine.mech.health")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")

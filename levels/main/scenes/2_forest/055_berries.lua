@@ -1,6 +1,5 @@
 local tcod = require("engine.tech.tcod")
 local bad_trip = require("engine.tech.shaders.bad_trip")
-local async = require("engine.tech.async")
 local screenplay = require("engine.tech.screenplay")
 local interactive = require("engine.tech.interactive")
 local api         = require("engine.tech.api")

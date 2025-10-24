@@ -5,7 +5,6 @@ local on_solids = require("levels.main.palette.on_solids")
 local solids_entities = require("levels.main.palette.solids_entities")
 local api = require "engine.tech.api"
 local winter = require "engine.tech.shaders.winter"
-local combat = require "engine.mech.ais.combat"
 local likka_ai = require "levels.main.palette.likka_ai"
 
 
@@ -132,15 +131,15 @@ methods.winter_end = function(self)
 
   for _, e in ipairs(self._snow) do
     State:add(e, {life_time = Random.float(0, 30)})
-    e.on_remove = function(self)
-      local tile = State.grids.tiles[self.position]
-      local solid = State.grids.solids[self.position]
-      local on_solid = State.grids.on_solids[self.position]
+    e.on_remove = function(self_e)
+      local tile = State.grids.tiles[self_e.position]
+      local solid = State.grids.solids[self_e.position]
+      local on_solid = State.grids.on_solids[self_e.position]
 
       if tile and tile.codename == "grassl" and not solid and not on_solid then
         State:add(
           Random.choice(on_solids.grassl, on_solids.grassh)(),
-          {position = self.position, grid_layer = "on_solids"}
+          {position = self_e.position, grid_layer = "on_solids"}
         )
       end
     end

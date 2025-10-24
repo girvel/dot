@@ -1,5 +1,4 @@
 local sprite = require("engine.tech.sprite")
-local on_tiles = require("levels.main.palette.on_tiles")
 local mark = require("engine.tech.mark")
 local health = require("engine.mech.health")
 local animated = require("engine.tech.animated")

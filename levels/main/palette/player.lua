@@ -5,7 +5,6 @@ local humanoid    = require("engine.mech.humanoid")
 local abilities = require("engine.mech.abilities")
 local fighter   = require("engine.mech.class.fighter")
 local class     = require("engine.mech.class")
-local items_entities = require("levels.main.palette.items_entities")
 
 
 local player = {}

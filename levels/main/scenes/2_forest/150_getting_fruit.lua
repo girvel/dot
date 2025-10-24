@@ -13,7 +13,7 @@ return {
     },
 
     on_add = function(self, ch, ps)
-      State:add(ch.likka_fruit, interactive.mixin(function(self, other)
+      State:add(ch.likka_fruit, interactive.mixin(function()
         State.rails:fruit_take_likkas()
       end), {name = "плод дерева Акуль"})
     end,

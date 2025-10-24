@@ -1,15 +1,11 @@
 local floater = require("engine.tech.floater")
 local sound = require("engine.tech.sound")
 local shadows = require("levels.main.palette.shadows")
-local async = require("engine.tech.async")
 local api = require("engine.tech.api")
 local health = require("engine.mech.health")
 local tcod   = require("engine.tech.tcod")
 local item   = require("engine.tech.item")
 local items_entities = require("levels.main.palette.items_entities")
-local bad_trip       = require("engine.tech.shaders.bad_trip")
-local actions        = require("engine.mech.actions")
-local perks          = require("engine.mech.perks")
 
 
 local hostile = function(a, ...)

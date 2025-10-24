@@ -1,6 +1,5 @@
 local sound = require("engine.tech.sound")
 local factoring = require("engine.tech.factoring")
-local level  = require("engine.tech.level")
 
 local get_walk_sounds = function(codename)
   if codename:starts_with("snow") then
