@@ -1,3 +1,4 @@
+local level = require("engine.tech.level")
 local no_op = require("engine.mech.ais.no_op")
 local combat = require("engine.mech.ais.combat")
 local on_solids = require("levels.main.palette.on_solids")
@@ -26,6 +27,7 @@ local rails = {}
 --- @field has_blessing boolean?
 --- @field has_fruit boolean? nil if not yet found, false if eaten
 --- @field khaned_status "dead"|"survived"?
+--- @field likka_status "dead"|"temple"|"village"?
 --- @field gatherer_status "ran_away"?
 --- @field likka_saw_bad_trip boolean?
 --- @field temple "entered"|"exited"?
@@ -313,6 +315,36 @@ methods.khaned_leaves = function(self)
   self.khaned_status = "survived"
 end
 
+methods.likka_died = function(self)
+  assert(self.likka_status == nil)
+
+  local ch = State.runner.entities
+  assert(not State:exists(ch.likka))
+  api.autosave("Руины - Повидался с Ликкой")
+
+  self.likka_status = "dead"
+end
+
+methods.likka_went_to_village = function(self)
+  assert(self.likka_status == nil)
+
+  local ch = State.runner.entities
+  local ps = State.runner.positions
+  api.assert_position(ch.likka, ps.feast_sac_2)
+
+  self.likka_status = "village"
+end
+
+methods.likka_left_in_temple = function(self)
+  assert(self.likka_status == nil)
+
+  local ch = State.runner.entities
+  assert(State:exists(ch.likka))
+  State:remove(ch.likka)
+
+  self.likka_status = "temple"
+end
+
 methods.gatherer_run_away = function(self)
   assert(self.gatherer_status == nil)
   self.gatherer_status = "ran_away"
@@ -342,6 +374,10 @@ methods.temple_exit = function(self)
   assert(self.location == "2_forest")
 
   local ch = State.runner.entities
+  local ps = State.runner.positions
+
+  level.unsafe_move(ch.player, ps.er_up)
+  ch.temple_exit.interact = nil
   assert(getmetatable(ch.likka.ai) == likka_ai.mt)
   ch.likka.ai = ch.likka.ai._combat_component
   State.hostility:set(State.player.faction, "likka", "ally")

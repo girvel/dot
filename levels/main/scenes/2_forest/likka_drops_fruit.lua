@@ -4,6 +4,7 @@ return {
     enabled = true,
     start_predicate = function(self, dt)
       return not State:exists(State.runner.entities.likka)
+        and State.rails.likka_status == nil
     end,
 
     run = function(self)
@@ -15,6 +16,7 @@ return {
       elseif not State:exists(ch.likka_fruit) then
         State:add(ch.likka_fruit, {position = ch.likka.position})
       end
+      State.rails:likka_died()
     end,
   },
 }

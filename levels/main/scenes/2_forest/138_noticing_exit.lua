@@ -1,3 +1,4 @@
+local core = require("levels.main.core")
 local api = require("engine.tech.api")
 local item = require("engine.tech.item")
 local screenplay = require("engine.tech.screenplay")
@@ -19,6 +20,8 @@ return {
 
     run = function(self, ch, ps)
       local sp = screenplay.new("assets/screenplay/138_noticing_exit.ms", ch)
+        core.bring_likka()
+
         sp:start_single_branch(State:exists(ch.likka) and 1 or 2)
           sp:lines()
         sp:finish_single_branch()
