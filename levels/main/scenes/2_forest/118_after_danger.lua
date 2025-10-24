@@ -59,8 +59,6 @@ return {
         sp:finish_option()
         sp:finish_options()
 
-        sp:lines()
-
         sp:start_single_branch(State.rails.empathy > 0 and 1 or 2)
           sp:lines()
         sp:finish_single_branch()
