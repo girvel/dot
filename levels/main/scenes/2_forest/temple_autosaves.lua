@@ -8,7 +8,7 @@ return {
     end,
 
     run = function(self)
-      api.autosave("Храм -- галерея")
+      api.autosave("Руины - галерея")
     end,
   },
 
@@ -20,7 +20,7 @@ return {
     end,
 
     run = function(self)
-      api.autosave("Храм -- основной зал")
+      api.autosave("Руины - основной зал")
     end,
   },
 }

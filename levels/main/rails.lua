@@ -366,6 +366,8 @@ methods.temple_enter = function(self)
     end
   end
 
+  api.autosave("Руины - вход")
+
   self.temple = "entered"
 end
 
@@ -388,6 +390,8 @@ methods.temple_exit = function(self)
       e.ai = no_op.new()
     end
   end
+
+  api.autosave("Руины - выход")
 
   self.temple = "exited"
 end

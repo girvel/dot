@@ -71,7 +71,8 @@ return {
         sp:lines()
 
         State.runner.scenes.skeletons_coming.enabled = true
-      sp:finish() api.autosave("Руины - Термы") end,
+      sp:finish()
+    end,
   },
 
   --- @type scene
