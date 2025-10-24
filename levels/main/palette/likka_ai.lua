@@ -1,13 +1,14 @@
+local rogue = require("engine.mech.class.rogue")
 local async = require("engine.tech.async")
-local combat = require "engine.mech.ais.combat"
-local api    = require "engine.tech.api"
+local api = require("engine.tech.api")
 
 
 local likka_ai = {}
 
---- @class likka_ai: ai
+--- @class likka_ai: ai_strict
 --- @field _combat_component combat_ai
 --- @field _last_action_t number
+--- @field _was_in_combat boolean
 local methods = {}
 likka_ai.mt = {__index = methods}
 
@@ -17,6 +18,7 @@ likka_ai.new = function(combat_ai)
   return setmetatable({
     _combat_component = combat_ai,
     _last_action_t = love.timer.getTime(),
+    _was_in_combat = false,
   }, likka_ai.mt)
 end
 
@@ -30,7 +32,14 @@ end
 
 methods.control = function(self, entity)
   if State.combat then
+    self._was_in_combat = State:in_combat(entity)
     return self._combat_component:control(entity)
+  end
+
+  if self._was_in_combat then
+    self._was_in_combat = false
+    async.sleep(Random.float(.3, .7))
+    rogue.hit_dice:act(entity)
   end
 
   if State.hostility:get(self, State.player) == "enemy" then return end
