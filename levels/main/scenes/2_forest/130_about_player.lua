@@ -20,6 +20,7 @@ local create_shard_shadow = function(start, finish)
     end
   end
 end
+Ldump.ignore_size(create_shard_shadow)
 
 
 return {

@@ -123,6 +123,7 @@ return {
           sound.multiple("assets/sounds/money", .15):play()
           base_interact(self_e, other)
         end
+        Ldump.ignore_upvalue_size(e.on_interact)
       end
 
       Log.info("Distributed temple loot between %s containers", #temple_containers)

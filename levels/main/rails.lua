@@ -19,12 +19,12 @@ local rails = {}
 --- @field winter "initialized"|"ended"?
 --- @field seekers "started"|"fruit_found"?
 --- @field tried_berries "once"|"twice"?
---- @field fruit_source "likka"|"khaned"|"found"?
+--- @field fruit_source "likka"|"khaned"|"found"? also a good indicator if fruit WAS ever picked up
 --- @field seen_rotten_fruit boolean?
 --- @field eaten_rotten_fruit boolean?
 --- @field seen_companion_fruit boolean?
 --- @field has_blessing boolean?
---- @field has_fruit boolean?
+--- @field has_fruit boolean? nil if not yet found, false if eaten
 --- @field khaned_status "dead"|"survived"?
 --- @field gatherer_status "ran_away"?
 --- @field likka_saw_bad_trip boolean?
