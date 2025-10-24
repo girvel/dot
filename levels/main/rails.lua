@@ -265,6 +265,15 @@ methods.fruit_take_khaneds = function(self)
   seekers_fruit_is_found(self)
 end
 
+methods.fruit_take_likkas = function(self)
+  assert(self.fruit_source == nil)
+  State:remove(State.runner.entities.likka_fruit)
+  self.fruit_source = "likka"
+  self.has_fruit = true
+
+  seekers_fruit_is_found(self)
+end
+
 methods.fruit_eat = function(self)
   self.has_fruit = false
   self.has_blessing = true

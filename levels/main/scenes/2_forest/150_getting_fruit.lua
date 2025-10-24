@@ -1,3 +1,4 @@
+local interactive = require("engine.tech.interactive")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
 
@@ -10,6 +11,12 @@ return {
     characters = {
       player = {},
     },
+
+    on_add = function(self, ch, ps)
+      State:add(ch.likka_fruit, interactive.mixin(function(self, other)
+        State.rails:fruit_take_likkas()
+      end), {name = "плод дерева Акуль"})
+    end,
 
     start_predicate = function(self, dt, ch, ps)
       return State.rails.fruit_source

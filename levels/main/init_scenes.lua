@@ -109,7 +109,7 @@ return {
 
       local money_dist = Random.distribute(1620, #temple_containers)
       local item_dist = Random.distribute_items(
-        {items_entities.ritual_blade(), items_entities.small_shield()},
+        {items_entities.ritual_blade(), items_entities.shield()},
         #temple_containers
       )
 
