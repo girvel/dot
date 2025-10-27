@@ -41,6 +41,11 @@ return {
             sp:start_branch(1)
               api.rotate(ch.likka, ch.player)
               sp:lines()
+              sp:start_single_branch()
+                if self._first_time then
+                  sp:lines()
+                end
+              sp:finish_single_branch()
             sp:finish_branch()
           elseif self._first_time then
             sp:start_branch(2)
@@ -60,8 +65,8 @@ return {
               sp:lines()
             sp:finish_branch()
           end
-          self._first_time = false
         sp:finish_branches()
+        self._first_time = false
 
         local options = sp:start_options()
         self._initial_options = self._initial_options or options
