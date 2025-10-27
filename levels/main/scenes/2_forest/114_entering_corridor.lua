@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local core = require("levels.main.core")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
@@ -30,11 +31,10 @@ return {
               State.rails:empathy_lower()
             elseif n == 3 then
               sp:lines()
-              sp:start_single_branch()
-                if ch.player:ability_check("insight", 12) then
-                  sp:lines()
-                end
-              sp:finish_single_branch()
+
+              async.sleep(.5)
+              sp:lines()
+
               State.rails:empathy_raise()
             end
           sp:finish_option()
