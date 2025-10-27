@@ -41,6 +41,7 @@ return {
           ch.likka.essential_flag = nil
           self.enabled = false
           State.hostility:unsubscribe(self._sub)
+          State:start_combat({ch.player, ch.likka})
         end
       sp:finish()
     end,

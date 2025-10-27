@@ -76,9 +76,7 @@ methods.control = function(self, entity)
   end
 end
 
-methods.observe = function(self, entity, dt)
-  self._combat_component:observe(entity, dt)
-end
+--- Deliberately no .observe, Likka should not start fights
 
 Ldump.mark(likka_ai, {mt = "const"}, ...)
 return likka_ai
