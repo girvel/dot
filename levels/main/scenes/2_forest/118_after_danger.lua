@@ -59,11 +59,13 @@ return {
         sp:finish_option()
         sp:finish_options()
 
+        async.sleep(1.5)
+
         sp:start_single_branch(State.rails.empathy > 0 and 1 or 2)
           sp:lines()
         sp:finish_single_branch()
 
-        async.sleep(1.5)
+        sp:lines()
 
         n = api.options(sp:start_options())
         sp:start_option(n)
