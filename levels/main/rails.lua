@@ -80,6 +80,19 @@ methods._location_transition = function(self, location, forced)
   self.location = location
 end
 
+methods._sublocation_enter = function(self, location)
+  -- TODO checks?
+  Log.info("Entering sublocation %s", location)
+  State.runner:add(self._scenes_by_location[location])
+end
+
+methods._sublocation_exit = function(self, location)
+  Log.info("Exiting sublocation %s", location)
+  for _, v in pairs(self._scenes_by_location[location]) do
+    Table.remove_pair(State.runner.scenes, v)
+  end
+end
+
 --- @param forced boolean?
 methods.location_intro = function(self, forced)
   api.autosave("Начало")
@@ -353,6 +366,7 @@ methods.temple_enter = function(self)
   assert(self.temple == nil)
   assert(self.location == "2_forest")
 
+  self:_sublocation_enter("3_temple")
   local ch = State.runner.entities
   assert(getmetatable(ch.likka.ai) == combat.mt)
   ch.likka.ai = likka_ai.new(ch.likka.ai --[[@as combat_ai]])
@@ -373,6 +387,8 @@ end
 methods.temple_exit = function(self)
   assert(self.temple == "entered")
   assert(self.location == "2_forest")
+
+  self:_sublocation_exit("3_temple")
 
   local ch = State.runner.entities
   local ps = State.runner.positions
