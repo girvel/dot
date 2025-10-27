@@ -58,7 +58,7 @@ return {
 
       State.quests.order = {"seekers", "feast"}
 
-      hostile("predators", "player", "likka", "khaned")
+      hostile("predators", "player", "khaned")
       ally("player", "khaned", "village")
 
       -- player is likka's ally only inside the temple
@@ -113,10 +113,12 @@ return {
         local base_interact = assert(e.on_interact)
         e.on_interact = function(self_e, other)
           if other ~= State.player then return end
-          State.player.bag.money = State.player.bag.money + amount
-          State:add(floater.new("+" .. amount, State.player.position, Vector.hex("ededed")))
+          if amount > 0 then
+            State.player.bag.money = State.player.bag.money + amount
+            State:add(floater.new("+" .. amount, State.player.position, Vector.hex("ededed")))
+            sound.multiple("assets/sounds/money", .15):play()
+          end
           item.drops(e.position, unpack(items))
-          sound.multiple("assets/sounds/money", .15):play()
           base_interact(self_e, other)
         end
         Ldump.ignore_upvalue_size(e.on_interact)
