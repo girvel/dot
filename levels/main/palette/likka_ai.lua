@@ -76,5 +76,9 @@ methods.control = function(self, entity)
   end
 end
 
+methods.observe = function(self, entity, dt)
+  self._combat_component:observe(entity, dt)
+end
+
 Ldump.mark(likka_ai, {mt = "const"}, ...)
 return likka_ai
