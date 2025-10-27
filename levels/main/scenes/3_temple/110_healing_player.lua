@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local fighter = require("engine.mech.class.fighter")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
@@ -69,6 +70,8 @@ return {
                 actions.move(d):act(ch.player)
                 api.rotate(ch.likka, ch.player)
               end
+
+              async.sleep(.5)
               sp:lines()
 
               n = api.options(sp:start_options())
