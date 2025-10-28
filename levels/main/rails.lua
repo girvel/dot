@@ -131,7 +131,7 @@ end
 methods.winter_init = function(self)
   assert(self.winter == nil)
 
-  State.shader = winter
+  State.shader = winter.new()
   self._snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
   self._water = State.grids.solids:iter():filter(function(e) return e.water_velocity end):totable()
   self.winter = "initialized"
