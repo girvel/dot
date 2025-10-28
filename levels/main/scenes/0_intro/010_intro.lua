@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
 
@@ -63,11 +64,11 @@ return {
         sp:lines()
         api.travel_scripted(ch.red_priest, ps.ceremony_red_priest)
           :next(function() ch.red_priest:rotate(Vector.up) end)
-        api.wait(2)
+        async.sleep(2)
 
         State.rails:location_upper_village()
         sp:lines()
-        api.wait(2)
+        async.sleep(2)
 
         sp:lines()
 
