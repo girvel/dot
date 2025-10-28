@@ -15,9 +15,12 @@ return {
 
     start_predicate = function(self, dt, ch, ps)
       return (State.player.position - ps.ec_start):abs2() <= 2
+        or State.player.position.x >= ps.ec_start.x
     end,
 
     run = function(self, ch, ps)
+      State.runner.scenes._116_walking_corridor.enabled = true
+
       local sp = screenplay.new("assets/screenplay/114_entering_corridor.ms", ch)
         core.bring_likka()
         api.rotate(ch.likka, ch.player)

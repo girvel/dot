@@ -16,27 +16,35 @@ return {
       return true
     end,
 
-    run = function(_self, ch, _ps)
+    is_forced = false,
+
+    run = function(self, ch, ps)
+      State.runner.scenes._130_about_player.enabled = true
+
       local sp = screenplay.new("assets/screenplay/118_after_danger.ms", ch)
         core.bring_likka()
 
-        api.rotate(ch.likka, ch.player)
-        sp:lines()
-
-        api.rotate(ch.player, ch.likka)
-        sp:start_branches()
-          if ch.player:ability_check("medicine", 8) then
-            sp:start_branch(1)
-              sp:lines()
-            sp:finish_branch()
-          end
-
-          sp:start_branch(State.rails.fought_skeleton_group and 2 or 3)
+        sp:start_single_branch()
+          if not self.is_forced then
+            api.rotate(ch.likka, ch.player)
             sp:lines()
-          sp:finish_branch()
-        sp:finish_branches()
 
-        sp:lines()
+            api.rotate(ch.player, ch.likka)
+            sp:start_branches()
+              if ch.player:ability_check("medicine", 8) then
+                sp:start_branch(1)
+                  sp:lines()
+                sp:finish_branch()
+              end
+
+              sp:start_branch(State.rails.fought_skeleton_group and 2 or 3)
+                sp:lines()
+              sp:finish_branch()
+            sp:finish_branches()
+
+            sp:lines()
+          end
+        sp:finish_single_branch()
 
         async.sleep(2)
         sp:lines()

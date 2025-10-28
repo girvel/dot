@@ -7,19 +7,19 @@ local api = require("engine.tech.api")
 return {
   --- @type scene
   _116_walking_corridor = {
-    enabled = true,
     characters = {
       player = {},
       likka = {},
-      skeleton_1 = {},
-      skeleton_2 = {},
+      skeleton_1 = {optional = true},
+      skeleton_2 = {optional = true},
     },
 
     start_predicate = function(self, dt, ch, ps)
-      return (State.player.position - ps.wc_start):abs2() <= 1
+      local is_forced = State.player.position.x >= ps.wc_forced.x
+      return is_forced or (State.player.position - ps.wc_start):abs2() <= 1, is_forced
     end,
 
-    run = function(self, ch, ps)
+    run = function(self, ch, ps, _, is_forced)
       local sp = screenplay.new("assets/screenplay/116_walking_corridor.ms", ch)
         core.bring_likka()
         sp:lines()
@@ -45,32 +45,40 @@ return {
           end
         sp:finish_options()
 
-        local skeletons_enter = Promise.all(
-          api.travel_scripted(ch.skeleton_1, ps.wc_skeleton_1),
-          api.travel_scripted(ch.skeleton_2, ps.wc_skeleton_2)
-        )
+        sp:start_single_branch()
+          if not is_forced then
+            local skeletons_enter = Promise.all(
+              api.travel_scripted(ch.skeleton_1, ps.wc_skeleton_1),
+              api.travel_scripted(ch.skeleton_2, ps.wc_skeleton_2)
+            )
 
-        async.sleep(1.5)
-        sp:lines()
+            async.sleep(1.5)
+            sp:lines()
 
-        api.rotate(ch.player, ps.wc_skeleton_1)
-        api.rotate(ch.likka, ps.wc_skeleton_1)
-        local camera_move = api.move_camera(ps.wc_camera)
-        skeletons_enter:wait()
-        camera_move:wait()
+            api.rotate(ch.player, ps.wc_skeleton_1)
+            api.rotate(ch.likka, ps.wc_skeleton_1)
+            local camera_move = api.move_camera(ps.wc_camera)
+            skeletons_enter:wait()
+            camera_move:wait()
 
-        api.free_camera()
-        local retreat = Promise.all(
-          api.travel_scripted(ch.likka, ps.wc_retreat_likka, 8),
-          api.travel_scripted(ch.player, ps.wc_retreat_player, 8)
-        )
-        retreat:wait()
-        api.rotate(ch.player, ch.likka)
-        api.rotate(ch.likka, ch.player)
+            api.free_camera()
+            local retreat = Promise.all(
+              api.travel_scripted(ch.likka, ps.wc_retreat_likka, 8),
+              api.travel_scripted(ch.player, ps.wc_retreat_player, 8)
+            )
+            retreat:wait()
+            api.rotate(ch.player, ch.likka)
+            api.rotate(ch.likka, ch.player)
 
-        sp:lines()
+            sp:lines()
 
-        State.runner.scenes.skeletons_coming.enabled = true
+            State.runner.scenes.skeletons_coming.enabled = true
+          else
+            State.runner:remove("skeletons_coming")
+            State.runner.scenes._118_after_danger.enabled = true
+            State.runner.scenes._118_after_danger.is_forced = true
+          end
+        sp:finish_single_branch()
       sp:finish()
     end,
   },
