@@ -3,7 +3,7 @@ local interactive = require("engine.tech.interactive")
 local health      = require("engine.mech.health")
 
 
-local on_solids = {}
+local on_solids
 
 local collect_berries = function(self, other)
   State:remove(self)
@@ -31,21 +31,26 @@ local get_base = function(codename)
   return {}
 end
 
+local is_in_perspective = function(codename)
+  return codename == "statuet" or nil
+end
+
 on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constants.cell_size, {
-  "vines",    "vines",   "vines",   "cobweb", "cobweb", "statue", "statue", "window",
-  false,      "candles", "candles", "cobweb", "cobweb", "statue", "statue", "cobweb",
-  "stage",    "candles", "skull",   "dooro",  "statue", "statue", "statue", "cobweb",
-  "pot_1",    "pot_2",   "pot_3",   "plate",  "plate",  false,    false,    "cobweb",
-  "pot_4",    "pot_5",   "pot_6",   "cloth",  "food",   "food",   "pfood",  "cobweb",
-  "berriesp", "berries", "berries", "herbs",  "herbs",  "reeds",  "grassl", "grassh",
-  "berriesp", "berries", "berries", "bplate", "bplate", false,    "cobweb", "cobweb",
-  "mold",     "mold",    "mold",    "mold",   false,    false,    "cobweb", "cobweb",
-  false,      false,     false,     false,    false,    false,    "cobweb", "cobweb",
-  "bonef",    "bonef",   "bones",   "bones",  "bones",  false,    false,    false,
+  "vines",    "vines",   "vines",   "cobweb", "cobweb", "statuet", "statuet", "window",
+  false,      "candles", "candles", "cobweb", "cobweb", "statue",  "statue",  "cobweb",
+  "stage",    "candles", "skull",   "dooro",  "statue", "statue",  "statue",  "cobweb",
+  "pot_1",    "pot_2",   "pot_3",   "plate",  "plate",  false,     false,     "cobweb",
+  "pot_4",    "pot_5",   "pot_6",   "cloth",  "food",   "food",    "pfood",   "cobweb",
+  "berriesp", "berries", "berries", "herbs",  "herbs",  "reeds",   "grassl",  "grassh",
+  "berriesp", "berries", "berries", "bplate", "bplate", false,     "cobweb",  "cobweb",
+  "mold",     "mold",    "mold",    "mold",   false,    false,     "cobweb",  "cobweb",
+  false,      false,     false,     false,    false,    false,     "cobweb",  "cobweb",
+  "bonef",    "bonef",   "bones",   "bones",  "bones",  false,     false,     false,
   "sign",
 }, function(codename)
   local result = get_base(codename)
   result.boring_flag = true
+  result.perspective_flag = is_in_perspective(codename)
   return result
 end)
 
