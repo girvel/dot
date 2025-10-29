@@ -30,6 +30,14 @@ local needs_travel = function(likka)
   return distance <= 1 or distance > NEUTRAL_DISTANCE
 end
 
+methods.init = function(self, entity)
+  return self._combat_component:init(entity)
+end
+
+methods.deinit = function(self, entity)
+  return self._combat_component:deinit(entity)
+end
+
 methods.control = function(self, entity)
   if State.combat then
     self._was_in_combat = State:in_combat(entity)

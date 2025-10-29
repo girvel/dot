@@ -3,7 +3,6 @@ local health = require("engine.mech.health")
 local async = require("engine.tech.async")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
-local tcod = require("engine.tech.tcod")
 local items_entities = require("levels.main.palette.items_entities")
 
 
@@ -25,7 +24,7 @@ return {
 
     start_predicate = function(self, dt, ch, ps)
       return (ch.player.position - ch.gatherer.position):abs2() <= 4
-        and tcod.snapshot(State.grids.solids):is_visible_unsafe(unpack(ch.gatherer.position))
+        and api.is_visible(ch.gatherer)
     end,
 
     run = function(self, ch, ps)

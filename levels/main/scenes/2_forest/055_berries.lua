@@ -1,4 +1,3 @@
-local tcod = require("engine.tech.tcod")
 local bad_trip = require("engine.tech.shaders.bad_trip")
 local screenplay = require("engine.tech.screenplay")
 local interactive = require("engine.tech.interactive")
@@ -68,9 +67,7 @@ return {
       local likka = State.runner.entities.likka
       local start = love.timer.getTime()
       while love.timer.getTime() - start < DURATION do
-        if State:exists(likka)
-          and tcod.snapshot(State.grids.solids):is_visible_unsafe(unpack(likka.position))
-        then
+        if State:exists(likka) and api.is_visible(likka) then
           State.rails.likka_saw_bad_trip = true
 
           if State.period:absolute(.5, self, "likka_turning") then

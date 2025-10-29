@@ -53,7 +53,7 @@ return {
           Log.warn("Vision blocker misses: %s", table.concat(misses, ", "))
         end
 
-        tcod.snapshot(State.grids.solids):update_transparency()
+        tcod.update_transparency(State.grids.solids)
         Log.info("Blocked vision for %s cells", updated_n)
       end
 
