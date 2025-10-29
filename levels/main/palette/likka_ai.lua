@@ -30,9 +30,10 @@ local needs_travel = function(likka)
   return distance <= 1 or distance > NEUTRAL_DISTANCE
 end
 
-methods.init = function(self, entity)
-  return self._combat_component:init(entity)
-end
+-- combat_component should already be initialized
+-- methods.init = function(self, entity)
+--   return self._combat_component:init(entity)
+-- end
 
 methods.deinit = function(self, entity)
   return self._combat_component:deinit(entity)
@@ -50,7 +51,7 @@ methods.control = function(self, entity)
     rogue.hit_dice:act(entity)
   end
 
-  if State.hostility:get(self, State.player) == "enemy" then return end
+  if State.hostility:get(entity, State.player) == "enemy" then return end
 
   if needs_travel(entity) then
     async.sleep(Random.float(.05, .15))
