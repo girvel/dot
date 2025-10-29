@@ -1,3 +1,4 @@
+local colors = require("engine.tech.colors")
 local floater = require("engine.tech.floater")
 local sound = require("engine.tech.sound")
 local shadows = require("levels.main.palette.shadows")
@@ -115,7 +116,7 @@ return {
           if other ~= State.player then return end
           if amount > 0 then
             State.player.bag.money = State.player.bag.money + amount
-            State:add(floater.new("+" .. amount, State.player.position, Vector.hex("ededed")))
+            State:add(floater.new("+" .. amount, State.player.position, colors.white))
             sound.multiple("assets/sounds/money", .15):play()
           end
           item.drops(e.position, unpack(items))
