@@ -13,6 +13,9 @@ _common.water = function(velocity)
       boring_flag = true,
       water_velocity = velocity,
       shader = water.new("assets/sprites/palette.png", 39),
+      on_add = function(self)
+        table.insert(State.rails._water, self)
+      end,
     }, animated.mixin("assets/sprites/animations/water", 1))
 
     return result

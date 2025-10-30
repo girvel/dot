@@ -20,7 +20,11 @@ local get_base = function(codename)
     }
   end
   if codename:starts_with("snow") then
-    return {winter_flag = true}
+    return {
+      on_add = function(self)
+        table.insert(State.rails._snow, self)
+      end,
+    }
   end
   return {}
 end

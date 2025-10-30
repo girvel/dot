@@ -48,8 +48,8 @@ local rails = {}
 --- @field fought_skeleton_group? boolean
 --- @field met_nea? boolean
 --- @field _scenes_by_location table
---- @field _snow entity[]?
---- @field _water entity[]?
+--- @field _snow entity[]
+--- @field _water entity[]
 local methods = {}
 local mt = {__index = methods}
 
@@ -68,6 +68,8 @@ rails.new = function()
 
   return setmetatable({
     _scenes_by_location = scenes_by_location,
+    _snow = {},
+    _water = {},
   }, mt)
 end
 
@@ -146,8 +148,6 @@ methods.winter_init = function(self)
   assert(self.winter == nil)
 
   State.shader = winter.new()
-  self._snow = State.grids.on_tiles:iter():filter(function(e) return e.winter_flag end):totable()
-  self._water = State.grids.solids:iter():filter(function(e) return e.water_velocity end):totable()
   self.winter = "initialized"
 
   Log.info("Winter initialized")
@@ -593,7 +593,6 @@ end
 init_shadows = function(self)
   local size = State.level.grid_size
   local exclude = State.runner:position_sequence("no_tree_shadow")
-  local sometimes = async.sometimes()
 
   --- @type vector[]
   local trees do
@@ -605,7 +604,7 @@ init_shadows = function(self)
           table.insert(trees, e.position)
         end
       end
-      sometimes:yield()
+      -- sometimes:yield("rails_init", .05 * x / size.x)
     end
   end
 
@@ -615,11 +614,10 @@ init_shadows = function(self)
   local R2_SQ = R2^2
 
   local shadow_values = Grid.new(size, function() return 0 end)
-  for _, tree in ipairs(trees) do
+  for i, tree in ipairs(trees) do
     for x = -R1, R1 do
     for y = -R1, R1 do
-      local p = V(x, y)
-      local d_sq = p:square_abs() + math.random(-2, 2)
+      local d_sq = x^2 + y^2 + math.random(-2, 2)
       local value
       if d_sq <= R2_SQ then
         value = 4
@@ -628,13 +626,13 @@ init_shadows = function(self)
       else
         value = 0
       end
-      p:add_mut(tree)
-      if shadow_values:can_fit(p) then
-        shadow_values[p] = math.max(value, shadow_values[p])
+      x = x + tree.x
+      y = y + tree.y
+      if x > 0 and y > 0 and x <= size.x and y <= size.y then
+        shadow_values:unsafe_set(x, y, math.max(value, shadow_values:unsafe_get(x, y)))
       end
     end
     end
-    sometimes:yield()
   end
 
   for x = 1, size.x do
@@ -643,7 +641,6 @@ init_shadows = function(self)
     if n > 0 and not State.grids.shadows:unsafe_get(x, y) then
       State:add(shadows[16 - n](), {position = V(x, y), grid_layer = "shadows"})
     end
-    sometimes:yield()
   end
   end
 end
