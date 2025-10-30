@@ -1,3 +1,7 @@
+local items_entities = require("levels.main.palette.items_entities")
+local item = require("engine.tech.item")
+local health = require("engine.mech.health")
+local tcod = require("engine.tech.tcod")
 local level = require("engine.tech.level")
 local no_op = require("engine.mech.ais.no_op")
 local combat = require("engine.mech.ais.combat")
@@ -9,6 +13,11 @@ local likka_ai = require "levels.main.palette.likka_ai"
 
 
 local rails = {}
+
+
+----------------------------------------------------------------------------------------------------
+-- [SECTION] State management
+----------------------------------------------------------------------------------------------------
 
 --- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"?
 
@@ -463,6 +472,108 @@ end
 methods.nea_meet = function(self)
   assert(self.met_nea == nil)
   self.met_nea = true
+end
+
+
+----------------------------------------------------------------------------------------------------
+-- [SECTION] Initialization
+----------------------------------------------------------------------------------------------------
+
+local init_blockers, init_factions
+local checkpoints = {}
+
+--- @param checkpoint string?
+methods.init = function(self, checkpoint)
+  init_blockers(self)
+  init_factions(self)
+  State.quests.order = {"seekers", "feast"}
+  checkpoints[checkpoint or "intro"](self)
+end
+
+--- @param self rails
+init_blockers = function(self)
+  local misses = {}
+  local updated_n = 0
+  for entity in pairs(State._entities) do
+    if entity._vision_invisible_flag then
+      local target = State.grids.solids:slow_get(entity.position)
+      if target then
+        target.transparent_flag = nil
+        updated_n = updated_n + 1
+      else
+        table.insert(misses, tostring(entity.position))
+      end
+      State:remove(entity)
+    end
+  end
+
+  if #misses > 0 then
+    Log.warn("Vision blocker misses: %s", table.concat(misses, ", "))
+  end
+
+  tcod.update_transparency(State.grids.solids)
+  Log.info("Blocked vision for %s cells", updated_n)
+end
+
+local hostile = function(a, ...)
+  for i = 1, select("#", ...) do
+    local b = select(i, ...)
+    State.hostility:set(a, b, "enemy")
+    State.hostility:set(b, a, "enemy")
+  end
+end
+
+local ally = function(a, ...)
+  for i = 1, select("#", ...) do
+    local b = select(i, ...)
+    State.hostility:set(a, b, "ally")
+    State.hostility:set(b, a, "ally")
+  end
+end
+
+--- @param self rails
+init_factions = function(self)
+  hostile("predators", "player", "khaned")
+  ally("player", "khaned", "village")
+
+  -- player is likka's ally only inside the temple
+end
+
+
+----------------------------------------------------------------------------------------------------
+-- [SECTION] Checkpoints
+----------------------------------------------------------------------------------------------------
+
+--- @param self rails
+checkpoints.intro = function(self)
+  self:winter_init()
+  self:location_intro()
+  health.set_hp(State.player, State.player:get_max_hp() - 2)
+  State.hostility:set("player", "likka", "ally")
+end
+
+--- @param self rails
+checkpoints.cpt2 = function(self)
+  State.rails:winter_init()
+  State.rails:winter_end()
+  State.rails:location_forest(true)
+  State.rails:feast_start()
+  State.rails:feast_end()
+  State.rails:seekers_start()
+  State.rails:temple_enter()
+  State.rails:empathy_start_conversation()
+
+  local ch = State.runner.entities
+  local ps = State.runner.positions
+
+  api.assert_position(ch.player, ps.cpt2, true)
+  api.assert_position(ch.likka, ps.cpt2 + Vector.right, true)
+  item.give(ch.player, State:add(items_entities.axe()))
+  item.give(ch.player, State:add(items_entities.small_shield()))
+
+  health.damage(ch.cpt2_cobweb, 1)
+
+  State.runner.scenes._100_saving_likka.enabled = false
 end
 
 Ldump.mark(rails, {}, ...)
