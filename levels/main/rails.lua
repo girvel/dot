@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local shadows = require("levels.main.palette.shadows")
 local colors = require("engine.tech.colors")
 local sound = require("engine.tech.sound")
@@ -592,17 +593,19 @@ end
 init_shadows = function(self)
   local size = State.level.grid_size
   local exclude = State.runner:position_sequence("no_tree_shadow")
+  local sometimes = async.sometimes()
 
   --- @type vector[]
   local trees do
     trees = {}
     for x = 1, size.x do
-    for y = 1, size.y do
-      local e = State.grids.solids:unsafe_get(x, y)
-      if e and e._tree_flag and not Table.contains(exclude, e.position) then
-        table.insert(trees, e.position)
+      for y = 1, size.y do
+        local e = State.grids.solids:unsafe_get(x, y)
+        if e and e._tree_flag and not Table.contains(exclude, e.position) then
+          table.insert(trees, e.position)
+        end
       end
-    end
+      sometimes:yield()
     end
   end
 
@@ -631,6 +634,7 @@ init_shadows = function(self)
       end
     end
     end
+    sometimes:yield()
   end
 
   for x = 1, size.x do
@@ -639,6 +643,7 @@ init_shadows = function(self)
     if n > 0 and not State.grids.shadows:unsafe_get(x, y) then
       State:add(shadows[16 - n](), {position = V(x, y), grid_layer = "shadows"})
     end
+    sometimes:yield()
   end
   end
 end
@@ -665,21 +670,21 @@ end
 
 --- @param self rails
 checkpoints.cp1 = function(self)
-  State.rails:winter_init()
-  State.rails:location_upper_village(true)
-  State.rails:feast_start()
+  self:winter_init()
+  self:location_upper_village(true)
+  self:feast_start()
   api.assert_position(State.player, State.runner.positions.cp1, true)
   item.give(State.player, State:add(items_entities.short_bow()))
 end
 
 --- @param self rails
 checkpoints.cp2 = function(self)
-  State.rails:winter_init()
-  State.rails:winter_end()
-  State.rails:location_forest(true)
-  State.rails:feast_start()
-  State.rails:feast_end()
-  State.rails:seekers_start()
+  self:winter_init()
+  self:winter_end()
+  self:location_forest(true)
+  self:feast_start()
+  self:feast_end()
+  self:seekers_start()
 
   api.assert_position(State.player, State.runner.positions.cp2, true)
   item.give(State.player, State:add(items_entities.axe()))
@@ -688,14 +693,14 @@ end
 
 --- @param self rails
 checkpoints.cpt = function(self)
-  State.rails:winter_init()
-  State.rails:winter_end()
-  State.rails:location_forest(true)
-  State.rails:feast_start()
-  State.rails:feast_end()
-  State.rails:seekers_start()
-  State.rails:temple_enter()
-  State.rails:empathy_start_conversation()
+  self:winter_init()
+  self:winter_end()
+  self:location_forest(true)
+  self:feast_start()
+  self:feast_end()
+  self:seekers_start()
+  self:temple_enter()
+  self:empathy_start_conversation()
 
   api.assert_position(State.player, State.runner.positions.cpt, true)
   item.give(State.player, State:add(items_entities.axe()))
@@ -706,14 +711,14 @@ end
 
 --- @param self rails
 checkpoints.cpt2 = function(self)
-  State.rails:winter_init()
-  State.rails:winter_end()
-  State.rails:location_forest(true)
-  State.rails:feast_start()
-  State.rails:feast_end()
-  State.rails:seekers_start()
-  State.rails:temple_enter()
-  State.rails:empathy_start_conversation()
+  self:winter_init()
+  self:winter_end()
+  self:location_forest(true)
+  self:feast_start()
+  self:feast_end()
+  self:seekers_start()
+  self:temple_enter()
+  self:empathy_start_conversation()
 
   local ch = State.runner.entities
   local ps = State.runner.positions
@@ -730,15 +735,15 @@ end
 
 --- @param self rails
 checkpoints.cpt3 = function(self)
-  State.rails:winter_init()
-  State.rails:winter_end()
-  State.rails:location_forest(true)
-  State.rails:feast_start()
-  State.rails:feast_end()
-  State.rails:seekers_start()
-  State.rails:temple_enter()
-  State.rails:empathy_start_conversation()
-  State.rails:empathy_finalize()
+  self:winter_init()
+  self:winter_end()
+  self:location_forest(true)
+  self:feast_start()
+  self:feast_end()
+  self:seekers_start()
+  self:temple_enter()
+  self:empathy_start_conversation()
+  self:empathy_finalize()
 
   local ch = State.runner.entities
   local ps = State.runner.positions
