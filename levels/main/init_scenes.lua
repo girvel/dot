@@ -1,146 +1,10 @@
-local colors = require("engine.tech.colors")
-local floater = require("engine.tech.floater")
-local sound = require("engine.tech.sound")
-local shadows = require("levels.main.palette.shadows")
 local api = require("engine.tech.api")
 local health = require("engine.mech.health")
-local tcod   = require("engine.tech.tcod")
 local item   = require("engine.tech.item")
 local items_entities = require("levels.main.palette.items_entities")
 
 
 return {
-  --- @type scene
-  init_loot = {
-    enabled = true,
-    start_predicate = function(self, dt)
-      return true
-    end,
-
-    run = function(self)
-      coroutine.yield()  -- wait for checkpoints
-
-      local starts = State.runner:position_sequence("loot_temple")
-      local ends = State.runner:position_sequence("loot_temple_end")
-
-      local temple_containers = {}
-      for e in pairs(State._entities) do
-        if not e._is_container then goto continue end
-        for i = 1, #starts do
-          if starts[i] <= e.position and e.position <= ends[i] then
-            table.insert(temple_containers, e)
-            break
-          end
-        end
-
-        ::continue::
-      end
-
-      local money_dist = Random.distribute(1620, #temple_containers)
-      local item_dist = Random.distribute_items(
-        {items_entities.ritual_blade(), items_entities.shield()},
-        #temple_containers
-      )
-
-      for _, e, amount, items in Fun.zip(temple_containers, money_dist, item_dist) do
-        local base_interact = assert(e.on_interact)
-        e.on_interact = function(self_e, other)
-          if other ~= State.player then return end
-          if amount > 0 then
-            State.player.bag.money = State.player.bag.money + amount
-            State:add(floater.new("+" .. amount, State.player.position, colors.white))
-            sound.multiple("assets/sounds/money", .15):play()
-          end
-          item.drops(e.position, unpack(items))
-          base_interact(self_e, other)
-        end
-        Ldump.ignore_upvalue_size(e.on_interact)
-      end
-
-      Log.info("Distributed temple loot between %s containers", #temple_containers)
-    end,
-  },
-
-  --- @type scene
-  init_shadows = {
-    enabled = true,
-    mode = "once",
-    lag_flag = true,
-    start_predicate = function(self, dt)
-      return true
-    end,
-
-    run = function(self)
-      coroutine.yield()  -- wait for checkpoints
-
-      local size = State.level.grid_size
-      local exclude = State.runner:position_sequence("no_tree_shadow")
-
-      --- @type vector[]
-      local trees do
-        trees = {}
-        for x = 1, size.x do
-        for y = 1, size.y do
-          local e = State.grids.solids:unsafe_get(x, y)
-          if e and e._tree_flag and not Table.contains(exclude, e.position) then
-            table.insert(trees, e.position)
-          end
-        end
-        end
-      end
-
-      local R1 = 4
-      local R2 = 2
-      local R1_SQ = R1^2
-      local R2_SQ = R2^2
-
-      local shadow_values = Grid.new(size, function() return 0 end)
-      for _, tree in ipairs(trees) do
-        for x = -R1, R1 do
-        for y = -R1, R1 do
-          local p = V(x, y)
-          local d_sq = p:square_abs() + math.random(-2, 2)
-          local value
-          if d_sq <= R2_SQ then
-            value = 4
-          elseif d_sq <= R1_SQ then
-            value = 2
-          else
-            value = 0
-          end
-          p:add_mut(tree)
-          if shadow_values:can_fit(p) then
-            shadow_values[p] = math.max(value, shadow_values[p])
-          end
-        end
-        end
-      end
-
-      for x = 1, size.x do
-      for y = 1, size.y do
-        local n = shadow_values:unsafe_get(x, y)
-        if n > 0 and not State.grids.shadows:unsafe_get(x, y) then
-          State:add(shadows[16 - n](), {position = V(x, y), grid_layer = "shadows"})
-        end
-      end
-      end
-    end,
-  },
-
-  --- @type scene
-  init_debug = {
-    enabled = true,
-    mode = "once",
-    start_predicate = function(self, dt) return State.debug end,
-    in_combat_flag = true,
-
-    run = function(self)
-      coroutine.yield()  -- race condition safety
-      State.player.inventory.body = State:add(items_entities.invader_armor())
-      State.player.inventory.head = State:add(items_entities.invader_helmet())
-    end,
-  },
-
   --- @type scene
   test_scrolling = {
     characters = {
@@ -180,16 +44,6 @@ return {
     end,
 
     run = function(self)
-      State.rails:winter_init()
-      State.rails:winter_end()
-      State.rails:location_forest(true)
-      State.rails:feast_start()
-      State.rails:feast_end()
-      State.rails:seekers_start()
-
-      api.assert_position(State.player, State.runner.positions.cp2, true)
-      item.give(State.player, State:add(items_entities.axe()))
-      item.give(State.player, State:add(items_entities.small_shield()))
     end,
   },
 
