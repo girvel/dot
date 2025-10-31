@@ -302,6 +302,15 @@ methods.fruit_take_likkas = function(self)
   seekers_fruit_is_found(self)
 end
 
+methods.fruit_take_own = function(self, fruit)
+  assert(self.fruit_source == nil)
+  State:remove(fruit)
+  self.fruit_source = "found"
+  self.has_fruit = true
+
+  seekers_fruit_is_found(self)
+end
+
 methods.fruit_eat = function(self)
   self.has_fruit = false
   self.has_blessing = true
@@ -604,7 +613,6 @@ init_shadows = function(self)
           table.insert(trees, e.position)
         end
       end
-      -- sometimes:yield("rails_init", .05 * x / size.x)
     end
   end
 
@@ -614,7 +622,7 @@ init_shadows = function(self)
   local R2_SQ = R2^2
 
   local shadow_values = Grid.new(size, function() return 0 end)
-  for i, tree in ipairs(trees) do
+  for _, tree in ipairs(trees) do
     for x = -R1, R1 do
     for y = -R1, R1 do
       local d_sq = x^2 + y^2 + math.random(-2, 2)
