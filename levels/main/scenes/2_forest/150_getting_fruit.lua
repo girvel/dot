@@ -15,7 +15,7 @@ return {
     on_add = function(self, ch, ps)
       State:add(ch.likka_fruit, interactive.mixin(function()
         State.rails:fruit_take_likkas()
-      end), {name = "плод дерева Акуль"})
+      end))
     end,
 
     start_predicate = function(self, dt, ch, ps)
@@ -40,7 +40,7 @@ return {
 
         sp:lines()
         sp:start_single_branch()
-        if State.rails.eaten_rotten_fruit then
+        if State.rails.ate_rotten_fruit then
           sp:lines()
         end
         sp:finish_single_branch()

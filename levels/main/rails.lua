@@ -35,7 +35,7 @@ local rails = {}
 --- @field tried_berries "once"|"twice"?
 --- @field fruit_source "likka"|"khaned"|"found"? also a good indicator if fruit WAS ever picked up
 --- @field seen_rotten_fruit boolean?
---- @field eaten_rotten_fruit boolean?
+--- @field ate_rotten_fruit boolean?
 --- @field seen_companion_fruit boolean?
 --- @field has_blessing boolean?
 --- @field has_fruit boolean? nil if not yet found, false if eaten
@@ -321,6 +321,17 @@ end
 
 methods.fruit_see_companion = function(self)
   self.seen_companion_fruit = true
+end
+
+methods.rotten_fruit_touch = function(self)
+  assert(self.seen_rotten_fruit == nil)
+  self.seen_rotten_fruit = true
+end
+
+methods.rotten_fruit_eat = function(self, fruit)
+  assert(self.ate_rotten_fruit == nil)
+  State:remove(fruit)
+  self.ate_rotten_fruit = true
 end
 
 methods.khaned_offscreen_death = function(self)

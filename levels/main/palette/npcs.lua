@@ -1,3 +1,4 @@
+local poisoned = require("engine.mech.conditions.poisoned")
 local sprite = require("engine.tech.sprite")
 local mark = require("engine.tech.mark")
 local health = require("engine.mech.health")
@@ -105,27 +106,6 @@ npcs.khaned = function()
   })
 end
 
-local poisoned_methods = {}
-npcs._poisoned_likka_mt = {__index = poisoned_methods}
-
-poisoned_methods.update = function(self, entity, dt)
-  local next_t = self._t + dt
-  local d = math.floor(next_t / 6) - math.floor(self._t / 6)
-  if d > 0 then
-    health.damage(entity, d)
-  end
-  self._t = next_t
-end
-
-local poisoned_likka = function()
-  local DAMAGE = 15
-  return setmetatable({
-    codename = "poisoned_likka",
-    life_time = DAMAGE * 6,
-    _t = 0,
-  }, npcs._poisoned_likka_mt)
-end
-
 npcs.likka = function()
   return creature.make(humanoid.mixin(), {
     name = "Ликка",
@@ -141,16 +121,7 @@ npcs.likka = function()
     perks = {
       rogue.hit_dice,
       {
-        modify_outgoing_damage = function(self, entity, damage, target, is_critical)
-          if
-            target.conditions
-            and Fun.iter(target.conditions)
-              :all(function(c) return getmetatable(c) ~= npcs._poisoned_likka_mt end)
-          then
-            table.insert(target.conditions, poisoned_likka())
-          end
-          return damage
-        end,
+        modify_outgoing_damage = poisoned.modify_outgoing_damage(15),
       },
     },
     essential_flag = true,

@@ -2,6 +2,20 @@ local tiles = require("levels.main.palette.tiles")
 local interactive = require("engine.tech.interactive")
 local solids = require("levels.main.palette.solids")
 local api = require("engine.tech.api")
+
+
+local spawn_fruit = function(e, f, p)
+  do
+    local tile = State.grids.tiles[p]
+    if tile.codename ~= "grassl" then
+      State:remove(tile)
+      State:add(tiles.grassl(), {grid_layer = "tiles", position = p})
+    end
+  end
+
+  return State:add(e, interactive.mixin(f), {position = p, grid_layer = "solids"})
+end
+
 return {
   --- @type scene
   fruit_spawn_init = {
@@ -73,27 +87,17 @@ return {
       Log.trace(count)
       if count == 0 then
         local p = Random.item(new)
-
-        do
-          local tile = State.grids.tiles[p]
-          if tile.codename ~= "grassl" then
-            State:remove(tile)
-            State:add(tiles.grassl(), {grid_layer = "tiles", position = p})
-          end
-        end
-
-        State:add(
-          solids.godfruit(),
-          {position = p, grid_layer = "solids"},
-          interactive.mixin(function(e, other)
-            State.rails:fruit_take_own(e)
-          end)
-        )
+        spawn_fruit(solids.godfruit(), function(e)
+          State.rails:fruit_take_own(e)
+        end, p)
+        Log.info("Spawned godfruit at %s", p)
         State.runner:remove(self)
       elseif count / self.initial_count <= .2
         and State.period:once(self, "spawn_rotten_fruit")
       then
-        Log.warn("Rotten fruit not implemented")
+        local p = Random.item(new)
+        State.runner.entities.rotten_fruit = spawn_fruit(solids.godfruitr(), nil, p)
+        Log.info("Spawned rotten fruit at %s", p)
       end
     end,
   },

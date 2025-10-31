@@ -39,6 +39,11 @@ local is_container = function(codename)
   return nil
 end
 
+local names = {
+  godfruit = "плод дерева Акуль",
+  godfruitr = "гниющий плод",
+}
+
 local open = Memoize(function(name, target_layer)
   local sounds = opening_sounds[name]
   local create_open
@@ -121,28 +126,28 @@ end
 solids = factoring.from_atlas(
   "assets/sprites/atlases/solids.png", Constants.cell_size,
   {
-    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
-    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
-    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
-    "wall",     "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
-    "slope",    "slope",    "godfruit", "trunk",  "trunk",     "bush",      "bush",    "bbush",
-    "slope",    "slope",    "slope",    "trunk",  "trunk",     "bush",      "bush",    "bbush",
-    "slope_h",  "slope",    "stool",    "trunk",  "trunk",     "rock",      "rock",    "table",
-    false,      "slope",    "slope",    "statue", "statue",    "statue",    "statue",  "table",
-    false,      "slope",    "slope",    false,    "table",     "table",     "table",   "table",
-    "owall",    "owall",    "owall",    "owall",  false,       "chestc",    "chesto",  "table",
-    "owall",    "owall",    "owall",    "owall",  false,       "bed",       "bed",     false,
-    "owall",    "owall",    "owall",    "owall",  "candles",   "candles",   "candles", false,
-    "owall",    "owall",    "owall",    "owall",  "doorc",     false,       false,     false,
-    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
-    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
-    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
-    "stage",    "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
-    "cabinetc", "cabineto", "shelfc",   "shelfo", "hutwallt",  "hutwallt",  "rubble",  "campfire",
-    "log",      "log",      "log",      "cobweb", "scabinetc", "scabineto", "sshelfc", "sshelfo",
-    "log",      "cobweb",   "cobweb",   "cobweb", "cobweb",    "cobweb",    "sbinc",   "sbino",
-    "log",      false,      false,      false,    false,       false,       false,     false,
-    "log",      false,      false,      false,    false,       false,       false,     false,
+    "wall",      "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "wall",      "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "wall",      "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "wall",      "wall",     "wall",     "wall",   "hutwall",   "hutwall",   "hutwall", "hutwall",
+    "slope",     "slope",    "godfruit", "trunk",  "trunk",     "bush",      "bush",    "bbush",
+    "slope",     "slope",    "slope",    "trunk",  "trunk",     "bush",      "bush",    "bbush",
+    "slope_h",   "slope",    "stool",    "trunk",  "trunk",     "rock",      "rock",    "table",
+    "godfruitr", "slope",    "slope",    "statue", "statue",    "statue",    "statue",  "table",
+    false,       "slope",    "slope",    false,    "table",     "table",     "table",   "table",
+    "owall",     "owall",    "owall",    "owall",  false,       "chestc",    "chesto",  "table",
+    "owall",     "owall",    "owall",    "owall",  false,       "bed",       "bed",     false,
+    "owall",     "owall",    "owall",    "owall",  "candles",   "candles",   "candles", false,
+    "owall",     "owall",    "owall",    "owall",  "doorc",     false,       false,     false,
+    "stage",     "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "stage",     "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "stage",     "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "stage",     "stage",    "stage",    "stage",  "fence",     "fence",     "fence",   "fence",
+    "cabinetc",  "cabineto", "shelfc",   "shelfo", "hutwallt",  "hutwallt",  "rubble",  "campfire",
+    "log",       "log",      "log",      "cobweb", "scabinetc", "scabineto", "sshelfc", "sshelfo",
+    "log",       "cobweb",   "cobweb",   "cobweb", "cobweb",    "cobweb",    "sbinc",   "sbino",
+    "log",       false,      false,      false,    false,       false,       false,     false,
+    "log",       false,      false,      false,    false,       false,       false,     false,
   },
   function(codename)
     local result = get_base(codename)
@@ -150,6 +155,7 @@ solids = factoring.from_atlas(
     result.low_flag = is_low(codename)
     result.boring_flag = true
     result._is_container = is_container(codename)
+    result.name = names[codename]
     return result
   end
 )
