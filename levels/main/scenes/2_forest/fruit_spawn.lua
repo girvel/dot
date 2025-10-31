@@ -1,3 +1,4 @@
+local item = require("engine.tech.item")
 local tiles = require("levels.main.palette.tiles")
 local interactive = require("engine.tech.interactive")
 local solids = require("levels.main.palette.solids")
@@ -13,7 +14,9 @@ local spawn_fruit = function(e, f, p)
     end
   end
 
-  return State:add(e, interactive.mixin(f), {position = p, grid_layer = "solids"})
+  State:add(e, interactive.mixin(f), {position = p, grid_layer = "solids"})
+  item.set_cue(e, "highlight", true)
+  return e
 end
 
 return {
@@ -92,7 +95,7 @@ return {
         end, p)
         Log.info("Spawned godfruit at %s", p)
         State.runner:remove(self)
-      elseif count / self.initial_count <= .2
+      elseif count / self.initial_count <= .9
         and State.period:once(self, "spawn_rotten_fruit")
       then
         local p = Random.item(new)
