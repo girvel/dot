@@ -634,23 +634,19 @@ init_shadows = function(self)
 
   local shadow_values = Grid.new(size, function() return 0 end)
   for _, tree in ipairs(trees) do
-    for x = -R1, R1 do
-    for y = -R1, R1 do
-      local d_sq = x^2 + y^2 + math.random(-2, 2)
+    for x, y, v in shadow_values:rect(tree.x - R1, tree.x + R1, tree.y - R1, tree.y + R1) do
+      local d_sq = (x - tree.x)^2 + (y - tree.y)^2 + math.random(-2, 2)
       local value
       if d_sq <= R2_SQ then
         value = 4
       elseif d_sq <= R1_SQ then
         value = 2
       else
-        value = 0
+        goto continue
       end
-      x = x + tree.x
-      y = y + tree.y
-      if x > 0 and y > 0 and x <= size.x and y <= size.y then
-        shadow_values:unsafe_set(x, y, math.max(value, shadow_values:unsafe_get(x, y)))
-      end
-    end
+      shadow_values:unsafe_set(x, y, math.max(value, v))
+
+      ::continue::
     end
   end
 

@@ -95,7 +95,7 @@ return {
         end, p)
         Log.info("Spawned godfruit at %s", p)
         State.runner:remove(self)
-      elseif count / self.initial_count <= .9
+      elseif count / self.initial_count <= .2
         and State.period:once(self, "spawn_rotten_fruit")
       then
         local p = Random.item(new)
