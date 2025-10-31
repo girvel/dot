@@ -1,3 +1,4 @@
+local tiles = require("levels.main.palette.tiles")
 local interactive = require("engine.tech.interactive")
 local solids = require("levels.main.palette.solids")
 local api = require("engine.tech.api")
@@ -72,6 +73,15 @@ return {
       Log.trace(count)
       if count == 0 then
         local p = Random.item(new)
+
+        do
+          local tile = State.grids.tiles[p]
+          if tile.codename ~= "grassl" then
+            State:remove(tile)
+            State:add(tiles.grassl(), {grid_layer = "tiles", position = p})
+          end
+        end
+
         State:add(
           solids.godfruit(),
           {position = p, grid_layer = "solids"},
@@ -80,7 +90,9 @@ return {
           end)
         )
         State.runner:remove(self)
-      elseif count / self.initial_count <= .2 then
+      elseif count / self.initial_count <= .2
+        and State.period:once(self, "spawn_rotten_fruit")
+      then
         Log.warn("Rotten fruit not implemented")
       end
     end,
