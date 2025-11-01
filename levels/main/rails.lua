@@ -24,7 +24,7 @@ local rails = {}
 -- [SECTION] State management
 ----------------------------------------------------------------------------------------------------
 
---- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"?
+--- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"|"4_village"?
 
 --- @class rails
 --- @field runner state_runner
@@ -76,13 +76,18 @@ end
 --- @param location rails_location
 --- @param forced boolean?
 methods._location_transition = function(self, location, forced)
-  assert(
+  local in_order = (
     forced
-      or self.location == nil and location and location:sub(1, 1) == "0"
-      or location and self.location
-        and tonumber(location:sub(1, 1)) - tonumber(self.location:sub(1, 1)) == 1,
-    ("Out of order transition %s -> %s"):format(self.location, location)
+    or self.location == nil and location == "0_intro"
+    or self.location == "0_intro" and location == "1_upper_village"
+    or self.location == "1_upper_village" and location == "2_forest"
+    or self.location == "2_forest" and location == "4_village"
   )
+
+  if not in_order then
+    Error("Out of order transition %s -> %s", self.location, location)
+  end
+
   Log.info("Location transition %s -> %s", self.location, location)
 
   if self.location then
@@ -142,6 +147,12 @@ methods.location_forest = function(self, forced)
       e.ai = no_op.new()
     end
   end
+end
+
+--- @param forced boolean?
+methods.location_village = function(self, forced)
+  api.autosave("Деревня")
+  self:_location_transition("4_village", forced)
 end
 
 methods.winter_init = function(self)

@@ -81,7 +81,7 @@ return {
 
         local feast_scene = State.runner.scenes._020_feast
         for _, scene in ipairs(feast_scene.final_dancing_scenes) do
-          State.runner:remove(scene)
+          State.runner:stop(scene)
         end
         feast_scene.enabled = nil
 
