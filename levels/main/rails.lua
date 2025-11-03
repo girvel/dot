@@ -674,8 +674,6 @@ end
 --- @param self rails
 init_debug = function(self)
   if not State.debug then return end
-  State.player.inventory.body = State:add(items_entities.invader_armor())
-  State.player.inventory.head = State:add(items_entities.invader_helmet())
 end
 
 
@@ -779,6 +777,21 @@ checkpoints.cpt3 = function(self)
   health.damage(ch.cpt2_cobweb, 1)
 
   State.runner.scenes._100_saving_likka.enabled = false
+end
+
+--- @param self rails
+checkpoints.cp4 = function(self)
+  self:winter_init()
+  self:winter_end()
+  self:feast_start()
+  self:feast_end()
+  self:seekers_start()
+  self:fruit_take_own({})
+  self:location_village(true)
+
+  api.assert_position(State.player, State.runner.positions.cp4, true)
+  item.give(State.player, State:add(items_entities.axe()))
+  item.give(State.player, State:add(items_entities.small_shield()))
 end
 
 Ldump.mark(rails, {}, ...)
