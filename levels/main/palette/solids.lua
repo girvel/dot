@@ -155,7 +155,7 @@ solids = factoring.from_atlas(
     result.low_flag = is_low(codename)
     result.boring_flag = true
     result._is_container = is_container(codename)
-    result.name = names[codename]
+    result.name = result.name or names[codename]
     return result
   end
 )
