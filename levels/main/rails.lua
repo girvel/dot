@@ -628,6 +628,8 @@ end
 
 --- @param self rails
 init_shadows = function(self)
+  local sometimes = async.sometimes()
+
   local size = State.level.grid_size
   local exclude = State.runner:position_sequence("no_tree_shadow")
 
@@ -667,8 +669,11 @@ init_shadows = function(self)
     end
   end
 
+  local total_n = size.x * size.y
+
   for x = 1, size.x do
   for y = 1, size.y do
+    sometimes:yield("rails_init", ((x - 1) * size.y + y - 1) / total_n)
     local n = shadow_values:unsafe_get(x, y)
     if n == 0 or State.grids.shadows:unsafe_get(x, y) then goto continue end
 
