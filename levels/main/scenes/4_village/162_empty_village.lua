@@ -3,7 +3,7 @@ local screenplay = require("engine.tech.screenplay")
 
 return {
   --- @type scene
-  _162_empty_vilage = {
+  _162_empty_village = {
     enabled = true,
     characters = {
       player = {},
