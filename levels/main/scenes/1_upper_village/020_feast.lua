@@ -149,6 +149,7 @@ return {
     --- @param ch runner_characters
     --- @param ps runner_positions
     run = Ldump.ignore_upvalue_size(function(self, ch, ps)
+      State.period:push_key(State.player, "fov_r", 25)
       local sp = screenplay.new("assets/screenplay/020_feast.ms", ch)
         api.travel_scripted(ch.player, ps.feast_observe):next(function()
           ch.player:rotate(Vector.down)
@@ -271,6 +272,8 @@ return {
         sp:lines()
         async.sleep(5)
       sp:finish()
+
+      State.period:pop_key(State.player, "fov_r")
     end),
   },
 }
