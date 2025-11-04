@@ -676,9 +676,10 @@ end
 init_debug = function(self)
   if not State.debug then return end
 
-  local RAIN_SPEED = 7
+  local RAIN_SPEED = 15
   local RAIN_DIRECTION = V(1, 1):normalized_mut()
   local RAIN_VELOCITY = RAIN_DIRECTION * RAIN_SPEED
+  local RAIN_DENSITY = 1/3
 
   State:add({
     codename = "rain_emitter",
@@ -686,22 +687,27 @@ init_debug = function(self)
       observe = function(ai, entity, dt)
         local start = State.perspective.vision_start
         local finish = State.perspective.vision_end + Vector.one
-        local d = math.max(unpack(finish - start))
+        local d, area do
+          local w, h = unpack(finish - start)
+          d = math.max(w, h)
+          area = w * h
+        end
+        local life_time = d / RAIN_SPEED
 
-        if not State.period:absolute(1, ai, "emit_rain") then return end
+        while State.period:absolute(life_time / RAIN_DENSITY / area, ai, "emit_rain") do
+          -- NEXT expand
+          local target = Vector.use(Random.float, start, finish)
 
-        -- NEXT expand
-        local target = Vector.use(Random.float, start, finish)
-
-        State:add({
-          boring_flag = true,
-          codename = "rain_particle",
-          sprite = sprite.image("assets/sprites/standalone/rain_particle.png"),
-          position = target - RAIN_DIRECTION * d,
-          layer = "weather",
-          drift = RAIN_VELOCITY,
-          life_time = d / RAIN_SPEED,
-        })
+          State:add({
+            boring_flag = true,
+            codename = "rain_particle",
+            sprite = sprite.image("assets/sprites/standalone/rain_particle.png"),
+            position = target - RAIN_DIRECTION * d,
+            layer = "weather",
+            drift = RAIN_VELOCITY,
+            life_time = life_time,
+          })
+        end
       end,
     },
   })
