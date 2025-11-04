@@ -85,7 +85,7 @@ return {
 
       if #new == 0 then return end
 
-      --- NEXT sometimes make sure that all the remaining points remain accessible
+      --- TODO sometimes make sure that all the remaining points remain accessible
       local count = Table.count(self.unseen._inner_array)
       Log.trace(count)
       if count == 0 then

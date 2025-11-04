@@ -37,7 +37,7 @@ return {
 
       State.runner:remove(self)
 
-      -- NEXT fade travel
+      -- TODO maybe fade travel
       level.unsafe_move(ch.player, ps.ev_tp)
       State.rails:location_village()
     end,
