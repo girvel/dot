@@ -1,3 +1,4 @@
+local sprite = require("engine.tech.sprite")
 local async = require("engine.tech.async")
 local shadows = require("levels.main.palette.shadows")
 local colors = require("engine.tech.colors")
@@ -674,6 +675,25 @@ end
 --- @param self rails
 init_debug = function(self)
   if not State.debug then return end
+
+  State:add({
+    codename = "rain_emitter",
+    ai = {
+      observe = function(ai, entity, dt)
+        if not State.period:absolute(1, ai, "emit_rain") then return end
+
+        State:add({
+          boring_flag = true,
+          codename = "rain_particle",
+          sprite = sprite.image("assets/sprites/standalone/rain_particle.png"),
+          position = State.perspective.vision_start,
+          layer = "weather",
+          drift = V(5, 5),
+          life_time = 2,
+        })
+      end,
+    },
+  })
 end
 
 
