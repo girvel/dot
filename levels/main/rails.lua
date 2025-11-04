@@ -681,53 +681,74 @@ init_debug = function(self)
   local RAIN_BUFFER_K = 2
   local RAIN_SPEED = 15
   local RAIN_DIRECTION = V(1, 1):normalized_mut()
-  local RAIN_VELOCITY = RAIN_DIRECTION * RAIN_SPEED
+  local RAIN_VELOCITY = RAIN_DIRECTION * RAIN_SPEED * Constants.cell_size
 
-  local sprite_rain = sprite.image("assets/sprites/standalone/rain_particle.png")
+  -- NEXT batch
+  local rain_image = love.graphics.newImage("assets/sprites/standalone/rain_particle.png")
   local sprite_empty = sprite.image("assets/sprites/standalone/empty.png")
 
   State:add({
+    non_positional_ai_flag = true,
     codename = "rain_emitter",
+    position = Vector.one,
+    layer = "weather",
+    sprite = {
+      type = "image",
+      image = love.graphics.newCanvas(unpack(State.level.grid_size * Constants.cell_size)),
+      anchors = {},
+      color = Vector.white,
+    },
     ai = {
+      _particles = {},
       observe = function(ai, entity, dt)
-        local start, finish do
-          local original_start = State.perspective.vision_start
-          local original_finish = State.perspective.vision_end + Vector.one
-          local d = (original_finish - original_start)
-          start = original_finish - d:mul_mut(RAIN_BUFFER_K)
-          finish = original_start + d:mul_mut(RAIN_BUFFER_K)
-        end
+        table.insert(ai._particles, {position = State.player.position * Constants.cell_size, life_time = 5})
+        love.graphics.setCanvas(entity.sprite.image)
+          love.graphics.clear(Vector.transparent)
 
-        local d, area do
-          local w, h = unpack(finish - start)
-          d = math.max(w, h)
-          area = w * h
-        end
+          for _, p in ipairs(ai._particles) do
+            p.position = p.position + RAIN_VELOCITY * dt
+            p.life_time = p.life_time - dt
+            love.graphics.draw(rain_image, unpack(p.position))
+          end
+        love.graphics.setCanvas()
+        -- local start, finish do
+        --   local original_start = State.perspective.vision_start
+        --   local original_finish = State.perspective.vision_end + Vector.one
+        --   local d = (original_finish - original_start)
+        --   start = original_finish - d:mul_mut(RAIN_BUFFER_K)
+        --   finish = original_start + d:mul_mut(RAIN_BUFFER_K)
+        -- end
 
-        local life_time = d / RAIN_SPEED
+        -- local d, area do
+        --   local w, h = unpack(finish - start)
+        --   d = math.max(w, h)
+        --   area = w * h
+        -- end
 
-        while State.period:absolute(life_time / RAIN_DENSITY / area, ai, "emit_rain") do
-          local target = Vector.use(Random.float, start, finish)
+        -- local life_time = d / RAIN_SPEED
 
-          State:add({
-            boring_flag = true,
-            codename = "rain_particle",
-            sprite = sprite_rain,
-            position = target - RAIN_DIRECTION * d,
-            layer = "weather",
-            drift = RAIN_VELOCITY,
-            life_time = life_time,
-            ai = {
-              observe = function(_, particle)
-                -- NEXT OPT
-                particle.sprite = api.is_visible(target) and sprite_rain or sprite_empty
-              end,
-            },
-            on_remove = function(e)
-              animated.add_fx("assets/sprites/animations/rain_impact", e.position, e.layer)
-            end,
-          })
-        end
+        -- while State.period:absolute(life_time / RAIN_DENSITY / area, ai, "emit_rain") do
+        --   local target = Vector.use(Random.float, start, finish)
+
+        --   State:add({
+        --     boring_flag = true,
+        --     codename = "rain_particle",
+        --     sprite = sprite_rain,
+        --     position = target - RAIN_DIRECTION * d,
+        --     layer = "weather",
+        --     drift = RAIN_VELOCITY,
+        --     life_time = life_time,
+        --     ai = {
+        --       observe = function(_, particle)
+        --         -- NEXT OPT
+        --         particle.sprite = api.is_visible(target) and sprite_rain or sprite_empty
+        --       end,
+        --     },
+        --     on_remove = function(e)
+        --       animated.add_fx("assets/sprites/animations/rain_impact", e.position, e.layer)
+        --     end,
+        --   })
+        -- end
       end,
     },
   })
