@@ -678,14 +678,13 @@ init_debug = function(self)
   if not State.debug then return end
 
   local RAIN_DENSITY = 1/3
-  -- local RAIN_BUFFER_K = 2
+  local RAIN_BUFFER_K = 2
   local RAIN_SPEED = 15
   local RAIN_DIRECTION = V(1, 1):normalized_mut()
   local RAIN_VELOCITY = RAIN_DIRECTION * RAIN_SPEED * Constants.cell_size
 
   -- NEXT batch
   local rain_image = love.graphics.newImage("assets/sprites/standalone/rain_particle.png")
-  local sprite_empty = sprite.image("assets/sprites/standalone/empty.png")
 
   State:add({
     non_positional_ai_flag = true,
@@ -702,8 +701,12 @@ init_debug = function(self)
       _particles = {},
       observe = function(ai, entity, dt)
         local start, finish do
-          start = State.perspective.vision_start * Constants.cell_size
-          finish = (State.perspective.vision_end + Vector.one) * Constants.cell_size
+          local original_start = State.perspective.vision_start * Constants.cell_size
+          local original_finish = (State.perspective.vision_end + Vector.one) * Constants.cell_size
+
+          local d = (original_finish - original_start)
+          start = original_finish - d * RAIN_BUFFER_K
+          finish = original_start + d * RAIN_BUFFER_K
         end
 
         local d, cells_n do
