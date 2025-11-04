@@ -699,6 +699,7 @@ init_debug = function(self)
     },
     ai = {
       _particles = {},
+      _player_position = nil,
       observe = function(ai, entity, dt)
         local start, finish do
           local original_start = State.perspective.vision_start * Constants.cell_size
@@ -717,12 +718,20 @@ init_debug = function(self)
 
         local life_time = d / Constants.cell_size / RAIN_SPEED
 
+        local did_vision_change do
+          did_vision_change = ai._player_position ~= State.player.position
+          ai._player_position = State.player.position
+        end
+
         while State.period:absolute(life_time / RAIN_DENSITY / cells_n, ai, "emit_rain") do
           local target = Vector.use(Random.float, start, finish)
+          local target_cell = target / Constants.cell_size
 
           table.insert(ai._particles, {
             position = target - RAIN_DIRECTION * d,
+            target_cell = target_cell,
             life_time = life_time,
+            is_visible = api.is_visible(target_cell),
           })
         end
 
@@ -732,14 +741,21 @@ init_debug = function(self)
           for _, p in ipairs(ai._particles) do
             p.position = p.position + RAIN_VELOCITY * dt
             p.life_time = p.life_time - dt
-            love.graphics.draw(rain_image, unpack(p.position))
+            if did_vision_change then
+              p.is_visible = api.is_visible(p.target_cell)
+            end
+            if p.is_visible then
+              love.graphics.draw(rain_image, unpack(p.position))
+            end
           end
 
           for i = #ai._particles, 1, -1 do
             local p = ai._particles[i]
             if p.life_time <= 0 then
               Table.remove_breaking_at(ai._particles, i)
-              animated.add_fx("assets/sprites/animations/rain_impact", p.position / Constants.cell_size, "weather")
+              if p.is_visible then
+                animated.add_fx("assets/sprites/animations/rain_impact", p.position / Constants.cell_size, "weather")
+              end
             end
           end
         love.graphics.setCanvas()
