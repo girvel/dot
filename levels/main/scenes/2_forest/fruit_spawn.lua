@@ -87,7 +87,6 @@ return {
 
       --- TODO sometimes make sure that all the remaining points remain accessible
       local count = Table.count(self.unseen._inner_array)
-      Log.trace(count)
       if count == 0 then
         local p = Random.item(new)
         spawn_fruit(solids.godfruit(), function(e)
