@@ -677,8 +677,8 @@ end
 init_debug = function(self)
   if not State.debug then return end
 
-  local RAIN_DENSITY = 1/3
-  local RAIN_BUFFER_K = 2
+  -- local RAIN_DENSITY = 1/3
+  -- local RAIN_BUFFER_K = 2
   local RAIN_SPEED = 15
   local RAIN_DIRECTION = V(1, 1):normalized_mut()
   local RAIN_VELOCITY = RAIN_DIRECTION * RAIN_SPEED * Constants.cell_size
@@ -701,7 +701,29 @@ init_debug = function(self)
     ai = {
       _particles = {},
       observe = function(ai, entity, dt)
-        table.insert(ai._particles, {position = State.player.position * Constants.cell_size, life_time = 5})
+        local start, finish do
+          start = State.perspective.vision_start * Constants.cell_size
+          finish = (State.perspective.vision_end + Vector.one) * Constants.cell_size
+        end
+
+        local d do
+          local w, h = unpack(finish - start)
+          d = math.max(w, h)
+        end
+
+        local life_time = d / Constants.cell_size / RAIN_SPEED
+
+        -- while State.period:absolute(.01, ai, "emit_rain" do
+        --   local target = Vector.use(Random.float, start, finish)
+        -- end
+        
+        local target = Vector.use(Random.float, start, finish)
+
+        table.insert(ai._particles, {
+          position = target - RAIN_DIRECTION * d,
+          life_time = life_time,
+        })
+
         love.graphics.setCanvas(entity.sprite.image)
           love.graphics.clear(Vector.transparent)
 
@@ -709,6 +731,14 @@ init_debug = function(self)
             p.position = p.position + RAIN_VELOCITY * dt
             p.life_time = p.life_time - dt
             love.graphics.draw(rain_image, unpack(p.position))
+          end
+
+          for i = #ai._particles, 1, -1 do
+            local p = ai._particles[i]
+            if p.life_time <= 0 then
+              Table.remove_breaking_at(ai._particles, i)
+              animated.add_fx("assets/sprites/animations/rain_impact", p.position / Constants.cell_size, "weather")
+            end
           end
         love.graphics.setCanvas()
         -- local start, finish do
