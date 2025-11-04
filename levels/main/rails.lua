@@ -1,3 +1,4 @@
+local animated = require("engine.tech.animated")
 local sprite = require("engine.tech.sprite")
 local async = require("engine.tech.async")
 local shadows = require("levels.main.palette.shadows")
@@ -706,6 +707,9 @@ init_debug = function(self)
             layer = "weather",
             drift = RAIN_VELOCITY,
             life_time = life_time,
+            on_remove = function(e)
+              animated.add_fx("assets/sprites/animations/rain_impact", e.position, e.layer)
+            end,
           })
         end
       end,
