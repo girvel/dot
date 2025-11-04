@@ -677,36 +677,52 @@ end
 init_debug = function(self)
   if not State.debug then return end
 
+  local RAIN_DENSITY = 1/3
+  local RAIN_BUFFER_K = 2
   local RAIN_SPEED = 15
   local RAIN_DIRECTION = V(1, 1):normalized_mut()
   local RAIN_VELOCITY = RAIN_DIRECTION * RAIN_SPEED
-  local RAIN_DENSITY = 1/3
+
+  local sprite_rain = sprite.image("assets/sprites/standalone/rain_particle.png")
+  local sprite_empty = sprite.image("assets/sprites/standalone/empty.png")
 
   State:add({
     codename = "rain_emitter",
     ai = {
       observe = function(ai, entity, dt)
-        local start = State.perspective.vision_start
-        local finish = State.perspective.vision_end + Vector.one
+        local start, finish do
+          local original_start = State.perspective.vision_start
+          local original_finish = State.perspective.vision_end + Vector.one
+          local d = (original_finish - original_start)
+          start = original_finish - d:mul_mut(RAIN_BUFFER_K)
+          finish = original_start + d:mul_mut(RAIN_BUFFER_K)
+        end
+
         local d, area do
           local w, h = unpack(finish - start)
           d = math.max(w, h)
           area = w * h
         end
+
         local life_time = d / RAIN_SPEED
 
         while State.period:absolute(life_time / RAIN_DENSITY / area, ai, "emit_rain") do
-          -- NEXT expand
           local target = Vector.use(Random.float, start, finish)
 
           State:add({
             boring_flag = true,
             codename = "rain_particle",
-            sprite = sprite.image("assets/sprites/standalone/rain_particle.png"),
+            sprite = sprite_rain,
             position = target - RAIN_DIRECTION * d,
             layer = "weather",
             drift = RAIN_VELOCITY,
             life_time = life_time,
+            ai = {
+              observe = function(_, particle)
+                -- NEXT OPT
+                particle.sprite = api.is_visible(target) and sprite_rain or sprite_empty
+              end,
+            },
             on_remove = function(e)
               animated.add_fx("assets/sprites/animations/rain_impact", e.position, e.layer)
             end,
