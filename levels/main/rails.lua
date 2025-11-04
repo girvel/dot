@@ -677,7 +677,7 @@ end
 init_debug = function(self)
   if not State.debug then return end
 
-  -- local RAIN_DENSITY = 1/3
+  local RAIN_DENSITY = 1/3
   -- local RAIN_BUFFER_K = 2
   local RAIN_SPEED = 15
   local RAIN_DIRECTION = V(1, 1):normalized_mut()
@@ -706,23 +706,22 @@ init_debug = function(self)
           finish = (State.perspective.vision_end + Vector.one) * Constants.cell_size
         end
 
-        local d do
+        local d, cells_n do
           local w, h = unpack(finish - start)
           d = math.max(w, h)
+          cells_n = w * h / Constants.cell_size^2
         end
 
         local life_time = d / Constants.cell_size / RAIN_SPEED
 
-        -- while State.period:absolute(.01, ai, "emit_rain" do
-        --   local target = Vector.use(Random.float, start, finish)
-        -- end
-        
-        local target = Vector.use(Random.float, start, finish)
+        while State.period:absolute(life_time / RAIN_DENSITY / cells_n, ai, "emit_rain") do
+          local target = Vector.use(Random.float, start, finish)
 
-        table.insert(ai._particles, {
-          position = target - RAIN_DIRECTION * d,
-          life_time = life_time,
-        })
+          table.insert(ai._particles, {
+            position = target - RAIN_DIRECTION * d,
+            life_time = life_time,
+          })
+        end
 
         love.graphics.setCanvas(entity.sprite.image)
           love.graphics.clear(Vector.transparent)
