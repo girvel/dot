@@ -488,9 +488,12 @@ local cache
 
 --- @param position vector
 methods.is_indoors = function(self, position)
-  if not cache then cache = Grid.new(State.level.grid_size) end
+  if not cache then
+    cache = Grid.new(State.level.grid_size)
+    Ldump.ignore_size(cache)
+  end
 
-  local result = cache:slow_get(position)
+  local result = cache:slow_get(position, false)
   if result ~= nil then return result end
 
   local starts = State.runner:position_sequence("house")
@@ -667,9 +670,14 @@ init_shadows = function(self)
   for x = 1, size.x do
   for y = 1, size.y do
     local n = shadow_values:unsafe_get(x, y)
-    if n > 0 and not State.grids.shadows:unsafe_get(x, y) then
-      State:add(shadows[16 - n](), {position = V(x, y), grid_layer = "shadows"})
-    end
+    if n == 0 or State.grids.shadows:unsafe_get(x, y) then goto continue end
+
+    local position = V(x, y)
+    if self:is_indoors(position) then goto continue end
+
+    State:add(shadows[16 - n](), {position = position, grid_layer = "shadows"})
+
+    ::continue::
   end
   end
 end
