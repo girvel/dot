@@ -1,7 +1,7 @@
 love.conf = function(t)
   t.console = true
   t.window.title = "Fallen engine demo"
-  t.window.icon = "engine/assets/sprites/moose_dude.png"
+  t.window.icon = "engine/assets/sprites/standalone/moose_dude.png"
   t.window.resizable = true
   -- t.window.fullscreen = true
   t.window.width = 720

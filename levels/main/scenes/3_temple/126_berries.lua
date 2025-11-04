@@ -49,7 +49,7 @@ return {
 
         local nea = {
           codename = "nea",
-          sprite = sprite.image("assets/sprites/nea.png"),
+          sprite = sprite.image("assets/sprites/standalone/nea.png"),
           position = ps.nea,
           layer = "fx_over",
           boring_flag = true,
@@ -78,7 +78,7 @@ return {
         blink(.05)
 
         async.sleep(1)
-        nea.sprite = sprite.image("assets/sprites/nea_eyes.png")
+        nea.sprite = sprite.image("assets/sprites/standalone/nea_eyes.png")
         blink(.05)
 
         async.sleep(2)

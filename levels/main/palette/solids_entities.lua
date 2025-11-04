@@ -34,7 +34,7 @@ end
 
 solids_entities.path_blocker = function()
   return {
-    sprite = sprite.image("assets/sprites/empty.png"),
+    sprite = sprite.image("assets/sprites/standalone/empty.png"),
     codename = "path_blocker",
     transparent_flag = true,
   }
