@@ -679,6 +679,10 @@ init_debug = function(self)
   if not State.debug then return end
 
   local this_rain = State:add(rain.new(1/3, 15))
+  State.runner:run_task(function()
+    async.sleep(10)
+    this_rain.rain_density = 1
+  end)
 end
 
 
