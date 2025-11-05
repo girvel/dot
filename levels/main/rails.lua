@@ -1,6 +1,4 @@
 local rain = require("engine.tech.rain")
-local animated = require("engine.tech.animated")
-local sprite = require("engine.tech.sprite")
 local async = require("engine.tech.async")
 local shadows = require("levels.main.palette.shadows")
 local colors = require("engine.tech.colors")
@@ -53,6 +51,7 @@ local rails = {}
 --- @field _scenes_by_location table
 --- @field _snow entity[]
 --- @field _water entity[]
+--- @field _rain rain?
 local methods = {}
 local mt = {__index = methods}
 
@@ -516,6 +515,11 @@ methods.nea_meet = function(self)
   self.met_nea = true
 end
 
+methods.rain_start = function(self)
+  assert(self._rain == nil)
+  self._rain = State:add(rain.new(1/6, 15))
+end
+
 
 ----------------------------------------------------------------------------------------------------
 -- [SECTION] Initialization
@@ -690,12 +694,6 @@ end
 --- @param self rails
 init_debug = function(self)
   if not State.debug then return end
-
-  local this_rain = State:add(rain.new(1/3, 15))
-  State.runner:run_task(function()
-    async.sleep(10)
-    this_rain.rain_density = 1
-  end)
 end
 
 

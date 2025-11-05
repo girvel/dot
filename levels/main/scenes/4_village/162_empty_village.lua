@@ -14,6 +14,8 @@ return {
     end,
 
     run = function(self, ch, ps)
+      State.rails:rain_start()
+
       local sp = screenplay.new("assets/screenplay/162_empty_village.ms", ch)
         sp:lines()
       sp:finish()
