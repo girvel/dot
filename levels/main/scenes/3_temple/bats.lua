@@ -35,7 +35,7 @@ return {
     run = function(self, ch, ps, i, activated_p)
       self._ps[i] = nil
       if Table.count(self._ps) == 0 then
-        self.enabled = false
+        State.runner:remove(self)
       end
 
       local counter = 0

@@ -87,7 +87,7 @@ return {
         end
         sp:finish_options()
 
-        self.enabled = false
+        State.runner:remove(self)
         api.travel_scripted(ch.player, ps.sl_start)
         sp:lines()
 

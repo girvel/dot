@@ -36,7 +36,7 @@ return {
       if self._counter >= 3 then
         State.hostility:set(ch.likka.faction, State.player.faction, "enemy")
         ch.likka.essential_flag = nil
-        self.enabled = false
+        State.runner:remove(self)
         State.hostility:unsubscribe(self._sub)
         State:start_combat({ch.player, ch.likka})
         return

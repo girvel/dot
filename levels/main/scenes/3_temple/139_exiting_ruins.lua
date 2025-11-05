@@ -32,7 +32,7 @@ return {
           if not State:exists(ch.likka) then
             if api.options(sp:start_options()) == 1 then
               State.rails:temple_exit()
-              self.enabled = false
+              State.runner:remove(self)
             end
             sp:finish_options()
             return
@@ -51,7 +51,7 @@ return {
         end
         sp:finish_options()
 
-        self.enabled = false
+        State.runner:remove(self)
         State.rails:temple_exit()
         api.rotate(ch.player, ch.likka)
         sp:lines()

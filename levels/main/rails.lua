@@ -747,7 +747,7 @@ checkpoints.cpt = function(self)
   item.give(State.player, State:add(items_entities.axe()))
   item.give(State.player, State:add(items_entities.small_shield()))
 
-  State.runner.scenes._100_saving_likka.enabled = false
+  State.runner:remove("_100_saving_likka")
 end
 
 --- @param self rails
@@ -771,7 +771,7 @@ checkpoints.cpt2 = function(self)
 
   health.damage(ch.cpt2_cobweb, 1)
 
-  State.runner.scenes._100_saving_likka.enabled = false
+  State.runner:remove("_100_saving_likka")
 end
 
 --- @param self rails
@@ -796,7 +796,7 @@ checkpoints.cpt3 = function(self)
 
   health.damage(ch.cpt2_cobweb, 1)
 
-  State.runner.scenes._100_saving_likka.enabled = false
+  State.runner:remove("_100_saving_likka")
 end
 
 --- @param self rails

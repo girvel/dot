@@ -77,13 +77,13 @@ return {
           return
         end
         sp:finish_options()
-        self.enabled = nil
+        State.runner:remove(self)
 
         local feast_scene = State.runner.scenes._020_feast
         for _, scene in ipairs(feast_scene.final_dancing_scenes) do
           State.runner:stop(scene)
         end
-        feast_scene.enabled = nil
+        State.runner:remove(feast_scene)
 
         ch.red_priest:rotate(Vector.right)
         ch.khaned:rotate(Vector.down)
