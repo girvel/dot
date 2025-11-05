@@ -31,9 +31,9 @@ local get_base = function(codename)
   return {}
 end
 
-local is_in_perspective = function(codename)
-  return codename == "statuet" or nil
-end
+local perspective = Table.set {
+  "statuet", "vines",
+}
 
 on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constants.cell_size, {
   "vines",    "vines",   "vines",   "cobweb", "cobweb", "statuet", "statuet", "window",
@@ -50,7 +50,7 @@ on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constan
 }, function(codename)
   local result = get_base(codename)
   result.boring_flag = true
-  result.perspective_flag = is_in_perspective(codename)
+  result.perspective_flag = perspective[codename]
   return result
 end)
 
