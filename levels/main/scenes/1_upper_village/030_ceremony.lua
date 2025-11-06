@@ -5,14 +5,6 @@ local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
 
 
-local CROWD = {
-  "boy_1", "boy_2", "boy_3",
-  "girl_1", "girl_2", "girl_3",
-  "thrower_1", "thrower_2", "thrower_3", "thrower_4", "thrower_5",
-  "watcher_1", "watcher_2", "watcher_3", "watcher_4",
-  "extra_dancer", "green_priest",
-}
-
 return {
   --- @type scene
   _030_ceremony = {
@@ -87,7 +79,7 @@ return {
 
         ch.red_priest:rotate(Vector.right)
         ch.khaned:rotate(Vector.down)
-        for _, name in ipairs(CROWD) do
+        for _, name in ipairs(State.rails:get_crowd()) do
           local e = State.runner.entities[name]
           if State:exists(e) then
             State.runner:run_task(function()

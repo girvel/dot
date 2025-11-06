@@ -22,7 +22,7 @@ local rails = {}
 
 
 ----------------------------------------------------------------------------------------------------
--- [SECTION] State management
+-- [SECTION] State
 ----------------------------------------------------------------------------------------------------
 
 --- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"|"4_village"?
@@ -74,6 +74,56 @@ rails.new = function()
     _water = {},
   }, mt)
 end
+
+
+----------------------------------------------------------------------------------------------------
+-- [SECTION] Helpers
+----------------------------------------------------------------------------------------------------
+
+local cache
+
+--- @param position vector
+--- @return boolean
+methods.is_indoors = function(self, position)
+  if not cache then
+    cache = Grid.new(State.level.grid_size)
+    Ldump.ignore_size(cache)
+  end
+
+  local result = cache:slow_get(position, false)
+  if result ~= nil then return result end
+
+  local starts = State.runner:position_sequence("house")
+  local ends = State.runner:position_sequence("house_end")
+  result = false
+
+  for i = 1, #starts do
+    if starts[i] <= position and position <= ends[i] then
+      result = true
+      break
+    end
+  end
+
+  cache[position] = result
+  return result
+end
+
+--- @return entity[]
+methods.get_crowd = Memoize(function()
+  return Fun.iter({
+    "boy_1", "boy_2", "boy_3",
+    "girl_1", "girl_2", "girl_3",
+    "thrower_1", "thrower_2", "thrower_3", "thrower_4", "thrower_5",
+    "watcher_1", "watcher_2", "watcher_3", "watcher_4",
+    "extra_dancer", "green_priest"})
+    :map(function(id) return State.runner.entities[id] end)
+    :totable()
+end)
+
+
+----------------------------------------------------------------------------------------------------
+-- [SECTION] Transitions
+----------------------------------------------------------------------------------------------------
 
 --- @param location rails_location
 --- @param forced boolean?
@@ -186,6 +236,8 @@ methods.winter_end = function(self)
   end
 
   local ps = State.runner.positions
+  local ch = State.runner.entities
+
   local start = ps.create_water_start
   local finish = ps.create_water_finish
   for x = start.x, finish.x do
@@ -215,10 +267,15 @@ methods.winter_end = function(self)
     water.water_velocity = water.water_velocity * 4
   end
 
-  State.shader = nil
-  self.winter = "ended"
+  api.travel_crowd(self:get_crowd(), ps.massacre_crowd, ps.feast_pyre):next(function()
+    api.assert_position(ch.green_priest, ps.feast_throw_priest, true)
+    api.assert_position(ch.red_priest, ps.massacre_red_priest, true)
+  end)
 
+  State.shader = nil
   Log.info("Winter ends")
+
+  self.winter = "ended"
 end
 
 local feast_base = {
@@ -364,7 +421,7 @@ methods.khaned_leaves = function(self)
 
   local ch = State.runner.entities
   local ps = State.runner.positions
-  api.assert_position(ch.khaned, ps.feast_sac_1)
+  api.assert_position(ch.khaned, ps.feast_sac_3)
   if State:exists(ch.khaned_fruit) then
     Log.warn("Khaned's fruit not properly removed")
     State:remove(ch.khaned_fruit)
@@ -481,33 +538,6 @@ methods.empathy_finalize = function(self)
   else
     self.empathy = "denied"
   end
-end
-
-local cache
-
---- @param position vector
-methods.is_indoors = function(self, position)
-  if not cache then
-    cache = Grid.new(State.level.grid_size)
-    Ldump.ignore_size(cache)
-  end
-
-  local result = cache:slow_get(position, false)
-  if result ~= nil then return result end
-
-  local starts = State.runner:position_sequence("house")
-  local ends = State.runner:position_sequence("house_end")
-  result = false
-
-  for i = 1, #starts do
-    if starts[i] <= position and position <= ends[i] then
-      result = true
-      break
-    end
-  end
-
-  cache[position] = result
-  return result
 end
 
 methods.nea_meet = function(self)

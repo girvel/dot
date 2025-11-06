@@ -1,5 +1,7 @@
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
+
+
 return {
   --- @type scene
   _170_massacre = {
@@ -26,6 +28,8 @@ return {
           or 3
 
         sp:start_single_branch(n)
+          api.move_camera(ps.feast_pyre):wait()
+
           local prev_rotation
           if n == 1 then
             prev_rotation = ch.likka.direction
@@ -45,7 +49,9 @@ return {
           end
         sp:finish_single_branch()
 
-        api.travel_scripted(ch.player, ps.feast_sac_3):wait()
+        api.free_camera()
+        api.travel_scripted(ch.player, ps.feast_sac_1):wait()
+
         sp:start_single_branch()
           if not likka_there and not khaned_there then
             sp:lines()

@@ -39,7 +39,7 @@ return {
         State:remove(ch.khaned_fruit)
 
         async.sleep(.3)
-        api.fast_travel(ch.khaned, ps.sk_khaned_ft, ps.feast_sac_1):wait()
+        api.fast_travel(ch.khaned, ps.sk_khaned_ft, ps.feast_sac_3):wait()
         State.rails:khaned_leaves()
       sp:finish()
     end,
