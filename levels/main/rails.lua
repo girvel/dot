@@ -267,7 +267,7 @@ methods.winter_end = function(self)
     water.water_velocity = water.water_velocity * 4
   end
 
-  api.travel_crowd(self:get_crowd(), ps.massacre_crowd, ps.feast_pyre):next(function()
+  api.travel_crowd(self:get_crowd(), ps.massacre_crowd):next(function()
     api.assert_position(ch.green_priest, ps.feast_throw_priest, true)
     api.assert_position(ch.red_priest, ps.massacre_red_priest, true)
   end)

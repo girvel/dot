@@ -61,7 +61,12 @@ return {
         sp:finish_single_branch()
 
         ch.player:rotate(Vector.up)
-        ch.green_priest:animate("clap")
+        ch.green_priest:rotate(Vector.down)
+        ch.green_priest:animate("clap"):next(function()
+          for _, e in ipairs(State.rails:get_crowd()) do
+            api.rotate(e, ps.feast_pyre)
+          end
+        end)
         sp:lines()
       sp:finish()
     end,
