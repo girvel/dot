@@ -165,7 +165,7 @@ end
 
 npcs.green_priest = function()
   return creature.make(humanoid.mixin(), {
-    name = "Бирюзовый жрец",
+    name = "Жрец",
     codename = "green_priest",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
     level = 3,

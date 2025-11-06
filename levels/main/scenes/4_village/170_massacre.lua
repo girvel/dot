@@ -43,18 +43,18 @@ return {
           elseif n == 3 then
             ch.green_priest:rotate(prev_rotation)
           end
-
-          api.travel_scripted(ch.player, ps.feast_sac_3):wait()
-          sp:start_single_branch()
-            if not likka_there and not khaned_there then
-              sp:lines()
-            end
-          sp:finish_single_branch()
-
-          ch.player:rotate(Vector.up)
-          ch.green_priest:animate("clap")
-          sp:lines()
         sp:finish_single_branch()
+
+        api.travel_scripted(ch.player, ps.feast_sac_3):wait()
+        sp:start_single_branch()
+          if not likka_there and not khaned_there then
+            sp:lines()
+          end
+        sp:finish_single_branch()
+
+        ch.player:rotate(Vector.up)
+        ch.green_priest:animate("clap")
+        sp:lines()
       sp:finish()
     end,
   },
