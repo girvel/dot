@@ -550,6 +550,11 @@ methods.rain_start = function(self)
   self._rain = State:add(rain.new(1/6, 15))
 end
 
+methods.rain_intensify = function(self)
+  assert(self._rain)
+  self._rain.rain_density = 1/2
+end
+
 
 ----------------------------------------------------------------------------------------------------
 -- [SECTION] Initialization

@@ -22,6 +22,8 @@ return {
       local likka_there = State.rails.likka_status == "village"
       local khaned_there = State.rails.khaned_status == "survived"
 
+      State.rails:rain_intensify()
+
       local sp = screenplay.new("assets/screenplay/170_massacre.ms", ch)
         local n = likka_there and 1
           or khaned_there and 2
