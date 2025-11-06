@@ -116,6 +116,7 @@ Ldump.ignore_upvalue_size(throw_snow)
 return {
   _020_feast = {
     enabled = true,
+    mode = "disable",
 
     characters = {
       player = {},
