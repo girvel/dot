@@ -629,31 +629,28 @@ init_factions = function(self)
   -- player is likka's ally only inside the temple
 end
 
---- @param self rails
-init_loot = function(self)
-  local starts = State.runner:position_sequence("loot_temple")
-  local ends = State.runner:position_sequence("loot_temple_end")
+--- @param sequence string
+--- @param money integer
+--- @param items item[]
+local put_loot = function(sequence, money, items)
+  local starts = State.runner:position_sequence(sequence)
+  local ends = State.runner:position_sequence(sequence .. "_end")
 
-  local temple_containers = {}
-  for e in pairs(State._entities) do
-    if not e._is_container then goto continue end
-    for i = 1, #starts do
-      if starts[i] <= e.position and e.position <= ends[i] then
-        table.insert(temple_containers, e)
-        break
+  local containers = {}
+  for _, start, finish in Fun.zip(starts, ends) do
+    for _, _, v in State.grids.solids:rectv(start, finish) do
+      if v and v._is_container then
+        containers[v] = true
       end
     end
-
-    ::continue::
   end
 
-  local money_dist = Random.distribute(1620, #temple_containers)
-  local item_dist = Random.distribute_items(
-    {items_entities.ritual_blade(), items_entities.shield()},
-    #temple_containers
-  )
+  containers = Table.keys(containers)
 
-  for _, e, amount, items in Fun.zip(temple_containers, money_dist, item_dist) do
+  local money_dist = Random.distribute(money, #containers)
+  local item_dist = Random.distribute_items(items, #containers)
+
+  for _, e, amount, dropped_items in Fun.zip(containers, money_dist, item_dist) do
     local base_interact = assert(e.on_interact)
     e.on_interact = function(self_e, other)
       if other ~= State.player then return end
@@ -662,13 +659,19 @@ init_loot = function(self)
         State:add(floater.new("+" .. amount, State.player.position, colors.white))
         sound.multiple("assets/sounds/money", .15):play()
       end
-      item.drops(e.position, unpack(items))
+      item.drops(e.position, unpack(dropped_items))
       base_interact(self_e, other)
     end
     Ldump.ignore_upvalue_size(e.on_interact)
   end
 
-  Log.info("Distributed temple loot between %s containers", #temple_containers)
+  Log.info("Distributed loot in %q between %s containers", sequence, #containers)
+end
+
+--- @param self rails
+init_loot = function(self)
+  put_loot("loot_temple", 1200, {items_entities.ritual_blade(), items_entities.shield()})
+  put_loot("house", 420, {items_entities.bear_spear(), items_entities.long_bow()})
 end
 
 --- @param self rails
@@ -698,7 +701,7 @@ init_shadows = function(self)
 
   local shadow_values = Grid.new(size, function() return 0 end)
   for _, tree in ipairs(trees) do
-    for x, y, v in shadow_values:rect(tree.x - R1, tree.x + R1, tree.y - R1, tree.y + R1) do
+    for x, y, v in shadow_values:rect(tree.x - R1, tree.y - R1, tree.x + R1, tree.y + R1) do
       local d_sq = (x - tree.x)^2 + (y - tree.y)^2 + math.random(-2, 2)
       local value
       if d_sq <= R2_SQ then

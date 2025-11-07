@@ -153,6 +153,23 @@ items_entities.short_bow = function()
   )
 end
 
+items_entities.long_bow = function()
+  return Table.extend(
+    item.mixin("assets/sprites/animations/long_bow"),
+    {
+      name = "длинный лук",
+      codename = "long_bow",
+      damage_roll = D(8),
+      tags = {
+        two_handed = true,
+        ranged = true,
+      },
+      slot = "offhand",
+      projectile_factory = arrow,
+    }
+  )
+end
+
 items_entities.small_shield = function()
   return Table.extend(item.mixin("assets/sprites/animations/small_shield"), {
     name = "маленький щит",
