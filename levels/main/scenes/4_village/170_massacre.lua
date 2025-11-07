@@ -1,6 +1,34 @@
+local item = require("engine.tech.item")
+local animated = require("engine.tech.animated")
+local async = require("engine.tech.async")
+local core = require("levels.main.core")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
 
+
+local godfruit_item = function()
+  return Table.extend(
+    animated.mixin("assets/sprites/animations/godfruit"),
+    item.mixin_min("hand"),
+    {
+      codename = "godfruit",
+      boring_flag = true,
+    }
+  )
+end
+
+local sac_fruit = function(actor)
+  api.rotate(actor, State.runner.positions.feast_pyre)
+
+  async.sleep(1.5)
+  local offhand = actor.offhand
+  actor.inventory.offhand = State:add(godfruit_item())
+
+  async.sleep(1.5)
+  actor:animate("interact"):wait()
+  State:remove(actor.inventory.offhand)
+  actor.inventory.offhand = offhand
+end
 
 return {
   --- @type scene
@@ -62,12 +90,61 @@ return {
 
         ch.player:rotate(Vector.up)
         ch.green_priest:rotate(Vector.down)
+
+        async.sleep(1)
         ch.green_priest:animate("clap"):next(function()
           for _, e in ipairs(State.rails:get_crowd()) do
             api.rotate(e, ps.feast_pyre)
           end
         end)
         sp:lines()
+
+        if khaned_there then
+          api.assert_position(ch.khaned, ps.feast_sac_3)
+          sac_fruit(ch.khaned)
+        end
+
+        if likka_there then
+          api.assert_position(ch.likka, ps.feast_sac_2)
+          sac_fruit(ch.likka)
+        end
+
+        sp:start_single_branch(State.rails.has_fruit and 1 or 2)
+          if State.rails.has_fruit then
+            sp:start_single_branch(ch.player:ability_check("performance", 12) and 1 or 2)
+              local p = State.runner:run_task(function() sac_fruit(ch.player) end)
+              sp:lines()
+              p:wait()
+            sp:finish_single_branch()
+          else
+            sp:lines()
+
+            sp:start_single_branch(ch.player:ability_check("performance", 12) and 1 or 2)
+              sp:lines()
+              sp:start_single_branch()
+                if not likka_there and not khaned_there then
+                  sp:lines()
+                end
+              sp:finish_single_branch()
+            sp:finish_single_branch()
+
+            if likka_there or khaned_there then
+              sp:lines()
+            end
+          end
+        sp:finish_single_branch()
+
+        async.sleep(1)
+        -- SOUND ominous
+        sp:lines()
+
+        n = likka_there and khaned_there and 1
+          or likka_there and 2
+          or khaned_there and 3
+          or 4
+        sp:start_single_branch(n)
+          sp:lines()
+        sp:finish_single_branch()
       sp:finish()
     end,
   },

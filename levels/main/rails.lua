@@ -416,14 +416,19 @@ methods.khaned_offscreen_death = function(self)
   self.khaned_status = "dead"
 end
 
-methods.khaned_leaves = function(self)
+methods.khaned_leaves = function(self, forced)
   assert(self.khaned_status == nil)
 
   local ch = State.runner.entities
   local ps = State.runner.positions
-  api.assert_position(ch.khaned, ps.feast_sac_3)
+
+  api.assert_position(ch.khaned, ps.feast_sac_3, forced)
+  api.rotate(ch.khaned, ps.feast_pyre)
+
   if State:exists(ch.khaned_fruit) then
-    Log.warn("Khaned's fruit not properly removed")
+    if not forced then
+      Log.warn("Khaned's fruit not properly removed")
+    end
     State:remove(ch.khaned_fruit)
   end
   api.autosave("Лес - Пришелец побеждён")
@@ -441,12 +446,13 @@ methods.likka_died = function(self)
   self.likka_status = "dead"
 end
 
-methods.likka_went_to_village = function(self)
+methods.likka_went_to_village = function(self, forced)
   assert(self.likka_status == nil)
 
   local ch = State.runner.entities
   local ps = State.runner.positions
-  api.assert_position(ch.likka, ps.feast_sac_2)
+  api.assert_position(ch.likka, ps.feast_sac_2, forced)
+  api.rotate(ch.likka, ps.feast_pyre)
 
   self.likka_status = "village"
 end
@@ -843,6 +849,8 @@ checkpoints.cp4 = function(self)
   self:seekers_start()
   self:fruit_take_own({})
   self:location_village(true)
+  self:likka_went_to_village(true)
+  self:khaned_leaves(true)
 
   api.assert_position(State.player, State.runner.positions.cp4, true)
   item.give(State.player, State:add(items_entities.axe()))

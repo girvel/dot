@@ -1,3 +1,4 @@
+local core = require("levels.main.core")
 local projectile = require("engine.tech.projectile")
 local animated = require("engine.tech.animated")
 local async = require("engine.tech.async")

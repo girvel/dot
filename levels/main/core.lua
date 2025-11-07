@@ -1,3 +1,4 @@
+local animated = require("engine.tech.animated")
 local api = require("engine.tech.api")
 local item = require("engine.tech.item")
 local interactive = require("engine.tech.interactive")
