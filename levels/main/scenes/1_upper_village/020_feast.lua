@@ -216,14 +216,14 @@ return {
             api.rotate(guy, fruit_pos)
             async.sleep(1)
             guy:animate("interact"):wait()
-            guy.inventory.hand = State:add(fruit_new())
+            guy.inventory.offhand = State:add(fruit_new())
             async.sleep(1)
 
             api.travel_scripted(guy, sac_pos):wait()
             api.rotate(guy, ps.feast_pyre)
             guy:animate("interact"):wait()
-            State:remove(guy.inventory.hand)
-            guy.inventory.hand = nil
+            State:remove(guy.inventory.offhand)
+            guy.inventory.offhand = nil
           end, "sac_fruit")
         end
 
