@@ -267,10 +267,18 @@ methods.winter_end = function(self)
     water.water_velocity = water.water_velocity * 4
   end
 
-  api.assert_position(ch.blocker_1, ps.blocker_move_1)
-  api.assert_position(ch.blocker_2, ps.blocker_move_2)
+  api.assert_position(ch.blocker_1, ps.blocker_move_1, true)
+  api.assert_position(ch.blocker_2, ps.blocker_move_2, true)
   api.rotate(ch.blocker_1, ps.feast_pyre)
   api.rotate(ch.blocker_2, ps.feast_pyre)
+
+  for i = 1, 3 do
+    State.runner.entities["dungeon_blocker_" .. i] = State:add(
+      solids_entities.path_blocker(),
+      {position = ps["dungeon_entrance_" .. i], grid_layer = "solids"}
+    )
+  end
+
   api.travel_crowd(self:get_crowd(), ps.massacre_crowd):next(function()
     api.assert_position(ch.green_priest, ps.feast_throw_priest, true)
     api.assert_position(ch.red_priest, ps.massacre_red_priest, true)
