@@ -79,8 +79,7 @@ return {
 
         ch.red_priest:rotate(Vector.right)
         ch.khaned:rotate(Vector.down)
-        for _, name in ipairs(State.rails:get_crowd()) do
-          local e = State.runner.entities[name]
+        for _, e in ipairs(State.rails:get_crowd()) do
           if State:exists(e) then
             State.runner:run_task(function()
               api.travel_persistent(e, ps.ceremony_crowd, 2)
@@ -147,8 +146,7 @@ return {
         sp:lines()
 
         ch.red_priest:animate("gesture"):wait()
-        for _, name in ipairs(CROWD) do
-          local e = State.runner.entities[name]
+        for _, e in ipairs(State.rails:get_crowd()) do
           if State:exists(e) and Random.chance(.8) then
             local animation_name = Random.choice("fast_gesture", "clap")
             State.runner:run_task(function()
