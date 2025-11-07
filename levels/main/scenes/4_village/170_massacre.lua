@@ -34,6 +34,7 @@ return {
   --- @type scene
   _170_massacre = {
     enabled = true,
+    mode = "sequential",
     characters = {
       player = {},
       likka = {optional = true},
@@ -42,17 +43,29 @@ return {
     },
 
     start_predicate = function(self, dt, ch, ps)
-      return api.distance(ch.player, ps.ma_start_1) <= 2
-        or api.distance(ch.player, ps.ma_start_2) <= 2
+      for i = 1, 3 do
+        if api.distance(ch.player, ps["ma_start_" .. i]) <= 2 then
+          return true, i
+        end
+      end
     end,
 
-    run = function(self, ch, ps)
+    run = function(self, ch, ps, entrance_i)
       local likka_there = State.rails.likka_status == "village"
       local khaned_there = State.rails.khaned_status == "survived"
 
-      State.rails:rain_intensify()
-
       local sp = screenplay.new("assets/screenplay/170_massacre.ms", ch)
+        sp:lines()
+
+        if api.options(sp:start_options()) == 1 then
+          api.travel_scripted(ch.player, ps["ma_away_" .. entrance_i]):wait()
+          return
+        end
+        sp:finish_options()
+
+        State.runner:remove(self)
+        State.rails:rain_intensify()
+
         local n = likka_there and 1
           or khaned_there and 2
           or 3

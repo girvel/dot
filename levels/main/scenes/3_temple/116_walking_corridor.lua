@@ -19,7 +19,7 @@ return {
       return is_forced or (State.player.position - ps.wc_start):abs2() <= 1, is_forced
     end,
 
-    run = function(self, ch, ps, _, is_forced)
+    run = function(self, ch, ps, is_forced)
       local sp = screenplay.new("assets/screenplay/116_walking_corridor.ms", ch)
         core.bring_likka()
         sp:lines()

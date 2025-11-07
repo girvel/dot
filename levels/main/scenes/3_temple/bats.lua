@@ -27,7 +27,7 @@ return {
     start_predicate = function(self, dt, ch, ps)
       for i, p in pairs(self._ps) do
         if (ch.player.position - p):abs2() <= 3 then
-          return i, p
+          return true, i, p
         end
       end
     end,
