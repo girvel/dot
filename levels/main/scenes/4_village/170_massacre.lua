@@ -304,6 +304,7 @@ return {
                   api.travel_scripted(ch.watcher_3, ch.likka)
                 )
               end
+              ch.green_priest:animate("fast_gesture")
               sp:lines()
               p:wait()
             sp:finish_single_branch()
@@ -337,6 +338,34 @@ return {
                   api.travel_scripted(ch.watcher_3, ch.player):wait()
                   ch.watcher_3:animate("hand_attack"):wait()
                   health.set_hp(State.player, math.min(State.player.hp, 6))
+
+                  sp:lines()
+                  -- TODO achievement on return
+
+                  health.damage(State.player, 1)
+                  if State.player.hp == 0 then return end
+                  sp:lines()
+
+                  health.damage(State.player, 1)
+                  if State.player.hp == 0 then return end
+                  State.player:animation_freeze("lying")
+                  sp:lines()
+
+                  health.damage(State.player, 1)
+                  if State.player.hp == 0 then return end
+                  sp:lines()
+
+                  health.damage(State.player, 1)
+                  api.rotate(ch.likka, Vector.right)
+                  if State.player.hp == 0 then return end
+                  sp:lines()
+
+                  health.damage(State.player, 1)
+                  if State.player.hp == 0 then return end
+                  sp:lines()
+
+                  health.set_hp(State.player, 0)
+                  return
                 sp:finish_option()
               end
             sp:finish_options()
