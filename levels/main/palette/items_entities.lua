@@ -261,5 +261,13 @@ items_entities.invader_armor = function()
   })
 end
 
+items_entities.priest_robes = function()
+  return Table.extend(item.mixin("assets/sprites/animations/priest_robes"), {
+    name = "белая рубаха",
+    codename = "priest_robes",
+    slot = "body",
+  })
+end
+
 Ldump.mark(items_entities, "const", ...)
 return items_entities

@@ -1,7 +1,7 @@
+local cleric = require("engine.mech.class.cleric")
 local poisoned = require("engine.mech.conditions.poisoned")
 local sprite = require("engine.tech.sprite")
 local mark = require("engine.tech.mark")
-local health = require("engine.mech.health")
 local animated = require("engine.tech.animated")
 local abilities = require("engine.mech.abilities")
 local humanoid    = require("engine.mech.humanoid")
@@ -157,7 +157,7 @@ npcs.red_priest = function()
     },
     faction = "village",
     perks = {
-      class.hit_dice(8),
+      cleric.hit_dice,
     },
     essential_flag = true,
   })
@@ -175,7 +175,7 @@ npcs.green_priest = function()
     },
     faction = "village",
     perks = {
-      class.hit_dice(8),
+      cleric.hit_dice,
     },
     essential_flag = true,
   })
@@ -197,9 +197,61 @@ npcs.invader = function(faction)
     perks = {
       fighter.hit_dice,
       fighter.second_wind,
+      fighter.fighting_styles.defence,
+      class.skill_proficiency("athletics"),
+      class.skill_proficiency("acrobatics"),
+    },
+    essential_flag = true,
+  })
+
+  creature.init(result)
+  return result
+end
+
+npcs.invader_commander = function()
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+    name = "Пришелец",
+    codename = "invader",
+    base_abilities = abilities.new(18, 16, 16, 8, 8, 8),
+    level = 6,
+    ai = combat_ai.new(),
+    inventory = {
+      head = items.invader_helmet(),
+      body = items.invader_armor(),
+      offhand = items.shield(),
+      hand = items.sword(),
+    },
+    faction = "invaders",
+    perks = {
+      fighter.hit_dice,
+      fighter.second_wind,
+      fighter.action_surge,
       fighter.fighting_styles.defense,
       class.skill_proficiency("athletics"),
       class.skill_proficiency("acrobatics"),
+    },
+    essential_flag = true,
+  })
+
+  creature.init(result)
+  return result
+end
+
+npcs.invader_priest = function()
+  local result = Table.extend(humanoid.mixin(), creature.mixin(), {
+    name = "Пришелец",
+    codename = "invader",
+    base_abilities = abilities.new(8, 16, 16, 8, 18, 8),
+    level = 6,
+    ai = combat_ai.new(),
+    inventory = {
+      body = items.priest_robes(),
+    },
+    faction = "invaders",
+    perks = {
+      cleric.hit_dice,
+      class.skill_proficiency("history"),
+      class.skill_proficiency("religion"),
     },
     essential_flag = true,
   })

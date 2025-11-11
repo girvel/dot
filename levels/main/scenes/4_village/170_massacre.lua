@@ -1,3 +1,4 @@
+local npcs = require("levels.main.palette.npcs")
 local level = require("engine.tech.level")
 local health = require("engine.mech.health")
 local items_entities = require("levels.main.palette.items_entities")
@@ -250,10 +251,9 @@ return {
               api.rotate(ch.player, ch.khaned)
             end):wait()
 
-            async.sleep(4)
             sp:lines()
 
-            async.sleep(2)
+            async.sleep(4)
             ch.khaned.essential_flag = nil
             health.set_hp(ch.khaned, 0)
 
@@ -427,7 +427,49 @@ return {
           end
         sp:finish_single_branch()
 
-        async.sleep(5)
+        sp:lines()
+
+        local invaders = {}
+        local next_spawn = State.grids.solids:bfs(ps.ma_invaders_spawn)
+
+        for i = 1, 8 do ::redo::
+          local p, v = next_spawn()
+          if v then
+            next_spawn:discard()
+            goto redo
+          end
+
+          local e
+          if i == 7 then
+            e = npcs.invader_commander()
+          elseif i == 8 then
+            e = npcs.invader_priest()
+          else
+            e = npcs.invader()
+          end
+
+          table.insert(invaders, 1, State:add(
+            e, {position = p, grid_layer = "solids"}
+          ))
+        end
+
+        local promises = {}
+        local next_destination = State.grids.solids:bfs(ps.ma_invaders_standoff)
+        for _, invader in ipairs(invaders) do ::redo::
+          local p, v = assert(next_destination())
+          if v then
+            next_destination:discard()
+            goto redo
+          end
+          next_destination()
+          next_destination()
+
+          local pr = api.travel_scripted(invader, p)
+          table.insert(promises, pr)
+          async.sleep(.2)
+        end
+
+        Promise.all(unpack(promises)):wait()
         sp:lines()
       sp:finish()
     end,
