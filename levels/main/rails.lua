@@ -222,16 +222,19 @@ methods.winter_end = function(self)
   for _, e in ipairs(self._snow) do
     State:add(e, {life_time = Random.float(0, 30)})
     e.on_remove = function(self_e)
-      local tile = State.grids.tiles[self_e.position]
-      local solid = State.grids.solids[self_e.position]
-      local on_solid = State.grids.on_solids[self_e.position]
+      if self_e.position.x >= State.runner.positions.grass_gen_limit.x then return end
 
-      if tile and tile.codename == "grassl" and not solid and not on_solid then
-        State:add(
-          Random.choice(on_solids.grassl, on_solids.grassh)(),
-          {position = self_e.position, grid_layer = "on_solids"}
-        )
-      end
+      local tile = State.grids.tiles[self_e.position]
+      if not tile or tile.codename ~= "grassl" then return end
+
+      if State.grids.solids[self_e.position]
+        or State.grids.on_solids[self_e.position]
+      then return end
+
+      State:add(
+        Random.choice(on_solids.grassl, on_solids.grassh)(),
+        {position = self_e.position, grid_layer = "on_solids"}
+      )
     end
   end
 
