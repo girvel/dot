@@ -266,6 +266,7 @@ items_entities.priest_robes = function()
     name = "белая рубаха",
     codename = "priest_robes",
     slot = "body",
+    no_drop_flag = true,
   })
 end
 

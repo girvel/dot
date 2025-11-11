@@ -1,3 +1,4 @@
+local colors = require("engine.tech.colors")
 local npcs = require("levels.main.palette.npcs")
 local level = require("engine.tech.level")
 local health = require("engine.mech.health")
@@ -64,6 +65,15 @@ local escort = function(target, leader, follower, destination)
   end)
 end
 
+local thunder = function()
+  -- SOUND thunder
+  api.curtain(.1, colors.white):wait()
+  local transparent = colors.white:copy()
+  transparent.a = 0
+  api.curtain(.3, transparent):wait()
+end
+
+
 return {
   --- @type scene
   _170_massacre = {
@@ -79,6 +89,8 @@ return {
       watcher_2 = {},
       watcher_3 = {},
       watcher_4 = {},
+
+      invader_leader = {dynamic = true, optional = true},
     },
 
     start_predicate = function(self, dt, ch, ps)
@@ -442,8 +454,10 @@ return {
           local e
           if i == 7 then
             e = npcs.invader_commander()
+            ch.invader_leader = e
           elseif i == 8 then
             e = npcs.invader_priest()
+            ch.invader_priest = e
           else
             e = npcs.invader()
           end
@@ -471,6 +485,43 @@ return {
 
         Promise.all(unpack(promises)):wait()
         sp:lines()
+        thunder()
+
+        sp:start_single_branch()
+          if State.rails.khaned_status then
+            sp:lines()
+          end
+        sp:finish_single_branch()
+        sp:lines()
+
+        local priest_coming = api.travel_scripted(ch.invader_priest, ps.ma_priest_spell)
+        sp:lines()
+        priest_coming:wait()
+
+        sp:lines()
+
+        -- SOUND spell
+        State:remove(ch.invader_priest)
+        local fx = animated.add_fx(
+          "assets/sprites/animations/massacre_spell",
+          ch.invader_priest.position - V(1, 3), "fx_over"
+        )
+
+        coroutine.yield()
+        while State:exists(fx) and fx.animation.frame < 9 do coroutine.yield() end
+
+        thunder()
+
+        sp:lines()
+        -- SOUND wounded mennar
+        -- TODO chaos in the feast
+        sp:lines()
+
+        State.hostility:set("village", "invaders", "enemy")
+        State.hostility:set("invaders", "village", "enemy")
+        State.hostility:set("player", "invaders", "enemy")
+        State.hostility:set("invaders", "player", "enemy")
+        State:start_combat(Table.concat(invaders, State.rails.get_crowd()))
       sp:finish()
     end,
   },

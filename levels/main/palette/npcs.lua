@@ -211,7 +211,7 @@ end
 npcs.invader_commander = function()
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     name = "Пришелец",
-    codename = "invader",
+    codename = "invader_commander",
     base_abilities = abilities.new(18, 16, 16, 8, 8, 8),
     level = 6,
     ai = combat_ai.new(),
@@ -240,7 +240,7 @@ end
 npcs.invader_priest = function()
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     name = "Пришелец",
-    codename = "invader",
+    codename = "invader_priest",
     base_abilities = abilities.new(8, 16, 16, 8, 18, 8),
     level = 6,
     ai = combat_ai.new(),
