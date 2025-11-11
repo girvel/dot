@@ -1,3 +1,4 @@
+local level = require("engine.tech.level")
 local health = require("engine.mech.health")
 local items_entities = require("levels.main.palette.items_entities")
 local item = require("engine.tech.item")
@@ -272,6 +273,75 @@ return {
         sp:finish_single_branch()
 
         sp:lines()
+
+        sp:start_single_branch()
+          if likka_there then
+            sp:start_single_branch(khaned_there and 1 or 2)
+              local p
+              if khaned_there then
+                p = State.runner:run_task(function()
+                  local lead = api.travel_scripted(ch.watcher_2, ps.feast_sac_2)
+                  local prev1 = ch.watcher_2.position
+                  local prev2
+
+                  while not lead.is_resolved do
+                    coroutine.yield()
+
+                    if ch.watcher_2.position ~= prev1 then
+                      level.unsafe_move(ch.likka, prev1)
+                      if prev2 then
+                        level.unsafe_move(ch.watcher_3, prev2)
+                      end
+
+                      prev2 = prev1
+                      prev1 = ch.watcher_2.position
+                    end
+                  end
+                end)
+              else
+                p = Promise.all(
+                  api.travel_scripted(ch.watcher_2, ch.likka),
+                  api.travel_scripted(ch.watcher_3, ch.likka)
+                )
+              end
+              sp:lines()
+              p:wait()
+            sp:finish_single_branch()
+
+            sp:lines()
+
+            api.rotate(ch.likka, ch.green_priest)
+            sp:start_branches()
+              if State.rails.empathy == "present" then
+                sp:start_branch(1)
+                  sp:lines()
+                sp:finish_branch()
+              elseif not State.rails.has_fruit then
+                sp:start_branch(2)
+                  sp:lines()
+                  sp:start_single_branch()
+                    if khaned_there then
+                      sp:lines()
+                    end
+                  sp:finish_single_branch()
+                sp:finish_branch()
+              end
+            sp:finish_branches()
+
+            n = api.options(sp:start_options())
+              if n == 1 then
+                sp:start_option(1)
+                  sp:lines()
+
+                  item.give(ch.watcher_3, State:add(items_entities.bear_spear()))
+                  api.travel_scripted(ch.watcher_3, ch.player):wait()
+                  ch.watcher_3:animate("hand_attack"):wait()
+                  health.set_hp(State.player, math.min(State.player.hp, 6))
+                sp:finish_option()
+              end
+            sp:finish_options()
+          end
+        sp:finish_single_branch()
       sp:finish()
     end,
   },
