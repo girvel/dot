@@ -22,7 +22,7 @@ end
 local sac_fruit = function(actor)
   api.rotate(actor, State.runner.positions.feast_pyre)
 
-  async.sleep(1.5)
+  async.sleep(.5)
   State.period:push_key(actor.inventory, "offhand", State:add(godfruit_item()))
 
   async.sleep(1.5)
@@ -123,7 +123,7 @@ return {
             sp:start_branch(1)
               api.assert_position(ch.khaned, ps.feast_sac_3)
               local p = State.runner:run_task(function() sac_fruit(ch.khaned) end)
-              sp:lines()
+         sp:lines()
               p:wait()
             sp:finish_branch()
           end
@@ -215,9 +215,10 @@ return {
             ch.watcher_1:animate("hand_attack"):next(function()
               health.set_hp(ch.khaned, 1)
               ch.khaned:animation_freeze("lying")
+              api.rotate(ch.player, ch.khaned)
             end):wait()
 
-            async.sleep(1)
+            async.sleep(4)
             sp:lines()
 
             async.sleep(2)
@@ -369,8 +370,27 @@ return {
                 sp:finish_option()
               end
             sp:finish_options()
+
+            async.sleep(1.5)
+            api.rotate(ch.watcher_2, ch.likka)
+            item.give(ch.watcher_2, State:add(items_entities.bear_spear()))
+
+            async.sleep(.5)
+            ch.watcher_2:animate("hand_attack"):wait()
+            -- SOUND devastated
+            health.set_hp(ch.likka, 0)
+
+            local delay = api.delay(5)
+            sp:lines()
+            delay:wait()
+
+            async.sleep(2)
+            ch.likka.essential_flag = nil
+            health.set_hp(ch.likka, 0)
           end
         sp:finish_single_branch()
+
+        sp:lines()
       sp:finish()
     end,
   },
