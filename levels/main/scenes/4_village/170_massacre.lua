@@ -31,6 +31,38 @@ local sac_fruit = function(actor)
   State.period:pop_key(actor.inventory, "offhand")
 end
 
+--- @param target entity
+--- @param leader entity
+--- @param follower entity
+--- @param destination vector
+--- @return promise, scene
+local escort = function(target, leader, follower, destination)
+  return State.runner:run_task(function()
+    Promise.all(
+      api.travel_scripted(leader, target),
+      api.travel_scripted(follower, target)
+    ):wait()
+
+    local lead = api.travel_scripted(leader, destination)
+    local prev1 = leader.position
+    local prev2
+
+    while not lead.is_resolved do
+      coroutine.yield()
+
+      if leader.position ~= prev1 then
+        level.unsafe_move(target, prev1)
+        if prev2 then
+          level.unsafe_move(follower, prev2)
+        end
+
+        prev2 = prev1
+        prev1 = leader.position
+      end
+    end
+  end)
+end
+
 return {
   --- @type scene
   _170_massacre = {
@@ -123,7 +155,7 @@ return {
             sp:start_branch(1)
               api.assert_position(ch.khaned, ps.feast_sac_3)
               local p = State.runner:run_task(function() sac_fruit(ch.khaned) end)
-         sp:lines()
+              sp:lines()
               p:wait()
             sp:finish_branch()
           end
@@ -280,25 +312,7 @@ return {
             sp:start_single_branch(khaned_there and 1 or 2)
               local p
               if khaned_there then
-                p = State.runner:run_task(function()
-                  local lead = api.travel_scripted(ch.watcher_2, ps.feast_sac_2)
-                  local prev1 = ch.watcher_2.position
-                  local prev2
-
-                  while not lead.is_resolved do
-                    coroutine.yield()
-
-                    if ch.watcher_2.position ~= prev1 then
-                      level.unsafe_move(ch.likka, prev1)
-                      if prev2 then
-                        level.unsafe_move(ch.watcher_3, prev2)
-                      end
-
-                      prev2 = prev1
-                      prev1 = ch.watcher_2.position
-                    end
-                  end
-                end)
+                p = escort(ch.likka, ch.watcher_2, ch.watcher_3, ps.feast_sac_2)
               else
                 p = Promise.all(
                   api.travel_scripted(ch.watcher_2, ch.likka),
@@ -390,6 +404,30 @@ return {
           end
         sp:finish_single_branch()
 
+        sp:lines()
+
+        sp:start_single_branch()
+          if State.rails.has_fruit or (not likka_there and not khaned_there) then
+            n = likka_there and khaned_there and 1
+              or likka_there and 2
+              or khaned_there and 3
+              or 4
+
+            sp:start_single_branch(n)
+              local p = escort(
+                ch.player, ch.watcher_3, ch.watcher_2, n == 3 and ps.feast_sac_3 or ps.feast_sac_2
+              )
+              sp:lines()
+            sp:finish_single_branch()
+
+            sp:start_single_branch(ch.player:ability_check("performance", 12) and 1 or 2)
+              sp:lines()
+            sp:finish_single_branch()
+            p:wait()
+          end
+        sp:finish_single_branch()
+
+        async.sleep(5)
         sp:lines()
       sp:finish()
     end,
