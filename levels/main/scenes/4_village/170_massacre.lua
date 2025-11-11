@@ -155,6 +155,15 @@ return {
 
         async.sleep(1)
         ch.player:rotate(Vector.left)
+        if likka_there then
+          async.sleep(.1)
+          ch.likka:rotate(Vector.left)
+        end
+        if khaned_there then
+          async.sleep(.2)
+          ch.khaned:rotate(Vector.left)
+        end
+
         -- SOUND ominous
         sp:lines()
 
@@ -163,16 +172,11 @@ return {
           or khaned_there and 3
           or 4
         sp:start_single_branch(n)
-          if likka_there then ch.likka:rotate(Vector.left) end
-          if khaned_there then ch.khaned:rotate(Vector.left) end
 
           sp:lines()
         sp:finish_single_branch()
 
-        for i = 1, 4 do
-          async.sleep(Random.float(.1, .2))
-          item.give(ch["watcher_" .. i], State:add(items_entities.bear_spear()))
-        end
+        async.sleep(.3)
 
         sp:start_single_branch()
           if khaned_there then
@@ -182,8 +186,10 @@ return {
             async.sleep(1)
             api.rotate(ch.watcher_1, ch.khaned)
             api.assert_position(ch.watcher_1, ch.khaned.position + Vector.up)
+            item.give(ch.watcher_1, State:add(items_entities.bear_spear()))
 
             async.sleep(1)
+            -- SOUND devastated
             ch.watcher_1:animate("hand_attack"):next(function()
               health.set_hp(ch.khaned, 1)
               ch.khaned:animation_freeze("lying")
@@ -198,11 +204,39 @@ return {
 
             sp:start_single_branch()
               if likka_there then
-                -- NEXT!
+                api.move_camera(ps.ma_likka_away)
+                local likka_away = api.travel_scripted(ch.likka, ps.ma_likka_away, 10)
+
+                local lines = State.runner:run_task(function()
+                  async.sleep(.5)
+                  sp:lines()
+                end)
+
+                local t = love.timer.getTime()
+                while api.distance(ch.likka, ps.ma_likka_away) > 3
+                  and love.timer.getTime() - t <= 10
+                do
+                  coroutine.yield()
+                end
+
+                api.travel_scripted(ch.watcher_2, ps.ma_watcher_2 + Vector.right)
+                api.travel_scripted(ch.watcher_3, ps.ma_watcher_3 + Vector.left)
+                likka_away:wait()
+                lines:wait()
+
+                -- NEXT брыкается
+                sp:lines()
+                api.free_camera()
               end
             sp:finish_single_branch()
+
+            -- SOUND heartbeat
+            async.sleep(2)
+            sp:lines()
           end
         sp:finish_single_branch()
+
+        sp:lines()
       sp:finish()
     end,
   },

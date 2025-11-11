@@ -285,6 +285,8 @@ methods.winter_end = function(self)
     api.assert_position(ch.green_priest, ps.feast_throw_priest, true)
     api.assert_position(ch.red_priest, ps.massacre_red_priest, true)
     api.assert_position(ch.watcher_1, ps.feast_sac_3 + Vector.up, true)
+    api.assert_position(ch.watcher_2, ps.ma_watcher_2, true)
+    api.assert_position(ch.watcher_3, ps.ma_watcher_3, true)
   end)
 
   State.shader = nil
