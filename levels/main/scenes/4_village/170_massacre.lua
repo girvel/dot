@@ -117,15 +117,38 @@ return {
         end)
         sp:lines()
 
-        if khaned_there then
-          api.assert_position(ch.khaned, ps.feast_sac_3)
-          sac_fruit(ch.khaned)
-        end
+        sp:start_branches()
+          if khaned_there then
+            sp:start_branch(1)
+              api.assert_position(ch.khaned, ps.feast_sac_3)
+              local p = State.runner:run_task(function() sac_fruit(ch.khaned) end)
+              sp:lines()
+              p:wait()
+            sp:finish_branch()
+          end
 
-        if likka_there then
-          api.assert_position(ch.likka, ps.feast_sac_2)
-          sac_fruit(ch.likka)
-        end
+          if likka_there then
+            sp:start_branch(2)
+              api.assert_position(ch.likka, ps.feast_sac_2)
+              local p = State.runner:run_task(function() sac_fruit(ch.likka) end)
+              sp:lines()
+              p:wait()
+
+              p = State.runner:run_task(function()
+                async.sleep(.2)
+                api.rotate(ch.likka, ch.player)
+
+                async.sleep(.2)
+                api.rotate(ch.likka, ch.khaned)
+
+                async.sleep(.2)
+                ch.likka:rotate(Vector.right)
+              end)
+              sp:lines()
+              p:wait()
+            sp:finish_branch()
+          end
+        sp:finish_branches()
 
         sp:start_single_branch(State.rails.has_fruit and 1 or 2)
           if State.rails.has_fruit then
@@ -171,7 +194,6 @@ return {
           or khaned_there and 3
           or 4
         sp:start_single_branch(n)
-
           sp:lines()
         sp:finish_single_branch()
 
@@ -224,10 +246,15 @@ return {
                 lines:wait()
 
                 local mess = State.runner:run_task(function()
+                  async.sleep(Random.float(.1, .2))
                   api.rotate(ch.likka, ch.watcher_2)
                   ch.likka:animate("offhand_attack"):wait()
+
+                  async.sleep(Random.float(.1, .2))
                   api.rotate(ch.likka, ch.watcher_3)
                   ch.likka:animate("offhand_attack"):wait()
+
+                  async.sleep(Random.float(.1, .2))
                   api.rotate(ch.likka, ch.watcher_2)
                   ch.likka:animate("offhand_attack"):wait()
                 end)
