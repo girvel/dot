@@ -223,8 +223,17 @@ return {
                 likka_away:wait()
                 lines:wait()
 
-                -- NEXT брыкается
+                local mess = State.runner:run_task(function()
+                  api.rotate(ch.likka, ch.watcher_2)
+                  ch.likka:animate("offhand_attack"):wait()
+                  api.rotate(ch.likka, ch.watcher_3)
+                  ch.likka:animate("offhand_attack"):wait()
+                  api.rotate(ch.likka, ch.watcher_2)
+                  ch.likka:animate("offhand_attack"):wait()
+                end)
                 sp:lines()
+                mess:wait()
+
                 api.free_camera()
               end
             sp:finish_single_branch()
