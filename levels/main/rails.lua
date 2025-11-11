@@ -284,6 +284,7 @@ methods.winter_end = function(self)
   api.travel_crowd(self:get_crowd(), ps.massacre_crowd):next(function()
     api.assert_position(ch.green_priest, ps.feast_throw_priest, true)
     api.assert_position(ch.red_priest, ps.massacre_red_priest, true)
+    api.assert_position(ch.watcher_1, ps.feast_sac_3 + Vector.up, true)
   end)
 
   State.shader = nil

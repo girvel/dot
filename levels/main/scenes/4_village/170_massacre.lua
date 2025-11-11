@@ -1,7 +1,8 @@
+local health = require("engine.mech.health")
+local items_entities = require("levels.main.palette.items_entities")
 local item = require("engine.tech.item")
 local animated = require("engine.tech.animated")
 local async = require("engine.tech.async")
-local core = require("levels.main.core")
 local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
 
@@ -40,6 +41,11 @@ return {
       likka = {optional = true},
       khaned = {optional = true},
       green_priest = {},
+
+      watcher_1 = {},
+      watcher_2 = {},
+      watcher_3 = {},
+      watcher_4 = {},
     },
 
     start_predicate = function(self, dt, ch, ps)
@@ -148,6 +154,7 @@ return {
         sp:finish_single_branch()
 
         async.sleep(1)
+        ch.player:rotate(Vector.left)
         -- SOUND ominous
         sp:lines()
 
@@ -156,7 +163,45 @@ return {
           or khaned_there and 3
           or 4
         sp:start_single_branch(n)
+          if likka_there then ch.likka:rotate(Vector.left) end
+          if khaned_there then ch.khaned:rotate(Vector.left) end
+
           sp:lines()
+        sp:finish_single_branch()
+
+        for i = 1, 4 do
+          async.sleep(Random.float(.1, .2))
+          item.give(ch["watcher_" .. i], State:add(items_entities.bear_spear()))
+        end
+
+        sp:start_single_branch()
+          if khaned_there then
+            ch.green_priest:animate("fast_gesture")
+            sp:lines()
+
+            async.sleep(1)
+            api.rotate(ch.watcher_1, ch.khaned)
+            api.assert_position(ch.watcher_1, ch.khaned.position + Vector.up)
+
+            async.sleep(1)
+            ch.watcher_1:animate("hand_attack"):next(function()
+              health.set_hp(ch.khaned, 1)
+              ch.khaned:animation_freeze("lying")
+            end):wait()
+
+            async.sleep(1)
+            sp:lines()
+
+            async.sleep(2)
+            ch.khaned.essential_flag = nil
+            health.set_hp(ch.khaned, 0)
+
+            sp:start_single_branch()
+              if likka_there then
+                -- NEXT!
+              end
+            sp:finish_single_branch()
+          end
         sp:finish_single_branch()
       sp:finish()
     end,
