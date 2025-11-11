@@ -245,7 +245,6 @@ methods.winter_end = function(self)
       local p = V(x, y)
       local tile = State.grids.tiles:unsafe_get(x, y)
       if p == ps.create_water_exception then
-        table.insert(self._water, tile)
         goto continue
       end
 
