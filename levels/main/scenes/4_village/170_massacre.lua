@@ -22,13 +22,12 @@ local sac_fruit = function(actor)
   api.rotate(actor, State.runner.positions.feast_pyre)
 
   async.sleep(1.5)
-  local offhand = actor.offhand
-  actor.inventory.offhand = State:add(godfruit_item())
+  State.period:push_key(actor.inventory, "offhand", State:add(godfruit_item()))
 
   async.sleep(1.5)
   actor:animate("interact"):wait()
   State:remove(actor.inventory.offhand)
-  actor.inventory.offhand = offhand
+  State.period:pop_key(actor.inventory, "offhand")
 end
 
 return {
