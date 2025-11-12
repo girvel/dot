@@ -141,6 +141,9 @@ local start_massacre = function(invaders)
       item.give(e, State:add(items_entities.bear_spear()))
     end
   end
+
+  item.give(ch.red_priest, State:add(items_entities.short_bow()))
+  item.give(ch.green_priest, State:add(items_entities.short_bow()))
   
   local combat_list = Table.concat(
     invaders, State.rails.get_crowd(),

@@ -1,3 +1,4 @@
+local healing_word = require("engine.mech.spells.healing_word")
 local cleric = require("engine.mech.class.cleric")
 local poisoned = require("engine.mech.conditions.poisoned")
 local sprite = require("engine.tech.sprite")
@@ -145,39 +146,38 @@ npcs.villager = function()
   })
 end
 
-npcs.red_priest = function()
+local base_priest = function()
   return creature.make(humanoid.mixin(), {
-    name = "Красный жрец",
-    codename = "red_priest",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
     level = 3,
     ai = no_op.new(),
-    inventory = {
-      head = items.red_mask(),
-    },
     faction = "village",
     perks = {
       cleric.hit_dice,
+      cleric.spell_slots,
+      healing_word.base,
     },
     essential_flag = true,
   })
 end
 
+npcs.red_priest = function()
+  return Table.extend(base_priest(), {
+    name = "Красный жрец",
+    codename = "red_priest",
+    inventory = {
+      head = items.red_mask(),
+    },
+  })
+end
+
 npcs.green_priest = function()
-  return creature.make(humanoid.mixin(), {
+  return Table.extend(base_priest(), {
     name = "Жрец",
     codename = "green_priest",
-    base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
-    level = 3,
-    ai = no_op.new(),
     inventory = {
       head = items.green_mask(),
     },
-    faction = "village",
-    perks = {
-      cleric.hit_dice,
-    },
-    essential_flag = true,
   })
 end
 
