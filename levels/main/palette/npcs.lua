@@ -1,4 +1,3 @@
-local healing_word = require("engine.mech.spells.healing_word")
 local cleric = require("engine.mech.class.cleric")
 local poisoned = require("engine.mech.conditions.poisoned")
 local sprite = require("engine.tech.sprite")
@@ -103,7 +102,7 @@ npcs.khaned = function()
     essential_flag = true,
     transparent_flag = true,
     on_half_hp = humanoid.add_blood_mark,
-    on_death = humanoid.add_blood_mark,
+    on_death = humanoid.add_body,
   })
 end
 
@@ -148,14 +147,13 @@ end
 
 local base_priest = function()
   return creature.make(humanoid.mixin(), {
-    base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
-    level = 3,
+    base_abilities = abilities.new(8, 14, 14, 12, 18, 12),
+    level = 6,
     ai = no_op.new(),
     faction = "village",
     perks = {
       cleric.hit_dice,
       cleric.spell_slots,
-      healing_word.base,
     },
     essential_flag = true,
   })

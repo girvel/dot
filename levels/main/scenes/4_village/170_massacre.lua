@@ -199,8 +199,14 @@ return {
 
       if State.debug then  -- NEXT RM
         State.runner:remove(self)
-        if likka_there then State:remove(ch.likka) end
-        if khaned_there then State:remove(ch.khaned) end
+        if likka_there then
+          ch.likka.essential_flag = nil
+          health.set_hp(ch.likka, 0)
+        end
+        if khaned_there then
+          ch.khaned.essential_flag = nil
+          health.set_hp(ch.khaned, 0)
+        end
         local invaders = spawn_invaders(ch, ps)
         State:remove(ch.invader_priest)
         start_massacre(invaders)
