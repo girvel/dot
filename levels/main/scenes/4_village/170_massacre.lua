@@ -1,3 +1,4 @@
+local combat = require("engine.mech.ais.combat")
 local colors = require("engine.tech.colors")
 local npcs = require("levels.main.palette.npcs")
 local level = require("engine.tech.level")
@@ -73,6 +74,87 @@ local thunder = function()
   api.curtain(.3, transparent):wait()
 end
 
+--- @async
+--- @param ch runner_characters
+--- @param ps runner_positions
+--- @return entity[]
+local spawn_invaders = function(ch, ps)
+  local invaders = {}
+  local next_spawn = State.grids.solids:bfs(ps.ma_invaders_spawn)
+
+  for i = 1, 8 do ::redo::
+    local p, v = next_spawn()
+    if v then
+      next_spawn:discard()
+      goto redo
+    end
+
+    local e
+    if i == 7 then
+      e = npcs.invader_commander()
+      ch.invader_leader = e
+    elseif i == 8 then
+      e = npcs.invader_priest()
+      ch.invader_priest = e
+    else
+      e = npcs.invader()
+    end
+
+    table.insert(invaders, 1, State:add(
+      e, {position = p, grid_layer = "solids"}
+    ))
+  end
+
+  local promises = {}
+  local next_destination = State.grids.solids:bfs(ps.ma_invaders_standoff)
+  for _, invader in ipairs(invaders) do ::redo::
+    local p, e = next_destination()
+    assert(p)
+    if e then
+      next_destination:discard()
+      goto redo
+    end
+    next_destination()
+    next_destination()
+
+    local pr = api.travel_scripted(invader, p)
+    table.insert(promises, pr)
+    async.sleep(.2)
+  end
+
+  Promise.all(unpack(promises)):wait()
+
+  return invaders
+end
+
+local start_massacre = function(invaders)
+  State.hostility:set("village", "invaders", "enemy")
+  State.hostility:set("invaders", "village", "enemy")
+  State.hostility:set("player", "invaders", "enemy")
+  State.hostility:set("invaders", "player", "enemy")
+
+  local ch = State.runner.entities
+  
+  local combat_list = Table.concat(
+    invaders, State.rails.get_crowd(),
+    {ch.red_priest, ch.blocker_1, ch.blocker_2, ch.watcher_4}
+  )
+  for _, e in ipairs(combat_list) do
+    e.essential_flag = nil
+
+    if getmetatable(e) ~= combat.mt then
+      if e.ai.deinit then
+        e.ai:deinit(e)
+      end
+      e.ai = combat.new({scan_range = 20, range = 30})
+      e.ai:init(e)
+    end
+  end
+  Table.concat(combat_list, State.player)
+
+  State:start_combat(combat_list)
+end
+
 
 return {
   --- @type scene
@@ -104,6 +186,16 @@ return {
     run = function(self, ch, ps, entrance_i)
       local likka_there = State.rails.likka_status == "village"
       local khaned_there = State.rails.khaned_status == "survived"
+
+      if State.debug then  -- NEXT RM
+        State.runner:remove(self)
+        if likka_there then State:remove(ch.likka) end
+        if khaned_there then State:remove(ch.khaned) end
+        local invaders = spawn_invaders(ch, ps)
+        State:remove(ch.invader_priest)
+        start_massacre(invaders)
+        return
+      end
 
       local sp = screenplay.new("assets/screenplay/170_massacre.ms", ch)
         sp:lines()
@@ -441,49 +533,7 @@ return {
 
         sp:lines()
 
-        local invaders = {}
-        local next_spawn = State.grids.solids:bfs(ps.ma_invaders_spawn)
-
-        for i = 1, 8 do ::redo::
-          local p, v = next_spawn()
-          if v then
-            next_spawn:discard()
-            goto redo
-          end
-
-          local e
-          if i == 7 then
-            e = npcs.invader_commander()
-            ch.invader_leader = e
-          elseif i == 8 then
-            e = npcs.invader_priest()
-            ch.invader_priest = e
-          else
-            e = npcs.invader()
-          end
-
-          table.insert(invaders, 1, State:add(
-            e, {position = p, grid_layer = "solids"}
-          ))
-        end
-
-        local promises = {}
-        local next_destination = State.grids.solids:bfs(ps.ma_invaders_standoff)
-        for _, invader in ipairs(invaders) do ::redo::
-          local p, v = assert(next_destination())
-          if v then
-            next_destination:discard()
-            goto redo
-          end
-          next_destination()
-          next_destination()
-
-          local pr = api.travel_scripted(invader, p)
-          table.insert(promises, pr)
-          async.sleep(.2)
-        end
-
-        Promise.all(unpack(promises)):wait()
+        local invaders = spawn_invaders(ch, ps)
         sp:lines()
         thunder()
 
@@ -516,12 +566,7 @@ return {
         -- SOUND wounded mennar
         -- TODO chaos in the feast
         sp:lines()
-
-        State.hostility:set("village", "invaders", "enemy")
-        State.hostility:set("invaders", "village", "enemy")
-        State.hostility:set("player", "invaders", "enemy")
-        State.hostility:set("invaders", "player", "enemy")
-        State:start_combat(Table.concat(invaders, State.rails.get_crowd()))
+        start_massacre(invaders)
       sp:finish()
     end,
   },

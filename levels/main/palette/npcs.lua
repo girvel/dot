@@ -151,7 +151,7 @@ npcs.red_priest = function()
     codename = "red_priest",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
     level = 3,
-    ai = combat_ai.new(),
+    ai = no_op.new(),
     inventory = {
       head = items.red_mask(),
     },
@@ -169,7 +169,7 @@ npcs.green_priest = function()
     codename = "green_priest",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),
     level = 3,
-    ai = combat_ai.new(),
+    ai = no_op.new(),
     inventory = {
       head = items.green_mask(),
     },
