@@ -134,6 +134,13 @@ local start_massacre = function(invaders)
   State.hostility:set("invaders", "player", "enemy")
 
   local ch = State.runner.entities
+
+  for i = 1, 4 do
+    local e = ch["watcher_" .. i]
+    if not e.inventory.hand then
+      item.give(e, State:add(items_entities.bear_spear()))
+    end
+  end
   
   local combat_list = Table.concat(
     invaders, State.rails.get_crowd(),
