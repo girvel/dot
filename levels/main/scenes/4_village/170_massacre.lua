@@ -144,7 +144,7 @@ local start_massacre = function(invaders)
 
   item.give(ch.red_priest, State:add(items_entities.short_bow()))
   item.give(ch.green_priest, State:add(items_entities.short_bow()))
-  
+
   local combat_list = Table.concat(
     invaders, State.rails.get_crowd(),
     {ch.red_priest, ch.blocker_1, ch.blocker_2, ch.watcher_4}
@@ -160,7 +160,7 @@ local start_massacre = function(invaders)
       e.ai:init(e)
     end
   end
-  Table.concat(combat_list, State.player)
+  table.insert(combat_list, State.player)
 
   State:start_combat(combat_list)
 end

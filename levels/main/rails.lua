@@ -873,8 +873,10 @@ checkpoints.cp4 = function(self)
   self:khaned_leaves(true)
 
   api.assert_position(State.player, State.runner.positions.cp4, true)
-  item.give(State.player, State:add(items_entities.axe()))
-  item.give(State.player, State:add(items_entities.small_shield()))
+  item.give(State.player, State:add(items_entities.ritual_blade()))
+  item.give(State.player, State:add(items_entities.shield()))
+  item.give(State.player, State:add(items_entities.invader_helmet()))
+  item.give(State.player, State:add(items_entities.invader_armor()))
 end
 
 Ldump.mark(rails, {}, ...)
