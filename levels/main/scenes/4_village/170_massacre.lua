@@ -574,7 +574,19 @@ return {
         sp:lines()
         priest_coming:wait()
 
+        local _, singing = State.runner:run_task(function()
+          while true do
+            ch.invader_priest:rotate(Vector.left)
+            ch.invader_priest:animate("gesture"):wait()
+            async.sleep(.5)
+            ch.invader_priest:rotate(Vector.right)
+            ch.invader_priest:animate("gesture"):wait()
+            async.sleep(.5)
+          end
+        end)
+        async.sleep(5)
         sp:lines()
+        State.runner:stop(singing)
 
         -- SOUND spell
         State:remove(ch.invader_priest)
