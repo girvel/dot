@@ -581,20 +581,22 @@ return {
         sp:finish_single_branch()
         sp:lines()
 
-        local priest_coming = api.travel_scripted(ch.invader_priest, ps.ma_priest_spell)
+        local singing
+        local priest_coming = api.travel_scripted(ch.invader_priest, ps.ma_priest_spell):next(function()
+          _, singing = State.runner:run_task(function()
+            while true do
+              ch.invader_priest:rotate(Vector.left)
+              ch.invader_priest:animate("gesture"):wait()
+              async.sleep(.5)
+              ch.invader_priest:rotate(Vector.right)
+              ch.invader_priest:animate("gesture"):wait()
+              async.sleep(.5)
+            end
+          end)
+        end)
         sp:lines()
         priest_coming:wait()
 
-        local _, singing = State.runner:run_task(function()
-          while true do
-            ch.invader_priest:rotate(Vector.left)
-            ch.invader_priest:animate("gesture"):wait()
-            async.sleep(.5)
-            ch.invader_priest:rotate(Vector.right)
-            ch.invader_priest:animate("gesture"):wait()
-            async.sleep(.5)
-          end
-        end)
         async.sleep(5)
         sp:lines()
         State.runner:stop(singing)
