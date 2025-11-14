@@ -82,7 +82,12 @@ local spawn_invaders = function(ch, ps)
   local invaders = {}
   local next_spawn = State.grids.solids:bfs(ps.ma_invaders_spawn)
 
-  for i = 1, 10 do ::redo::
+  local invaders_n = 10
+  if State.rails.khaned_status == "dead" then
+    invaders_n = invaders_n + 1
+  end
+
+  for i = 1, invaders_n do ::redo::
     local p, v = next_spawn()
     if v then
       next_spawn:discard()
@@ -90,10 +95,10 @@ local spawn_invaders = function(ch, ps)
     end
 
     local e
-    if i == 9 then
+    if i == invaders_n - 1 then
       e = npcs.invader_commander()
       ch.invader_leader = e
-    elseif i == 10 then
+    elseif i == invaders_n then
       e = npcs.invader_priest()
       ch.invader_priest = e
     else
@@ -197,21 +202,21 @@ return {
       local likka_there = State.rails.likka_status == "village"
       local khaned_there = State.rails.khaned_status == "survived"
 
-      if State.debug then  -- NEXT RM
-        State.runner:remove(self)
-        if likka_there then
-          ch.likka.essential_flag = nil
-          health.set_hp(ch.likka, 0)
-        end
-        if khaned_there then
-          ch.khaned.essential_flag = nil
-          health.set_hp(ch.khaned, 0)
-        end
-        local invaders = spawn_invaders(ch, ps)
-        State:remove(ch.invader_priest)
-        start_massacre(invaders)
-        return
-      end
+      -- if State.debug then
+      --   State.runner:remove(self)
+      --   if likka_there then
+      --     ch.likka.essential_flag = nil
+      --     health.set_hp(ch.likka, 0)
+      --   end
+      --   if khaned_there then
+      --     ch.khaned.essential_flag = nil
+      --     health.set_hp(ch.khaned, 0)
+      --   end
+      --   local invaders = spawn_invaders(ch, ps)
+      --   State:remove(ch.invader_priest)
+      --   start_massacre(invaders)
+      --   return
+      -- end
 
       local sp = screenplay.new("assets/screenplay/170_massacre.ms", ch)
         sp:lines()
