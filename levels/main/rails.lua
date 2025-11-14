@@ -204,6 +204,10 @@ end
 
 --- @param forced boolean?
 methods.location_village = function(self, forced)
+  if self.khaned_status == nil then
+    self:khaned_offscreen_death()
+  end
+
   api.autosave("Деревня")
   self:_location_transition("4_village", forced)
 end
@@ -871,7 +875,7 @@ checkpoints.cp4 = function(self)
   self:fruit_take_own({})
   self:location_village(true)
   self:likka_went_to_village(true)
-  self:khaned_leaves(true)
+  -- self:khaned_leaves(true)
 
   api.assert_position(State.player, State.runner.positions.cp4, true)
   item.give(State.player, State:add(items_entities.ritual_blade()))
