@@ -305,18 +305,22 @@ return {
               sp:lines()
               p:wait()
 
-              p = State.runner:run_task(function()
-                async.sleep(.2)
-                api.rotate(ch.likka, ch.player)
+              sp:start_single_branch()
+                if khaned_there then
+                  p = State.runner:run_task(function()
+                    async.sleep(.2)
+                    api.rotate(ch.likka, ch.player)
 
-                async.sleep(.2)
-                api.rotate(ch.likka, ch.khaned)
+                    async.sleep(.2)
+                    api.rotate(ch.likka, ch.khaned)
 
-                async.sleep(.2)
-                ch.likka:rotate(Vector.right)
-              end)
-              sp:lines()
-              p:wait()
+                    async.sleep(.2)
+                    ch.likka:rotate(Vector.right)
+                  end)
+                  sp:lines()
+                  p:wait()
+                end
+              sp:finish_single_branch()
             sp:finish_branch()
           end
         sp:finish_branches()
