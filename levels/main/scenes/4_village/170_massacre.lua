@@ -154,6 +154,11 @@ local start_massacre = function(invaders)
     invaders, State.rails.get_crowd(),
     {ch.red_priest, ch.blocker_1, ch.blocker_2, ch.watcher_4}
   )
+
+  if State.rails.gatherer_status == "ran_away" then
+    table.insert(combat_list, ch.gatherer)
+  end
+
   for _, e in ipairs(combat_list) do
     e.essential_flag = nil
 
