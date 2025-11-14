@@ -82,7 +82,7 @@ local spawn_invaders = function(ch, ps)
   local invaders = {}
   local next_spawn = State.grids.solids:bfs(ps.ma_invaders_spawn)
 
-  for i = 1, 8 do ::redo::
+  for i = 1, 10 do ::redo::
     local p, v = next_spawn()
     if v then
       next_spawn:discard()
@@ -90,10 +90,10 @@ local spawn_invaders = function(ch, ps)
     end
 
     local e
-    if i == 7 then
+    if i == 9 then
       e = npcs.invader_commander()
       ch.invader_leader = e
-    elseif i == 8 then
+    elseif i == 10 then
       e = npcs.invader_priest()
       ch.invader_priest = e
     else

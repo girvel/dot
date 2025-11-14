@@ -59,7 +59,8 @@ local mt = {__index = methods}
 rails.new = function()
   local scenes_by_location do
     scenes_by_location = {}
-    local scenes_folder = Table.require_folder("levels.main.scenes")
+    local scenes_folder = Table.do_folder("levels/main/scenes")
+    Log.traces(scenes_folder)
     for k, subfolder in pairs(scenes_folder) do
       scenes_by_location[k] = {}
       for _, v in pairs(subfolder) do
