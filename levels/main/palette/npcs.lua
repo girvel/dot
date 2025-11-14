@@ -206,6 +206,12 @@ npcs.invader = function(faction)
   return result
 end
 
+npcs.invader_scout = function()
+  local result = npcs.invader()
+  result.inventory.head = items.invader_helmet_marked()
+  return result
+end
+
 npcs.invader_commander = function()
   local result = Table.extend(humanoid.mixin(), creature.mixin(), {
     name = "Пришелец",

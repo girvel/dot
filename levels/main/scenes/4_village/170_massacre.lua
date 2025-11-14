@@ -95,7 +95,12 @@ local spawn_invaders = function(ch, ps)
     end
 
     local e
-    if i == invaders_n - 1 then
+    if i == invaders_n - 2 and State.rails.khaned_status == "dead" then
+      if State:exists(ch.invader) then
+        State:remove(ch.invader)
+      end
+      e = ch.invader
+    elseif i == invaders_n - 1 then
       e = npcs.invader_commander()
       ch.invader_leader = e
     elseif i == invaders_n then
@@ -193,6 +198,8 @@ return {
       watcher_4 = {},
 
       invader_leader = {dynamic = true, optional = true},
+      invader_priest = {dynamic = true, optional = true},
+      invader = {optional = true},
     },
 
     start_predicate = function(self, dt, ch, ps)

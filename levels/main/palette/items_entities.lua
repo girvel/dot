@@ -250,6 +250,17 @@ items_entities.invader_helmet = function()
   })
 end
 
+items_entities.invader_helmet_marked = function()
+  return Table.extend(item.mixin("assets/sprites/animations/invader_helmet_marked"), {
+    name = "шлем пришельца",
+    codename = "invader_helmet_marked",
+    slot = "head",
+    perks = {
+      gear.medium_helmet,
+    },
+  })
+end
+
 items_entities.invader_armor = function()
   return Table.extend(item.mixin("assets/sprites/animations/invader_armor"), {
     name = "броня пришельца",
