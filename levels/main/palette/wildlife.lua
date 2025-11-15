@@ -82,7 +82,7 @@ wildlife.bat = function()
     codename = "bat",
     base_abilities = abilities.new(6, 15, 8, 2, 12, 4),
     level = 1,
-    ai = combat_ai.new({scan_range = 8}),
+    ai = combat_ai.new(),
     speed = 8,
     max_hp = 1,
     faction = "predators",
