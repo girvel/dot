@@ -507,7 +507,7 @@ methods.temple_enter = function(self)
 
   for e in pairs(State._entities) do
     if e._is_a_skeleton then
-      e.ai = combat.new({range = 30, scan_range = 20})
+      e.ai = combat.new({follow_range = 30, scan_range = 20})
       e.ai:init(e)
     end
   end

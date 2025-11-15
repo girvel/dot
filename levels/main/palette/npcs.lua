@@ -49,7 +49,7 @@ local skeleton_base = function()
     base_abilities = abilities.new(10, 14, 15, 6, 8, 5),
     armor = 13,
     level = 1,
-    ai = combat_ai.new({range = 30}),
+    ai = combat_ai.new({follow_range = 30}),
     faction = "predators",
     on_death = mark(bones_mark),
     _is_a_skeleton = true,
@@ -112,7 +112,7 @@ npcs.likka = function()
     codename = "likka",
     base_abilities = abilities.new(14, 18, 16, 8, 10, 8),
     level = 3,
-    ai = combat_ai.new({support_range = 50, range = 50}),
+    ai = combat_ai.new({support_range = 50, follow_range = 50}),
     inventory = {
       bag = items.bag(),
       offhand = items.short_bow(),

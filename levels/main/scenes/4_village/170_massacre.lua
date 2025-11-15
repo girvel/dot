@@ -171,7 +171,7 @@ local start_massacre = function(invaders)
       if e.ai.deinit then
         e.ai:deinit(e)
       end
-      e.ai = combat.new({scan_range = 20, range = 30})
+      e.ai = combat.new({scan_range = 20, follow_range = 30})
       e.ai:init(e)
     end
   end
