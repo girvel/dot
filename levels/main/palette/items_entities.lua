@@ -22,7 +22,7 @@ items_entities.knife = function()
 end
 
 items_entities.ritual_blade = function()
-  return Table.extend(
+  local result = Table.extend(
     item.mixin("assets/sprites/animations/ritual_blade"),
     {
       name = "ритуальный клинок",
@@ -36,6 +36,9 @@ items_entities.ritual_blade = function()
       slot = "hands",
     }
   )
+
+  item.set_cue(result, "highlight", true)
+  return result
 end
 
 items_entities.axe = function()
