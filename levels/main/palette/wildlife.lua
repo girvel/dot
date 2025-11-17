@@ -90,6 +90,7 @@ wildlife.bat = function()
       hand = item.natural_weapon(D.new({}, 3)),
     },
     on_death = humanoid.add_blood_mark,
+    blind_sight_flag = true,
   })
 end
 

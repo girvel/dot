@@ -53,6 +53,7 @@ local skeleton_base = function()
     faction = "predators",
     on_death = mark(bones_mark),
     _is_a_skeleton = true,
+    blind_sight_flag = true,
   })
 end
 
@@ -125,6 +126,7 @@ npcs.likka = function()
       },
     },
     essential_flag = true,
+    blind_sight_flag = true,
   })
 end
 
