@@ -1,3 +1,4 @@
+local colors = require("engine.tech.colors")
 local cleric = require("engine.mech.class.cleric")
 local poisoned = require("engine.mech.conditions.poisoned")
 local sprite = require("engine.tech.sprite")
@@ -87,6 +88,7 @@ npcs.khaned = function()
     ai = combat_ai.new(nil, true),
     inventory = {
       tatoo = items.head_tatoo_1(),
+      hair = items.hair("short_hair_3", "dark"),
       offhand = items.macuahuitl(),
     },
     faction = "khaned",
@@ -115,6 +117,7 @@ npcs.likka = function()
     level = 3,
     ai = combat_ai.new({support_range = 50, follow_range = 50}),
     inventory = {
+      hair = items.hair("long_hair", "red"),
       bag = items.bag(),
       offhand = items.short_bow(),
     },
@@ -130,19 +133,25 @@ npcs.likka = function()
   })
 end
 
-npcs.villager = function()
+--- @param hair_type? hair_type
+--- @param hair_color hair_color
+npcs.villager = function(hair_type, hair_color)
   return creature.make(humanoid.mixin(), {
     name = "Абориген",
     codename = "villager",
     base_abilities = abilities.new(12, 12, 12, 12, 12, 12),  -- TODO
     level = 3,  -- TODO
     ai = no_op.new(),
-    inventory = {},
     faction = "village",
     perks = {  -- TODO
       class.hit_dice(8),
     },
     direction = Random.item(Vector.directions),
+    inventory = {
+      hair = hair_type
+        and items.hair(hair_type, hair_color or "dark")
+        or nil,
+    },
     essential_flag = true,
   })
 end
