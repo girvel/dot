@@ -44,6 +44,7 @@ return {
         if api.options(sp:start_options()) ~= 2 then return end
         sp:finish_options()
 
+        sp:lines()
         sp:start_branches()
         if ch.player:ability_check("survival", 12) then
           sp:start_branch(1)
