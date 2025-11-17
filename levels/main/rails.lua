@@ -850,6 +850,8 @@ checkpoints.cpt3 = function(self)
   self:temple_enter()
   self:empathy_start_conversation()
   self:empathy_finalize()
+  self:fruit_take_khaneds()
+  self:fruit_eat()
 
   local ch = State.runner.entities
   local ps = State.runner.positions

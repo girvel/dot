@@ -14,8 +14,10 @@ return {
     },
 
     start_predicate = function(self, dt, ch, ps)
-      return (State.player.position - ps.ec_start):abs2() <= 2
+      return type(State.rails.empathy) == "number" and (
+        (State.player.position - ps.ec_start):abs2() <= 2
         or State.player.position.x >= ps.ec_start.x
+      )
     end,
 
     run = function(self, ch, ps)
