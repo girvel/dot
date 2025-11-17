@@ -8,6 +8,7 @@ return {
   --- @type scene
   _055_berries = {
     enabled = true,
+    mode = "sequential",
     characters = {
       player = {},
     },
@@ -32,6 +33,7 @@ return {
     end,
 
     run = function(self, ch, ps)
+      self.berry = nil
       local sp = screenplay.new("assets/screenplay/055_berries.ms", ch)
         sp:start_branches()
           local ate_berries
@@ -55,6 +57,7 @@ return {
 
       if not ate_berries then return end
 
+      State.runner:remove(self)
       for _, b in ipairs(self._berries) do
         b.interact = nil
       end
