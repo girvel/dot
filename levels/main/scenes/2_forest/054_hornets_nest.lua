@@ -1,3 +1,4 @@
+local sprite = require("engine.tech.sprite")
 local health = require("engine.mech.health")
 local api = require("engine.tech.api")
 local screenplay = require("engine.tech.screenplay")
@@ -14,11 +15,12 @@ return {
       player = {},
     },
 
-    on_add = function(self)
+    on_add = function(self, ch, ps)
       local e = State:add(interactive.mixin(function(e) State:remove(e) end), {
         name = "Дупло",
-        position = State.runner.positions.hn_nest,
+        position = ps.hn_nest,
         grid_layer = "on_solids",
+        sprite = sprite.image("assets/sprites/standalone/empty.png"),
       })
       item.set_cue(e, "highlight", true)
       State.runner.entities.hornets_nest = e
