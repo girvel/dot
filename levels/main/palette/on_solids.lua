@@ -32,7 +32,7 @@ local get_base = function(codename)
 end
 
 local perspective = Table.set {
-  "statuet", "vines",
+  "statuet",
 }
 
 on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constants.cell_size, {
