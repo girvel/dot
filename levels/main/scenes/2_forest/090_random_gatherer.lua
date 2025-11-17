@@ -29,7 +29,7 @@ return {
 
     run = function(self, ch, ps)
       local SOCIAL_DC = 16
-      local subs = {["ИМЯ"] = "Она"}
+      local subs = {["ИМЯ"] = "Девушка"}
 
       local sp = screenplay.new("assets/screenplay/090_random_gatherer.ms", ch)
         sp:lines()
