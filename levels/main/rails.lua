@@ -429,7 +429,8 @@ methods.khaned_offscreen_death = function(self)
   assert(self.khaned_status == nil)
 
   local ch = State.runner.entities
-  State:remove(ch.khaned)
+  ch.khaned.essential_flag = nil
+  health.set_hp(ch.khaned, 0)
   State:remove(ch.khaned_fruit)
   State:remove(ch.invader)
   api.autosave("Лес - Повидался с Ханедом")
