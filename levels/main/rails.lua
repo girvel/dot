@@ -512,7 +512,7 @@ methods.temple_enter = function(self)
     end
   end
 
-  api.autosave("Руины - вход")
+  api.autosave("Руины - Вход")
 
   self.temple = "entered"
 end
@@ -539,7 +539,7 @@ methods.temple_exit = function(self)
     end
   end
 
-  api.autosave("Руины - выход")
+  api.autosave("Руины - Выход")
 
   self.temple = "exited"
 end

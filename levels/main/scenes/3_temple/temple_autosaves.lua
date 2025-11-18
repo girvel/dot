@@ -1,4 +1,6 @@
 local api = require("engine.tech.api")
+
+
 return {
   --- @type scene
   temple_autosave_1 = {
@@ -8,7 +10,7 @@ return {
     end,
 
     run = function(self)
-      api.autosave("Руины - галерея")
+      api.autosave("Руины - Галерея")
     end,
   },
 
@@ -20,7 +22,7 @@ return {
     end,
 
     run = function(self)
-      api.autosave("Руины - основной зал")
+      api.autosave("Руины - Основной зал")
     end,
   },
 }
