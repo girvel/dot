@@ -66,8 +66,9 @@ return {
             ch.player:animate("offhand_attack")
             sp:lines()
 
-            ch.likka:animate("offhand_attack")
-            health.damage(ch.player, 1, true)
+            api.emulate_attack(ch.likka, "offhand"):next(function()
+              health.damage(ch.player, 1, true)
+            end)
             sp:lines()
           sp:finish_single_branch()
         else

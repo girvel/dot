@@ -386,7 +386,7 @@ return {
 
             async.sleep(1)
             -- SOUND devastated
-            ch.watcher_1:animate("hand_attack"):next(function()
+            api.emulate_attack(ch.watcher_1, "hand"):next(function()
               health.set_hp(ch.khaned, 1)
               ch.khaned:animation_freeze("lying")
               api.rotate(ch.player, ch.khaned)
@@ -492,7 +492,7 @@ return {
 
                   item.give(ch.watcher_3, State:add(items_entities.bear_spear()))
                   api.travel_scripted(ch.watcher_3, ch.player):wait()
-                  ch.watcher_3:animate("hand_attack"):wait()
+                  api.emulate_attack(ch.watcher_3, "hand"):wait()
                   health.set_hp(State.player, math.min(State.player.hp, 6))
 
                   sp:lines()
@@ -531,7 +531,7 @@ return {
             item.give(ch.watcher_2, State:add(items_entities.bear_spear()))
 
             async.sleep(.5)
-            ch.watcher_2:animate("hand_attack"):wait()
+            api.emulate_attack(ch.watcher_2, "hand"):wait()
             -- SOUND devastated
             health.set_hp(ch.likka, 0)
 

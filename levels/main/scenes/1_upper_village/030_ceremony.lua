@@ -129,7 +129,7 @@ return {
 
               api.travel_scripted(ch.khaned, ch.player.position):wait()
               api.rotate(ch.khaned, ch.player)
-              ch.khaned:animate("offhand_attack"):wait()
+              api.emulate_attack(ch.khaned, "offhand"):wait()
               health.damage(ch.player, 1)
 
               sp:lines()
