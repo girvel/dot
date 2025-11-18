@@ -615,6 +615,7 @@ return {
         State.runner:stop(singing)
 
         sound.new("assets/sounds/massacre_spell.mp3", .5):play()
+        async.sleep(.1)
         State:remove(ch.invader_priest)
         local fx = animated.add_fx(
           "assets/sprites/animations/massacre_spell",
@@ -632,6 +633,7 @@ return {
         sp:lines()
       sp:finish()
 
+      State.rails:seekers_run_away()
       api.autosave("Праздник - Резня")
       State:remove(ch.dungeon_blocker_1)
       State:remove(ch.dungeon_blocker_2)

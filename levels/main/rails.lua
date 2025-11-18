@@ -32,7 +32,7 @@ local rails = {}
 --- @field location rails_location
 --- @field feast "started"|"weapon_found"|"ceremony"|"done"?
 --- @field winter "initialized"|"ended"?
---- @field seekers "started"|"fruit_found"?
+--- @field seekers "started"|"fruit_found"|"run_away"|"find_exit"?
 --- @field tried_berries "once"|"twice"?
 --- @field fruit_source "likka"|"khaned"|"found"? also a good indicator if fruit WAS ever picked up
 --- @field seen_rotten_fruit boolean?
@@ -134,6 +134,7 @@ methods._location_transition = function(self, location, forced)
     or self.location == "0_intro" and location == "1_upper_village"
     or self.location == "1_upper_village" and location == "2_forest"
     or self.location == "2_forest" and location == "4_village"
+    or self.location == "4_village" and location == "5_dungeon"
   )
 
   if not in_order then
@@ -211,10 +212,13 @@ methods.location_village = function(self, forced)
   self:_location_transition("4_village", forced)
 end
 
+local seekers_in_dungeon
+
 --- @param forced boolean?
 methods.location_dungeon = function(self, forced)
   api.autosave("Подземелье")
   self:_location_transition("5_dungeon", forced)
+  seekers_in_dungeon(self)
 end
 
 methods.winter_init = function(self)
@@ -369,6 +373,35 @@ local seekers_fruit_is_found = function(self)
   api.journal_update("new_task")
 
   self.seekers = "fruit_found"
+end
+
+methods.seekers_run_away = function(self)
+  assert(self.seekers == "started" or self.seekers == "fruit_found")
+
+  local seekers = State.quests.items.seekers
+  seekers.objectives[2].status = "done"
+  seekers.objectives[3] = {
+    status = "new",
+    text = "Бежать из деревни",
+  }
+  api.journal_update("new_task")
+
+  self.seekers = "run_away"
+end
+
+--- @param self rails
+seekers_in_dungeon = function(self)
+  assert(self.seekers == "run_away")
+
+  local seekers = State.quests.items.seekers
+  seekers.objectives[3].status = "done"
+  seekers.objectives[4] = {
+    status = "new",
+    text = "Найти выход из пещер",
+  }
+  api.journal_update("new_task")
+
+  self.seekers = "find_exit"
 end
 
 methods.berries_eat = function(self)
