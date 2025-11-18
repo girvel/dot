@@ -1,3 +1,4 @@
+local sound = require("engine.tech.sound")
 local combat = require("engine.mech.ais.combat")
 local colors = require("engine.tech.colors")
 local npcs = require("levels.main.palette.npcs")
@@ -601,7 +602,7 @@ return {
         sp:lines()
         State.runner:stop(singing)
 
-        -- SOUND spell
+        sound.new("assets/sounds/massacre_spell.mp3", .5):play()
         State:remove(ch.invader_priest)
         local fx = animated.add_fx(
           "assets/sprites/animations/massacre_spell",
