@@ -422,17 +422,20 @@ return {
                 lines:wait()
 
                 local mess = State.runner:run_task(function()
-                  async.sleep(Random.float(.1, .2))
                   api.rotate(ch.likka, ch.watcher_2)
                   ch.likka:animate("offhand_attack"):wait()
+                  ch.likka:rotate(-ch.likka.direction)
+                  ch.likka:animate("move"):wait()
 
-                  async.sleep(Random.float(.1, .2))
                   api.rotate(ch.likka, ch.watcher_3)
                   ch.likka:animate("offhand_attack"):wait()
+                  ch.likka:rotate(-ch.likka.direction)
+                  ch.likka:animate("move"):wait()
 
-                  async.sleep(Random.float(.1, .2))
                   api.rotate(ch.likka, ch.watcher_2)
                   ch.likka:animate("offhand_attack"):wait()
+                  ch.likka:rotate(-ch.likka.direction)
+                  ch.likka:animate("move"):wait()
                 end)
                 sp:lines()
                 mess:wait()
