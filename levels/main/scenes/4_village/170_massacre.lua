@@ -68,7 +68,6 @@ local escort = function(target, leader, follower, destination)
 end
 
 local thunder = function()
-  -- SOUND thunder
   api.curtain(.1, colors.white):wait()
   local transparent = colors.white:copy()
   transparent.a = 0
@@ -583,6 +582,9 @@ return {
 
         local invaders = spawn_invaders(ch, ps)
         sp:lines()
+
+        sound.new("assets/sounds/thunder.mp3"):play()
+        async.sleep(.3)
         thunder()
 
         sp:start_single_branch()
