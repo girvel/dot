@@ -1,6 +1,6 @@
+local colors = require("engine.tech.colors")
 local sound = require("engine.tech.sound")
 local combat = require("engine.mech.ais.combat")
-local colors = require("engine.tech.colors")
 local npcs = require("levels.main.palette.npcs")
 local level = require("engine.tech.level")
 local health = require("engine.mech.health")
@@ -522,9 +522,11 @@ return {
 
                   health.damage(State.player, 1)
                   if State.player.hp == 0 then return end
+                  api.curtain(1, colors.black)
                   sp:lines()
 
                   health.set_hp(State.player, 0)
+                  api.curtain(0, Vector.transparent)
                   return
                 sp:finish_option()
               end
