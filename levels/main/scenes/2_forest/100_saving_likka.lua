@@ -1,3 +1,4 @@
+local sound = require("engine.tech.sound")
 local async = require("engine.tech.async")
 local bad_trip = require("engine.tech.shaders.bad_trip")
 local health = require("engine.mech.health")
@@ -119,6 +120,9 @@ return {
         sp:lines()
 
         local get_down = function()
+          sound.new("assets/sounds/falling_down.mp3", .5):play()
+          async.sleep(.3)
+
           level.remove(ch.player)
           ch.player.position = ps.sl_fall
           ch.player.grid_layer = "solids"
