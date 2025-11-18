@@ -620,6 +620,8 @@ return {
         sp:lines()
         start_massacre(invaders)
       sp:finish()
+
+      api.autosave("Праздник - Резня")
     end,
   },
 }
