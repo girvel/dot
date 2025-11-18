@@ -1,11 +1,10 @@
 local sound = require("engine.tech.sound")
 local factoring = require("engine.tech.factoring")
 
-local get_walk_sounds = function(codename)
-  if codename:starts_with("snow") then
-    return sound.multiple("assets/sounds/walk/snow", .4)
-  end
-end
+local walk_sounds = {
+  snow = sound.multiple("assets/sounds/walk/snow", .4),
+  carpet = sound.multiple("assets/sounds/walk/carpet", .4),
+}
 
 local get_base = function(codename)
   if codename:starts_with("scastle") then
@@ -46,10 +45,10 @@ local on_tiles = factoring.from_atlas("assets/sprites/atlases/on_tiles.png", Con
   local result = get_base(codename)
   result.boring_flag = true
 
-  local walk_sounds = get_walk_sounds(codename)
-  if walk_sounds then
+  local walk = walk_sounds[codename]
+  if walk then
     result.sounds = {
-      walk = walk_sounds,
+      walk = walk,
     }
   end
 
