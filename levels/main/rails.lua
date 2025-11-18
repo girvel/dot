@@ -25,7 +25,7 @@ local rails = {}
 -- [SECTION] State
 ----------------------------------------------------------------------------------------------------
 
---- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"|"4_village"?
+--- @alias rails_location "0_intro"|"1_upper_village"|"2_forest"|"4_village"|"5_dungeon"?
 
 --- @class rails
 --- @field runner state_runner
@@ -209,6 +209,12 @@ methods.location_village = function(self, forced)
 
   api.autosave("Деревня")
   self:_location_transition("4_village", forced)
+end
+
+--- @param forced boolean?
+methods.location_dungeon = function(self, forced)
+  api.autosave("Подземелье")
+  self:_location_transition("5_dungeon", forced)
 end
 
 methods.winter_init = function(self)
@@ -433,7 +439,6 @@ methods.khaned_offscreen_death = function(self)
   health.set_hp(ch.khaned, 0)
   State:remove(ch.khaned_fruit)
   State:remove(ch.invader)
-  api.autosave("Лес - Повидался с Ханедом")
 
   self.khaned_status = "dead"
 end
@@ -581,6 +586,12 @@ end
 methods.rain_intensify = function(self)
   assert(self._rain)
   self._rain.rain_density = 1
+end
+
+methods.rain_finish = function(self)
+  assert(self._rain)
+  State:remove(self._rain)
+  self._rain = nil
 end
 
 
@@ -875,8 +886,8 @@ checkpoints.cp4 = function(self)
   self:feast_end()
   self:seekers_start()
   self:fruit_take_own({})
-  self:likka_went_to_village(true)
-  self:khaned_leaves(true)
+  -- self:likka_went_to_village(true)
+  -- self:khaned_leaves(true)
   self:location_village(true)
 
   api.assert_position(State.player, State.runner.positions.cp4, true)

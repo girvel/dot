@@ -6,6 +6,7 @@ local api = require("engine.tech.api")
 return {
   --- @type scene
   _172_entering_dungeon = {
+    enabled = true,
     in_combat_flag = true,
     characters = {
       player = {},
@@ -17,7 +18,7 @@ return {
     end,
 
     run = function(self, ch, ps)
-      for _, e in ipairs(State.runner.scenes._170_massacre.combat_list) do
+      for _, e in ipairs(State.rails.massacre_combat_list) do
         if e ~= ch.player then
           State:remove(e)
         end
@@ -29,6 +30,8 @@ return {
         ps.dungeon_entrance_3,
         ps.ed_edge_1,
         ps.ed_edge_2,
+        ps.ed_edge_3,
+        ps.ed_edge_4,
       } do
         local solid = State.grids.solids[p]
         if solid then
@@ -45,6 +48,8 @@ return {
       local sp = screenplay.new("assets/screenplay/172_entering_dungeon.ms", ch)
         sp:lines()
       sp:finish()
+
+      State.rails:location_dungeon()
     end,
   },
 }

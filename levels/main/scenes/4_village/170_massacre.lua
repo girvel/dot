@@ -179,6 +179,7 @@ local start_massacre = function(invaders)
   table.insert(combat_list, State.player)
 
   State:start_combat(combat_list)
+  return combat_list
 end
 
 
@@ -201,6 +202,10 @@ return {
       invader_leader = {dynamic = true, optional = true},
       invader_priest = {dynamic = true, optional = true},
       invader = {optional = true},
+
+      dungeon_blocker_1 = {optional = true},
+      dungeon_blocker_2 = {optional = true},
+      dungeon_blocker_3 = {optional = true},
     },
 
     start_predicate = function(self, dt, ch, ps)
@@ -623,10 +628,16 @@ return {
         -- SOUND wounded mennar
         -- TODO chaos in the feast
         sp:lines()
-        start_massacre(invaders)
       sp:finish()
 
       api.autosave("Праздник - Резня")
+      State:remove(ch.dungeon_blocker_1)
+      State:remove(ch.dungeon_blocker_2)
+      State:remove(ch.dungeon_blocker_3)
+      State.runner:run_task(function()
+        coroutine.yield()
+        State.rails.massacre_combat_list = start_massacre(invaders)
+      end)
     end,
   },
 }
