@@ -575,12 +575,12 @@ end
 
 methods.rain_start = function(self)
   assert(self._rain == nil)
-  self._rain = State:add(rain.new(1/6, 15))
+  self._rain = State:add(rain.new(1/3, 15))
 end
 
 methods.rain_intensify = function(self)
   assert(self._rain)
-  self._rain.rain_density = 1/2
+  self._rain.rain_density = 1
 end
 
 
