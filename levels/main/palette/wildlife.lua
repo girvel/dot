@@ -91,6 +91,7 @@ wildlife.bat = function()
     },
     on_death = humanoid.add_blood_mark,
     blind_sight_flag = true,
+    no_sound_flag = true,
   })
 end
 
