@@ -202,10 +202,19 @@ methods.location_forest = function(self, forced)
   end
 end
 
+-- TODO theoretically, "forced" mechanic is invalid, because it forces only scene transitions, not
+--   the additional checks and asserts
+
+local seekers_fruit_is_missed
+
 --- @param forced boolean?
 methods.location_village = function(self, forced)
   if self.khaned_status == nil then
     self:khaned_offscreen_death()
+  end
+
+  if self.seekers == "started" then
+    seekers_fruit_is_missed(self)
   end
 
   api.autosave("Деревня")
@@ -375,15 +384,24 @@ local seekers_fruit_is_found = function(self)
   self.seekers = "fruit_found"
 end
 
+seekers_fruit_is_missed = function(self)
+  assert(self.seekers == "started")
+  Table.last(State.quests.items.seekers.objectives).status = "failed"
+end
+
 methods.seekers_run_away = function(self)
   assert(self.seekers == "started" or self.seekers == "fruit_found")
 
   local seekers = State.quests.items.seekers
-  seekers.objectives[2].status = "done"
-  seekers.objectives[3] = {
+  local last_task = Table.last(seekers.objectives)
+  if last_task.status == "new" or last_task.status == "active" then
+    last_task.status = "done"
+  end
+
+  table.insert(seekers.objectives, {
     status = "new",
     text = "Бежать из деревни",
-  }
+  })
   api.journal_update("new_task")
 
   self.seekers = "run_away"
@@ -394,11 +412,11 @@ seekers_in_dungeon = function(self)
   assert(self.seekers == "run_away")
 
   local seekers = State.quests.items.seekers
-  seekers.objectives[3].status = "done"
-  seekers.objectives[4] = {
+  Table.last(seekers.objectives).status = "done"
+  table.insert(seekers.objectives, {
     status = "new",
     text = "Найти выход из пещер",
-  }
+  })
   api.journal_update("new_task")
 
   self.seekers = "find_exit"
@@ -923,9 +941,9 @@ checkpoints.cp4 = function(self)
   self:feast_start()
   self:feast_end()
   self:seekers_start()
-  self:fruit_take_own({})
-  self:likka_went_to_village(true)
-  -- self:khaned_leaves(true)
+  -- self:fruit_take_own({})
+  -- self:likka_went_to_village(true)
+  self:khaned_leaves(true)
   self:location_village(true)
 
   api.assert_position(State.player, State.runner.positions.cp4, true)
