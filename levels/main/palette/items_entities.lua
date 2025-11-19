@@ -78,7 +78,7 @@ items_entities.bear_spear = function()
     {
       name = "рогатина",
       codename = "bear_spear",
-      damage_roll = D(8),
+      damage_roll = D(10),
       tags = {
         heavy = true,
         two_handed = true,
