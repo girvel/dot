@@ -920,6 +920,7 @@ checkpoints.cpt3 = function(self)
   self:empathy_finalize()
   self:fruit_take_khaneds()
   self:fruit_eat()
+  self:berries_eat()
 
   local ch = State.runner.entities
   local ps = State.runner.positions
