@@ -348,9 +348,11 @@ return {
               sp:finish_single_branch()
             sp:finish_single_branch()
 
-            if likka_there or khaned_there then
-              sp:lines()
-            end
+            sp:start_single_branch()
+              if likka_there or khaned_there then
+                sp:lines()
+              end
+            sp:finish_single_branch()
           end
         sp:finish_single_branch()
 
