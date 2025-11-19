@@ -14,7 +14,7 @@ return {
     },
 
     on_add = function(self, ch, ps)
-      State:add(ch.old_guy, interactive.mixin(), {name = "Шонед"})
+      State:add(ch.old_guy, interactive.mixin(), {name = "Шонед", immovable_flag = true})
     end,
 
     start_predicate = function(self, dt, ch, ps)
