@@ -1,3 +1,4 @@
+local async = require("engine.tech.async")
 local screenplay = require("engine.tech.screenplay")
 local solids = require("levels.main.palette.solids")
 local api = require("engine.tech.api")
@@ -46,6 +47,15 @@ return {
       -- TODO earthquake
 
       local sp = screenplay.new("assets/screenplay/172_entering_dungeon.ms", ch)
+        sp:lines()
+
+        async.sleep(.5)
+        ch.player:rotate(Vector.right)
+        async.sleep(.2)
+        ch.player:rotate(Vector.left)
+        async.sleep(.15)
+        ch.player:rotate(Vector.down)
+
         sp:lines()
       sp:finish()
 
