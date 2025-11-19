@@ -304,6 +304,7 @@ items_entities.priest_robes = function()
     codename = "priest_robes",
     slot = "body",
     no_drop_flag = true,
+    boring_flag = true,
   })
 end
 

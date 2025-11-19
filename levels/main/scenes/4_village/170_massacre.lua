@@ -167,7 +167,7 @@ local start_massacre = function(invaders)
   for _, e in ipairs(combat_list) do
     e.essential_flag = nil
 
-    if getmetatable(e) ~= combat.mt then
+    if getmetatable(e.ai) ~= combat.mt then
       if e.ai.deinit then
         e.ai:deinit(e)
       end
