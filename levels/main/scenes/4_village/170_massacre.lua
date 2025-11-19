@@ -77,7 +77,7 @@ end
 --- @async
 --- @param ch runner_characters
 --- @param ps runner_positions
---- @return entity[]
+--- @return promise, entity[]
 local spawn_invaders = function(ch, ps)
   local invaders = {}
   local next_spawn = State.grids.solids:bfs(ps.ma_invaders_spawn)
@@ -132,9 +132,7 @@ local spawn_invaders = function(ch, ps)
     async.sleep(.2)
   end
 
-  Promise.all(unpack(promises)):wait()
-
-  return invaders
+  return Promise.all(unpack(promises)), invaders
 end
 
 local start_massacre = function(invaders)
@@ -336,6 +334,7 @@ return {
               local p = State.runner:run_task(function() sac_fruit(ch.player) end)
               sp:lines()
               p:wait()
+              State.rails:fruit_sac()
             sp:finish_single_branch()
           else
             sp:lines()
@@ -578,9 +577,16 @@ return {
           end
         sp:finish_single_branch()
 
+        async.sleep(1)
+        item.give(ch.watcher_3, State:add(items_entities.bear_spear()))
+        api.rotate(ch.watcher_3, ch.player)
+        local invaders_promise, invaders = spawn_invaders(ch, ps)
+
+        async.sleep(1.5)
+        api.rotate(ch.watcher_3, ch.invader_priest)
         sp:lines()
 
-        local invaders = spawn_invaders(ch, ps)
+        invaders_promise:wait()
         sp:lines()
 
         sound.new("assets/sounds/thunder.mp3"):play()

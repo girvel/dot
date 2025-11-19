@@ -453,6 +453,11 @@ methods.fruit_see_companion = function(self)
   self.seen_companion_fruit = true
 end
 
+methods.fruit_sac = function(self)
+  assert(self.has_fruit == true)
+  self.has_fruit = false
+end
+
 methods.rotten_fruit_touch = function(self)
   assert(self.seen_rotten_fruit == nil)
   self.seen_rotten_fruit = true
@@ -920,7 +925,7 @@ checkpoints.cp4 = function(self)
   self:seekers_start()
   self:fruit_take_own({})
   self:likka_went_to_village(true)
-  self:khaned_leaves(true)
+  -- self:khaned_leaves(true)
   self:location_village(true)
 
   api.assert_position(State.player, State.runner.positions.cp4, true)
