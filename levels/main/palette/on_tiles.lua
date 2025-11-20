@@ -2,8 +2,8 @@ local sound = require("engine.tech.sound")
 local factoring = require("engine.tech.factoring")
 
 local walk_sounds = {
-  snow = sound.multiple("assets/sounds/walk/snow", .4),
-  carpet = sound.multiple("assets/sounds/walk/carpet", .4),
+  snow = sound.multiple("assets/sounds/walk/snow", .1),
+  carpet = sound.multiple("assets/sounds/walk/carpet", .1),
 }
 
 local get_base = function(codename)

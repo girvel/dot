@@ -2,9 +2,9 @@ local factoring = require("engine.tech.factoring")
 local sound  = require("engine.tech.sound")
 
 local walk_sounds do
-  local stone = sound.multiple("assets/sounds/walk/stone", .05)
-  local walkway = sound.multiple("assets/sounds/walk/walkway", .2)
-  local planks = sound.multiple("assets/sounds/walk/planks", .2)
+  local stone = sound.multiple("assets/sounds/walk/stone", .0125)
+  local walkway = sound.multiple("assets/sounds/walk/walkway", .02)
+  local planks = sound.multiple("assets/sounds/walk/planks", .02)
 
   walk_sounds = {
     dirt = walkway,
