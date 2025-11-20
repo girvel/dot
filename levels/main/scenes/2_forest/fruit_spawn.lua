@@ -70,6 +70,10 @@ return {
     end,
 
     run = function(self)
+      if State.rails.fruit_source then
+        State.runner:remove(self)
+      end
+
       local new = {}
 
       for dx = -State.player.fov_r, State.player.fov_r do

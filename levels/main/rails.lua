@@ -885,6 +885,7 @@ checkpoints.cpt = function(self)
   self:feast_end()
   self:seekers_start()
   self:temple_enter()
+  self:fruit_take_khaneds()
   self:empathy_start_conversation()
 
   api.assert_position(State.player, State.runner.positions.cpt, true)
