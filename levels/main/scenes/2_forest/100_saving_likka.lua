@@ -7,7 +7,7 @@ local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
 
 
-local LONG_TIME = 600
+local LONG_TIME = 60 * 3
 
 return {
   --- @type scene
