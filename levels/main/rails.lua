@@ -236,6 +236,10 @@ methods.winter_init = function(self)
   State.shader = winter.new()
   self.winter = "initialized"
 
+  local ch = State.runner.entities
+  ch.blocker_1.immovable_flag = true
+  ch.blocker_2.immovable_flag = true
+
   Log.info("Winter initialized")
 end
 
@@ -292,6 +296,8 @@ methods.winter_end = function(self)
     water.water_velocity = water.water_velocity * 4
   end
 
+  ch.blocker_1.immovable_flag = true
+  ch.blocker_2.immovable_flag = true
   api.assert_position(ch.blocker_1, ps.blocker_move_1, true)
   api.assert_position(ch.blocker_2, ps.blocker_move_2, true)
   api.rotate(ch.blocker_1, ps.feast_pyre)
