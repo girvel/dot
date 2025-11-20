@@ -239,6 +239,8 @@ methods.winter_init = function(self)
   local ch = State.runner.entities
   ch.blocker_1.immovable_flag = true
   ch.blocker_2.immovable_flag = true
+  ch.coast_birds_1.sound_source.source:setVolume(0)
+  ch.coast_birds_2.sound_source.source:setVolume(0)
 
   Log.info("Winter initialized")
 end
@@ -295,6 +297,9 @@ methods.winter_end = function(self)
   for _, water in ipairs(self._water) do
     water.water_velocity = water.water_velocity * 4
   end
+
+  ch.coast_birds_1.sound_source.source:setVolume(.2)
+  ch.coast_birds_2.sound_source.source:setVolume(.2)
 
   ch.blocker_1.immovable_flag = true
   ch.blocker_2.immovable_flag = true

@@ -6,7 +6,7 @@ local sounds_invisible = {}
 for i = 1, 3 do
   local name = "birds_" .. i
   sounds_invisible[name] = function()
-    return sound.source("assets/sounds/" .. name, .2, "medium")
+    return sound.source("assets/sounds/" .. name .. "/01.mp3", .2, "medium")
   end
 end
 
