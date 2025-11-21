@@ -109,7 +109,7 @@ methods.is_indoors = function(self, position)
 end
 
 --- @return entity[]
-methods.get_crowd = Memoize(function()
+methods.get_crowd = Memoize(function(self)
   return Fun.iter({
     "boy_1", "boy_2", "boy_3",
     "girl_1", "girl_2", "girl_3",
