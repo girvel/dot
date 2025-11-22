@@ -58,6 +58,7 @@ return {
   fruit_spawn = {
     mode = "sequential",
     boring_flag = true,
+    in_combat_flag = true,
 
     _player_position = nil,
     unseen = nil,
@@ -91,14 +92,16 @@ return {
 
       --- TODO sometimes make sure that all the remaining points remain accessible
       local count = Table.count(self.unseen._inner_array)
-      if count == 0 then
+      local ratio = count / self.initial_count
+
+      if ratio <= .05 then
         local p = Random.item(new)
         spawn_fruit(solids.godfruit(), function(e)
           State.rails:fruit_take_own(e)
         end, p)
         Log.info("Spawned godfruit at %s", p)
         State.runner:remove(self)
-      elseif count / self.initial_count <= .2
+      elseif ratio <= .2
         and State.period:once(self, "spawn_rotten_fruit")
       then
         local p = Random.item(new)
