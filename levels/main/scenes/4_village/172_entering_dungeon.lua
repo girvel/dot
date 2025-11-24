@@ -19,29 +19,7 @@ return {
     end,
 
     run = function(self, ch, ps)
-      for _, e in ipairs(State.rails.massacre_combat_list) do
-        if e ~= ch.player then
-          State:remove(e)
-        end
-      end
-
-      for _, p in ipairs {
-        ps.dungeon_entrance_1,
-        ps.dungeon_entrance_2,
-        ps.dungeon_entrance_3,
-        ps.ed_edge_1,
-        ps.ed_edge_2,
-        ps.ed_edge_3,
-        ps.ed_edge_4,
-      } do
-        local solid = State.grids.solids[p]
-        if solid then
-          State:remove(solid)
-        end
-
-        State:add(solids[42](), {position = p, grid_layer = "solids", transparent_flag = false})
-      end
-
+      State.rails:massacre_finish()
       State.rails:rain_finish()
 
       -- TODO earthquake

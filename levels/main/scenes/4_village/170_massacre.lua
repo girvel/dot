@@ -135,54 +135,6 @@ local spawn_invaders = function(ch, ps)
   return Promise.all(unpack(promises)), invaders
 end
 
-local start_massacre = function(invaders)
-  State.hostility:set("village", "invaders", "enemy")
-  State.hostility:set("invaders", "village", "enemy")
-  State.hostility:set("player", "invaders", "enemy")
-  State.hostility:set("invaders", "player", "enemy")
-
-  local ch = State.runner.entities
-
-  for i = 1, 4 do
-    local e = ch["watcher_" .. i]
-    if not e.inventory.hand then
-      item.give(e, State:add(items_entities.bear_spear()))
-    end
-  end
-
-  item.give(ch.red_priest, State:add(items_entities.short_bow()))
-  item.give(ch.green_priest, State:add(items_entities.short_bow()))
-
-  local combat_list = Table.concat(
-    invaders, State.rails:get_crowd(),
-    {ch.red_priest, ch.blocker_1, ch.blocker_2, ch.watcher_4}
-  )
-
-  if State.rails.gatherer_status == "ran_away" then
-    table.insert(combat_list, ch.gatherer)
-  end
-
-  combat_list = Fun.iter(combat_list)
-    :filter(function(e) return State:exists(e) end)
-    :totable()
-
-  for _, e in ipairs(combat_list) do
-    e.essential_flag = nil
-
-    if getmetatable(e.ai) ~= combat.mt then
-      if e.ai.deinit then
-        e.ai:deinit(e)
-      end
-      e.ai = combat.new({scan_range = 20, follow_range = 30})
-      e.ai:init(e)
-    end
-  end
-  table.insert(combat_list, State.player)
-
-  State:start_combat(combat_list)
-  return combat_list
-end
-
 
 return {
   --- @type scene
@@ -652,7 +604,7 @@ return {
       State:remove(ch.dungeon_blocker_3)
       State.runner:run_task(function()
         coroutine.yield()
-        State.rails.massacre_combat_list = start_massacre(invaders)
+        State.rails:massacre_start(invaders)
       end)
     end,
   },

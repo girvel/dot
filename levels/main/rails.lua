@@ -1,3 +1,4 @@
+local solids = require("levels.main.palette.solids")
 local rain = require("engine.tech.rain")
 local async = require("engine.tech.async")
 local shadows = require("levels.main.palette.shadows")
@@ -48,6 +49,7 @@ local rails = {}
 --- @field empathy integer|"present"|"denied"?
 --- @field fought_skeleton_group? boolean
 --- @field met_nea? boolean
+--- @field massacre_combat_list? entity[]
 --- @field _scenes_by_location table
 --- @field _snow entity[]
 --- @field _water entity[]
@@ -661,6 +663,83 @@ methods.rain_finish = function(self)
   self._rain = nil
 end
 
+--- @param invaders entity[]
+methods.massacre_start = function(self, invaders)
+  State.hostility:set("village", "invaders", "enemy")
+  State.hostility:set("invaders", "village", "enemy")
+  State.hostility:set("player", "invaders", "enemy")
+  State.hostility:set("invaders", "player", "enemy")
+
+  local ch = State.runner.entities
+
+  for i = 1, 4 do
+    local e = ch["watcher_" .. i]
+    if not e.inventory.hand then
+      item.give(e, State:add(items_entities.bear_spear()))
+    end
+  end
+
+  item.give(ch.red_priest, State:add(items_entities.short_bow()))
+  item.give(ch.green_priest, State:add(items_entities.short_bow()))
+
+  local combat_list = Table.concat(
+    invaders, self:get_crowd(),
+    {ch.red_priest, ch.blocker_1, ch.blocker_2, ch.watcher_4}
+  )
+
+  if self.gatherer_status == "ran_away" then
+    table.insert(combat_list, ch.gatherer)
+  end
+
+  combat_list = Fun.iter(combat_list)
+    :filter(function(e) return State:exists(e) end)
+    :totable()
+
+  for _, e in ipairs(combat_list) do
+    e.essential_flag = nil
+
+    if getmetatable(e.ai) ~= combat.mt then
+      if e.ai.deinit then
+        e.ai:deinit(e)
+      end
+      e.ai = combat.new({scan_range = 20, follow_range = 30})
+      e.ai:init(e)
+    end
+  end
+  table.insert(combat_list, State.player)
+
+  State:start_combat(combat_list)
+  self.massacre_combat_list = combat_list
+end
+
+methods.massacre_finish = function(self)
+  local ch = State.runner.entities
+  local ps = State.runner.positions
+
+  for _, e in ipairs(self.massacre_combat_list) do
+    if e ~= ch.player then
+      State:remove(e)
+    end
+  end
+
+  for _, p in ipairs {
+    ps.dungeon_entrance_1,
+    ps.dungeon_entrance_2,
+    ps.dungeon_entrance_3,
+    ps.ed_edge_1,
+    ps.ed_edge_2,
+    ps.ed_edge_3,
+    ps.ed_edge_4,
+  } do
+    local solid = State.grids.solids[p]
+    if solid then
+      State:remove(solid)
+    end
+
+    State:add(solids[42](), {position = p, grid_layer = "solids", transparent_flag = false})
+  end
+end
+
 
 ----------------------------------------------------------------------------------------------------
 -- [SECTION] Initialization
@@ -963,6 +1042,27 @@ checkpoints.cp4 = function(self)
   item.give(State.player, State:add(items_entities.shield()))
   item.give(State.player, State:add(items_entities.invader_helmet()))
   item.give(State.player, State:add(items_entities.invader_armor()))
+end
+
+--- @param self rails
+checkpoints.cp5 = function(self)
+  self:winter_init()
+  self:winter_end()
+  self:feast_start()
+  self:feast_end()
+  self:seekers_start()
+  self:seekers_run_away()
+  self:khaned_leaves(true)
+  -- TODO self:khaned_dies()?
+  self:massacre_start({})
+  self:massacre_finish()
+  self:location_dungeon(true)
+
+  api.assert_position(State.player, State.runner.positions.cp5, true)
+  item.give(State.player, State:add(items_entities.ritual_blade()))
+  -- item.give(State.player, State:add(items_entities.shield()))
+  -- item.give(State.player, State:add(items_entities.invader_helmet()))
+  -- item.give(State.player, State:add(items_entities.invader_armor()))
 end
 
 Ldump.mark(rails, {}, ...)
