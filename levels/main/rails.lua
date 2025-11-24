@@ -873,7 +873,6 @@ checkpoints.cp2 = function(self)
 
   api.assert_position(State.player, State.runner.positions.cp2, true)
   item.give(State.player, State:add(items_entities.axe()))
-  item.give(State.player, State:add(items_entities.small_shield()))
 end
 
 --- @param self rails
