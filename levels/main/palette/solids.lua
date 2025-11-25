@@ -13,6 +13,14 @@ local lows = {
   "cobweb",
 }
 
+--- @param codename string
+local is_low = function(codename)
+  for _, prefix in ipairs(lows) do
+    if codename:starts_with(prefix) then return true end
+  end
+  return false
+end
+
 local opening_sounds = {
   cabineto = sound.multiple("assets/sounds/cabinet/open", .8),
   chesto   = sound.multiple("assets/sounds/chest/open"),
@@ -22,14 +30,6 @@ opening_sounds.shelfo = opening_sounds.cabineto
 opening_sounds.sshelfo = opening_sounds.cabineto
 opening_sounds.scabineto = opening_sounds.cabineto
 opening_sounds.schesto = opening_sounds.chesto
-
---- @param codename string
-local is_low = function(codename)
-  for _, prefix in ipairs(lows) do
-    if codename:starts_with(prefix) then return true end
-  end
-  return false
-end
 
 --- @param codename string
 local is_container = function(codename)
@@ -134,7 +134,7 @@ solids = factoring.from_atlas(
     "slope",     "slope",    "slope",    "trunk",  "trunk",     "bush",      "bush",    "bbush",
     "slope_h",   "slope",    "stool",    "trunk",  "trunk",     "rock",      "rock",    "table",
     "godfruitr", "slope",    "slope",    "statue", "statue",    "statue",    "statue",  "table",
-    false,       "slope",    "slope",    false,    "table",     "table",     "table",   "table",
+    "dslope",    "slope",    "slope",    false,    "table",     "table",     "table",   "table",
     "owall",     "owall",    "owall",    "owall",  false,       "chestc",    "chesto",  "table",
     "owall",     "owall",    "owall",    "owall",  false,       "bed",       "bed",     false,
     "owall",     "owall",    "owall",    "owall",  "candles",   "candles",   "candles", false,

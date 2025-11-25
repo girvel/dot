@@ -44,7 +44,7 @@ on_solids = factoring.from_atlas("assets/sprites/atlases/on_solids.png", Constan
   "berriesp", "berries", "berries", "herbs",  "herbs",  "reeds",   "grassl",  "grassh",
   "berriesp", "berries", "berries", "bplate", "bplate", false,     "cobweb",  "cobweb",
   "mold",     "mold",    "mold",    "mold",   false,    false,     "cobweb",  "cobweb",
-  false,      false,     false,     false,    false,    false,     "cobweb",  "cobweb",
+  "dvines",   "dvines",  "dvines",  false,    false,    false,     "cobweb",  "cobweb",
   "bonef",    "bonef",   "bones",   "bones",  "bones",  false,     false,     false,
   "sign",
 }, function(codename)
