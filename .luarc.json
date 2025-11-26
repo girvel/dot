@@ -2,5 +2,6 @@
     "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
     "diagnostics.undefined-field": "Warning",
 	"Lua.workspace.maxPreload": 100000,
-	"Lua.workspace.preloadFileSize": 100000
+	"Lua.workspace.preloadFileSize": 100000,
+    "completion.autoRequire": false
 }
