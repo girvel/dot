@@ -1,3 +1,4 @@
+local animated = require("engine.tech.animated")
 local level = require("engine.tech.level")
 local colors = require("engine.tech.colors")
 local health = require("engine.mech.health")
@@ -102,11 +103,14 @@ return {
         sp:finish_options()
 
         sp:lines()
-        local ethereal_music = api.play_sound("assets/sounds/ethereal_music", .8)
+        local ethereal_music = api.play_sound("assets/sounds/ethereal_music", .4)
+        animated.add_fx(
+          "assets/sprites/animations/mennar",
+          ps.fi_mennar - V(10, 6),
+          "weather"
+        )
         sp:lines()
         ethereal_music:wait()
-
-        sp:lines()
 
         api.curtain(1, colors.black)
         local delay = api.delay(10)
