@@ -49,6 +49,7 @@ local rails = {}
 --- @field empathy integer|"present"|"denied"?
 --- @field fought_skeleton_group? boolean
 --- @field met_nea? boolean
+--- @field question_i integer?
 --- @field massacre_combat_list? entity[]
 --- @field _scenes_by_location table
 --- @field _snow entity[]
@@ -738,6 +739,11 @@ methods.massacre_finish = function(self)
 
     State:add(solids[42](), {position = p, grid_layer = "solids", transparent_flag = false})
   end
+end
+
+--- @param question_i integer
+methods.ask_the_question = function(self, question_i)
+  self.question_i = question_i
 end
 
 
