@@ -112,21 +112,24 @@ return {
 
         sp:lines()
         local ethereal_music = api.play_sound("assets/sounds/ethereal_music", .4)
+        local music_delay = api.delay(21.2)
         animated.add_fx(
           "assets/sprites/animations/mennar",
           ps.fi_mennar - V(10, 6),
           "weather"
         )
         sp:lines()
-        ethereal_music:wait()
 
-        api.curtain(1, colors.black)
+        music_delay:wait()
+        api.curtain(1.35, colors.black)
         local delay = api.delay(10)
         sp:lines()
       sp:finish()
 
       delay:wait()
+      ethereal_music:wait()  -- probably not
       level.unsafe_move(State.player, ps.fi_away)
+      State.perspective:immediate_center()
       block_way_back()
       api.curtain(1, Vector.transparent):wait()
     end,
