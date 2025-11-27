@@ -12,6 +12,11 @@ local block_way_back = function()
   for _, p in ipairs(State.runner:position_sequence("fi_block")) do
     State:add(solids[65](), {position = p, grid_layer = "solids"})
   end
+
+  local prev = love.graphics.getCanvas()
+  love.graphics.setCanvas(State.player.memory)
+  love.graphics.clear()
+  love.graphics.setCanvas(prev)
 end
 
 --- @param check boolean
@@ -112,22 +117,27 @@ return {
 
         sp:lines()
         local ethereal_music = api.play_sound("assets/sounds/ethereal_music", .4)
-        local music_delay = api.delay(21.2)
-        animated.add_fx(
-          "assets/sprites/animations/mennar",
-          ps.fi_mennar - V(10, 6),
-          "weather"
+        local music_delay = api.delay(18)
+        local mennar = State:add(
+          animated.mixin("assets/sprites/animations/mennar", "no_atlas"),
+          {
+            codename = "mennar",
+            position = ps.fi_mennar - V(10, 6),
+            layer = "weather",
+          }
         )
+        mennar:animate("appear")
         sp:lines()
 
         music_delay:wait()
-        api.curtain(1.35, colors.black)
+        api.curtain(4.7, colors.black)
         local delay = api.delay(10)
         sp:lines()
       sp:finish()
 
       delay:wait()
       ethereal_music:wait()  -- probably not
+      State:remove(mennar)
       level.unsafe_move(State.player, ps.fi_away)
       State.perspective:immediate_center()
       block_way_back()
