@@ -1,3 +1,4 @@
+local solids = require("levels.main.palette.solids")
 local animated = require("engine.tech.animated")
 local level = require("engine.tech.level")
 local colors = require("engine.tech.colors")
@@ -7,6 +8,12 @@ local screenplay = require("engine.tech.screenplay")
 local api = require("engine.tech.api")
 
 
+local block_way_back = function()
+  for _, p in ipairs(State.runner:position_sequence("fi_block")) do
+    State:add(solids[65](), {position = p, grid_layer = "solids"})
+  end
+end
+
 --- @param check boolean
 --- @return promise, scene
 local run_away = function(check)
@@ -15,6 +22,7 @@ local run_away = function(check)
     if check and State.player.hp > 1 then
       health.damage(State.player, 1)
     end
+    block_way_back()
     api.fade_in(2)
   end)
   -- NEXT! block the way back
@@ -119,6 +127,7 @@ return {
 
       delay:wait()
       level.unsafe_move(State.player, ps.fi_away)
+      block_way_back()
       api.curtain(1, Vector.transparent):wait()
     end,
   },
