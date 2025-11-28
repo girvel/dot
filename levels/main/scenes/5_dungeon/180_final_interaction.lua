@@ -116,7 +116,9 @@ return {
         sp:finish_options()
 
         sp:lines()
-        local ethereal_music = api.play_sound("assets/sounds/ethereal_music", .4)
+        local ethereal_music = api.play_sound("assets/sounds/ethereal_music", .4):next(function()
+          ch.player.is_deaf = true
+        end)
         local music_delay = api.delay(18)
         local mennar = State:add(
           animated.mixin("assets/sprites/animations/mennar", "no_atlas"),

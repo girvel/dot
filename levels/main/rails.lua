@@ -231,6 +231,9 @@ methods.location_dungeon = function(self, forced)
   api.autosave("Подземелье")
   self:_location_transition("5_dungeon", forced)
   seekers_in_dungeon(self)
+  local ch = State.runner.entities
+  ch.coast_birds_1.sound_source.source:setVolume(0)
+  ch.coast_birds_2.sound_source.source:setVolume(0)
 end
 
 methods.winter_init = function(self)
@@ -414,7 +417,7 @@ methods.seekers_run_away = function(self)
 
   table.insert(seekers.objectives, {
     status = "new",
-    text = "Бежать из деревни",
+    text = "Бежать из деревни; в её верхней части, рядом с храмовой площадью, должны быть пещеры.",
   })
   api.journal_update("new_task")
 
@@ -1063,6 +1066,8 @@ checkpoints.cp5 = function(self)
   self:massacre_start({})
   self:massacre_finish()
   self:location_dungeon(true)
+
+  State.rails.has_blessing = true
 
   api.assert_position(State.player, State.runner.positions.cp5, true)
   item.give(State.player, State:add(items_entities.ritual_blade()))
