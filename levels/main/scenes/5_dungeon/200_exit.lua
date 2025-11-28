@@ -27,7 +27,7 @@ return {
           end
           sp:lines()
 
-          if State.rails.has_blessing then
+          if not is_good then
             sp:start_single_branch()
               if State.rails.question_i then
                 sp:lines()

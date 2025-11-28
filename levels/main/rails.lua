@@ -234,6 +234,7 @@ methods.location_dungeon = function(self, forced)
   local ch = State.runner.entities
   ch.coast_birds_1.sound_source.source:setVolume(0)
   ch.coast_birds_2.sound_source.source:setVolume(0)
+  ch.birds_3.sound_source.source:setVolume(0)
 end
 
 methods.winter_init = function(self)
@@ -972,7 +973,6 @@ checkpoints.cpt = function(self)
   self:feast_end()
   self:seekers_start()
   self:temple_enter()
-  self:fruit_take_khaneds()
   self:empathy_start_conversation()
 
   api.assert_position(State.player, State.runner.positions.cpt, true)
@@ -1061,8 +1061,9 @@ checkpoints.cp5 = function(self)
   self:feast_end()
   self:seekers_start()
   self:seekers_run_away()
-  self:khaned_leaves(true)
+  -- self:khaned_leaves(true)
   -- TODO self:khaned_dies()?
+  self:likka_left_in_temple()
   self:massacre_start({})
   self:massacre_finish()
   self:location_dungeon(true)
