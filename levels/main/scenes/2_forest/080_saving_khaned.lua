@@ -22,7 +22,7 @@ return {
     end,
 
     start_predicate = function(self, dt, ch, ps)
-      return ch.player.position == ps.sk_start
+      return api.distance(ch.player, ps.sk_start) <= 1
     end,
 
     run = function(self, ch, ps)

@@ -30,7 +30,7 @@ return {
 
         sp:lines()
 
-        if ch.player.position == ps.sk_start then
+        if ch.player.position == ps.path_blocker + Vector.up then
           api.travel_scripted(ch.player, ch.player.position + Vector.left):wait()
         end
 
