@@ -1,5 +1,4 @@
 local animated = require "engine.tech.animated"
-local water    = require "engine.tech.shaders.water"
 
 
 local _common = {}
@@ -12,7 +11,7 @@ _common.water = function(velocity)
       low_flag = true,
       boring_flag = true,
       water_velocity = velocity,
-      shader = water.new("assets/sprites/palette.png", 39),
+      -- shader = water.new("assets/sprites/palette.png", 39),
       on_add = function(self)
         table.insert(State.rails._water, self)
       end,
