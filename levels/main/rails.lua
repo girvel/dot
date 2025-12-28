@@ -1,3 +1,4 @@
+local xp = require("engine.mech.xp")
 local solids = require("levels.main.palette.solids")
 local rain = require("engine.tech.rain")
 local async = require("engine.tech.async")
@@ -927,6 +928,8 @@ end
 --- @param self rails
 init_debug = function(self)
   if not State.debug then return end
+  State.player.level = 0
+  State.player.xp = xp.for_level[3]
 end
 
 
