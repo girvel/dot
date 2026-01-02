@@ -930,6 +930,7 @@ init_debug = function(self)
   if not State.debug then return end
   State.player.level = 0
   State.player.xp = xp.for_level[3]
+  State.player.perks = {}
 end
 
 
@@ -1065,7 +1066,6 @@ checkpoints.cp5 = function(self)
   self:seekers_start()
   self:seekers_run_away()
   -- self:khaned_leaves(true)
-  -- TODO self:khaned_dies()?
   self:likka_left_in_temple()
   self:massacre_start({})
   self:massacre_finish()

@@ -30,7 +30,6 @@ local run_away = function(check)
     block_way_back()
     api.fade_in(2)
   end)
-  -- NEXT! block the way back
   return pr, sc
 end
 

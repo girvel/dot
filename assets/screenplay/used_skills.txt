@@ -8,3 +8,5 @@ stealth
 sleight of hand
 performance
 medicine
+survival
+investigation
