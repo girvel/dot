@@ -928,6 +928,9 @@ end
 --- @param self rails
 init_debug = function(self)
   if not State.debug then return end
+  State.player.xp = 999999
+  State.player.level = 0
+  State.player.perks = {}
 end
 
 
