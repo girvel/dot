@@ -28,6 +28,8 @@ player.new = function()
       class.skill_proficiency("perception"),
       fighter.fighting_styles.two_weapon_fighting,
       fighter.hit_dice,
+      fighter.hit_dice,
+      fighter.hit_dice,
       fighter.action_surge,
       fighter.second_wind,
       fighter.fighting_spirit,
