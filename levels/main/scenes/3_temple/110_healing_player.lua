@@ -1,3 +1,4 @@
+local class = require("engine.mech.class")
 local async = require("engine.tech.async")
 local fighter = require("engine.mech.class.fighter")
 local screenplay = require("engine.tech.screenplay")
@@ -90,7 +91,7 @@ return {
 
         sp:lines()
 
-        fighter.hit_dice:_act(ch.player)
+        class.hit_dice(fighter.hit_die):_act(ch.player)
         sp:lines()
 
         n = api.options(sp:start_options())

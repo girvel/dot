@@ -93,7 +93,10 @@ npcs.khaned = function()
     },
     faction = "khaned",
     perks = {
-      fighter.hit_dice,
+      class.hit_dice(fighter.hit_die, true),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
       {
         -- no right hand
         modify_activation = function(self, entity, value, codename)
@@ -204,7 +207,10 @@ npcs.invader = function(faction)
     },
     faction = faction or "invaders",
     perks = {
-      fighter.hit_dice,
+      class.hit_dice(fighter.hit_die, true),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
       fighter.second_wind,
       fighter.fighting_styles.defence,
       class.skill_proficiency("athletics"),
@@ -238,7 +244,12 @@ npcs.invader_commander = function()
     },
     faction = "invaders",
     perks = {
-      fighter.hit_dice,
+      class.hit_dice(fighter.hit_die, true),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
+      class.hit_dice(fighter.hit_die),
       fighter.second_wind,
       fighter.action_surge,
       fighter.fighting_styles.defense,
