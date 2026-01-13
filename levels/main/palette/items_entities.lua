@@ -65,7 +65,6 @@ items_entities.pole = function()
       tags = {
         heavy = true,
         two_handed = true,
-        versatile = true,
       },
       slot = "hands",
     }

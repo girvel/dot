@@ -1,3 +1,4 @@
+local items_entities = require("levels.main.palette.items_entities")
 local xp = require("engine.mech.xp")
 local solids = require("levels.main.palette.solids")
 local rain = require("engine.tech.rain")
@@ -932,7 +933,7 @@ init_debug = function(self)
   State.player.level = 0
   State.player.perks = {}
 
-  State.runner:run_task(function() State.mode:open_menu("appearance_editor") end)
+  -- State.runner:run_task(function() State.mode:open_menu("appearance_editor") end)
 end
 
 
@@ -967,7 +968,7 @@ checkpoints.cp2 = function(self)
   self:seekers_start()
 
   api.assert_position(State.player, State.runner.positions.cp2, true)
-  item.give(State.player, State:add(items_entities.axe()))
+  item.give(State.player, State:add(items_entities.pole()))
 end
 
 --- @param self rails
