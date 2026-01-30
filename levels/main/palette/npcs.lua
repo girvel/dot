@@ -87,8 +87,8 @@ npcs.khaned = function()
     level = 4,
     ai = combat_ai.new(nil, true),
     inventory = {
-      tatoo = items.head_tatoo_1(),
-      hair = items.hair("short_hair_3", "dark"),
+      skin = items.skin("snake_tatoo"),
+      hair = items.hair("short_hair_3", "gray"),
       offhand = items.macuahuitl(),
     },
     faction = "khaned",
@@ -152,7 +152,7 @@ npcs.villager = function(hair_type, hair_color)
     direction = Random.item(Vector.directions),
     inventory = {
       hair = hair_type
-        and items.hair(hair_type, hair_color or "dark")
+        and items.hair(hair_type, hair_color or "gray")
         or nil,
     },
     essential_flag = true,
@@ -252,7 +252,7 @@ npcs.invader_commander = function()
       class.hit_dice(fighter.hit_die),
       fighter.second_wind,
       fighter.action_surge,
-      fighter.fighting_styles.defense,
+      fighter.fighting_styles.defence,
       class.skill_proficiency("athletics"),
       class.skill_proficiency("acrobatics"),
     },

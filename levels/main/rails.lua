@@ -933,7 +933,7 @@ init_debug = function(self)
   State.player.level = 0
   State.player.perks = {}
 
-  -- State.runner:run_task(function() State.mode:open_menu("appearance_editor") end)
+  State.runner:run_task(function() State.mode:open_menu("appearance_editor") end)
 end
 
 

@@ -17,7 +17,7 @@ return {
     },
 
     on_add = function(self, ch, ps)
-      ch.gatherer.inventory.tatoo = State:add(items_entities.gatherer_scar())
+      ch.gatherer.inventory.skin = State:add(items_entities.skin("cheek_scar"))
       ch.gatherer:rotate(Vector.left)
       ch.gatherer.name = "Собиратель"
     end,

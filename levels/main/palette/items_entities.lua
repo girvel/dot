@@ -194,18 +194,11 @@ items_entities.shield = function()
   })
 end
 
-items_entities.head_tatoo_1 = function()
-  return Table.extend(item.mixin("assets/sprites/animations/head_tatoo_1"), {
-    codename = "head_tatoo_1",
-    slot = "tatoo",
-    anchor = "head",
-  })
-end
-
-items_entities.gatherer_scar = function()
-  return Table.extend(item.mixin("assets/sprites/animations/gatherer_scar"), {
-    codename = "gatherer_scar",
-    slot = "tatoo",
+--- @param type "snake_tatoo"|"cheek_scar"
+items_entities.skin = function(type)
+  return Table.extend(item.mixin("assets/sprites/animations/" .. type), {
+    codename = type,
+    slot = "skin",
     anchor = "head",
   })
 end
@@ -223,10 +216,12 @@ end
 
 --- @enum (key) hair_color
 local hair_colors = {
-  dark = Vector.hex("4f5a5c"),
+  gray = Vector.hex("4f5a5c"),
   red = Vector.hex("e86c46"),
   brown = Vector.hex("544747"),
 }
+
+-- TODO make hair & tatoos a part of engine?
 
 --- @param type hair_type
 --- @param color hair_color|vector
