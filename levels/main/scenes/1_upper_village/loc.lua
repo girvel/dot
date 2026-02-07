@@ -1,3 +1,4 @@
+local appearance_editor = require("engine.state.mode.appearance_editor")
 local core = require("levels.main.core")
 local items_entities = require "levels.main.palette.items_entities"
 
@@ -36,6 +37,38 @@ return {
     --- @param ch runner_characters
     run = function(self, ch)
       State.rails:feast_weapon_found()
+    end,
+  },
+  
+  --- @type scene
+  test_appearance = {
+    characters = {
+      
+    },
+
+    start_predicate = function(self, dt, ch, ps)
+      return true
+    end,
+
+    run = function(self, ch, ps)
+      State.mode:open_menu("appearance_editor")
+      State.perspective.SCALE = 10
+      State.perspective:immediate_center()
+      local offset = V(.5, 0)
+        * (appearance_editor.w + appearance_editor.padding)
+        / State.perspective.SCALE
+        / Constants.cell_size
+      State.perspective.target_override = setmetatable({}, {
+        __newindex = function(self, index, value)
+          assert(index == "position")
+          State.player.position = value - offset
+        end,
+
+        __index = function(self, index)
+          assert(index == "position")
+          return State.player.position + offset
+        end,
+      })
     end,
   },
 }
