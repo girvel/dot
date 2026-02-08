@@ -52,13 +52,13 @@ return {
 
     run = function(self, ch, ps)
       State.mode:open_menu("appearance_editor")
-      State.perspective.SCALE = 10
-      State.perspective:immediate_center()
+      State.camera.SCALE = 10
+      State.camera:immediate_center()
       local offset = V(.5, 0)
         * (appearance_editor.w + appearance_editor.padding)
-        / State.perspective.SCALE
+        / State.camera.SCALE
         / Constants.cell_size
-      State.perspective.target_override = setmetatable({}, {
+      State.camera.target_override = setmetatable({}, {
         __newindex = function(self, index, value)
           assert(index == "position")
           State.player.position = value - offset
