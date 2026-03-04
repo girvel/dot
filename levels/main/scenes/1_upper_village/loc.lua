@@ -1,3 +1,4 @@
+local api = require("engine.tech.api")
 local core = require("levels.main.core")
 local items_entities = require "levels.main.palette.items_entities"
 
@@ -36,6 +37,21 @@ return {
     --- @param ch runner_characters
     run = function(self, ch)
       State.rails:feast_weapon_found()
+    end,
+  },
+
+  --- @type scene
+  test_scaling = {
+    characters = {},
+
+    start_predicate = function(self, dt, ch, ps)
+      return true
+    end,
+
+    run = function(self, ch, ps)
+      api.scale(10):wait()
+      State.mode:open_menu("appearance_editor")
+      -- api.scale():wait()
     end,
   },
 }

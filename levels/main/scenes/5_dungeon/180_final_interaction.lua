@@ -140,7 +140,7 @@ return {
       ethereal_music:wait()  -- probably not
       State:remove(mennar)
       level.unsafe_move(State.player, ps.fi_away)
-      State.perspective:immediate_center()
+      State.camera:immediate_center()
       block_way_back()
       api.curtain(1, Vector.transparent):wait()
     end,
