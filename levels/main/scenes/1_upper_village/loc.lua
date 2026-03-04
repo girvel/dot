@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 local api = require("engine.tech.api")
-=======
 local appearance_editor = require("engine.state.mode.appearance_editor")
->>>>>>> 477eb7c597ba56f229e9aa5f9025f69c1cae5b7c
 local core = require("levels.main.core")
 local items_entities = require "levels.main.palette.items_entities"
 
@@ -53,24 +50,20 @@ return {
     end,
 
     run = function(self, ch, ps)
+      State.camera.target_override = setmetatable({}, {
+        __index = function(_, index)
+          assert(index == "position")
+          return State.player.position + V(.5, 0):mul_mut(
+            (appearance_editor.w + appearance_editor.padding)
+            / State.camera.SCALE
+            / Constants.cell_size
+          )
+        end,
+      })
+
       api.scale(10):wait()
       State.mode:open_menu("appearance_editor")
       -- api.scale():wait()
-      -- local offset = V(.5, 0)
-      --   * (appearance_editor.w + appearance_editor.padding)
-      --   / State.camera.SCALE
-      --   / Constants.cell_size
-      -- State.camera.target_override = setmetatable({}, {
-      --   __newindex = function(self, index, value)
-      --     assert(index == "position")
-      --     State.player.position = value - offset
-      --   end,
-
-      --   __index = function(self, index)
-      --     assert(index == "position")
-      --     return State.player.position + offset
-      --   end,
-      -- })
     end,
   },
 }
