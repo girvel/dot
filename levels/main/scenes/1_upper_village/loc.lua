@@ -63,7 +63,12 @@ return {
 
       api.scale(10):wait()
       State.mode:open_menu("appearance_editor")
-      -- api.scale():wait()
+
+      while State.mode._mode.type ~= "game" do
+        coroutine.yield()
+      end
+      api.scale():wait()
+      State.camera.target_override = nil
     end,
   },
 }
