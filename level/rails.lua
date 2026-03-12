@@ -932,6 +932,7 @@ init_debug = function(self)
   State.player.xp = 999999
   State.player.level = 0
   State.player.perks = {}
+  api.scale(10)
 end
 
 
@@ -966,7 +967,8 @@ checkpoints.cp2 = function(self)
   self:seekers_start()
 
   api.assert_position(State.player, State.runner.positions.cp2, true)
-  item.give(State.player, State:add(items_entities.pole()))
+  item.give(State.player, State:add(items_entities.knife()))
+  item.give(State.player, State:add(items_entities.small_shield()))
 end
 
 --- @param self rails

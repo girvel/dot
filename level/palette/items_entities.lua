@@ -194,7 +194,7 @@ items_entities.shield = function()
   })
 end
 
---- @param type "snake_tatoo"|"cheek_scar"
+--- @param type "snake_tatoo"|"cheek_scar"|"eye_scar"
 items_entities.skin = function(type)
   return Table.extend(item.mixin("assets/sprites/animations/" .. type), {
     codename = type,
