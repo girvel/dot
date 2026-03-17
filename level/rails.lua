@@ -930,7 +930,6 @@ init_debug = function(self)
   State.player.xp = 999999
   State.player.level = 0
   State.player.perks = {}
-  api.scale(10)
 end
 
 
