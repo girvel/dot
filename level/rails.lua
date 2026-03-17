@@ -1,5 +1,3 @@
-local items_entities = require("level.palette.items_entities")
-local xp = require("engine.mech.xp")
 local solids = require("level.palette.solids")
 local rain = require("engine.tech.rain")
 local async = require("engine.tech.async")
